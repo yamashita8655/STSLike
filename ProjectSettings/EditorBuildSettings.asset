@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Boot/Boot.unity
+    guid: 919bf3bd26997714a981669c6c1fd35a
+  - enabled: 1
+    path: Assets/Scenes/Splash/Splash.unity
+    guid: 062b005c5f1bb964f82687bdd997e04d
+  - enabled: 1
+    path: Assets/Scenes/Home/Home.unity
+    guid: d5c2b6ec4bbf0cf43859b4875a3752e8
+  - enabled: 1
+    path: Assets/Test/EffectCheck/EffectCheck.unity
+    guid: 7e2938fc6ef83b54da480710d240454f
+  - enabled: 1
+    path: Assets/Scenes/Fade/Fade.unity
+    guid: c9bf74fa3d07bfa45aba99e5539734b4
+  - enabled: 1
+    path: Assets/Scenes/SystemDialog/SystemDialog.unity
+    guid: 8b1478f568c58564387a03f394a87270
+  - enabled: 1
+    path: Assets/Scenes/Debug/Debug.unity
+    guid: a9f99ff46eebdfc4783cfe405ce44a47
+  - enabled: 1
+    path: Assets/Scenes/ItemHunt/ItemHunt.unity
+    guid: fce1139bfb06bdd4bb76bc6460bd4c98
+  - enabled: 1
+    path: Assets/Scenes/Equip/Equip.unity
+    guid: 961ff76e75ab3de4f85dbdf57d058ae2
+  - enabled: 1
+    path: Assets/Scenes/Map/Map.unity
+    guid: 2f652a36e61bbe943960b4bddbbac1af
+  m_configObjects: {}

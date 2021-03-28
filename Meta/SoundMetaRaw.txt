@@ -1,0 +1,14 @@
+Assets/Resources/Sound/BGM/Home/HomeBgm.ogg:
+Assets/Resources/Sound/SE/Home/InGameButtonSelect.wav:
+Assets/Resources/Sound/BGM/InGame/InGameBgm.ogg:
+Assets/Resources/Sound/SE/InGame/FlickFailure.wav:
+Assets/Resources/Sound/SE/InGame/FlickSuccess.wav:
+Assets/Resources/Sound/SE/InGame/QuestionFailure.mp3:
+Assets/Resources/Sound/SE/InGame/QuestionSuccess.mp3:
+Assets/Resources/Sound/BGM/Title/TitleBgm.ogg:
+Assets/Resources/Sound/SE/Title/TitleStart.wav:
+Assets/Resources/Sound/SE/Effect/CountDownEffect.wav:
+Assets/Resources/Sound/SE/Effect/EndEffect.wav:
+Assets/Resources/Sound/SE/Result/ResultJingle.ogg:
+Assets/Resources/Sound/SE/UI/ButtonCancel.wav:
+Assets/Resources/Sound/SE/UI/ButtonOK.mp3:

@@ -1,0 +1,85 @@
+:lang: ja
+:doctype: book
+:toc: left
+:toclevels: 3
+:toc-title: 目次
+:sectnums:
+:sectnumlevels: 4
+:sectlinks:
+//:imagesdir: ./_images
+:imagesdir: ./img
+:icons: font
+:source-highlighter: coderay
+:example-caption: 例
+:table-caption: 表
+:figure-caption: 図
+:docname: = デザイン資料
+:author: NOA.TEC株式会社
+:revnumber: 0.1
+:revdate: 2020/01/08
+:pdf-fontsdir: ./fonts
+:pdf-style: custom-theme.yml
+= サウンド資料
+
+== サウンド詳細
+
+=== Title
+fileName:Assets/Resources/Sound/BGM/Title/TitleBgm.ogg +
+タイトル画面で再生するBGMです。 +
+
+
+fileName:Assets/Resources/Sound/SE/Title/TitleStart.wav +
+タイトル画面でスタートボタンを押した時のSEです +
+
+
+=== Home
+fileName:Assets/Resources/Sound/BGM/Home/HomeBgm.ogg +
+ホーム画面で再生するBGMです。 +
+
+
+fileName:Assets/Resources/Sound/SE/Home/InGameButtonSelect.wav +
+ゲームを開始するボタンを押した時に再生するSEです。 +
+
+
+=== Result
+fileName:Assets/Resources/Sound/SE/Result/ResultJingle.ogg +
+リザルト画面で再生する、ジングルです。 +
+
+
+== その他
+fileName:Assets/Resources/Sound/BGM/InGame/InGameBgm.ogg +
+ゲームプレイ時に再生するBGMです。 +
+
+
+fileName:Assets/Resources/Sound/SE/InGame/FlickFailure.wav +
+フリック入力で失敗した際のSEです。 +
+
+
+fileName:Assets/Resources/Sound/SE/InGame/FlickSuccess.wav +
+フリック入力で正解した際のSEです。 +
+
+
+fileName:Assets/Resources/Sound/SE/InGame/QuestionFailure.mp3 +
+問題に失敗した際のSEです。 +
+
+
+fileName:Assets/Resources/Sound/SE/InGame/QuestionSuccess.mp3 +
+問題に成功した際のSEです。 +
+
+
+fileName:Assets/Resources/Sound/SE/Effect/CountDownEffect.wav +
+3，2，1のカウントダウンエフェクトの際に再生するSEです +
+
+
+fileName:Assets/Resources/Sound/SE/Effect/EndEffect.wav +
+終了エフェクトのSEです。 +
+
+
+fileName:Assets/Resources/Sound/SE/UI/ButtonCancel.wav +
+ボタンの戻るやキャンセルを押した時の再生する汎用SEです。 +
+
+
+fileName:Assets/Resources/Sound/SE/UI/ButtonOK.mp3 +
+ボタンの決定や進むを押した時の再生する汎用SEです。 +
+
+

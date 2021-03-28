@@ -1,0 +1,14 @@
+Assets/Resources/Sound/BGM/Home/HomeBgm.ogg:ホーム画面で再生するBGMです。
+Assets/Resources/Sound/SE/Home/InGameButtonSelect.wav:ゲームを開始するボタンを押した時に再生するSEです。
+Assets/Resources/Sound/BGM/InGame/InGameBgm.ogg:ゲームプレイ時に再生するBGMです。
+Assets/Resources/Sound/SE/InGame/FlickFailure.wav:フリック入力で失敗した際のSEです。
+Assets/Resources/Sound/SE/InGame/FlickSuccess.wav:フリック入力で正解した際のSEです。
+Assets/Resources/Sound/SE/InGame/QuestionFailure.mp3:問題に失敗した際のSEです。
+Assets/Resources/Sound/SE/InGame/QuestionSuccess.mp3:問題に成功した際のSEです。
+Assets/Resources/Sound/BGM/Title/TitleBgm.ogg:タイトル画面で再生するBGMです。
+Assets/Resources/Sound/SE/Title/TitleStart.wav:タイトル画面でスタートボタンを押した時のSEです
+Assets/Resources/Sound/SE/Effect/CountDownEffect.wav:3，2，1のカウントダウンエフェクトの際に再生するSEです
+Assets/Resources/Sound/SE/Effect/EndEffect.wav:終了エフェクトのSEです。
+Assets/Resources/Sound/SE/Result/ResultJingle.ogg:リザルト画面で再生する、ジングルです。
+Assets/Resources/Sound/SE/UI/ButtonCancel.wav:ボタンの戻るやキャンセルを押した時の再生する汎用SEです。
+Assets/Resources/Sound/SE/UI/ButtonOK.mp3:ボタンの決定や進むを押した時の再生する汎用SEです。
