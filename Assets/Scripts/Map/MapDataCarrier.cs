@@ -13,6 +13,9 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public List<Enum.MapType> MapTypeList = null;
 	
 	public List<int> HandDifficultList = null;
+	
+	public PlayerStatus CuPlayerStatus = null;
+	public EnemyStatus CuEnemyStatus = null;
 
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;

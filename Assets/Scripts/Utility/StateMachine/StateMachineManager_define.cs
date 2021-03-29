@@ -37,6 +37,19 @@ public enum MapState : int {
 	UpdateMap,
 	UpdateDifficult,
 	UserWait,
+
+	BattleInitialize,
+	BattleDiceRollUserWait,
+	BattleDiceRoll,
+	BattleAttackSelectUserWait,
+	BattleAttackResult,
+	BattleCheck,
+	BattleEnemyAttack,
+	BattleEnemyAttackResult,
+	BattleWin,
+	BattleLose,
+	BattleEnd,
+
 	End
 };
 

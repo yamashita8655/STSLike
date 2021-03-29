@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapInitializeState : StateBase {
+public class MapBattleEndState : StateBase {
 
 	/// <summary>
 	/// 初期化前処理.
@@ -11,20 +11,10 @@ public class MapInitializeState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
-		
 		scene.BattleRoot.SetActive(false);
 		scene.MapRoot.SetActive(true);
 
-		MapDataCarrier.Instance.HandDifficultList.Clear();
-		for (int i = 0; i < scene.DifficultImages.Length; i++) {
-			MapDataCarrier.Instance.HandDifficultList.Add(-1);
-		}
-
-		// プレイヤーパラメータ初期化
-		PlayerStatus status = new PlayerStatus();
-		status.SetMaxHp(80);
-		status.SetNowHp(80);
-		MapDataCarrier.Instance.CuPlayerStatus = status;
+		Debug.Log("MapBattleEndState");
 
 		return true;
 	}

@@ -30,7 +30,7 @@ public class StateMachineManager
 		}
 	}
 
-    Dictionary<StateMachineName, StateMachine> StateMachineMap = new Dictionary<StateMachineName, StateMachine>(); //< ステートマシンのマップ
+	Dictionary<StateMachineName, StateMachine> StateMachineMap = new Dictionary<StateMachineName, StateMachine>(); //< ステートマシンのマップ
 
 	/// <summary>
 	/// 初期化.
@@ -119,7 +119,7 @@ public class StateMachineManager
 	/// </summary>
 	/// <param name="machineName">ステートマシン名</param>
 	/// <param name="delta">経過時間</param>
-    public void Update(StateMachineName machineName, float delta)
+	public void Update(StateMachineName machineName, float delta)
 	{
 		StateMachine val = null;
 		StateMachineMap.TryGetValue(machineName, out val);
