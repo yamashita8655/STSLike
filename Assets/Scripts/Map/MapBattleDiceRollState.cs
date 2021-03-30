@@ -12,8 +12,15 @@ public class MapBattleDiceRollState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		scene.DiceRollButton.SetActive(false);
+		
+		MapDataCarrier.Instance.DiceValueList.Clear();
 
 		for (int i = 0; i < scene.DiceImages.Length; i++) {
+			scene.DiceImages[i].gameObject.SetActive(false);
+		}
+
+		PlayerStatus status = MapDataCarrier.Instance.CuPlayerStatus;
+		for (int i = 0; i < status.GetMaxDiceCount(); i++) {
 			scene.DiceImages[i].gameObject.SetActive(true);
 			int seed = UnityEngine.Random.Range(0, 6000);
 			int dice = 0;
@@ -33,6 +40,8 @@ public class MapBattleDiceRollState : StateBase {
 			}
 
 			scene.DiceImages[i].sprite = scene.DiceSprites[dice];
+
+			MapDataCarrier.Instance.DiceValueList.Add(dice);
 		}
 
 		return true;
@@ -44,7 +53,7 @@ public class MapBattleDiceRollState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
 	}
 
 	/// <summary>

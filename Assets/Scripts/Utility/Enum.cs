@@ -33,4 +33,10 @@ public class Enum : MonoBehaviour {
 		Heal,
 		Max
 	};
+	
+	public enum ActionType {
+        None,
+        AddDamage,
+		Max
+	};
 }

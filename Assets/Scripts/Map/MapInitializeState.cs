@@ -24,7 +24,19 @@ public class MapInitializeState : StateBase {
 		PlayerStatus status = new PlayerStatus();
 		status.SetMaxHp(80);
 		status.SetNowHp(80);
+		MasterActionTable.Data data = MasterActionTable.Instance.GetData(1);
+		status.SetActionData(0, data);
+		status.SetActionData(1, data);
+		status.SetActionData(2, data);
+		status.SetActionData(3, data);
+		status.SetActionData(4, data);
+		data = MasterActionTable.Instance.GetData(2);
+		status.SetActionData(5, data);
+		status.SetMaxDiceCount(3);
 		MapDataCarrier.Instance.CuPlayerStatus = status;
+
+		scene.PlayerNowHpText.text = status.GetNowHp().ToString();
+		scene.PlayerMaxHpText.text = status.GetMaxHp().ToString();
 
 		return true;
 	}

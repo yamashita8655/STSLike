@@ -12,6 +12,16 @@ public class MapBattleAttackResultState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
+		int select = MapDataCarrier.Instance.SelectAttackIndex;
+
+		MasterActionTable.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
+
+		int damage = data.Value1;
+
+		MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(-damage);
+		int enemyHp = MapDataCarrier.Instance.CuEnemyStatus.GetNowHp();
+		scene.EnemyNowHpText.text = enemyHp.ToString();
+
 		return true;
 	}
 

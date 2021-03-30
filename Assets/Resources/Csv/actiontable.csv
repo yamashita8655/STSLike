@@ -1,0 +1,3 @@
+id,name,type1,value1
+1,殴る,AddDamage,5
+2,超殴る,AddDamage,8

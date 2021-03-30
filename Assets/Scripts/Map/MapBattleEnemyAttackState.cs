@@ -12,11 +12,9 @@ public class MapBattleEnemyAttackState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
-		//if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleAttackResult) {
-		//	
-		//} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleAttackResult) {
-		//	
-		//}
+		// とりあえず、仮ダメージ与えとく
+		MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(-5);
+		scene.PlayerNowHpText.text = MapDataCarrier.Instance.CuPlayerStatus.GetNowHp().ToString();
 
 		return true;
 	}

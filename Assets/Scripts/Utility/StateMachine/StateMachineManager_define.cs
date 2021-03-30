@@ -39,6 +39,7 @@ public enum MapState : int {
 	UserWait,
 
 	BattleInitialize,
+	BattleUpdateAttackButtonDisplay,
 	BattleDiceRollUserWait,
 	BattleDiceRoll,
 	BattleAttackSelectUserWait,

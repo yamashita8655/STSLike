@@ -41,6 +41,34 @@ public class MapScene : SceneBase
 	[SerializeField]
 	private GameObject CuBattleRoot = null;
 	public GameObject BattleRoot => CuBattleRoot;
+	
+	[SerializeField]
+	private Text CuPlayerNowHpText = null;
+	public Text PlayerNowHpText => CuPlayerNowHpText;
+	
+	[SerializeField]
+	private Text CuPlayerMaxHpText = null;
+	public Text PlayerMaxHpText => CuPlayerMaxHpText;
+	
+	[SerializeField]
+	private Text CuEnemyNowHpText = null;
+	public Text EnemyNowHpText => CuEnemyNowHpText;
+	
+	[SerializeField]
+	private Text CuEnemyMaxHpText = null;
+	public Text EnemyMaxHpText => CuEnemyMaxHpText;
+	
+	[SerializeField]
+	private Text[] CuPlayerActionNameStrings = null;
+	public Text[] PlayerActionNameStrings => CuPlayerActionNameStrings;
+	
+	[SerializeField]
+	private Text[] CuPlayerActionValueStrings = null;
+	public Text[] PlayerActionValueStrings => CuPlayerActionValueStrings;
+	
+	[SerializeField]
+	private Button[] CuPlayerActionButtons = null;
+	public Button[] PlayerActionButtons => CuPlayerActionButtons;
 
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -61,6 +89,7 @@ public class MapScene : SceneBase
 		stm.AddState(StateMachineName.Map, (int)MapState.UpdateDifficult, new MapUpdateDifficultState());
 		stm.AddState(StateMachineName.Map, (int)MapState.UserWait, new MapUserWaitState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleInitialize, new MapBattleInitializeState());
+		stm.AddState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay, new MapBattleUpdateAttackButtonDisplayState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleDiceRollUserWait, new MapBattleDiceRollUserWaitState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleDiceRoll, new MapBattleDiceRollState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait, new MapBattleAttackSelectUserWaitState());
@@ -124,13 +153,23 @@ public class MapScene : SceneBase
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleDiceRoll);
 	}
 	
-	public void OnClickAttackButton()
+	public void OnClickAttackButton(int index)
 	{
 		// ユーザー入力待機状態でなければ、処理しない
 		var stm = StateMachineManager.Instance;
 		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.BattleAttackSelectUserWait) {
 			return;
 		}
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackResult);
+		MapDataCarrier.Instance.SelectAttackIndex = index;
+
+		// 押されたダイスデータを消す
+		for (int i = 0; i < MapDataCarrier.Instance.DiceValueList.Count; i++) {
+			if (MapDataCarrier.Instance.DiceValueList[i] == index) {
+				MapDataCarrier.Instance.DiceValueList.RemoveAt(i);
+				break;
+			}
+		}
+
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
 	}
 }
