@@ -69,9 +69,14 @@ public class EnemyStatus
 {
 	private int NowHp;
 	private int MaxHp;
+	
+	// TODO
+	// とりあえず、一個だけ登録
+	// 複数持たせて、ローテかランダムかの対応は、後でやる
+	private List<MasterActionTable.Data> ActionDataList;
 
 	public EnemyStatus() {
-		
+		ActionDataList = new List<MasterActionTable.Data>();
 	}
 	
 	public void SetNowHp(int val) {
@@ -102,6 +107,14 @@ public class EnemyStatus
 		if (MaxHp <= 1) {
 			MaxHp = 1;
 		}
+	}
+	
+	public void AddActionData(MasterActionTable.Data data) {
+		ActionDataList.Add(data);
+	}
+	public MasterActionTable.Data GetActionData() {
+		// TODO とりあえず0番目決め打ち
+		return ActionDataList[0];
 	}
 
 	public bool IsDead() {

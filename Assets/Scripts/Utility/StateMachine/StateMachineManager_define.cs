@@ -50,6 +50,15 @@ public enum MapState : int {
 	BattleWin,
 	BattleLose,
 	BattleEnd,
+	
+	ResultInitialize,
+	ResultTreasureDisplay,
+	ResultTreasureUserWait,
+	ResultDetailUpdate,
+	ResultChangeDisplay,
+	ResultChangeUserWait,
+	ResultChangeResult,
+	ResultEnd,
 
 	End
 };

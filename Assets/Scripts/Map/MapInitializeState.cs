@@ -13,6 +13,8 @@ public class MapInitializeState : StateBase {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		
 		scene.BattleRoot.SetActive(false);
+		scene.ResultRoot.SetActive(false);
+		scene.ChangeRoot.SetActive(false);
 		scene.MapRoot.SetActive(true);
 
 		MapDataCarrier.Instance.HandDifficultList.Clear();

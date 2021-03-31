@@ -13,7 +13,9 @@ public class MapBattleEnemyAttackState : StateBase {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
 		// とりあえず、仮ダメージ与えとく
-		MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(-5);
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		MasterActionTable.Data data = enemy.GetActionData();
+		MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(-data.Value1);
 		scene.PlayerNowHpText.text = MapDataCarrier.Instance.CuPlayerStatus.GetNowHp().ToString();
 
 		return true;

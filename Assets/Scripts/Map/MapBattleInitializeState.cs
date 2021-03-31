@@ -30,10 +30,18 @@ public class MapBattleInitializeState : StateBase {
 		EnemyStatus enemy = new EnemyStatus();
 		enemy.SetMaxHp(data.MHp);
 		enemy.SetNowHp(data.Hp);
+		// TODO とりあえず、一個目決め打ちで
+		MasterActionTable.Data actionData = MasterActionTable.Instance.GetData(data.ActionId1);
+		enemy.AddActionData(actionData);
 		MapDataCarrier.Instance.CuEnemyStatus = enemy;
 
 		scene.EnemyNowHpText.text = data.Hp.ToString();
 		scene.EnemyMaxHpText.text = data.MHp.ToString();
+		scene.EnemyNameText.text = data.Name;
+
+		// TODO とりあえず、敵の行動はここで一回決め打ちして動かさない
+		scene.EnemyActionText.text = actionData.Name;
+		scene.EnemyActionValueText.text = actionData.Value1.ToString();
 
 		return true;
 	}

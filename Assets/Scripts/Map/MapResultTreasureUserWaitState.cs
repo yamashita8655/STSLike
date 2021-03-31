@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapBattleEndState : StateBase {
+public class MapResultTreasureUserWaitState : StateBase {
 
 	/// <summary>
 	/// 初期化前処理.
@@ -11,10 +11,6 @@ public class MapBattleEndState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
-		//scene.BattleRoot.SetActive(false);
-		//scene.MapRoot.SetActive(true);
-
-		Debug.Log("MapBattleEndState");
 
 		return true;
 	}
@@ -25,8 +21,6 @@ public class MapBattleEndState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultInitialize);
 	}
 
 	/// <summary>

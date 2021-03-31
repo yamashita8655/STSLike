@@ -19,12 +19,19 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	
 	public List<int> DiceValueList = null;
 	public int SelectAttackIndex = 0;
+	
+	public int SelectTreasureIndex = 0;
+
+	public List<MasterActionTable.Data> TreasureList = null;
+	
+	public int SelectChangeIndex = 0;
 
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
 		MapTypeList = new List<Enum.MapType>();
 		HandDifficultList = new List<int>();
 		DiceValueList = new List<int>();
+		TreasureList = new List<MasterActionTable.Data>();
 	}
 
 	public void Release() {

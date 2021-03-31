@@ -69,6 +69,34 @@ public class MapScene : SceneBase
 	[SerializeField]
 	private Button[] CuPlayerActionButtons = null;
 	public Button[] PlayerActionButtons => CuPlayerActionButtons;
+	
+	[SerializeField]
+	private Text CuEnemyNameText = null;
+	public Text EnemyNameText => CuEnemyNameText;
+	
+	[SerializeField]
+	private Text CuEnemyActionText = null;
+	public Text EnemyActionText => CuEnemyActionText;
+	
+	[SerializeField]
+	private Text CuEnemyActionValueText = null;
+	public Text EnemyActionValueText => CuEnemyActionValueText;
+	
+	[SerializeField]
+	private GameObject CuResultRoot = null;
+	public GameObject ResultRoot => CuResultRoot;
+	
+	[SerializeField]
+	private GameObject CuChangeRoot = null;
+	public GameObject ChangeRoot => CuChangeRoot;
+	
+	[SerializeField]
+	private Button CuTreasureDecideButton = null;
+	public Button TreasureDecideButton => CuTreasureDecideButton;
+	
+	[SerializeField]
+	private Text[] CuTreasureNameTexts = null;
+	public Text[] TreasureNameTexts => CuTreasureNameTexts;
 
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -88,6 +116,7 @@ public class MapScene : SceneBase
 		stm.AddState(StateMachineName.Map, (int)MapState.UpdateMap, new MapUpdateMapState());
 		stm.AddState(StateMachineName.Map, (int)MapState.UpdateDifficult, new MapUpdateDifficultState());
 		stm.AddState(StateMachineName.Map, (int)MapState.UserWait, new MapUserWaitState());
+
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleInitialize, new MapBattleInitializeState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay, new MapBattleUpdateAttackButtonDisplayState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleDiceRollUserWait, new MapBattleDiceRollUserWaitState());
@@ -100,6 +129,16 @@ public class MapScene : SceneBase
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleWin, new MapBattleWinState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleLose, new MapBattleLoseState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnd, new MapBattleEndState());
+
+		stm.AddState(StateMachineName.Map, (int)MapState.ResultInitialize, new MapResultInitializeState());
+		stm.AddState(StateMachineName.Map, (int)MapState.ResultTreasureDisplay, new MapResultTreasureDisplayState());
+		stm.AddState(StateMachineName.Map, (int)MapState.ResultTreasureUserWait, new MapResultTreasureUserWaitState());
+		stm.AddState(StateMachineName.Map, (int)MapState.ResultDetailUpdate, new MapResultDetailUpdateState());
+		stm.AddState(StateMachineName.Map, (int)MapState.ResultChangeDisplay, new MapResultChangeDisplayState());
+		stm.AddState(StateMachineName.Map, (int)MapState.ResultChangeUserWait, new MapResultChangeUserWaitState());
+		stm.AddState(StateMachineName.Map, (int)MapState.ResultChangeResult, new MapResultChangeResultState());
+		stm.AddState(StateMachineName.Map, (int)MapState.ResultEnd, new MapResultEndState());
+
 		stm.AddState(StateMachineName.Map, (int)MapState.End, new MapEndState());
 		
 		stm.ChangeState(StateMachineName.Map, (int)MapState.Initialize);
@@ -171,5 +210,54 @@ public class MapScene : SceneBase
 		}
 
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
+	}
+
+	// ここからリザルト
+	public void OnClickTreasureButton(int index) {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.ResultTreasureUserWait) {
+			return;
+		}
+		TreasureDecideButton.interactable = true;
+		MapDataCarrier.Instance.SelectTreasureIndex = index;
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultDetailUpdate);
+	}
+	
+	public void OnClickSkipButton() {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.ResultTreasureUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultEnd);
+	}
+	
+	public void OnClickDecideButton() {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.ResultTreasureUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultChangeDisplay);
+	}
+	
+	public void OnClickBackButton() {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.ResultChangeUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultTreasureDisplay);
+	}
+	
+	public void OnClickChangeButton(int index) {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.ResultChangeUserWait) {
+			return;
+		}
+		MapDataCarrier.Instance.SelectChangeIndex = index;
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultChangeResult);
 	}
 }
