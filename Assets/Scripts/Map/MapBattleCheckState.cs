@@ -42,10 +42,8 @@ public class MapBattleCheckState : StateBase {
 	override public void OnUpdateMain(float delta)
 	{
 		if (IsWin) {
-			Debug.Log("IsWin");
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleWin);
 		} else if (IsDead) {
-			Debug.Log("IsDead");
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleLose);
 		} else {
 			// プレイヤーのターンの場合
