@@ -26,7 +26,11 @@ public class MapResultEndState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
+		if (MapDataCarrier.Instance.NowFloor == MapDataCarrier.Instance.MaxFloor) {
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.End);
+		} else {
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
+		}
 	}
 
 	/// <summary>

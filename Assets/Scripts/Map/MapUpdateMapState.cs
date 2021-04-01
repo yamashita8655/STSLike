@@ -15,17 +15,29 @@ public class MapUpdateMapState : StateBase {
 	override public bool OnBeforeMain()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
-		// マップを追加
-		if (MapDataCarrier.Instance.MapTypeList.Count == 0) {
-			// 初回は、3つ生成する
-			for (int i = 0; i < 3; i++) {
-				Enum.MapType type = LotteryMapType();
-				MapDataCarrier.Instance.MapTypeList.Add(type);
+
+		if (MapDataCarrier.Instance.NowFloor < MapDataCarrier.Instance.MaxFloor) {
+			// マップを追加
+			if (MapDataCarrier.Instance.MapTypeList.Count == 0) {
+				MapDataCarrier.Instance.NowFloor = 1;
+				// 初回は、3つ生成する
+				for (int i = 0; i < 3; i++) {
+					Enum.MapType type = LotteryMapType();
+					MapDataCarrier.Instance.MapTypeList.Add(type);
+				}
+			} else {
+				MapDataCarrier.Instance.NowFloor++;
+
+				// マップは、最初に3個分作っているので、
+				// 2引いた値で上限チェックする
+				if (MapDataCarrier.Instance.NowFloor <= (MapDataCarrier.Instance.MaxFloor-2)) {
+					Enum.MapType type = LotteryMapType();
+					MapDataCarrier.Instance.MapTypeList.Add(type);
+				}
 			}
-		} else {
-			Enum.MapType type = LotteryMapType();
-			MapDataCarrier.Instance.MapTypeList.Add(type);
 		}
+
+		scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();
 
 		// まず、真ん中の画像表示
 		int index = MapDataCarrier.Instance.CurrentMapNumber;

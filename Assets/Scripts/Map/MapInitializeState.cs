@@ -40,6 +40,13 @@ public class MapInitializeState : StateBase {
 		scene.PlayerNowHpText.text = status.GetNowHp().ToString();
 		scene.PlayerMaxHpText.text = status.GetMaxHp().ToString();
 
+		// TODO フロア設定
+		MapDataCarrier.Instance.MaxFloor = 5;
+		MapDataCarrier.Instance.NowFloor = 1;
+
+		scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();
+		scene.MaxFloorText.text = MapDataCarrier.Instance.MaxFloor.ToString();
+
 		return true;
 	}
 

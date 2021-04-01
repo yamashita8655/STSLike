@@ -97,6 +97,14 @@ public class MapScene : SceneBase
 	[SerializeField]
 	private Text[] CuTreasureNameTexts = null;
 	public Text[] TreasureNameTexts => CuTreasureNameTexts;
+	
+	[SerializeField]
+	private Text CuNowFloorText = null;
+	public Text NowFloorText => CuNowFloorText;
+	
+	[SerializeField]
+	private Text CuMaxFloorText = null;
+	public Text MaxFloorText => CuMaxFloorText;
 
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -165,7 +173,7 @@ public class MapScene : SceneBase
 	{
 		// ユーザー入力待機状態でなければ、処理しない
 		var stm = StateMachineManager.Instance;
-		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.UserWait) {
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.UserWait) {
 			return;
 		}
 
@@ -186,7 +194,7 @@ public class MapScene : SceneBase
 	{
 		// ユーザー入力待機状態でなければ、処理しない
 		var stm = StateMachineManager.Instance;
-		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.BattleDiceRollUserWait) {
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.BattleDiceRollUserWait) {
 			return;
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleDiceRoll);
@@ -196,7 +204,7 @@ public class MapScene : SceneBase
 	{
 		// ユーザー入力待機状態でなければ、処理しない
 		var stm = StateMachineManager.Instance;
-		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.BattleAttackSelectUserWait) {
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.BattleAttackSelectUserWait) {
 			return;
 		}
 		MapDataCarrier.Instance.SelectAttackIndex = index;
@@ -216,7 +224,7 @@ public class MapScene : SceneBase
 	public void OnClickTreasureButton(int index) {
 		// ユーザー入力待機状態でなければ、処理しない
 		var stm = StateMachineManager.Instance;
-		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.ResultTreasureUserWait) {
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.ResultTreasureUserWait) {
 			return;
 		}
 		TreasureDecideButton.interactable = true;
@@ -227,7 +235,7 @@ public class MapScene : SceneBase
 	public void OnClickSkipButton() {
 		// ユーザー入力待機状態でなければ、処理しない
 		var stm = StateMachineManager.Instance;
-		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.ResultTreasureUserWait) {
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.ResultTreasureUserWait) {
 			return;
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultEnd);
@@ -236,7 +244,7 @@ public class MapScene : SceneBase
 	public void OnClickDecideButton() {
 		// ユーザー入力待機状態でなければ、処理しない
 		var stm = StateMachineManager.Instance;
-		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.ResultTreasureUserWait) {
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.ResultTreasureUserWait) {
 			return;
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultChangeDisplay);
@@ -245,7 +253,7 @@ public class MapScene : SceneBase
 	public void OnClickBackButton() {
 		// ユーザー入力待機状態でなければ、処理しない
 		var stm = StateMachineManager.Instance;
-		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.ResultChangeUserWait) {
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.ResultChangeUserWait) {
 			return;
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultTreasureDisplay);
@@ -254,7 +262,7 @@ public class MapScene : SceneBase
 	public void OnClickChangeButton(int index) {
 		// ユーザー入力待機状態でなければ、処理しない
 		var stm = StateMachineManager.Instance;
-		if (stm.GetNextState(StateMachineName.Map) != (int)MapState.ResultChangeUserWait) {
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.ResultChangeUserWait) {
 			return;
 		}
 		MapDataCarrier.Instance.SelectChangeIndex = index;

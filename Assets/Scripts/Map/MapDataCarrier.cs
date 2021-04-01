@@ -25,6 +25,9 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public List<MasterActionTable.Data> TreasureList = null;
 	
 	public int SelectChangeIndex = 0;
+	
+	public int MaxFloor = 0;
+	public int NowFloor = 0;
 
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
