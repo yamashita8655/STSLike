@@ -28,6 +28,10 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	
 	public int MaxFloor = 0;
 	public int NowFloor = 0;
+	
+	public int SelectHealIndex = 0;
+	
+	public List<MasterHealTable.Data> HealList = null;
 
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
@@ -35,6 +39,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		HandDifficultList = new List<int>();
 		DiceValueList = new List<int>();
 		TreasureList = new List<MasterActionTable.Data>();
+		HealList = new List<MasterHealTable.Data>();
 	}
 
 	public void Release() {

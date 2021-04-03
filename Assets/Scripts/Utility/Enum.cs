@@ -29,14 +29,20 @@ public class Enum : MonoBehaviour {
 		Enemy = 0,
 		Elite,
 		Boss,
-		Treasure,
 		Heal,
+		Treasure,
 		Max
 	};
 	
 	public enum ActionType {
         None,
         AddDamage,
+		Max
+	};
+	
+	public enum HealType {
+        None,
+        Heal,
 		Max
 	};
 }

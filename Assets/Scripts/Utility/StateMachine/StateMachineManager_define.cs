@@ -59,6 +59,15 @@ public enum MapState : int {
 	ResultChangeUserWait,
 	ResultChangeResult,
 	ResultEnd,
+	
+	HealInitialize,
+	HealDisplay,
+	HealUserWait,
+	HealDetailUpdate,
+	HealResult,
+	HealEnd,
+
+	FloorEndCheck,
 
 	End
 };

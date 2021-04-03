@@ -105,6 +105,18 @@ public class MapScene : SceneBase
 	[SerializeField]
 	private Text CuMaxFloorText = null;
 	public Text MaxFloorText => CuMaxFloorText;
+	
+	[SerializeField]
+	private GameObject CuHealRoot = null;
+	public GameObject HealRoot => CuHealRoot;
+	
+	[SerializeField]
+	private Text[] CuHealTexts = null;
+	public Text[] HealTexts => CuHealTexts;
+	
+	[SerializeField]
+	private Button CuHealDecideButton = null;
+	public Button HealDecideButton => CuHealDecideButton;
 
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -146,6 +158,15 @@ public class MapScene : SceneBase
 		stm.AddState(StateMachineName.Map, (int)MapState.ResultChangeUserWait, new MapResultChangeUserWaitState());
 		stm.AddState(StateMachineName.Map, (int)MapState.ResultChangeResult, new MapResultChangeResultState());
 		stm.AddState(StateMachineName.Map, (int)MapState.ResultEnd, new MapResultEndState());
+		
+		stm.AddState(StateMachineName.Map, (int)MapState.HealInitialize, new MapHealInitializeState());
+		stm.AddState(StateMachineName.Map, (int)MapState.HealDisplay, new MapHealDisplayState());
+		stm.AddState(StateMachineName.Map, (int)MapState.HealUserWait, new MapHealUserWaitState());
+		stm.AddState(StateMachineName.Map, (int)MapState.HealDetailUpdate, new MapHealDetailUpdateState());
+		stm.AddState(StateMachineName.Map, (int)MapState.HealResult, new MapHealResultState());
+		stm.AddState(StateMachineName.Map, (int)MapState.HealEnd, new MapHealEndState());
+		
+		stm.AddState(StateMachineName.Map, (int)MapState.FloorEndCheck, new MapFloorEndCheckState());
 
 		stm.AddState(StateMachineName.Map, (int)MapState.End, new MapEndState());
 		
@@ -183,10 +204,17 @@ public class MapScene : SceneBase
 	}
 
 	public void OnClickDifficultButton(int index) {
+		int mapIndex = MapDataCarrier.Instance.CurrentMapNumber;
+		Enum.MapType type = MapDataCarrier.Instance.MapTypeList[mapIndex];
 		MapDataCarrier.Instance.CurrentMapNumber++;
 		MapDataCarrier.Instance.HandDifficultList[index] = -1;
 		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleInitialize);
+
+		if (type == Enum.MapType.Heal) {
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealInitialize);
+		} else {
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleInitialize);
+		}
 	}
 
 	// -----以下、バトルシーン用
@@ -267,5 +295,35 @@ public class MapScene : SceneBase
 		}
 		MapDataCarrier.Instance.SelectChangeIndex = index;
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultChangeResult);
+	}
+
+	// 以下ヒール系
+	public void OnClickHealSkipButton() {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.HealUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealEnd);
+	}
+	
+	public void OnClickHealButton(int index) {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.HealUserWait) {
+			return;
+		}
+		HealDecideButton.interactable = true;
+		MapDataCarrier.Instance.SelectHealIndex = index;
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealDetailUpdate);
+	}
+	
+	public void OnClickHealDecideButton() {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.HealUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealResult);
 	}
 }

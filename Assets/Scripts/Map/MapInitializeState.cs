@@ -15,6 +15,7 @@ public class MapInitializeState : StateBase {
 		scene.BattleRoot.SetActive(false);
 		scene.ResultRoot.SetActive(false);
 		scene.ChangeRoot.SetActive(false);
+		scene.HealRoot.SetActive(false);
 		scene.MapRoot.SetActive(true);
 
 		MapDataCarrier.Instance.HandDifficultList.Clear();

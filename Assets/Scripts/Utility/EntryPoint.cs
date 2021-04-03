@@ -54,6 +54,7 @@ public class EntryPoint : MonoBehaviour {
 		// マスターデータ読み込み
 		MasterEnemyTable.Instance.Initialize();
 		MasterActionTable.Instance.Initialize();
+		MasterHealTable.Instance.Initialize();
 		//MasterCharacterModelTable.Instance.Initialize();
 		//MasterMapPlaceTable.Instance.Initialize();
 		//MasterMapChipTable.Instance.Initialize();

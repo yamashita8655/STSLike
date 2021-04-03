@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapResultEndState : StateBase {
+public class MapHealEndState : StateBase {
 
 	/// <summary>
 	/// 初期化前処理.
@@ -12,10 +12,8 @@ public class MapResultEndState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
+		scene.HealRoot.SetActive(false);
 		scene.MapRoot.SetActive(true);
-		scene.ChangeRoot.SetActive(false);
-		scene.ResultRoot.SetActive(false);
-		scene.BattleRoot.SetActive(false);
 
 		return true;
 	}
@@ -27,11 +25,6 @@ public class MapResultEndState : StateBase {
 	override public void OnUpdateMain(float delta)
 	{
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.FloorEndCheck);
-		//if (MapDataCarrier.Instance.NowFloor == MapDataCarrier.Instance.MaxFloor) {
-		//	StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.End);
-		//} else {
-		//	StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
-		//}
 	}
 
 	/// <summary>
