@@ -6,21 +6,27 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 {
 	public class Data {
 		public int Id { get; private set; }
+		public int Rarity { get; private set; }
 		public string Name { get; private set; }
 		public Enum.ActionType Type1 { get; private set; }
 		public int Value1 { get; private set; }
+		public int Value2 { get; private set; }
 
         public Data(
 			int id,
+			int rarity,
 			string name,
 			Enum.ActionType type1,
-			int value1
+			int value1,
+			int value2
 		)
 		{
 			Id			= id;
+			Rarity		= rarity;
 			Name		= name;
 			Type1		= type1;
 			Value1		= value1;
+			Value2		= value2;
 		}
 	};
 
@@ -45,13 +51,15 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 		for (int i = 1; i < lineList.Count; i++) {
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
 
-			Enum.ActionType type1 = GetActionType(paramList[2]);
+			Enum.ActionType type1 = GetActionType(paramList[4]);
 
 			Data data = new Data(
 				int.Parse(paramList[0]),
-				paramList[1],
+				int.Parse(paramList[1]),
+				paramList[2],
 				type1,
-				int.Parse(paramList[3])
+				int.Parse(paramList[5]),
+				int.Parse(paramList[6])
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);
@@ -63,6 +71,10 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 
 		if (typeString == "AddDamage") {
 			type = Enum.ActionType.AddDamage;
+		} else if (typeString == "ContinuousDamage") {
+			type = Enum.ActionType.ContinuousDamage;
+		} else if (typeString == "Heal") {
+			type = Enum.ActionType.Heal;
 		}
 
 		return type;

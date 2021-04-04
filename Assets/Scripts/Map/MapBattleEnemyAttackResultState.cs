@@ -12,11 +12,17 @@ public class MapBattleEnemyAttackResultState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
-		//if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleAttackResult) {
-		//	
-		//} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleAttackResult) {
-		//	
-		//}
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		MasterActionTable.Data data = enemy.GetActionData();
+
+		MapDataCarrier.Instance.EnemyContinuousCount = 0;
+		MapDataCarrier.Instance.EnemyMaxContinuousCount = 0;
+		
+		// 数値の初期化などはここで一度行い、実際の数値の増減ループは
+		// ValueChange-BattleCheck間で行う
+		if (data.Type1 == Enum.ActionType.ContinuousDamage) {
+			MapDataCarrier.Instance.EnemyMaxContinuousCount = data.Value2;
+		}
 
 		return true;
 	}
@@ -27,7 +33,7 @@ public class MapBattleEnemyAttackResultState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange);
 	}
 
 	/// <summary>

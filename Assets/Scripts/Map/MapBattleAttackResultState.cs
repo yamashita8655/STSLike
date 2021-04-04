@@ -16,11 +16,14 @@ public class MapBattleAttackResultState : StateBase {
 
 		MasterActionTable.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
 
-		int damage = data.Value1;
-
-		MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(-damage);
-		int enemyHp = MapDataCarrier.Instance.CuEnemyStatus.GetNowHp();
-		scene.EnemyNowHpText.text = enemyHp.ToString();
+		MapDataCarrier.Instance.ContinuousCount = 0;
+		MapDataCarrier.Instance.MaxContinuousCount = 0;
+		
+		// 数値の初期化などはここで一度行い、実際の数値の増減ループは
+		// ValueChange-BattleCheck間で行う
+		if (data.Type1 == Enum.ActionType.ContinuousDamage) {
+			MapDataCarrier.Instance.MaxContinuousCount = data.Value2;
+		}
 
 		return true;
 	}
@@ -31,7 +34,7 @@ public class MapBattleAttackResultState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleValueChange);
 	}
 
 	/// <summary>

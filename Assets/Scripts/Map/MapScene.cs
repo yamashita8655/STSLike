@@ -143,9 +143,10 @@ public class MapScene : SceneBase
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleDiceRoll, new MapBattleDiceRollState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait, new MapBattleAttackSelectUserWaitState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleAttackResult, new MapBattleAttackResultState());
+		stm.AddState(StateMachineName.Map, (int)MapState.BattleValueChange, new MapBattleValueChangeState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleCheck, new MapBattleCheckState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyAttack, new MapBattleEnemyAttackState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyAttackResult, new MapBattleEnemyAttackResultState());
+		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange, new MapBattleEnemyValueChangeState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleWin, new MapBattleWinState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleLose, new MapBattleLoseState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnd, new MapBattleEndState());

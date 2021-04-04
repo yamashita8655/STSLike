@@ -32,6 +32,12 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public int SelectHealIndex = 0;
 	
 	public List<MasterHealTable.Data> HealList = null;
+	
+	public int ContinuousCount = 0;
+	public int MaxContinuousCount = 0;
+	
+	public int EnemyContinuousCount = 0;
+	public int EnemyMaxContinuousCount = 0;
 
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
