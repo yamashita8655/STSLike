@@ -39,6 +39,7 @@ public class Enum : MonoBehaviour {
         AddDamage,
         ContinuousDamage,
         Heal,
+        AddShield,
 		Max
 	};
 	

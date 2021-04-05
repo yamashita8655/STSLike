@@ -75,6 +75,8 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 			type = Enum.ActionType.ContinuousDamage;
 		} else if (typeString == "Heal") {
 			type = Enum.ActionType.Heal;
+		} else if (typeString == "AddShield") {
+			type = Enum.ActionType.AddShield;
 		}
 
 		return type;

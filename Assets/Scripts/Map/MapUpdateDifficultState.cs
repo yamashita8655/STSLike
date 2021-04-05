@@ -16,6 +16,10 @@ public class MapUpdateDifficultState : StateBase {
     override public bool OnBeforeMain()
     {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		player.SetMaxShield(0);
+		player.SetNowShield(0);
+		scene.PlayerShieldText.text = "";
 		for (int i = 0; i < MapDataCarrier.Instance.HandDifficultList.Count; i++) {
 			if (MapDataCarrier.Instance.HandDifficultList[i] == -1) {
 				int difficult = LotteryDiffucult();

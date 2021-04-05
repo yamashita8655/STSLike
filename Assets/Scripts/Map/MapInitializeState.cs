@@ -34,13 +34,15 @@ public class MapInitializeState : StateBase {
 		//status.SetActionData(3, data);
 		//status.SetActionData(4, data);
 		//data = MasterActionTable.Instance.GetData(2);
+		//status.SetActionData(5, data);
 		// TODO 初期装備は、テストの為色々変えている
-		status.SetActionData(0, MasterActionTable.Instance.GetData(2));
-		status.SetActionData(1, MasterActionTable.Instance.GetData(12));
-		status.SetActionData(2, MasterActionTable.Instance.GetData(13));
-		status.SetActionData(3, MasterActionTable.Instance.GetData(14));
-		status.SetActionData(4, MasterActionTable.Instance.GetData(15));
-		status.SetActionData(5, MasterActionTable.Instance.GetData(16));
+		status.SetActionData(0, MasterActionTable.Instance.GetData(1));
+		status.SetActionData(1, MasterActionTable.Instance.GetData(17));
+		status.SetActionData(2, MasterActionTable.Instance.GetData(18));
+		status.SetActionData(3, MasterActionTable.Instance.GetData(19));
+		status.SetActionData(4, MasterActionTable.Instance.GetData(20));
+		status.SetActionData(5, MasterActionTable.Instance.GetData(21));
+
 		status.SetMaxDiceCount(3);
 		MapDataCarrier.Instance.CuPlayerStatus = status;
 

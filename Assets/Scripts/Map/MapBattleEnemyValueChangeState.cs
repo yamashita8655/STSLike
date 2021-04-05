@@ -16,16 +16,18 @@ public class MapBattleEnemyValueChangeState : StateBase {
 		MasterActionTable.Data data = enemy.GetActionData();
 
 		if (data.Type1 == Enum.ActionType.AddDamage) {
-			MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(-data.Value1);
+			CalcDamageNormalDamage(data);
 		} else if (data.Type1 == Enum.ActionType.ContinuousDamage) {
-			MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(-data.Value1);
+			CalcDamageNormalDamage(data);
 			MapDataCarrier.Instance.EnemyContinuousCount++;
 		} else if (data.Type1 == Enum.ActionType.Heal) {
 			MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(data.Value1);
+		} else if (data.Type1 == Enum.ActionType.AddShield) {
+			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(data.Value1);
 		}
 
-		scene.PlayerNowHpText.text = MapDataCarrier.Instance.CuPlayerStatus.GetNowHp().ToString();
-		scene.EnemyNowHpText.text = MapDataCarrier.Instance.CuEnemyStatus.GetNowHp().ToString();
+		scene.UpdateParameterText();
+
 		return true;
 	}
 
@@ -43,5 +45,15 @@ public class MapBattleEnemyValueChangeState : StateBase {
 	/// </summary>
 	override public void OnRelease()
 	{
+	}
+	
+	private void CalcDamageNormalDamage(MasterActionTable.Data data) {
+		int shield = MapDataCarrier.Instance.CuPlayerStatus.GetNowShield();
+		MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-data.Value1);
+		int overDamage = shield - data.Value1;
+
+		if (overDamage < 0) {
+			MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(overDamage);
+		}
 	}
 }

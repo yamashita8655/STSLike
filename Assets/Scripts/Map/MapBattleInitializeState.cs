@@ -17,19 +17,26 @@ public class MapBattleInitializeState : StateBase {
 		MapDataCarrier.Instance.DiceValueList.Clear();
 
 		// プレイヤーのアクション設定
-		PlayerStatus status = MapDataCarrier.Instance.CuPlayerStatus;
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		player.SetMaxShield(999999);
+		player.SetNowShield(0);
+		scene.PlayerShieldText.text = "";
 		for (int i = 0; i < scene.PlayerActionNameStrings.Length; i++) {
-			MasterActionTable.Data pdata = status.GetActionData(i);
+			MasterActionTable.Data pdata = player.GetActionData(i);
 			scene.PlayerActionNameStrings[i].text = pdata.Name;
 			scene.PlayerActionValueStrings[i].text = pdata.Value1.ToString();
 		}
 
 		// 敵出現
-		int enemyId = 1;
+		// TODO ID決め打ち
+		int enemyId = 3;
 		MasterEnemyTable.Data data = MasterEnemyTable.Instance.GetData(enemyId);
 		EnemyStatus enemy = new EnemyStatus();
 		enemy.SetMaxHp(data.MHp);
 		enemy.SetNowHp(data.Hp);
+		enemy.SetMaxShield(999999);
+		enemy.SetNowShield(0);
+		scene.EnemyShieldText.text = "";
 		// TODO とりあえず、一個目決め打ちで
 		MasterActionTable.Data actionData = MasterActionTable.Instance.GetData(data.ActionId1);
 		enemy.AddActionData(actionData);
@@ -52,7 +59,7 @@ public class MapBattleInitializeState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnStart);
 	}
 
 	/// <summary>

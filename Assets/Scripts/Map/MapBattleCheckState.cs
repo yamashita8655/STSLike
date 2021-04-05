@@ -54,7 +54,7 @@ public class MapBattleCheckState : StateBase {
 
 				if (isContinuous == false) {
 					if (MapDataCarrier.Instance.DiceValueList.Count == 0) {
-						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyAttackResult);
+						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyTurnStart);
 					} else {
 						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
 					}
@@ -71,7 +71,7 @@ public class MapBattleCheckState : StateBase {
 				}
 
 				if (isContinuous == false) {
-					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleDiceRollUserWait);
+					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnStart);
 				}
 			}
 		}

@@ -36,7 +36,10 @@ public class StateMachine
 	private int PrevState;
 	private int CurrentSaveState;
 
+	private bool IsDebug = true;
 	private Dictionary<int, StateBase> StateMap;
+
+	private List<int> DebugStateHistory = new List<int>();
 
 	/// <summary>
 	/// コンストラクタ.
@@ -186,6 +189,10 @@ public class StateMachine
 	/// <param name="stateType">変更後のステート</param>
 	public void ChangeState(int stateType)
 	{
+		if (IsDebug == true) {
+			DebugStateHistory.Add(stateType);
+		}
+
 		// 仮 ここ、直す必要がある。途中で呼び出された場合に、流れがおかしくなる可能性がある
 		if (ManageState != MachineState.AfterInit &&
 			ManageState != MachineState.UpdateMain		)
@@ -222,6 +229,10 @@ public class StateMachine
 	/// <param name="stateType">変更後のステート</param>
 	public void ChangeStateNowStatePause(int stateType)
 	{
+		if (IsDebug == true) {
+			DebugStateHistory.Add(stateType);
+		}
+
 		if (ManageState != MachineState.AfterInit &&
 			ManageState != MachineState.UpdateMain)
 		{
@@ -313,5 +324,14 @@ public class StateMachine
 	public StateBase GetStateBase()
 	{
 		return NowState;
+	}
+	
+	/// <summary>
+	/// 履歴
+	/// </summary>
+	/// <returns>ステート</returns>
+	public List<int> GetHistory()
+	{
+		return DebugStateHistory;
 	}
 }

@@ -16,8 +16,15 @@ public class DebugController : MonoBehaviour
 
     public void OnClickCurrectStateDisplay()
     {
-        Debug.Log(StateMachineManager.Instance.GetNextState(StateMachineName.Map));
-        Debug.Log(StateMachineManager.Instance.GetState(StateMachineName.Map));
-        Debug.Log(StateMachineManager.Instance.GetPrevState(StateMachineName.Map));
+        Debug.Log("Next:" + StateMachineManager.Instance.GetNextState(StateMachineName.Map));
+        Debug.Log("Current:" + StateMachineManager.Instance.GetState(StateMachineName.Map));
+        Debug.Log("Prev:" + StateMachineManager.Instance.GetPrevState(StateMachineName.Map));
+
+        string output = "";
+        var history = StateMachineManager.Instance.GetHistory(StateMachineName.Map);
+        for (int i = 0; i < history.Count; i++) {
+            output += history[i];
+        }
+        Debug.Log("History:" + output);
     }
 }

@@ -7,6 +7,8 @@ public class PlayerStatus
 {
 	private int NowHp;
 	private int MaxHp;
+	private int NowShield;
+	private int MaxShield;
 	private List<MasterActionTable.Data> ActionDataList;
 	private int MaxDiceCount;
 
@@ -59,6 +61,36 @@ public class PlayerStatus
 	public int GetMaxDiceCount() {
 		return MaxDiceCount;
 	}
+	
+	public void SetNowShield(int val) {
+		NowShield = val;
+	}
+	public int GetNowShield() {
+		return NowShield;
+	}
+	public void AddNowShield(int val) {
+		NowShield += val;
+		if (NowShield <= 0) {
+			NowShield = 0;
+		}
+
+		if (NowShield >= MaxShield) {
+			NowShield = MaxShield;
+		}
+	}
+	
+	public void SetMaxShield(int val) {
+		MaxShield = val;
+	}
+	public int GetMaxShield() {
+		return MaxShield;
+	}
+	public void AddMaxShield(int val) {
+		MaxShield += val;
+		if (MaxShield <= 0) {
+			MaxShield = 0;
+		}
+	}
 
 	public bool IsDead() {
 		return (NowHp <= 0);
@@ -69,6 +101,9 @@ public class EnemyStatus
 {
 	private int NowHp;
 	private int MaxHp;
+	
+	private int NowShield;
+	private int MaxShield;
 	
 	// TODO
 	// とりあえず、一個だけ登録
@@ -115,6 +150,36 @@ public class EnemyStatus
 	public MasterActionTable.Data GetActionData() {
 		// TODO とりあえず0番目決め打ち
 		return ActionDataList[0];
+	}
+	
+	public void SetNowShield(int val) {
+		NowShield = val;
+	}
+	public int GetNowShield() {
+		return NowShield;
+	}
+	public void AddNowShield(int val) {
+		NowShield += val;
+		if (NowShield <= 0) {
+			NowShield = 0;
+		}
+
+		if (NowShield >= MaxShield) {
+			NowShield = MaxShield;
+		}
+	}
+	
+	public void SetMaxShield(int val) {
+		MaxShield = val;
+	}
+	public int GetMaxShield() {
+		return MaxShield;
+	}
+	public void AddMaxShield(int val) {
+		MaxShield += val;
+		if (MaxShield <= 0) {
+			MaxShield = 0;
+		}
 	}
 
 	public bool IsDead() {

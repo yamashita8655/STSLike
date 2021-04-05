@@ -209,5 +209,18 @@ public class StateMachineManager
 
 		return val.GetStateBase();
 	}
+	
+	/// <summary>
+	/// 履歴.
+	/// </summary>
+	/// <param name="machineName">ステートマシン名</param>
+	/// <returns>ステート</returns>
+	public List<int> GetHistory(StateMachineName machineName)
+	{
+		StateMachine val = null;
+		StateMachineMap.TryGetValue(machineName, out val);
+
+		return val.GetHistory();
+	}
 }
 

@@ -43,7 +43,7 @@ public class MapBattleDiceRollState : StateBase {
 
 			MapDataCarrier.Instance.DiceValueList.Add(dice);
 		}
-
+			
 		return true;
 	}
 

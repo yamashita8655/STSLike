@@ -117,6 +117,14 @@ public class MapScene : SceneBase
 	[SerializeField]
 	private Button CuHealDecideButton = null;
 	public Button HealDecideButton => CuHealDecideButton;
+	
+	[SerializeField]
+	private Text CuPlayerShieldText = null;
+	public Text PlayerShieldText => CuPlayerShieldText;
+	
+	[SerializeField]
+	private Text CuEnemyShieldText = null;
+	public Text EnemyShieldText => CuEnemyShieldText;
 
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -138,15 +146,19 @@ public class MapScene : SceneBase
 		stm.AddState(StateMachineName.Map, (int)MapState.UserWait, new MapUserWaitState());
 
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleInitialize, new MapBattleInitializeState());
+		stm.AddState(StateMachineName.Map, (int)MapState.BattlePlayerTurnStart, new MapBattlePlayerTurnStartState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay, new MapBattleUpdateAttackButtonDisplayState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleDiceRollUserWait, new MapBattleDiceRollUserWaitState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleDiceRoll, new MapBattleDiceRollState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait, new MapBattleAttackSelectUserWaitState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleAttackResult, new MapBattleAttackResultState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleValueChange, new MapBattleValueChangeState());
+		stm.AddState(StateMachineName.Map, (int)MapState.BattlePlayerTurnEnd, new MapBattlePlayerTurnEndState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleCheck, new MapBattleCheckState());
+		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyTurnStart, new MapBattleEnemyTurnStartState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyAttackResult, new MapBattleEnemyAttackResultState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange, new MapBattleEnemyValueChangeState());
+		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyTurnEnd, new MapBattleEnemyTurnEndState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleWin, new MapBattleWinState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleLose, new MapBattleLoseState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnd, new MapBattleEndState());
@@ -326,5 +338,24 @@ public class MapScene : SceneBase
 			return;
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealResult);
+	}
+
+	public void UpdateParameterText() {
+		PlayerNowHpText.text = MapDataCarrier.Instance.CuPlayerStatus.GetNowHp().ToString();
+		EnemyNowHpText.text = MapDataCarrier.Instance.CuEnemyStatus.GetNowHp().ToString();
+
+		int playerShield = MapDataCarrier.Instance.CuPlayerStatus.GetNowShield();
+		if (playerShield > 0) {
+			PlayerShieldText.text = string.Format("[{0}]", playerShield.ToString());
+		} else {
+			PlayerShieldText.text = "";
+		}
+		
+		int enemyShield = MapDataCarrier.Instance.CuEnemyStatus.GetNowShield();
+		if (enemyShield > 0) {
+			EnemyShieldText.text = string.Format("[{0}]", enemyShield.ToString());
+		} else {
+			EnemyShieldText.text = "";
+		}
 	}
 }
