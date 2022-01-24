@@ -1,7 +1,7 @@
 {
 	"StateMachineName":[
 		"Home",
-		"Game"
+		"Map"
 	],
 	
 	"Home":[
@@ -10,8 +10,44 @@
 		"End"
 	],
 
-	"Game":[
+	"Map":[
+		"BattleAttackResult",
+		"BattleAttackSelectUserWait",
+		"BattleCheck",
+		"BattleDiceRoll",
+		"BattleDiceRollUserWait",
+		"BattleEnd",
+		"BattleEnemyAttackResult",
+		"BattleEnemyAttack",
+		"BattleEnemyTurnEnd",
+		"BattleEnemyTurnStart",
+		"BattleEnemyValueChange",
+		"BattleInitialize",
+		"BattleLose",
+		"BattlePlayerTurnEnd",
+		"BattlePlayerTurnStart",
+		"BattleUpdateAttackButtonDisplay",
+		"BattleValueChange",
+		"BattleWin",
+		"FloorEndCheck",
+		"HealDetailUpdate",
+		"HealDisplay",
+		"HealEnd",
+		"HealInitialize",
+		"HealResult",
+		"HealUserWait",
 		"Initialize",
+		"ResultChangeDisplay",
+		"ResultChangeResult",
+		"ResultChangeUserWait",
+		"ResultDetailUpdate",
+		"ResultEnd",
+		"ResultInitialize",
+		"ResultTreasureDisplay",
+		"ResultTreasureUserWait",
+		"Scene.cs",
+		"UpdateDifficult",
+		"UpdateMap",
 		"UserWait",
 		"End"
 	]
