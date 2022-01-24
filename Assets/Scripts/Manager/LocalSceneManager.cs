@@ -1,3 +1,4 @@
+// このスクリプトは、Tools/CreateStateMachineDefinition.pyで自動生成されます。
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,27 +9,24 @@ public class LocalSceneManager : SimpleMonoBehaviourSingleton<LocalSceneManager>
 	private List<string> SceneNameList = new List<string>() {
 		"Home",
 		"Map",
-		"ItemHunt",
-		"Equip",
-		"Debug",
 		"Fade",
 		"SystemDialog",
-		"Loading",
+		"Debug",
+		"ImageProccess",
 	};
 
 	public enum SceneName : int {
 		Home = 0,
 		Map,
-		ItemHunt,
-		Equip,
-		Debug,
 		Fade,
 		SystemDialog,
+		Debug,
+		ImageProccess,
 		None
 	};
 
-	private SceneName FirstSceneName = SceneName.Map;
-	//private SceneName FirstSceneName = SceneName.ItemHunt;
+	// 初回起動のシーン指定なので、実装中は、ここを作業中のシーンに変えてください
+	private SceneName FirstSceneName = SceneName.Home;
 
 	private SceneName CurrentSceneName = SceneName.None;
 	
@@ -38,6 +36,10 @@ public class LocalSceneManager : SimpleMonoBehaviourSingleton<LocalSceneManager>
 		SceneData = null;
 		SceneManager.LoadScene(SceneNameList[(int)SceneName.Fade], LoadSceneMode.Additive);
 		SceneManager.LoadScene(SceneNameList[(int)SceneName.SystemDialog], LoadSceneMode.Additive);
+		SceneManager.LoadScene(SceneNameList[(int)SceneName.Debug], LoadSceneMode.Additive);
+#if UNITY_EDITOR
+		SceneManager.LoadScene(SceneNameList[(int)SceneName.ImageProccess], LoadSceneMode.Additive);
+#endif
 	}
 
 	public SceneName GetFirstSceneName() {

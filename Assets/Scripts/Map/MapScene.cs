@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapScene : SceneBase
+public partial class MapScene : SceneBase
 {
 	[SerializeField]
 	private Sprite[] CuMapSprites = null;
@@ -137,53 +137,54 @@ public class MapScene : SceneBase
 		MapDataCarrier.Instance.Scene = this;
 		
 		// ステートマシン
-		StateMachineManager.Instance.Init();
-		var stm = StateMachineManager.Instance;
-		stm.CreateStateMachineMap(StateMachineName.Map);
-		stm.AddState(StateMachineName.Map, (int)MapState.Initialize, new MapInitializeState());
-		stm.AddState(StateMachineName.Map, (int)MapState.UpdateMap, new MapUpdateMapState());
-		stm.AddState(StateMachineName.Map, (int)MapState.UpdateDifficult, new MapUpdateDifficultState());
-		stm.AddState(StateMachineName.Map, (int)MapState.UserWait, new MapUserWaitState());
+		InitializeStateMachine();
+		//StateMachineManager.Instance.Init();
+		//var stm = StateMachineManager.Instance;
+		//stm.CreateStateMachineMap(StateMachineName.Map);
+		//stm.AddState(StateMachineName.Map, (int)MapState.Initialize, new MapInitializeState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.UpdateMap, new MapUpdateMapState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.UpdateDifficult, new MapUpdateDifficultState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.UserWait, new MapUserWaitState());
 
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleInitialize, new MapBattleInitializeState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattlePlayerTurnStart, new MapBattlePlayerTurnStartState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay, new MapBattleUpdateAttackButtonDisplayState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleDiceRollUserWait, new MapBattleDiceRollUserWaitState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleDiceRoll, new MapBattleDiceRollState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait, new MapBattleAttackSelectUserWaitState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleAttackResult, new MapBattleAttackResultState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleValueChange, new MapBattleValueChangeState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattlePlayerTurnEnd, new MapBattlePlayerTurnEndState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleCheck, new MapBattleCheckState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyTurnStart, new MapBattleEnemyTurnStartState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyAttackResult, new MapBattleEnemyAttackResultState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange, new MapBattleEnemyValueChangeState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyTurnEnd, new MapBattleEnemyTurnEndState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleWin, new MapBattleWinState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleLose, new MapBattleLoseState());
-		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnd, new MapBattleEndState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleInitialize, new MapBattleInitializeState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattlePlayerTurnStart, new MapBattlePlayerTurnStartState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay, new MapBattleUpdateAttackButtonDisplayState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleDiceRollUserWait, new MapBattleDiceRollUserWaitState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleDiceRoll, new MapBattleDiceRollState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait, new MapBattleAttackSelectUserWaitState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleAttackResult, new MapBattleAttackResultState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleValueChange, new MapBattleValueChangeState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattlePlayerTurnEnd, new MapBattlePlayerTurnEndState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleCheck, new MapBattleCheckState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyTurnStart, new MapBattleEnemyTurnStartState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyAttackResult, new MapBattleEnemyAttackResultState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange, new MapBattleEnemyValueChangeState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleEnemyTurnEnd, new MapBattleEnemyTurnEndState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleWin, new MapBattleWinState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleLose, new MapBattleLoseState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.BattleEnd, new MapBattleEndState());
 
-		stm.AddState(StateMachineName.Map, (int)MapState.ResultInitialize, new MapResultInitializeState());
-		stm.AddState(StateMachineName.Map, (int)MapState.ResultTreasureDisplay, new MapResultTreasureDisplayState());
-		stm.AddState(StateMachineName.Map, (int)MapState.ResultTreasureUserWait, new MapResultTreasureUserWaitState());
-		stm.AddState(StateMachineName.Map, (int)MapState.ResultDetailUpdate, new MapResultDetailUpdateState());
-		stm.AddState(StateMachineName.Map, (int)MapState.ResultChangeDisplay, new MapResultChangeDisplayState());
-		stm.AddState(StateMachineName.Map, (int)MapState.ResultChangeUserWait, new MapResultChangeUserWaitState());
-		stm.AddState(StateMachineName.Map, (int)MapState.ResultChangeResult, new MapResultChangeResultState());
-		stm.AddState(StateMachineName.Map, (int)MapState.ResultEnd, new MapResultEndState());
-		
-		stm.AddState(StateMachineName.Map, (int)MapState.HealInitialize, new MapHealInitializeState());
-		stm.AddState(StateMachineName.Map, (int)MapState.HealDisplay, new MapHealDisplayState());
-		stm.AddState(StateMachineName.Map, (int)MapState.HealUserWait, new MapHealUserWaitState());
-		stm.AddState(StateMachineName.Map, (int)MapState.HealDetailUpdate, new MapHealDetailUpdateState());
-		stm.AddState(StateMachineName.Map, (int)MapState.HealResult, new MapHealResultState());
-		stm.AddState(StateMachineName.Map, (int)MapState.HealEnd, new MapHealEndState());
-		
-		stm.AddState(StateMachineName.Map, (int)MapState.FloorEndCheck, new MapFloorEndCheckState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.ResultInitialize, new MapResultInitializeState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.ResultTreasureDisplay, new MapResultTreasureDisplayState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.ResultTreasureUserWait, new MapResultTreasureUserWaitState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.ResultDetailUpdate, new MapResultDetailUpdateState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.ResultChangeDisplay, new MapResultChangeDisplayState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.ResultChangeUserWait, new MapResultChangeUserWaitState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.ResultChangeResult, new MapResultChangeResultState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.ResultEnd, new MapResultEndState());
+		//
+		//stm.AddState(StateMachineName.Map, (int)MapState.HealInitialize, new MapHealInitializeState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.HealDisplay, new MapHealDisplayState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.HealUserWait, new MapHealUserWaitState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.HealDetailUpdate, new MapHealDetailUpdateState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.HealResult, new MapHealResultState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.HealEnd, new MapHealEndState());
+		//
+		//stm.AddState(StateMachineName.Map, (int)MapState.FloorEndCheck, new MapFloorEndCheckState());
 
-		stm.AddState(StateMachineName.Map, (int)MapState.End, new MapEndState());
+		//stm.AddState(StateMachineName.Map, (int)MapState.End, new MapEndState());
 		
-		stm.ChangeState(StateMachineName.Map, (int)MapState.Initialize);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.Initialize);
 			
 		FadeManager.Instance.FadeOut(FadeManager.Type.Mask, 0.5f, null);
 	}
@@ -203,19 +204,6 @@ public class MapScene : SceneBase
 		}
 	}
 	
-	public void OnClickGoToItemHunt()
-	{
-		// ユーザー入力待機状態でなければ、処理しない
-		var stm = StateMachineManager.Instance;
-		if (stm.GetState(StateMachineName.Map) != (int)MapState.UserWait) {
-			return;
-		}
-
-		MapDataCarrier.Instance.NextSceneName = LocalSceneManager.SceneName.ItemHunt;
-		
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.End);
-	}
-
 	public void OnClickDifficultButton(int index) {
 		int mapIndex = MapDataCarrier.Instance.CurrentMapNumber;
 		Enum.MapType type = MapDataCarrier.Instance.MapTypeList[mapIndex];

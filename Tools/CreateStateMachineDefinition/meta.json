@@ -45,7 +45,6 @@
 		"ResultInitialize",
 		"ResultTreasureDisplay",
 		"ResultTreasureUserWait",
-		"Scene.cs",
 		"UpdateDifficult",
 		"UpdateMap",
 		"UserWait",

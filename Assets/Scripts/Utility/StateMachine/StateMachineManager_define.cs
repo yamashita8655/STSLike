@@ -1,6 +1,7 @@
-﻿/*
+/*
  * @file StateMachineManager_define.cs
  * ステートマシンの種類を記載する定義クラス.
+ * このスクリプトは、Tools/CreateStateMachineDefinition.pyで自動生成されます。
  * @author 山下
  */
 
@@ -12,98 +13,56 @@ using System.Collections;
 /// </summary>
 public enum StateMachineName : int
 {
-	Test,
-	Home,
-	ItemHunt,
-	Equip,
-	Debug,
+	Home = 0,
 	Map,
-	Max,
 };
 
-/// <summary>
-/// </summary>
 public enum HomeState : int
 {
 	Initialize = 0,
 	UserWait,
-	End
-};
+	End,
+}
 
-/// <summary>
-/// </summary>
-public enum MapState : int {
-	Initialize = 0,
-	UpdateMap,
-	UpdateDifficult,
-	UserWait,
-
+public enum MapState : int
+{
+	BattleAttackResult = 0,
+	BattleAttackSelectUserWait,
+	BattleCheck,
+	BattleDiceRoll,
+	BattleDiceRollUserWait,
+	BattleEnd,
+	BattleEnemyAttackResult,
+	BattleEnemyAttack,
+	BattleEnemyTurnEnd,
+	BattleEnemyTurnStart,
+	BattleEnemyValueChange,
 	BattleInitialize,
+	BattleLose,
+	BattlePlayerTurnEnd,
 	BattlePlayerTurnStart,
 	BattleUpdateAttackButtonDisplay,
-	BattleDiceRollUserWait,
-	BattleDiceRoll,
-	BattleAttackSelectUserWait,
-	BattleAttackResult,
 	BattleValueChange,
-	BattleCheck,
-	BattlePlayerTurnEnd,
-	BattleEnemyTurnStart,
-	BattleEnemyAttackResult,
-	BattleEnemyValueChange,
-	BattleEnemyTurnEnd,
 	BattleWin,
-	BattleLose,
-	BattleEnd,
-	
+	FloorEndCheck,
+	HealDetailUpdate,
+	HealDisplay,
+	HealEnd,
+	HealInitialize,
+	HealResult,
+	HealUserWait,
+	Initialize,
+	ResultChangeDisplay,
+	ResultChangeResult,
+	ResultChangeUserWait,
+	ResultDetailUpdate,
+	ResultEnd,
 	ResultInitialize,
 	ResultTreasureDisplay,
 	ResultTreasureUserWait,
-	ResultDetailUpdate,
-	ResultChangeDisplay,
-	ResultChangeUserWait,
-	ResultChangeResult,
-	ResultEnd,
-	
-	HealInitialize,
-	HealDisplay,
-	HealUserWait,
-	HealDetailUpdate,
-	HealResult,
-	HealEnd,
-
-	FloorEndCheck,
-
-	End
-};
-
-/// <summary>
-/// </summary>
-public enum ItemHuntState : int
-{
-	Initialize = 0,
-	SetHuntTimer,
+	UpdateDifficult,
+	UpdateMap,
 	UserWait,
-	LotItemHunt,
-	End
-};
+	End,
+}
 
-/// <summary>
-/// </summary>
-public enum EquipState : int
-{
-	Initialize = 0,
-	UserWait,
-	UpdateInventory,
-	End
-};
-
-/// <summary>
-/// </summary>
-public enum DebugState : int
-{
-	Initialize = 0,
-	UserWait,
-	ReloadGround,
-	End
-};

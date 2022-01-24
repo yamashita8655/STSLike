@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HomeScene : SceneBase
+public partial class HomeScene : SceneBase
 {
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -17,14 +17,9 @@ public class HomeScene : SceneBase
 		HomeDataCarrier.Instance.Scene = this;
 		
 		// ステートマシン
-		StateMachineManager.Instance.Init();
-		var stm = StateMachineManager.Instance;
-		stm.CreateStateMachineMap(StateMachineName.Home);
-		stm.AddState(StateMachineName.Home, (int)HomeState.Initialize, new HomeInitializeState());
-		stm.AddState(StateMachineName.Home, (int)HomeState.UserWait, new HomeUserWaitState());
-		stm.AddState(StateMachineName.Home, (int)HomeState.End, new HomeEndState());
+		InitializeStateMachine();
 		
-		stm.ChangeState(StateMachineName.Home, (int)HomeState.Initialize);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Home, (int)HomeState.Initialize);
 			
 		FadeManager.Instance.FadeIn(0.5f, null);
 	}
