@@ -149,7 +149,6 @@ public class CreateSoundDocumentFromEditor : Editor
 		File.WriteAllText(soundRawMetaPath, soundRawMetaOutput);
 
 		// メタデータを読み込んで、説明テキストデータを作る
-		string soundMeta = "";
 		StreamReader soundSr = new StreamReader(@"Meta/SoundMetaData.txt", Encoding.GetEncoding("UTF-8"));
 		string soundStr = soundSr.ReadToEnd();
 		soundSr.Close();
@@ -162,7 +161,6 @@ public class CreateSoundDocumentFromEditor : Editor
 			soundMetaDict.Add(keys[0], keys[1]);
 		}
 
-		string sceneNameString = "";
 		StreamReader sr = new StreamReader(@"Meta/SceneMetaData.txt", Encoding.GetEncoding("UTF-8"));
 		string str = sr.ReadToEnd();
 		sr.Close();

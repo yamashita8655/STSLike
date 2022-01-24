@@ -27,7 +27,6 @@ public class VimModeInfoWindow : EditorWindow {
 	}
 
 	Vector2 scrollPos = Vector2.zero;
-	int selected = 0;
 	void OnGUI() {
 		//List<string> list = GetSaveFileHistory();
 		//if (list.Count > 0) {

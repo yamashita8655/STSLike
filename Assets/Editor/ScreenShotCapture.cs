@@ -16,8 +16,6 @@ public class CaptureScreenshotFromEditor : Editor
 	[MenuItem("ShortCutCommand/CaptureScreenshot #%F12")]
 	private static void CaptureScreenshot()
 	{
-		// 現在時刻からファイル名を決定
-		var path = EditorApplication.currentScene;
 		//現在読み込まれているシーン数だけループ
 		string sceneName = "";
 		for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCount ; i++) {
@@ -52,7 +50,7 @@ public class CaptureScreenshotFromEditor : Editor
 	private static void CaptureScreenshotNameTime()
 	{
 		// 現在時刻からファイル名を決定
-		var path = EditorApplication.currentScene;
+		//var path = EditorApplication.currentScene;
 		//現在読み込まれているシーン数だけループ
 		string sceneName = "";
 		for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCount ; i++) {

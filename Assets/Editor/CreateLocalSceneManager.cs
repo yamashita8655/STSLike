@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 public class CreateLocalSceneManagerFromEditor : Editor
 {
-	[MenuItem("ShortCutCommand/CreateLocalSceneManagerScript")]
+	/*[MenuItem("ShortCutCommand/CreateLocalSceneManagerScript")]
 	private static void CreateLocalSceneManager()
 	{
 		string sceneNameString = "";
@@ -80,5 +80,5 @@ public class CreateLocalSceneManagerFromEditor : Editor
 
 		string scriptPathAndName = "Assets/Scripts/Manager/LocalSceneManager.cs";
 		File.WriteAllText(scriptPathAndName, output);
-	}
+	}*/
 }

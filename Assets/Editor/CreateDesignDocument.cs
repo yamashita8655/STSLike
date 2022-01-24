@@ -21,58 +21,123 @@ public class CreateDesignDocumentFromEditor : Editor
 		}
 	}
 
-	//[MenuItem("ShortCutCommand/CreateDesignDocument")]
-	//private static void CreateDesignDocument()
-	//{
-	//	// 定数扱いの変数たち
-	//	string imagePath = "Assets/Resources/Image";
+    //[MenuItem("ShortCutCommand/CreateDesignDocument")]
+    //private static void CreateDesignDocument()
+    //{
+    //	// 定数扱いの変数たち
+    //	string imagePath = "Assets/Resources/Image";
 
-	//	// まずは、フォルダリストを取得
-	//	string[] imageFolders = Directory.GetDirectories(imagePath, "*", System.IO.SearchOption.AllDirectories);
+    //	// まずは、フォルダリストを取得
+    //	string[] imageFolders = Directory.GetDirectories(imagePath, "*", System.IO.SearchOption.AllDirectories);
 
-	//	//// TODO
-	//	//for (int i = 0; i < subFolders.Length; i++) {
-	//	//	Debug.Log(subFolders[i]);
-	//	//}
-	//	
-	//	string output = "";
-	//	output += ":lang: ja\n";
-	//	output += ":doctype: book\n";
-	//	output += ":toc: left\n";
-	//	output += ":toclevels: 3\n";
-	//	output += ":toc-title: 目次\n";
-	//	output += ":sectnums:\n";
-	//	output += ":sectnumlevels: 4\n";
-	//	output += ":sectlinks:\n";
-	//	output += "//:imagesdir: ./_images\n";
-	//	output += ":imagesdir: ./img\n";
-	//	output += ":icons: font\n";
-	//	output += ":source-highlighter: coderay\n";
-	//	output += ":example-caption: 例\n";
-	//	output += ":table-caption: 表\n";
-	//	output += ":figure-caption: 図\n";
-	//	output += ":docname: = デザイン資料\n";
-	//	output += ":author: NOA.TEC株式会社\n";
-	//	output += ":revnumber: 0.1\n";
-	//	output += ":revdate: 2020/01/01\n";
-	//	output += ":pdf-fontsdir: ./fonts\n";
-	//	output += ":pdf-style: custom-theme.yml\n";
-	//	output += "= デザイン資料\n";
-	//	output += "== リスト\n";
-	//	output += "[%hardbreaks]\n";
+    //	//// TODO
+    //	//for (int i = 0; i < subFolders.Length; i++) {
+    //	//	Debug.Log(subFolders[i]);
+    //	//}
+    //	
+    //	string output = "";
+    //	output += ":lang: ja\n";
+    //	output += ":doctype: book\n";
+    //	output += ":toc: left\n";
+    //	output += ":toclevels: 3\n";
+    //	output += ":toc-title: 目次\n";
+    //	output += ":sectnums:\n";
+    //	output += ":sectnumlevels: 4\n";
+    //	output += ":sectlinks:\n";
+    //	output += "//:imagesdir: ./_images\n";
+    //	output += ":imagesdir: ./img\n";
+    //	output += ":icons: font\n";
+    //	output += ":source-highlighter: coderay\n";
+    //	output += ":example-caption: 例\n";
+    //	output += ":table-caption: 表\n";
+    //	output += ":figure-caption: 図\n";
+    //	output += ":docname: = デザイン資料\n";
+    //	output += ":author: NOA.TEC株式会社\n";
+    //	output += ":revnumber: 0.1\n";
+    //	output += ":revdate: 2020/01/01\n";
+    //	output += ":pdf-fontsdir: ./fonts\n";
+    //	output += ":pdf-style: custom-theme.yml\n";
+    //	output += "= デザイン資料\n";
+    //	output += "== リスト\n";
+    //	output += "[%hardbreaks]\n";
 
-	//	output = CreateDesignDocumentFromEditor.GetFilePaths(imageFolders, output);
+    //	output = CreateDesignDocumentFromEditor.GetFilePaths(imageFolders, output);
 
-	//	string asciiDocFilePathAndName = "Doc/doc.adoc";
-	//	File.WriteAllText(asciiDocFilePathAndName, output);
+    //	string asciiDocFilePathAndName = "Doc/doc.adoc";
+    //	File.WriteAllText(asciiDocFilePathAndName, output);
 
-	//	// バッチ起動
-	//	var app = new System.Diagnostics.ProcessStartInfo();
-	//	app.FileName = "Doc\\create_pdf_for_unitytools.bat";
-	//	System.Diagnostics.Process.Start(app);
-	//}
-	
-	[MenuItem("ShortCutCommand/CreateDesignDocument")]
+    //	// バッチ起動
+    //	var app = new System.Diagnostics.ProcessStartInfo();
+    //	app.FileName = "Doc\\create_pdf_for_unitytools.bat";
+    //	System.Diagnostics.Process.Start(app);
+    //}
+
+    [MenuItem("ShortCutCommand/CreateDesignDocumentOnlyMeta")]
+    private static void CreateDesignDocumentOnlyMeta()
+    {
+        // 定数扱いの変数たち
+        string imagePath = "Assets/Resources/Image";
+
+        // まずは、フォルダリストを取得
+        string[] imageFolders = Directory.GetDirectories(imagePath, "*", System.IO.SearchOption.AllDirectories);
+
+        string output = "";
+        output += ":lang: ja\n";
+        output += ":doctype: book\n";
+        output += ":toc: left\n";
+        output += ":toclevels: 3\n";
+        output += ":toc-title: 目次\n";
+        output += ":sectnums:\n";
+        output += ":sectnumlevels: 4\n";
+        output += ":sectlinks:\n";
+        output += "//:imagesdir: ./_images\n";
+        output += ":imagesdir: ./img\n";
+        output += ":icons: font\n";
+        output += ":source-highlighter: coderay\n";
+        output += ":example-caption: 例\n";
+        output += ":table-caption: 表\n";
+        output += ":figure-caption: 図\n";
+        output += ":docname: = デザイン資料\n";
+        output += ":author: NOA.TEC株式会社\n";
+        output += ":revnumber: 0.1\n";
+        output += ":revdate: " + System.DateTime.Now.ToString("yyyy/MM/dd") + "\n";
+        output += ":pdf-fontsdir: ./fonts\n";
+        output += ":pdf-style: custom-theme.yml\n";
+        output += "= デザイン資料\n\n";
+
+        // ここから、シーンの大まかな説明
+        output += "== シーン詳細\n\n";
+        StreamReader descSr = new StreamReader(@"Meta/SceneDescriptionMetaData.txt", Encoding.GetEncoding("UTF-8"));
+        string descStr = descSr.ReadToEnd();
+        descSr.Close();
+
+        string[] metaList = descStr.Split('\n');
+
+        for (int i = 0; i < metaList.Length; i++) {
+            string[] keys = metaList[i].Split(':');
+            if (keys[0] == "Title") {
+                output += "\n=== " + keys[1] + "\n\n";
+            } else if (keys[0] == "Image") {
+                output += "image::" + keys[1] + "[name, 150, 100]\n\n";
+            } else if (keys[0] == "Description") {
+                output += (keys[1] + " +\n");
+            } else if (keys[0] == "BlockStart") {
+                output += ("....\n");
+            } else if (keys[0] == "BlockEnd") {
+                output += ("....\n");
+            }
+        }
+
+        string asciiDocFilePathAndName = "Doc/designdoc.adoc";
+        File.WriteAllText(asciiDocFilePathAndName, output);
+
+        // バッチ起動
+        var app = new System.Diagnostics.ProcessStartInfo();
+        app.FileName = "Doc\\create_designpdf_for_unitytools.bat";
+        System.Diagnostics.Process.Start(app);
+    }
+
+    [MenuItem("ShortCutCommand/CreateDesignDocument")]
 	private static void CreateDesignDocument()
 	{
 		// 定数扱いの変数たち
@@ -107,7 +172,6 @@ public class CreateDesignDocumentFromEditor : Editor
 
 		// ここから、シーンの大まかな説明
 		output += "== シーン詳細\n\n";
-		string descriptionMeta = "";
 		StreamReader descSr = new StreamReader(@"Meta/SceneDescriptionMetaData.txt", Encoding.GetEncoding("UTF-8"));
 		string descStr = descSr.ReadToEnd();
 		descSr.Close();
@@ -132,7 +196,6 @@ public class CreateDesignDocumentFromEditor : Editor
 
         dict = CreateDesignDocumentFromEditor.GetFilePaths(imageFolders, dict);
 
-		string sceneNameString = "";
 		StreamReader sr = new StreamReader(@"Meta/SceneMetaData.txt", Encoding.GetEncoding("UTF-8"));
 		string str = sr.ReadToEnd();
 		sr.Close();

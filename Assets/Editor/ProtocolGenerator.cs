@@ -18,7 +18,6 @@ public class ProtocolGenerator : Editor
 		// 定数扱いの変数たち
 		string metaFilePath = "Meta/ProtocolMetaFile.csv";
 		
-		string readString = "";
 		StreamReader descSr = new StreamReader(metaFilePath, Encoding.GetEncoding("UTF-8"));
 		string descStr = descSr.ReadToEnd();
 		descSr.Close();
@@ -248,10 +247,10 @@ public class ProtocolGenerator : Editor
 			}
 			
 			int index = 0;
-			bool recvFind = false;
+//			bool recvFind = false;
 			for (int j = 0; j < paramList.Count; j++) {
 				if (paramList[j] == "recv") {
-					recvFind = true;
+//					recvFind = true;
 					break;
 				}
 				index++;
