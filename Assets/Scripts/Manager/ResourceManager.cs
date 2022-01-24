@@ -14,9 +14,6 @@ using UnityEngine;
 // 
 // シングルトンで使用する必要は無いが、その場合は更新処理をどこかから呼び出す必要がある。
 // キャッシュクリアも、破棄オーダーをリクエストして実行する
-//
-// 注意点としては、このクラスは呼び出し元の存在確認をしないので、
-// リクエストをしている状態で呼び出し元を破棄しないようにする事
 public class ResourceManager : SimpleMonoBehaviourSingleton<ResourceManager>
 {
 	private Loader ResourceLoader = new Loader();
@@ -26,6 +23,7 @@ public class ResourceManager : SimpleMonoBehaviourSingleton<ResourceManager>
 
 	private Dictionary<string, Sprite> SpriteCacheDict = new Dictionary<string, Sprite>();
 	private Dictionary<string, GameObject> GameObjectCacheDict = new Dictionary<string, GameObject>();
+	private Dictionary<string, TextAsset> TextAssetCacheDict = new Dictionary<string, TextAsset>();
 
 	private bool IsExecuteNow = false;
 
@@ -49,7 +47,7 @@ public class ResourceManager : SimpleMonoBehaviourSingleton<ResourceManager>
 	// Update is called once per frame
 	void Update()
 	{
-		if (IsExecuteNow == false) {
+        if (IsExecuteNow == false) {
 			if (LoadOrderList.Count > 0) {
 				CurrentOrder = LoadOrderList[0];
 				LoadOrderList.RemoveAt(0);
@@ -63,7 +61,7 @@ public class ResourceManager : SimpleMonoBehaviourSingleton<ResourceManager>
 			}
 		}
 	}
-
+	
 	private IEnumerator CoExecutionOrder(ExecuteOrder order)
 	{
 		if (order.ExecuteType == ExecuteOrder.Type.Sprite) {
@@ -81,12 +79,11 @@ public class ResourceManager : SimpleMonoBehaviourSingleton<ResourceManager>
 				);
 			}
 
-
 		} else if (order.ExecuteType == ExecuteOrder.Type.GameObject) {
 			GameObject res = null;
 			GameObjectCacheDict.TryGetValue(order.PathAndName, out res);
 			if (res != null) {
-				LoadEndFunction(res);
+                LoadEndFunction(res);
 			} else {
 				yield return ResourceLoader.LoadGameObject(
 					order.PathAndName,
@@ -96,9 +93,38 @@ public class ResourceManager : SimpleMonoBehaviourSingleton<ResourceManager>
 					}
 				);
 			}
+		} else if (order.ExecuteType == ExecuteOrder.Type.AudioClip) {
+			yield return ResourceLoader.LoadAudioClip(
+				order.PathAndName,
+				(audioClip) => {
+					LoadEndFunction(audioClip);
+				}
+			);
+		} else if (order.ExecuteType == ExecuteOrder.Type.AudioMixer) {
+			yield return ResourceLoader.LoadAudioMixer(
+				order.PathAndName,
+				(audioMixer) => {
+					LoadEndFunction(audioMixer);
+				}
+			);
+		} else if (order.ExecuteType == ExecuteOrder.Type.TextAsset) {
+			TextAsset res = null;
+			TextAssetCacheDict.TryGetValue(order.PathAndName, out res);
+			if (res != null) {
+				LoadEndFunction(res);
+			} else {
+				yield return ResourceLoader.LoadTextAsset(
+					order.PathAndName,
+					(textAsset) => {
+						TextAssetCacheDict.Add(CurrentOrder.PathAndName, textAsset as TextAsset);
+						LoadEndFunction(textAsset);
+					}
+				);
+			}
 		} else if (order.ExecuteType == ExecuteOrder.Type.CachClear) {
 			SpriteCacheDict.Clear();
 			GameObjectCacheDict.Clear();
+			TextAssetCacheDict.Clear();
 			IsExecuteNow = false;
 			CurrentOrder.EndCallback(null);
 			CurrentOrder = null;
@@ -107,18 +133,18 @@ public class ResourceManager : SimpleMonoBehaviourSingleton<ResourceManager>
 
 	private void LoadEndFunction(UnityEngine.Object obj)
 	{
-        if (CurrentOrder.TargetObject != null) {
-            if (CurrentOrder.TargetObject.ToString() != "null") {
-                CurrentOrder.EndCallback(obj);
-            }
-        }
+		if (CurrentOrder.TargetObject != null) {
+			if (CurrentOrder.TargetObject.ToString() != "null") {
+				CurrentOrder.EndCallback(obj);
+			}
+		}
 		IsExecuteNow = false;
 		CurrentOrder = null;
-	}
+    }
 
 
-	// デバッグ用処理なので、不要であれば削除する事
-	public int GetSpriteCount()
+    // デバッグ用処理なので、不要であれば削除する事
+    public int GetSpriteCount()
 	{
 		return SpriteCacheDict.Count;
 	}
@@ -134,19 +160,22 @@ public class ExecuteOrder {
 	public enum Type {
 		Sprite,
 		GameObject,
-		CachClear,
+		AudioClip,
+        AudioMixer,
+		TextAsset,
+        CachClear,
 	};
 
 	public string PathAndName { get; private set; }
 	public Type ExecuteType { get; private set; }
-    public GameObject TargetObject { get; private set; }
-    public Action<UnityEngine.Object> EndCallback { get; private set; }
+	public GameObject TargetObject { get; private set; }
+	public Action<UnityEngine.Object> EndCallback { get; private set; }
 
-    public ExecuteOrder(string pathAndName, Type executeType, GameObject targetObject, Action<UnityEngine.Object> endCallback)
+	public ExecuteOrder(string pathAndName, Type executeType, GameObject targetObject, Action<UnityEngine.Object> endCallback)
 	{
 		PathAndName = pathAndName;
 		ExecuteType = executeType;
-        TargetObject = targetObject;
-        EndCallback = endCallback;
+		TargetObject = targetObject;
+		EndCallback = endCallback;
 	}
 }

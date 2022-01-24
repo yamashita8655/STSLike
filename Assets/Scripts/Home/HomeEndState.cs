@@ -18,7 +18,7 @@ public class HomeEndState : StateBase {
     /// <param name="delta">経過時間</param>
     override public void OnUpdateMain(float delta)
     {
-		FadeManager.Instance.FadeIn(FadeManager.Type.Mask, 0.5f, () => {
+		FadeManager.Instance.FadeOut(FadeManager.Type.Mask, 0.5f, () => {
 			LocalSceneManager.Instance.LoadScene(HomeDataCarrier.Instance.NextSceneName, null);
 		});
     }

@@ -1,30 +1,53 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DebugController : MonoBehaviour
 {
+    [SerializeField]
+    private Text DebugText = null;
+
+    [SerializeField]
+    private GameObject LogObject = null;
+
+    private int LogIndex = 1;
+
+    public void Initialize()
+    {
+        DebugManager.Instance.CloseDebug();
+        LogObject.SetActive(false);
+    }
+
 	public void OnClickOpenButton()
 	{
-		SystemDialogManager.Instance.OpenDebug();
+		DebugManager.Instance.OpenDebug();
 	}
 
 	public void OnClickCloseButton()
 	{
-		SystemDialogManager.Instance.CloseDebug();
+        DebugManager.Instance.CloseDebug();
 	}
 
-    public void OnClickCurrectStateDisplay()
+    public void OnClickOpenLogButton()
     {
-        Debug.Log("Next:" + StateMachineManager.Instance.GetNextState(StateMachineName.Map));
-        Debug.Log("Current:" + StateMachineManager.Instance.GetState(StateMachineName.Map));
-        Debug.Log("Prev:" + StateMachineManager.Instance.GetPrevState(StateMachineName.Map));
+        LogObject.SetActive(true);
+    }
 
-        string output = "";
-        var history = StateMachineManager.Instance.GetHistory(StateMachineName.Map);
-        for (int i = 0; i < history.Count; i++) {
-            output += history[i];
-        }
-        Debug.Log("History:" + output);
+    public void OnClickCloseLogButton()
+    {
+        LogObject.SetActive(false);
+    }
+    
+	public void OnClickClearLogButton()
+    {
+        DebugText.text = "";
+    }
+
+    public void UpdateDebugLog(string addText)
+    {
+        // TODO 文字数が15000文字だかを超えると、エラーが出るので、念頭に入れておくこと
+        DebugText.text += LogIndex + ":" + addText + "\n";
+        LogIndex++;
     }
 }

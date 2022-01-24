@@ -26,7 +26,7 @@ public class HomeScene : SceneBase
 		
 		stm.ChangeState(StateMachineName.Home, (int)HomeState.Initialize);
 			
-		FadeManager.Instance.FadeOut(FadeManager.Type.Mask, 0.5f, null);
+		FadeManager.Instance.FadeIn(0.5f, null);
 	}
 
 	// Update is called once per frame

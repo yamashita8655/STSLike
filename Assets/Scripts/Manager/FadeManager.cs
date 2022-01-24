@@ -8,6 +8,7 @@ public class FadeManager : BestPracticeSingleton<FadeManager> {
 	public enum Type {
 		Simple = 0,
 		Mask,
+		None,
 	};
 
 	[SerializeField]
@@ -15,6 +16,8 @@ public class FadeManager : BestPracticeSingleton<FadeManager> {
 	
 	[SerializeField]
 	private FadeControllerScript CuSimpleFadeController = null;
+
+	private Type CurrentFadeType = Type.None;
 	
 	public void Initialize() {
 		// ここのチェックは、開発中だけでいい
@@ -30,20 +33,26 @@ public class FadeManager : BestPracticeSingleton<FadeManager> {
 		CuSimpleFadeController.Initialize();
 	}
 
-	public void FadeIn(Type type, float time, Action callback)
+	public void FadeIn(float time, Action callback)
 	{
-		if (type == Type.Simple) {
+		if (CurrentFadeType == Type.None) {
+			LogManager.Instance.LogError("FadeManager Call Error : Fade Statue in None");
+			return;
+		}
+
+		if (CurrentFadeType == Type.Simple) {
 			CuSimpleFadeController.FadeIn(time, callback);
-		} else if (type == Type.Mask) {
+		} else if (CurrentFadeType == Type.Mask) {
 			CuMaskFadeController.FadeIn(time, callback);
 		}
 	}
 
 	public void FadeOut(Type type, float time, Action callback)
 	{
-		if (type == Type.Simple) {
+		CurrentFadeType = type;
+		if (CurrentFadeType == Type.Simple) {
 			CuSimpleFadeController.FadeOut(time, callback);
-		} else if (type == Type.Mask) {
+		} else if (CurrentFadeType == Type.Mask) {
 			CuMaskFadeController.FadeOut(time, callback);
 		}
 	}

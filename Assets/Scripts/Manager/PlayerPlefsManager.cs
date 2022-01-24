@@ -6,20 +6,26 @@ using UnityEngine.UI;
 
 public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManager> {
 	public enum SaveType {
-		UniqueIdIndex,
-		HuntedItemList,
-		Inventory,
+		UserId,
 		Money,
+		Inventory,
+		BgmVolume,
+		BgmMute,
+		SeVolume,
+		SeMute,
 		Max,
 		None
 	};
 	
 	// 定義用。これプログラム中で編集しちゃダメ。Readonlyにしたいけど、リストの初期化が多分無理
 	private List<string> SaveKeyList = new List<string>(){
-		"UniqueIdIndex",
-		"HuntedItemList",
-		"Inventory",
+		"UserId",
 		"Money",
+		"Inventory",
+		"BgmVolume",
+		"BgmMute",
+		"SeVolume",
+		"SeMute",
 	};
 	
 	public void Initialize() {
@@ -33,10 +39,16 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 			bool res = PlayerPrefs.HasKey(key);
 			if (res == false) {
 				string saveString = "";
-				if (i == (int)SaveType.UniqueIdIndex) {
-					saveString = "1";
-				} else if (i == (int)SaveType.Money) {
+				if (i == (int)SaveType.Money) {
 					saveString = "0";
+				} else if (i == (int)SaveType.BgmVolume) {
+					saveString = "50";
+				} else if (i == (int)SaveType.BgmMute) {
+					saveString = "False";
+				} else if (i == (int)SaveType.SeVolume) {
+					saveString = "50";
+				} else if (i == (int)SaveType.SeMute) {
+					saveString = "False";
 				}
 				PlayerPrefs.SetString(key, saveString);
 			}
@@ -56,14 +68,18 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		return flag;
 	}
 
-	// ここから下は、プロジェクト依存処理
-	// コピペする時は、消す事
-	public void SaveMoney(int money) {
-		PlayerPrefsManager.Instance.SaveParameter(SaveType.Money, money.ToString());
+	public float GetVolume(SaveType saveType)
+	{
+		string saveString = GetParameter(saveType);
+		float volume = float.Parse(saveString);
+		return volume / 100.0f;
 	}
-	
-	public string GetMoney() {
-		return PlayerPrefsManager.Instance.GetParameter(SaveType.Money);
+
+	public bool GetIsMute(SaveType saveType)
+	{
+		string saveString = GetParameter(saveType);
+		bool isMute = bool.Parse(saveString);
+		return isMute;
 	}
 }
 

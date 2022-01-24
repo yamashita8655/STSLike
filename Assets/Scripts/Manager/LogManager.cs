@@ -10,5 +10,17 @@ public class LogManager : SimpleSingleton<LogManager> {
 	{
 		UnityEngine.Debug.Log(message);
 	}
+
+    [Conditional("UNITY_EDITOR")]
+    public void LogError(object message)
+    {
+        UnityEngine.Debug.LogError(message);
+    }
+    
+	[Conditional("UNITY_EDITOR")]
+    public void LogWarning(object message)
+    {
+        UnityEngine.Debug.LogWarning(message);
+    }
 }
 

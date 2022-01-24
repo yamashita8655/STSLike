@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// メタ定義
+// https://docs.google.com/spreadsheets/d/19oJDmTBKROGmlnr3FL5fEOQqKmXiCVT5D_9RzttXnQg/edit#gid=0
 public class NetworkManager : SimpleMonoBehaviourSingleton<NetworkManager>
 {
 	private NetworkSystem CuNetworkSystem = null;
