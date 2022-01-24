@@ -74,4 +74,124 @@ public class Functions
 		}
 		return day;
 	}
+
+	// ひらがなかどうかチェック
+	static public bool IsHirakana(char str)
+	{
+		if (str >= '\u3040' && str <= '\u309F')
+		{
+			return true;
+        }
+        else
+        {
+			return false;
+        }
+	}
+
+	//カタカナかどうか
+	static public bool IsKatakana(char str)
+    {
+		if (str >= '\u30A0' && str <= '\u30FF')
+		{
+			return true;
+        }
+        else
+        {
+			return false;
+        }
+	}
+
+	//漢字かどうか
+	static public bool IsKanji(char str)
+    {
+		if (str >= '\u4E00' && str <= '\u9FFF')
+		{
+			return true;
+        }
+        else
+        {
+			return false;
+        }
+	}
+
+	//半角小文字英語かどうか
+	static public bool IsLowerAlphabetSingleByte(char str)
+    {
+		if (str >= 'a' && str <= 'z')
+		{
+			return true;
+        }
+        else
+        {
+			return false;
+        }
+	}
+
+
+	//半角大文字英語かどうか
+	static public bool IsUpperAlphabetSingleByte(char str)
+    {
+		if (str >= 'A' && str <= 'Z')
+		{
+			return true;
+        }
+        else
+        {
+			return false;
+        }
+	}
+
+	//全角小文字英語かどうか
+	static public bool IsLowerAlphabetMultiByte(char str)
+    {
+		if (str >= 'ａ' && str <= 'ｚ')
+		{
+			return true;
+        }
+        else
+        {
+			return false;
+        }
+	}
+
+
+	//全角大文字英語かどうか
+	static public bool IsUpperAlphabetMultiByte(char str)
+    {
+		if(str >= 'Ａ' && str <= 'Ｚ')
+		{
+			return true;
+        }
+        else
+        {
+			return false;
+        }
+	}
+
+
+	//半角数字かどうか
+	static public bool IsNumberSingleByte(char str)
+    {
+		if (str >= '0' && str <= '9')
+		{
+			return true;
+        }
+        else
+        {
+			return false;
+        }
+	}
+
+	//全角数字かどうか
+	static public bool IsNumberMultiByte(char str)
+    {
+		if (str >= '０' && str <= '９')
+		{
+			return true;
+        }
+        else
+        {
+			return false;
+        }
+	}
 }

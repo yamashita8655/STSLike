@@ -31,7 +31,7 @@ public class FadeControllerScript : MonoBehaviour
 		CuFadeObjectBase.UpdateFade(0f);
 		gameObject.SetActive(false);
 	}
-	public void FadeIn(float time, Action callback, float waitTime = 0.5f) {
+	public void FadeOut(float time, Action callback, float waitTime = 0.5f) {
 		if (NowState != State.None) {
 			return;
 		}
@@ -48,7 +48,7 @@ public class FadeControllerScript : MonoBehaviour
 		gameObject.SetActive(true);
 	}
 
-	public void FadeOut(float time, Action callback) {
+	public void FadeIn(float time, Action callback) {
 		if (NowState != State.None) {
 			return;
 		}

@@ -12,10 +12,10 @@ public class EntryPoint : MonoBehaviour {
 		// Boot以外から呼び出された時対策
 		DontDestroyOnLoad(this);
 
-		//ResourceManager.Instance.Initialize();
-		//SerializeFieldResourceManager.Instance.Initialize();
-		//SoundManager.Instance.Initialize();
-		//PlayerPrefsManager.Instance.Initialize();
+		// TODO リリース時は無効化する？
+		Application.logMessageReceived += HandleLog;
+
+		Application.targetFrameRate = 60;
 
 		StartCoroutine(CoInitialize());
 		
@@ -37,37 +37,65 @@ public class EntryPoint : MonoBehaviour {
 		yield return null;
 		// TODO どのシーンから起動されても、最初はBootシーンを起動する
 		SceneManager.LoadScene("Boot", LoadSceneMode.Single);
-		
+		yield return null;
+		//SerializeFieldResourceManager.Instance.Initialize();
+
+        yield return null;
+
+        yield return SoundManager.Instance.CoInitialize();
+
+        LocalSceneManager.Instance.Initialize();
 		yield return null;
 
-		LocalSceneManager.Instance.Initialize();
-		yield return null;
-
-		//NetworkManager.Instance.Initialize();
+		NetworkManager.Instance.Initialize();
 		ResourceManager.Instance.Initialize();
-		SerializeFieldResourceManager.Instance.Initialize();
-		SoundManager.Instance.Initialize();
 		PlayerPrefsManager.Instance.Initialize();
 		FadeManager.Instance.Initialize();
 		SystemDialogManager.Instance.Initialize();
+		DebugManager.Instance.Initialize();
 
 		// マスターデータ読み込み
-		MasterEnemyTable.Instance.Initialize();
-		MasterActionTable.Instance.Initialize();
-		MasterHealTable.Instance.Initialize();
-		//MasterCharacterModelTable.Instance.Initialize();
-		//MasterMapPlaceTable.Instance.Initialize();
-		//MasterMapChipTable.Instance.Initialize();
-		//MasterEventPlaceTable.Instance.Initialize();
+		MasterTextTable.Instance.Initialize();
 
 		// 色々
-		PlayerDataManager.Instance.Initialize();
 		LocalServerManager.Instance.Initialize();
+		// フェードアウトをしておかないと、背景が見えるので、
+		// ここで最初のフェードアウトだけしておく
+		FadeManager.Instance.FadeOut(
+			FadeManager.Type.Simple,
+			0.01f,
+			() => {
+				LocalSceneManager.Instance.LoadScene(LocalSceneManager.Instance.GetFirstSceneName(), null);
+			}
+		);
 
-		LocalSceneManager.Instance.LoadScene(LocalSceneManager.Instance.GetFirstSceneName(), null);
+		//PlayerPrefsManager playerPrefsManager = PlayerPrefsManager.Instance;
+		//SoundManager soundManager = SoundManager.Instance;
+		//// サウンドの初期設定
+		//soundManager.SetBgmVolume(playerPrefsManager.GetVolume(PlayerPrefsManager.SaveType.BgmVolume));
+		//soundManager.SetBgmMuteFlag(playerPrefsManager.GetIsMute(PlayerPrefsManager.SaveType.BgmMute));
+		//soundManager.SetSeVolume(playerPrefsManager.GetVolume(PlayerPrefsManager.SaveType.SeVolume));
+		//soundManager.SetSeMuteFlag(playerPrefsManager.GetIsMute(PlayerPrefsManager.SaveType.SeMute));
+
+		// TODO Bootで行う処理が無くなったので、破棄してみる
+		SceneManager.UnloadSceneAsync("Boot");
 
         EntryPoint.IsInitialized = true;
 	}
+
+	private void HandleLog(string condition, string stackTrace, LogType type)
+	{
+        // 全てのログやExeptionを検知しているときりがないので、
+        // Exeptionのみを検知するようにし、一度検知したら、それ以後は正常に動かない物として、検知をやめる
+        if (type == LogType.Exception) {
+            if (EntryPoint.IsInitialized == true) {
+                DebugManager.Instance.UpdateDebugLog(condition);
+                DebugManager.Instance.UpdateDebugLog(stackTrace);
+                DebugManager.Instance.UpdateDebugLog(type.ToString());
+                Application.logMessageReceived -= HandleLog;
+            }
+        }
+    }
 
 	//// Use this for initialization
 	//void Awake () {
