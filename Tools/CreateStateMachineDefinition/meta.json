@@ -1,0 +1,18 @@
+{
+	"StateMachineName":[
+		"Home",
+		"Game"
+	],
+	
+	"Home":[
+		"Initialize",
+		"UserWait",
+		"End"
+	],
+
+	"Game":[
+		"Initialize",
+		"UserWait",
+		"End"
+	]
+}
