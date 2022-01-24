@@ -48,4 +48,33 @@ public class Enum : MonoBehaviour {
         Heal,
 		Max
 	};
+	
+	public enum EffectType {
+        None,
+        Damage,
+        Shield,
+        Heal,
+		Max
+	};
+	
+	public enum TargetType {
+        None,
+        Self,
+		Opponent,
+		Max
+	};
+	
+	public enum TimingType {
+        None,
+		BattleStart,
+		TurnStart,
+		BeforeAdd,
+		Add,
+		AfterAdd,
+		TurnEnd,
+		SelfDeath,
+		OpponentDeath,
+		BattleEnd,
+		Max
+	};
 }
