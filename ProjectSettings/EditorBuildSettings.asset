@@ -27,12 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Debug/Debug.unity
     guid: a9f99ff46eebdfc4783cfe405ce44a47
   - enabled: 1
-    path: Assets/Scenes/ItemHunt/ItemHunt.unity
-    guid: fce1139bfb06bdd4bb76bc6460bd4c98
-  - enabled: 1
-    path: Assets/Scenes/Equip/Equip.unity
-    guid: 961ff76e75ab3de4f85dbdf57d058ae2
-  - enabled: 1
     path: Assets/Scenes/Map/Map.unity
     guid: 2f652a36e61bbe943960b4bddbbac1af
+  - enabled: 1
+    path: Assets/Scenes/Debug/ImageProccess.unity
+    guid: a814cc4683cb3524abd97fe84b65cd97
   m_configObjects: {}
