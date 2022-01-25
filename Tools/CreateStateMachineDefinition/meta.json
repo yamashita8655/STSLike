@@ -16,7 +16,7 @@
 		"UserWait",
 		"End"
 	],
-
+	
 	"Map":[
 		"BattleAttackResult",
 		"BattleAttackSelectUserWait",

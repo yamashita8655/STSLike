@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManager> {
 	public enum SaveType {
-		UserId,
-		Money,
-		Inventory,
 		BgmVolume,
 		BgmMute,
 		SeVolume,
@@ -19,9 +16,6 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	
 	// 定義用。これプログラム中で編集しちゃダメ。Readonlyにしたいけど、リストの初期化が多分無理
 	private List<string> SaveKeyList = new List<string>(){
-		"UserId",
-		"Money",
-		"Inventory",
 		"BgmVolume",
 		"BgmMute",
 		"SeVolume",
@@ -39,9 +33,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 			bool res = PlayerPrefs.HasKey(key);
 			if (res == false) {
 				string saveString = "";
-				if (i == (int)SaveType.Money) {
-					saveString = "0";
-				} else if (i == (int)SaveType.BgmVolume) {
+				if (i == (int)SaveType.BgmVolume) {
 					saveString = "50";
 				} else if (i == (int)SaveType.BgmMute) {
 					saveString = "False";
@@ -68,16 +60,30 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		return flag;
 	}
 
-	public float GetVolume(SaveType saveType)
+	public int GetBgmVolume()
 	{
-		string saveString = GetParameter(saveType);
-		float volume = float.Parse(saveString);
-		return volume / 100.0f;
+		string saveString = GetParameter(SaveType.BgmVolume);
+		int volume = int.Parse(saveString);
+		return volume;
 	}
 
-	public bool GetIsMute(SaveType saveType)
+	public bool GetBgmIsMute()
 	{
-		string saveString = GetParameter(saveType);
+		string saveString = GetParameter(SaveType.BgmMute);
+		bool isMute = bool.Parse(saveString);
+		return isMute;
+	}
+	
+	public int GetSeVolume()
+	{
+		string saveString = GetParameter(SaveType.SeVolume);
+		int volume = int.Parse(saveString);
+		return volume;
+	}
+
+	public bool GetSeIsMute()
+	{
+		string saveString = GetParameter(SaveType.SeMute);
 		bool isMute = bool.Parse(saveString);
 		return isMute;
 	}

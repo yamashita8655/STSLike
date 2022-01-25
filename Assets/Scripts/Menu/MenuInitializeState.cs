@@ -10,6 +10,19 @@ public class MenuInitializeState : StateBase {
     /// </summary>
     override public bool OnBeforeMain()
     {
+		var scene = MenuDataCarrier.Instance.Scene as MenuScene;
+
+		scene.OptionRoot.SetActive(false);
+		// BGMに関する設定
+		scene.MBgmSlider.value = PlayerPrefsManager.Instance.GetBgmVolume();
+		scene.MBgmToggle.isOn = PlayerPrefsManager.Instance.GetBgmIsMute();
+		scene.UpdateBgmVolumeText();
+
+		// SEに関する設定
+		scene.MSeSlider.value = PlayerPrefsManager.Instance.GetSeVolume();
+		scene.MSeToggle.isOn = PlayerPrefsManager.Instance.GetSeIsMute();
+		scene.UpdateSeVolumeText();
+
 		return false;
     }
 
@@ -19,6 +32,7 @@ public class MenuInitializeState : StateBase {
     /// <param name="delta">経過時間</param>
     override public void OnUpdateMain(float delta)
     {
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.UserWait);
     }
 
     /// <summary>
