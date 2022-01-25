@@ -6,6 +6,16 @@ using UnityEngine.UI;
 
 public partial class MenuScene : SceneBase
 {
+	// ↓↓ダンジョンメニュー↓↓
+	[SerializeField]
+	private GameObject SFDungeonRoot = null;
+	public GameObject DungeonRoot => SFDungeonRoot;
+
+	[SerializeField]
+	private GameObject SFDungeonContent = null;
+	public GameObject DungeonContent => SFDungeonContent;
+	// ↑↑ダンジョンメニュー↑↑
+
 	// ↓↓オプションメニュー↓↓
 	[SerializeField]
 	private GameObject SFOptionRoot = null;
@@ -84,7 +94,39 @@ public partial class MenuScene : SceneBase
 		}
 		OptionRoot.SetActive(true);
 	}
+	
+	public void OnClickDungeonButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+			return;
+		}
+		DungeonRoot.SetActive(true);
+	}
 	// ↑↑メニュー機能↑↑
+
+	// ↓↓ダンジョン機能↓↓
+	public void OnClickDungeonListButtonCallback(MasterDungeonTable.Data data) {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+			return;
+		}
+
+		// ここで、表示内容更新
+	}
+	
+	public void OnClickDungeonStartButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+			return;
+		}
+
+		MenuDataCarrier.Instance.NextSceneName = LocalSceneManager.SceneName.Map;
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.End);
+	}
+	// ↑↑ダンジョン機能↑↑
 
 	// ↓↓オプション機能↓↓
 	public void OnClickOptionCloseButton() {

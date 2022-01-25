@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MenuInitializeState : StateBase {
 
+	private readonly string DungeonButtonPath = "Prefab/UI/DungeonButton";
+
     /// <summary>
     /// メイン前処理.
     /// 戻り値は、同一フレーム内で次の処理に移行してよければfalse、1フレーム飛ばして欲しい場合はfalse.
@@ -13,6 +15,8 @@ public class MenuInitializeState : StateBase {
 		var scene = MenuDataCarrier.Instance.Scene as MenuScene;
 
 		scene.OptionRoot.SetActive(false);
+		scene.DungeonRoot.SetActive(false);
+
 		// BGMに関する設定
 		scene.MBgmSlider.value = PlayerPrefsManager.Instance.GetBgmVolume();
 		scene.MBgmToggle.isOn = PlayerPrefsManager.Instance.GetBgmIsMute();
@@ -22,6 +26,25 @@ public class MenuInitializeState : StateBase {
 		scene.MSeSlider.value = PlayerPrefsManager.Instance.GetSeVolume();
 		scene.MSeToggle.isOn = PlayerPrefsManager.Instance.GetSeIsMute();
 		scene.UpdateSeVolumeText();
+
+		// Dungeonの初期化
+		ResourceManager.Instance.RequestExecuteOrder(
+			DungeonButtonPath,
+			ExecuteOrder.Type.GameObject,
+			scene.gameObject,
+			(rawobj) => {
+				var dict = MasterDungeonTable.Instance.GetCloneDict();
+				foreach (var data in dict) {
+					GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
+					obj.transform.SetParent(scene.DungeonContent.transform);
+					obj.transform.localPosition = Vector3.zero;
+					obj.transform.localScale = Vector3.one;
+
+					obj.GetComponent<DungeonButtonController>().Initialize(data.Value, scene.OnClickDungeonListButtonCallback);
+
+				}
+			}
+		);
 
 		return false;
     }

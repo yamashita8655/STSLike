@@ -61,6 +61,7 @@ public class EntryPoint : MonoBehaviour {
 		MasterEnemyTable.Instance.Initialize();
 		MasterEquipItemDataTable.Instance.Initialize();
 		MasterHealTable.Instance.Initialize();
+		MasterDungeonTable.Instance.Initialize();
 
 		// 色々
 		LocalServerManager.Instance.Initialize();
