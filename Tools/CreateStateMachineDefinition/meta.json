@@ -1,10 +1,17 @@
 {
 	"StateMachineName":[
 		"Home",
-		"Map"
+		"Map",
+		"Menu"
 	],
 	
 	"Home":[
+		"Initialize",
+		"UserWait",
+		"End"
+	],
+	
+	"Menu":[
 		"Initialize",
 		"UserWait",
 		"End"

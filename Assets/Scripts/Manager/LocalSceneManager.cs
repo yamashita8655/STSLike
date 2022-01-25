@@ -9,6 +9,7 @@ public class LocalSceneManager : SimpleMonoBehaviourSingleton<LocalSceneManager>
 	private List<string> SceneNameList = new List<string>() {
 		"Home",
 		"Map",
+		"Menu",
 		"Fade",
 		"SystemDialog",
 		"Debug",
@@ -18,6 +19,7 @@ public class LocalSceneManager : SimpleMonoBehaviourSingleton<LocalSceneManager>
 	public enum SceneName : int {
 		Home = 0,
 		Map,
+		Menu,
 		Fade,
 		SystemDialog,
 		Debug,
@@ -26,7 +28,7 @@ public class LocalSceneManager : SimpleMonoBehaviourSingleton<LocalSceneManager>
 	};
 
 	// 初回起動のシーン指定なので、実装中は、ここを作業中のシーンに変えてください
-	private SceneName FirstSceneName = SceneName.Map;
+	private SceneName FirstSceneName = SceneName.Menu;
 
 	private SceneName CurrentSceneName = SceneName.None;
 	

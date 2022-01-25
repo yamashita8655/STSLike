@@ -15,6 +15,7 @@ public enum StateMachineName : int
 {
 	Home = 0,
 	Map,
+	Menu,
 };
 
 public enum HomeState : int
@@ -62,6 +63,13 @@ public enum MapState : int
 	ResultTreasureUserWait,
 	UpdateDifficult,
 	UpdateMap,
+	UserWait,
+	End,
+}
+
+public enum MenuState : int
+{
+	Initialize = 0,
 	UserWait,
 	End,
 }

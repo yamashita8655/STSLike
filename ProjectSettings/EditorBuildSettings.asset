@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Debug/ImageProccess.unity
     guid: a814cc4683cb3524abd97fe84b65cd97
+  - enabled: 1
+    path: Assets/Scenes/Menu/Menu.unity
+    guid: 8741ed9bb790e7d418230ea07bfde24c
   m_configObjects: {}
