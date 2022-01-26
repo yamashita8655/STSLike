@@ -9,6 +9,7 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 		public string Name { get; private set; }
 		public int Hp { get; private set; }
 		public int MHp { get; private set; }
+		public string ImagePath { get; private set; }
 		public int ActionType { get; private set; }
 		public int ActionId1 { get; private set; }
 		public int ActionId2 { get; private set; }
@@ -19,6 +20,7 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 			string name,
 			int hp,
 			int mHp,
+			string imagePath,
 			int actionType,
 			int actionId1,
 			int actionId2,
@@ -29,6 +31,7 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 			Name		= name;
 			Hp			= hp;
 			MHp			= mHp;
+			ImagePath	= imagePath;
 			ActionType	= actionType;
 			ActionId1	= actionId1;
 			ActionId2 	= actionId2;
@@ -62,10 +65,11 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 				paramList[1],
 				int.Parse(paramList[2]),
 				int.Parse(paramList[3]),
-				int.Parse(paramList[4]),
+				paramList[4],
 				int.Parse(paramList[5]),
 				int.Parse(paramList[6]),
-				int.Parse(paramList[7])
+				int.Parse(paramList[7]),
+				int.Parse(paramList[8])
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);

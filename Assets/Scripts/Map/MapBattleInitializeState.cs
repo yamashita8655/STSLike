@@ -47,6 +47,16 @@ public class MapBattleInitializeState : StateBase {
 		scene.EnemyMaxHpText.text = data.MHp.ToString();
 		scene.EnemyNameText.text = data.Name;
 
+		// TODO 本当は、読み込み待ちした方が良い
+		ResourceManager.Instance.RequestExecuteOrder(
+			"Image/Map/Enemy/" + data.ImagePath,
+			ExecuteOrder.Type.Sprite,
+			scene.gameObject,
+			(spriteObj) => {
+				scene.EnemyImage.sprite = spriteObj as Sprite;
+			}
+		);
+
 		// TODO とりあえず、敵の行動はここで一回決め打ちして動かさない
 		scene.EnemyActionText.text = actionData.Name;
 		scene.EnemyActionValueText.text = actionData.Value1.ToString();

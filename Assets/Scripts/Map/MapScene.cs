@@ -125,6 +125,10 @@ public partial class MapScene : SceneBase
 	[SerializeField]
 	private Text CuEnemyShieldText = null;
 	public Text EnemyShieldText => CuEnemyShieldText;
+	
+	[SerializeField]
+	private Image CuEnemyImage = null;
+	public Image EnemyImage => CuEnemyImage;
 
 	// Start is called before the first frame update
 	IEnumerator Start() {

@@ -4494,7 +4494,7 @@ MonoBehaviour:
   SFDungeonName: {fileID: 711366099}
   SFDungeonDetail: {fileID: 1703550283}
   SFDungeonStartButton: {fileID: 259185779}
-  SFDungeonFloorCount: {fileID: 0}
+  SFDungeonFloorCount: {fileID: 1372317890}
   SFOptionRoot: {fileID: 7618105426122237358}
   SFBgmToggle: {fileID: 9143026978399060838}
   SFSeToggle: {fileID: 781769551685327282}
