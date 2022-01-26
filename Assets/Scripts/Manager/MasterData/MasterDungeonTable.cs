@@ -8,12 +8,14 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 		public string Id { get; private set; }
 		public string Name { get; private set; }
 		public string Detail { get; private set; }
+		public int FloorCount { get; private set; }
 
-		public Data(string id, string name, string detail)
+		public Data(string id, string name, string detail, int floorCount)
 		{
 			Id = id;
 			Name = name;
 			Detail = detail;
+			FloorCount = floorCount;
 		}
 	};
 
@@ -40,7 +42,7 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 				continue;
 			}
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
-			Data data = new Data(paramList[0], paramList[1], paramList[2]);
+			Data data = new Data(paramList[0], paramList[1], paramList[2], int.Parse(paramList[3]));
 
 			DataDict.Add(paramList[0], data);
 		}

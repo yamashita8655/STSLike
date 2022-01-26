@@ -37,7 +37,7 @@ public class MapInitializeState : StateBase {
 		//status.SetActionData(5, data);
 		// TODO 初期装備は、テストの為色々変えている
 		status.SetActionData(0, MasterActionTable.Instance.GetData(1));
-		status.SetActionData(1, MasterActionTable.Instance.GetData(17));
+		status.SetActionData(1, MasterActionTable.Instance.GetData(2));
 		status.SetActionData(2, MasterActionTable.Instance.GetData(18));
 		status.SetActionData(3, MasterActionTable.Instance.GetData(19));
 		status.SetActionData(4, MasterActionTable.Instance.GetData(20));
@@ -50,7 +50,7 @@ public class MapInitializeState : StateBase {
 		scene.PlayerMaxHpText.text = status.GetMaxHp().ToString();
 
 		// TODO フロア設定
-		MapDataCarrier.Instance.MaxFloor = 5;
+		MapDataCarrier.Instance.MaxFloor = MapDataCarrier.Instance.DungeonData.FloorCount;
 		MapDataCarrier.Instance.NowFloor = 1;
 
 		scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();

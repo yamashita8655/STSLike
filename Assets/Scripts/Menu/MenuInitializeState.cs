@@ -48,6 +48,7 @@ public class MenuInitializeState : StateBase {
 
 		scene.DungeonName.text = "";
 		scene.DungeonDetail.text = "";
+		scene.DungeonFloorCount.text = "";
 		scene.DungeonStartButton.SetActive(false);
 
 		return false;

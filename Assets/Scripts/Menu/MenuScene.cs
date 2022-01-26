@@ -26,6 +26,10 @@ public partial class MenuScene : SceneBase
 	[SerializeField]
 	private GameObject SFDungeonStartButton = null;
 	public GameObject DungeonStartButton => SFDungeonStartButton;
+	
+	[SerializeField]
+	private Text SFDungeonFloorCount = null;
+	public Text DungeonFloorCount => SFDungeonFloorCount;
 	// ↑↑ダンジョンメニュー↑↑
 
 	// ↓↓オプションメニュー↓↓
@@ -130,6 +134,7 @@ public partial class MenuScene : SceneBase
 		// ここで、表示内容更新
 		SFDungeonName.text = data.Name;
 		SFDungeonDetail.text = data.Detail;
+		SFDungeonFloorCount.text = string.Format("{0}階層", data.FloorCount.ToString());
 		SFDungeonStartButton.SetActive(true);
 	}
 	

@@ -39,6 +39,8 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public int EnemyContinuousCount = 0;
 	public int EnemyMaxContinuousCount = 0;
 
+	public MasterDungeonTable.Data DungeonData { get; set; }
+
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
 		MapTypeList = new List<Enum.MapType>();
@@ -46,6 +48,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		DiceValueList = new List<int>();
 		TreasureList = new List<MasterActionTable.Data>();
 		HealList = new List<MasterHealTable.Data>();
+		DungeonData = null;
 	}
 
 	public void Release() {

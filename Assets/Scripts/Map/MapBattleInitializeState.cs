@@ -29,7 +29,8 @@ public class MapBattleInitializeState : StateBase {
 
 		// 敵出現
 		// TODO ID決め打ち
-		int enemyId = 3;
+		//int enemyId = 3;
+		int enemyId = 2;
 		MasterEnemyTable.Data data = MasterEnemyTable.Instance.GetData(enemyId);
 		EnemyStatus enemy = new EnemyStatus();
 		enemy.SetMaxHp(data.MHp);
