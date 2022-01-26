@@ -10636,6 +10636,7 @@ MonoBehaviour:
   CuHealDecideButton: {fileID: 926687067}
   CuPlayerShieldText: {fileID: 9308782}
   CuEnemyShieldText: {fileID: 1159244820}
+  CuEnemyImage: {fileID: 442001911}
 --- !u!1 &1935611020
 GameObject:
   m_ObjectHideFlags: 0
