@@ -872,7 +872,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 259185782}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1923284095}
+        m_TargetAssemblyTypeName: MenuScene, Assembly-CSharp
+        m_MethodName: OnClickDungeonStartButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &259185782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4399,6 +4411,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SFDungeonRoot: {fileID: 1188095301}
   SFDungeonContent: {fileID: 985132679}
+  SFDungeonName: {fileID: 711366099}
+  SFDungeonDetail: {fileID: 1703550283}
+  SFDungeonStartButton: {fileID: 259185779}
   SFOptionRoot: {fileID: 7618105426122237358}
   SFBgmToggle: {fileID: 9143026978399060838}
   SFSeToggle: {fileID: 781769551685327282}

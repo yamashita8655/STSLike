@@ -46,6 +46,10 @@ public class MenuInitializeState : StateBase {
 			}
 		);
 
+		scene.DungeonName.text = "";
+		scene.DungeonDetail.text = "";
+		scene.DungeonStartButton.SetActive(false);
+
 		return false;
     }
 

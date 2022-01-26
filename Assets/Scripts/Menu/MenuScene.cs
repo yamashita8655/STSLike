@@ -14,6 +14,18 @@ public partial class MenuScene : SceneBase
 	[SerializeField]
 	private GameObject SFDungeonContent = null;
 	public GameObject DungeonContent => SFDungeonContent;
+	
+	[SerializeField]
+	private Text SFDungeonName = null;
+	public Text DungeonName => SFDungeonName;
+	
+	[SerializeField]
+	private Text SFDungeonDetail = null;
+	public Text DungeonDetail => SFDungeonDetail;
+	
+	[SerializeField]
+	private GameObject SFDungeonStartButton = null;
+	public GameObject DungeonStartButton => SFDungeonStartButton;
 	// ↑↑ダンジョンメニュー↑↑
 
 	// ↓↓オプションメニュー↓↓
@@ -113,7 +125,12 @@ public partial class MenuScene : SceneBase
 			return;
 		}
 
+		MenuDataCarrier.Instance.DungeonData = data;
+
 		// ここで、表示内容更新
+		SFDungeonName.text = data.Name;
+		SFDungeonDetail.text = data.Detail;
+		SFDungeonStartButton.SetActive(true);
 	}
 	
 	public void OnClickDungeonStartButton() {
@@ -124,6 +141,10 @@ public partial class MenuScene : SceneBase
 		}
 
 		MenuDataCarrier.Instance.NextSceneName = LocalSceneManager.SceneName.Map;
+		MenuData data = new MenuData();
+		data.Data = MenuDataCarrier.Instance.DungeonData;
+		MenuDataCarrier.Instance.Data = (SceneDataBase)data;
+
 		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.End);
 	}
 	// ↑↑ダンジョン機能↑↑

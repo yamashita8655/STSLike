@@ -19,6 +19,9 @@ public class MenuEndState : StateBase {
     /// <param name="delta">経過時間</param>
     override public void OnUpdateMain(float delta)
     {
+        FadeManager.Instance.FadeOut(FadeManager.Type.Mask, 0.5f, () => {
+			LocalSceneManager.Instance.LoadScene(MenuDataCarrier.Instance.NextSceneName, MenuDataCarrier.Instance.Data);
+        });
     }
 
     /// <summary>

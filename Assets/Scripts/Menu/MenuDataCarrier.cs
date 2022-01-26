@@ -10,9 +10,12 @@ public class MenuDataCarrier : SimpleMonoBehaviourSingleton<MenuDataCarrier> {
 	public LocalSceneManager.SceneName NextSceneName { get; set; }
 
 	public SceneDataBase Data { get; set; }
+
+	public MasterDungeonTable.Data DungeonData { get; set; }
 	
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
+		DungeonData = null;
 	}
 
 	public void Release() {
