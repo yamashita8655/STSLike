@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class MapUpdateMapState : StateBase {
 
-	private readonly int EnemyRatio = 250;
-	private readonly int EliteRatio = 250;
-	private readonly int TreasureRatio = 250;
-	private readonly int HealRatio = 250;
+	//private readonly int EnemyRatio = 250;
+	//private readonly int EliteRatio = 250;
+	//private readonly int TreasureRatio = 250;
+	//private readonly int HealRatio = 250;
+	private readonly int EnemyRatio = 1000;
+	private readonly int EliteRatio = 0;
+	private readonly int TreasureRatio = 0;
+	private readonly int HealRatio = 0;
 
 	/// <summary>
 	/// メイン前処理.

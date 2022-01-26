@@ -30,7 +30,7 @@ public class MapBattleInitializeState : StateBase {
 		// 敵出現
 		// TODO ID決め打ち
 		//int enemyId = 3;
-		int enemyId = 2;
+		int enemyId = LotEnemyId();
 		MasterEnemyTable.Data data = MasterEnemyTable.Instance.GetData(enemyId);
 		EnemyStatus enemy = new EnemyStatus();
 		enemy.SetMaxHp(data.MHp);
@@ -62,6 +62,54 @@ public class MapBattleInitializeState : StateBase {
 		scene.EnemyActionValueText.text = actionData.Value1.ToString();
 
 		return true;
+	}
+
+	private int LotEnemyId() {
+		int enemyId = 0;
+
+		// 今の階層から、使用する抽選IDを取得
+		int nowFloor = MapDataCarrier.Instance.NowFloor;
+		int lotId = 0;
+		MasterDungeonTable.Data dungeonData = MapDataCarrier.Instance.DungeonData;
+		var lotFloors = dungeonData.LotFloors;
+		var enemyLotIds = dungeonData.EnemyLotIds;
+		for (int i = 0; i < lotFloors.Count; i++) {
+			if (nowFloor <= lotFloors[i]) {
+				lotId = enemyLotIds[i];
+				break;
+			}
+		}
+
+		Debug.Log("lotId:" + lotId);
+
+		// 抽選番号から、敵のIDを抽選
+		MasterEnemyLotTable.Data enemyLotData = MasterEnemyLotTable.Instance.GetData(lotId);
+		int allWeight = 0;
+		for (int i = 0; i < enemyLotData.LotWeights.Count; i++) {
+			allWeight += enemyLotData.LotWeights[i];
+		}
+		
+		Debug.Log("allWeight:" + allWeight);
+
+
+		int weight = UnityEngine.Random.Range(0, allWeight+1);
+		Debug.Log("weight:" + weight);
+
+		int startWeight = 0;
+		int endWeight = enemyLotData.LotWeights[0]-1;
+		for (int i = 0; i < enemyLotData.LotWeights.Count; i++) {
+			Debug.Log("startWeight:" + startWeight);
+			Debug.Log("endWeight:" + endWeight);
+			if ((startWeight < weight) && (weight < endWeight)) {
+				enemyId = enemyLotData.EnemyIds[i];
+				break;
+			}
+
+			startWeight = endWeight+1;
+			endWeight = startWeight + enemyLotData.LotWeights[i+1]-1;
+		}
+
+		return enemyId;
 	}
 
 	/// <summary>

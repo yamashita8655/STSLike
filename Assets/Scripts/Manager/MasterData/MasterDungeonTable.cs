@@ -9,13 +9,24 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 		public string Name { get; private set; }
 		public string Detail { get; private set; }
 		public int FloorCount { get; private set; }
+		public List<int> EnemyLotIds { get; private set; }
+		public List<int> LotFloors { get; private set; }
 
-		public Data(string id, string name, string detail, int floorCount)
+		public Data(
+			string id,
+			string name,
+			string detail,
+			int floorCount,
+			List<int> enemyLotIds,
+			List<int> lotFloors
+		)
 		{
 			Id = id;
 			Name = name;
 			Detail = detail;
 			FloorCount = floorCount;
+			EnemyLotIds = enemyLotIds;
+			LotFloors = lotFloors;
 		}
 	};
 
@@ -36,13 +47,35 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 		List<string> lineList = Functions.SplitString(text, split);
 
 		char[] split2 = { ',' };
+		char[] split3 = { '-' };
 		// 1行目はメタデータなので、読み飛ばす
 		for (int i = 1; i < lineList.Count; i++) {
 			if (string.IsNullOrEmpty(lineList[i])) {
 				continue;
 			}
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
-			Data data = new Data(paramList[0], paramList[1], paramList[2], int.Parse(paramList[3]));
+
+			List<string> enemyLotIdString = Functions.SplitString(paramList[4], split3);
+			List<string> lotFloorString = Functions.SplitString(paramList[5], split3);
+
+			List<int> enemyLotIds = new List<int>();
+			for (int i2 = 0; i2 < enemyLotIdString.Count; i2++) {
+				enemyLotIds.Add(int.Parse(enemyLotIdString[i2]));
+			}
+			
+			List<int> lotFloors = new List<int>();
+			for (int i2 = 0; i2 < lotFloorString.Count; i2++) {
+				lotFloors.Add(int.Parse(lotFloorString[i2]));
+			}
+
+			Data data = new Data(
+				paramList[0],
+				paramList[1],
+				paramList[2],
+				int.Parse(paramList[3]),
+				enemyLotIds,
+				lotFloors
+			);
 
 			DataDict.Add(paramList[0], data);
 		}

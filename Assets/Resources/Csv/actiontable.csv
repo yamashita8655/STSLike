@@ -27,5 +27,5 @@ id,rarity,name,cosp,type1,value1,value2
 1002,1,敵の超殴る,1,AddDamage,15,0
 1003,1,敵の連打,1,ContinuousDamage,5,4
 1004,1,敵の回復,1,Heal,20,0
-1005,1,敵のシールド,1,AddShield,20,0
+1005,1,敵のシールド,1,AddShield,5,0
 9999,1,デバッグ0ダメ,1,AddDamage,0,0
