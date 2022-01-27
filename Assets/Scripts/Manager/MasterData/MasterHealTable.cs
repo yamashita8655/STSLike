@@ -7,13 +7,13 @@ public class MasterHealTable : SimpleSingleton<MasterHealTable>
 	public class Data {
 		public int Id { get; private set; }
 		public string Name { get; private set; }
-		public Enum.HealType Type1 { get; private set; }
+		public EnumSelf.HealType Type1 { get; private set; }
 		public int Value1 { get; private set; }
 
         public Data(
 			int id,
 			string name,
-			Enum.HealType type1,
+			EnumSelf.HealType type1,
 			int value1
 		)
 		{
@@ -45,7 +45,7 @@ public class MasterHealTable : SimpleSingleton<MasterHealTable>
 		for (int i = 1; i < lineList.Count; i++) {
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
 
-			Enum.HealType type1 = GetHealType(paramList[2]);
+			EnumSelf.HealType type1 = GetHealType(paramList[2]);
 
 			Data data = new Data(
 				int.Parse(paramList[0]),
@@ -58,11 +58,11 @@ public class MasterHealTable : SimpleSingleton<MasterHealTable>
 		}
 	}
 
-	private Enum.HealType GetHealType(string typeString) {
-		Enum.HealType type = Enum.HealType.None;
+	private EnumSelf.HealType GetHealType(string typeString) {
+		EnumSelf.HealType type = EnumSelf.HealType.None;
 
 		if (typeString == "Heal") {
-			type = Enum.HealType.Heal;
+			type = EnumSelf.HealType.Heal;
 		}
 
 		return type;

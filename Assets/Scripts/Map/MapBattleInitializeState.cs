@@ -69,14 +69,24 @@ public class MapBattleInitializeState : StateBase {
 
 		// 今の階層から、使用する抽選IDを取得
 		int nowFloor = MapDataCarrier.Instance.NowFloor;
+		int maxFloor = MapDataCarrier.Instance.MaxFloor;
 		int lotId = 0;
+
+
 		MasterDungeonTable.Data dungeonData = MapDataCarrier.Instance.DungeonData;
-		var lotFloors = dungeonData.LotFloors;
-		var enemyLotIds = dungeonData.EnemyLotIds;
-		for (int i = 0; i < lotFloors.Count; i++) {
-			if (nowFloor <= lotFloors[i]) {
-				lotId = enemyLotIds[i];
-				break;
+
+
+		if (nowFloor == maxFloor) {
+			// 最後の部屋なら、ボスの抽選IDを使う
+			lotId = dungeonData.BossLotId;
+		} else {
+			var lotFloors = dungeonData.LotFloors;
+			var enemyLotIds = dungeonData.EnemyLotIds;
+			for (int i = 0; i < lotFloors.Count; i++) {
+				if (nowFloor <= lotFloors[i]) {
+					lotId = enemyLotIds[i];
+					break;
+				}
 			}
 		}
 
@@ -92,7 +102,7 @@ public class MapBattleInitializeState : StateBase {
 		Debug.Log("allWeight:" + allWeight);
 
 
-		int weight = UnityEngine.Random.Range(0, allWeight+1);
+		int weight = UnityEngine.Random.Range(0, allWeight);
 		Debug.Log("weight:" + weight);
 
 		int startWeight = 0;
@@ -100,7 +110,7 @@ public class MapBattleInitializeState : StateBase {
 		for (int i = 0; i < enemyLotData.LotWeights.Count; i++) {
 			Debug.Log("startWeight:" + startWeight);
 			Debug.Log("endWeight:" + endWeight);
-			if ((startWeight < weight) && (weight < endWeight)) {
+			if ((startWeight <= weight) && (weight <= endWeight)) {
 				enemyId = enemyLotData.EnemyIds[i];
 				break;
 			}

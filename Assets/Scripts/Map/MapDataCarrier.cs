@@ -10,7 +10,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public LocalSceneManager.SceneName NextSceneName { get; set; }
 
 	public int CurrentMapNumber = 0;
-	public List<Enum.MapType> MapTypeList = null;
+	public List<EnumSelf.MapType> MapTypeList = null;
 	
 	public List<int> HandDifficultList = null;
 	
@@ -43,7 +43,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
-		MapTypeList = new List<Enum.MapType>();
+		MapTypeList = new List<EnumSelf.MapType>();
 		HandDifficultList = new List<int>();
 		DiceValueList = new List<int>();
 		TreasureList = new List<MasterActionTable.Data>();

@@ -26,7 +26,7 @@ public class MapUpdateMapState : StateBase {
 				MapDataCarrier.Instance.NowFloor = 1;
 				// 初回は、3つ生成する
 				for (int i = 0; i < 3; i++) {
-					Enum.MapType type = LotteryMapType();
+					EnumSelf.MapType type = LotteryMapType();
 					MapDataCarrier.Instance.MapTypeList.Add(type);
 				}
 			} else {
@@ -35,7 +35,7 @@ public class MapUpdateMapState : StateBase {
 				// マップは、最初に3個分作っているので、
 				// 2引いた値で上限チェックする
 				if (MapDataCarrier.Instance.NowFloor <= (MapDataCarrier.Instance.MaxFloor-2)) {
-					Enum.MapType type = LotteryMapType();
+					EnumSelf.MapType type = LotteryMapType();
 					MapDataCarrier.Instance.MapTypeList.Add(type);
 				}
 			}
@@ -82,34 +82,42 @@ public class MapUpdateMapState : StateBase {
 		return false;
 	}
 
-	private Enum.MapType LotteryMapType() {
-		int seedEnd = (EnemyRatio + EliteRatio + TreasureRatio + HealRatio);
-		int seed = UnityEngine.Random.Range(0, seedEnd);
-		Enum.MapType type = Enum.MapType.Max;
+	private EnumSelf.MapType LotteryMapType() {
 
-		int startBorder = 0;
-		int endBorder = EnemyRatio;
+		EnumSelf.MapType type = EnumSelf.MapType.Max;
 
-		if (startBorder <= seed && seed < endBorder) {
-			type = Enum.MapType.Enemy;
-		}
+		// 最後の部屋だったら、強制的にボスになる
+		// 部屋を追加する時点では、2つ前の部屋が選択されている状態なので、MaxFloorは-2している。
+		if (MapDataCarrier.Instance.NowFloor == (MapDataCarrier.Instance.MaxFloor-2)) {
+			type = EnumSelf.MapType.Boss;
+		} else {
+			int seedEnd = (EnemyRatio + EliteRatio + TreasureRatio + HealRatio);
+			int seed = UnityEngine.Random.Range(0, seedEnd);
 
-		startBorder = endBorder;
-		endBorder += EliteRatio;
-		if (startBorder <= seed && seed < endBorder) {
-			type = Enum.MapType.Elite;
-		}
-		
-		startBorder = endBorder;
-		endBorder += TreasureRatio;
-		if (startBorder <= seed && seed < endBorder) {
-			type = Enum.MapType.Treasure;
-		}
-		
-		startBorder = endBorder;
-		endBorder += HealRatio;
-		if (startBorder <= seed && seed < endBorder) {
-			type = Enum.MapType.Heal;
+			int startBorder = 0;
+			int endBorder = EnemyRatio;
+
+			if (startBorder <= seed && seed < endBorder) {
+				type = EnumSelf.MapType.Enemy;
+			}
+
+			startBorder = endBorder;
+			endBorder += EliteRatio;
+			if (startBorder <= seed && seed < endBorder) {
+				type = EnumSelf.MapType.Elite;
+			}
+			
+			startBorder = endBorder;
+			endBorder += TreasureRatio;
+			if (startBorder <= seed && seed < endBorder) {
+				type = EnumSelf.MapType.Treasure;
+			}
+			
+			startBorder = endBorder;
+			endBorder += HealRatio;
+			if (startBorder <= seed && seed < endBorder) {
+				type = EnumSelf.MapType.Heal;
+			}
 		}
 
 		return type;

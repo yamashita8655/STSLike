@@ -8,7 +8,7 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 		public int Id { get; private set; }
 		public int Rarity { get; private set; }
 		public string Name { get; private set; }
-		public Enum.ActionType Type1 { get; private set; }
+		public EnumSelf.ActionType Type1 { get; private set; }
 		public int Value1 { get; private set; }
 		public int Value2 { get; private set; }
 
@@ -16,7 +16,7 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 			int id,
 			int rarity,
 			string name,
-			Enum.ActionType type1,
+			EnumSelf.ActionType type1,
 			int value1,
 			int value2
 		)
@@ -51,7 +51,7 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 		for (int i = 1; i < lineList.Count; i++) {
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
 
-			Enum.ActionType type1 = GetActionType(paramList[4]);
+			EnumSelf.ActionType type1 = GetActionType(paramList[4]);
 
 			Data data = new Data(
 				int.Parse(paramList[0]),
@@ -66,17 +66,17 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 		}
 	}
 
-	private Enum.ActionType GetActionType(string typeString) {
-		Enum.ActionType type = Enum.ActionType.None;
+	private EnumSelf.ActionType GetActionType(string typeString) {
+		EnumSelf.ActionType type = EnumSelf.ActionType.None;
 
 		if (typeString == "AddDamage") {
-			type = Enum.ActionType.AddDamage;
+			type = EnumSelf.ActionType.AddDamage;
 		} else if (typeString == "ContinuousDamage") {
-			type = Enum.ActionType.ContinuousDamage;
+			type = EnumSelf.ActionType.ContinuousDamage;
 		} else if (typeString == "Heal") {
-			type = Enum.ActionType.Heal;
+			type = EnumSelf.ActionType.Heal;
 		} else if (typeString == "AddShield") {
-			type = Enum.ActionType.AddShield;
+			type = EnumSelf.ActionType.AddShield;
 		}
 
 		return type;

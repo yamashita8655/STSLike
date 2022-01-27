@@ -52,10 +52,10 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 				if (paramList[index] == "NONE") {
 					break;
 				}
-				Enum.EffectType effect = GetEffectType(paramList[index]);
-				Enum.TargetType target = GetTargetType(paramList[index+1]);
+				EnumSelf.EffectType effect = GetEffectType(paramList[index]);
+				EnumSelf.TargetType target = GetTargetType(paramList[index+1]);
 				int value = int.Parse(paramList[index+2]);
-				Enum.TimingType timing = GetTimingType(paramList[index+3]);
+				EnumSelf.TimingType timing = GetTimingType(paramList[index+3]);
 
 				ActionPack pack = new ActionPack(effect, target, value, timing);
 
@@ -75,53 +75,53 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 		}
 	}
 
-	private Enum.EffectType GetEffectType(string typeString) {
-		Enum.EffectType type = Enum.EffectType.None;
+	private EnumSelf.EffectType GetEffectType(string typeString) {
+		EnumSelf.EffectType type = EnumSelf.EffectType.None;
 
 		if (typeString == "Damage") {
-			type = Enum.EffectType.Damage;
+			type = EnumSelf.EffectType.Damage;
 		} else if (typeString == "Shield") {
-			type = Enum.EffectType.Shield;
+			type = EnumSelf.EffectType.Shield;
 		} else if (typeString == "Heal") {
-			type = Enum.EffectType.Heal;
+			type = EnumSelf.EffectType.Heal;
 		}
 
 		return type;
 	}
 	
-	private Enum.TargetType GetTargetType(string typeString) {
-		Enum.TargetType type = Enum.TargetType.None;
+	private EnumSelf.TargetType GetTargetType(string typeString) {
+		EnumSelf.TargetType type = EnumSelf.TargetType.None;
 
 		if (typeString == "Self") {
-			type = Enum.TargetType.Self;
+			type = EnumSelf.TargetType.Self;
 		} else if (typeString == "Opponent") {
-			type = Enum.TargetType.Opponent;
+			type = EnumSelf.TargetType.Opponent;
 		}
 
 		return type;
 	}
 	
-	private Enum.TimingType GetTimingType(string typeString) {
-		Enum.TimingType type = Enum.TimingType.None;
+	private EnumSelf.TimingType GetTimingType(string typeString) {
+		EnumSelf.TimingType type = EnumSelf.TimingType.None;
 		
 		if (typeString == "BattleStart") {
-			type = Enum.TimingType.BattleStart;
+			type = EnumSelf.TimingType.BattleStart;
 		} else if (typeString == "TurnStart") {
-			type = Enum.TimingType.TurnStart;
+			type = EnumSelf.TimingType.TurnStart;
 		} else if (typeString == "BeforeAdd") {
-			type = Enum.TimingType.BeforeAdd;
+			type = EnumSelf.TimingType.BeforeAdd;
 		} else if (typeString == "Add") {
-			type = Enum.TimingType.Add;
+			type = EnumSelf.TimingType.Add;
 		} else if (typeString == "AfterAdd") {
-			type = Enum.TimingType.AfterAdd;
+			type = EnumSelf.TimingType.AfterAdd;
 		} else if (typeString == "TurnEnd") {
-			type = Enum.TimingType.TurnEnd;
+			type = EnumSelf.TimingType.TurnEnd;
 		} else if (typeString == "SelfDeath") {
-			type = Enum.TimingType.SelfDeath;
+			type = EnumSelf.TimingType.SelfDeath;
 		} else if (typeString == "OpponentDeath") {
-			type = Enum.TimingType.OpponentDeath;
+			type = EnumSelf.TimingType.OpponentDeath;
 		} else if (typeString == "BattleEnd") {
-			type = Enum.TimingType.BattleEnd;
+			type = EnumSelf.TimingType.BattleEnd;
 		}
 
 		return type;
@@ -138,16 +138,16 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 }
 
 public class ActionPack {
-	public Enum.EffectType Effect { get; private set; }
-	public Enum.TargetType Target { get; private set; }
+	public EnumSelf.EffectType Effect { get; private set; }
+	public EnumSelf.TargetType Target { get; private set; }
 	public int Value { get; private set; }
-	public Enum.TimingType Timing { get; private set; }
+	public EnumSelf.TimingType Timing { get; private set; }
 
 	public ActionPack(
-		Enum.EffectType effect,
-		Enum.TargetType target,
+		EnumSelf.EffectType effect,
+		EnumSelf.TargetType target,
 		int value,
-		Enum.TimingType timing
+		EnumSelf.TimingType timing
 	) {
 		Effect = effect;
 		Target = target;

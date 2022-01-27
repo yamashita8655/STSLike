@@ -168,12 +168,12 @@ public partial class MapScene : SceneBase
 	
 	public void OnClickDifficultButton(int index) {
 		int mapIndex = MapDataCarrier.Instance.CurrentMapNumber;
-		Enum.MapType type = MapDataCarrier.Instance.MapTypeList[mapIndex];
+		EnumSelf.MapType type = MapDataCarrier.Instance.MapTypeList[mapIndex];
 		MapDataCarrier.Instance.CurrentMapNumber++;
 		MapDataCarrier.Instance.HandDifficultList[index] = -1;
 		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
 
-		if (type == Enum.MapType.Heal) {
+		if (type == EnumSelf.MapType.Heal) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealInitialize);
 		} else {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleInitialize);

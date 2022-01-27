@@ -20,7 +20,7 @@ public class MapBattleEnemyAttackResultState : StateBase {
 		
 		// 数値の初期化などはここで一度行い、実際の数値の増減ループは
 		// ValueChange-BattleCheck間で行う
-		if (data.Type1 == Enum.ActionType.ContinuousDamage) {
+		if (data.Type1 == EnumSelf.ActionType.ContinuousDamage) {
 			MapDataCarrier.Instance.EnemyMaxContinuousCount = data.Value2;
 		}
 

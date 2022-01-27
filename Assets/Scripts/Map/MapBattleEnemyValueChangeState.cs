@@ -15,14 +15,14 @@ public class MapBattleEnemyValueChangeState : StateBase {
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
 		MasterActionTable.Data data = enemy.GetActionData();
 
-		if (data.Type1 == Enum.ActionType.AddDamage) {
+		if (data.Type1 == EnumSelf.ActionType.AddDamage) {
 			CalcDamageNormalDamage(data);
-		} else if (data.Type1 == Enum.ActionType.ContinuousDamage) {
+		} else if (data.Type1 == EnumSelf.ActionType.ContinuousDamage) {
 			CalcDamageNormalDamage(data);
 			MapDataCarrier.Instance.EnemyContinuousCount++;
-		} else if (data.Type1 == Enum.ActionType.Heal) {
+		} else if (data.Type1 == EnumSelf.ActionType.Heal) {
 			MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(data.Value1);
-		} else if (data.Type1 == Enum.ActionType.AddShield) {
+		} else if (data.Type1 == EnumSelf.ActionType.AddShield) {
 			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(data.Value1);
 		}
 

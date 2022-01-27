@@ -38,8 +38,8 @@ public class MapInitializeState : StateBase {
 		// TODO 初期装備は、テストの為色々変えている
 		status.SetActionData(0, MasterActionTable.Instance.GetData(1));
 		status.SetActionData(1, MasterActionTable.Instance.GetData(2));
-		status.SetActionData(2, MasterActionTable.Instance.GetData(18));
-		status.SetActionData(3, MasterActionTable.Instance.GetData(19));
+		status.SetActionData(2, MasterActionTable.Instance.GetData(11));
+		status.SetActionData(3, MasterActionTable.Instance.GetData(11));
 		status.SetActionData(4, MasterActionTable.Instance.GetData(20));
 		status.SetActionData(5, MasterActionTable.Instance.GetData(21));
 
