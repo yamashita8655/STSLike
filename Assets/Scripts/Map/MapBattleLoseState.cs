@@ -27,7 +27,7 @@ public class MapBattleLoseState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnd);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.DungeonResultDisplay);
 	}
 
 	/// <summary>

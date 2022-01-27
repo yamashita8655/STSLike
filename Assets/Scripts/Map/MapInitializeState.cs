@@ -17,6 +17,7 @@ public class MapInitializeState : StateBase {
 		scene.ChangeRoot.SetActive(false);
 		scene.HealRoot.SetActive(false);
 		scene.MapRoot.SetActive(true);
+		scene.DungeonResultRoot.SetActive(false);
 
 		MapDataCarrier.Instance.HandDifficultList.Clear();
 		for (int i = 0; i < scene.DifficultImages.Length; i++) {
@@ -55,6 +56,8 @@ public class MapInitializeState : StateBase {
 
 		scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();
 		scene.MaxFloorText.text = MapDataCarrier.Instance.MaxFloor.ToString();
+
+		MapDataCarrier.Instance.IsClear = false;
 
 		return true;
 	}

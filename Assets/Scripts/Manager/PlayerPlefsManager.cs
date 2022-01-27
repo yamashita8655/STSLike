@@ -10,6 +10,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		BgmMute,
 		SeVolume,
 		SeMute,
+		Point,
 		Max,
 		None
 	};
@@ -20,6 +21,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"BgmMute",
 		"SeVolume",
 		"SeMute",
+		"Point",
 	};
 	
 	public void Initialize() {
@@ -41,6 +43,8 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 					saveString = "50";
 				} else if (i == (int)SaveType.SeMute) {
 					saveString = "False";
+				} else if (i == (int)SaveType.Point) {
+					saveString = "0";
 				}
 				PlayerPrefs.SetString(key, saveString);
 			}
@@ -86,6 +90,19 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		string saveString = GetParameter(SaveType.SeMute);
 		bool isMute = bool.Parse(saveString);
 		return isMute;
+	}
+	
+	public int GetPoint()
+	{
+		string saveString = GetParameter(SaveType.Point);
+		int point = int.Parse(saveString);
+		return point;
+	}
+	
+	public void SavePoint(int val)
+	{
+		string saveString = val.ToString();
+		SaveParameter(SaveType.Point, saveString);
 	}
 }
 

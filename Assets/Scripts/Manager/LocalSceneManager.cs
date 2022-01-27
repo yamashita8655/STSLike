@@ -28,7 +28,7 @@ public class LocalSceneManager : SimpleMonoBehaviourSingleton<LocalSceneManager>
 	};
 
 	// 初回起動のシーン指定なので、実装中は、ここを作業中のシーンに変えてください
-	private SceneName FirstSceneName = SceneName.Menu;
+	private SceneName FirstSceneName = SceneName.Home;
 
 	private SceneName CurrentSceneName = SceneName.None;
 	

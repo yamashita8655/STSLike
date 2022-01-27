@@ -47,7 +47,7 @@ public partial class HomeScene : SceneBase
 			return;
 		}
 
-		HomeDataCarrier.Instance.NextSceneName = LocalSceneManager.SceneName.Map;
+		HomeDataCarrier.Instance.NextSceneName = LocalSceneManager.SceneName.Menu;
 		
 		StateMachineManager.Instance.ChangeState(StateMachineName.Home, (int)HomeState.End);
 	}

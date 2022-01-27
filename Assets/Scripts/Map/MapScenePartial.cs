@@ -49,6 +49,7 @@ public partial class MapScene : SceneBase
 		stm.AddState(StateMachineName.Map, (int)MapState.UpdateDifficult, new MapUpdateDifficultState());
 		stm.AddState(StateMachineName.Map, (int)MapState.UpdateMap, new MapUpdateMapState());
 		stm.AddState(StateMachineName.Map, (int)MapState.UserWait, new MapUserWaitState());
+		stm.AddState(StateMachineName.Map, (int)MapState.DungeonResultDisplay, new MapDungeonResultDisplayState());
 		stm.AddState(StateMachineName.Map, (int)MapState.End, new MapEndState());
 
 	}

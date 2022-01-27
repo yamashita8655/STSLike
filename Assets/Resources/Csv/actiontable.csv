@@ -29,3 +29,4 @@ id,rarity,name,cosp,type1,value1,value2
 1004,1,敵の回復,1,Heal,20,0
 1005,1,敵のシールド,1,AddShield,5,0
 9999,1,デバッグ0ダメ,1,AddDamage,0,0
+9998,1,デバッグ999ダメ,1,AddDamage,999,0

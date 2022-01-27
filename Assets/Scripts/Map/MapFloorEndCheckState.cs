@@ -22,7 +22,9 @@ public class MapFloorEndCheckState : StateBase {
 	override public void OnUpdateMain(float delta)
 	{
 		if (MapDataCarrier.Instance.NowFloor == MapDataCarrier.Instance.MaxFloor) {
-			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.End);
+			//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.End);
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.DungeonResultDisplay);
+			MapDataCarrier.Instance.IsClear = true;
 		} else {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
 		}

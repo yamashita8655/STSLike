@@ -64,6 +64,7 @@ public enum MapState : int
 	UpdateDifficult,
 	UpdateMap,
 	UserWait,
+	DungeonResultDisplay,
 	End,
 }
 

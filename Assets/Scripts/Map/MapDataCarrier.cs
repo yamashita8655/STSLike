@@ -40,6 +40,8 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public int EnemyMaxContinuousCount = 0;
 
 	public MasterDungeonTable.Data DungeonData { get; set; }
+	
+	public bool IsClear { get; set; }
 
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;

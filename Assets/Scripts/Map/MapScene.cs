@@ -129,7 +129,36 @@ public partial class MapScene : SceneBase
 	[SerializeField]
 	private Image CuEnemyImage = null;
 	public Image EnemyImage => CuEnemyImage;
-
+	
+	// ダンジョンリザルト関係
+	[SerializeField]
+	private GameObject CuDungeonResultRoot = null;
+	public GameObject DungeonResultRoot => CuDungeonResultRoot;
+	
+	[SerializeField]
+	private Text CuResultText = null;
+	public Text ResultText => CuResultText;
+	
+	[SerializeField]
+	private Text CuCurrentPointLabel = null;
+	public Text CurrentPointLabel => CuCurrentPointLabel;
+	
+	[SerializeField]
+	private Text CuGetPointLabel = null;
+	public Text GetPointLabel => CuGetPointLabel;
+	
+	[SerializeField]
+	private Text CuCurrentPointText = null;
+	public Text CurrentPointText => CuCurrentPointText;
+	
+	[SerializeField]
+	private Text CuGetPointText = null;
+	public Text GetPointText => CuGetPointText;
+	
+	[SerializeField]
+	private GameObject CuAdmobButton = null;
+	public GameObject AdmobButton => CuAdmobButton;
+	
 	// Start is called before the first frame update
 	IEnumerator Start() {
 		while (EntryPoint.IsInitialized == false) {
@@ -288,6 +317,28 @@ public partial class MapScene : SceneBase
 			return;
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealResult);
+	}
+	
+	// リザルト処理
+	public void OnClickDungeonResultCloseButton() {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
+			return;
+		}
+
+		MapDataCarrier.Instance.NextSceneName = LocalSceneManager.SceneName.Menu;
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.End);
+	}
+	
+	public void OnClickDungeonResultAdmobButton() {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
+			return;
+		}
+
+		LogManager.Instance.Log("Admob");
 	}
 
 	public void UpdateParameterText() {

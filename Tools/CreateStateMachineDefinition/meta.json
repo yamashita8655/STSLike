@@ -55,6 +55,7 @@
 		"UpdateDifficult",
 		"UpdateMap",
 		"UserWait",
+		"DungeonResultDisplay",
 		"End"
 	]
 }
