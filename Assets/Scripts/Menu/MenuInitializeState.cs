@@ -5,6 +5,7 @@ using UnityEngine;
 public class MenuInitializeState : StateBase {
 
 	private readonly string DungeonButtonPath = "Prefab/UI/DungeonButton";
+	private readonly string CardContentItemPath = "Prefab/UI/CardContentItem";
 
     /// <summary>
     /// メイン前処理.
@@ -16,6 +17,7 @@ public class MenuInitializeState : StateBase {
 
 		scene.OptionRoot.SetActive(false);
 		scene.DungeonRoot.SetActive(false);
+		scene.CardUnlockRoot.SetActive(false);
 
 		// BGMに関する設定
 		scene.MBgmSlider.value = PlayerPrefsManager.Instance.GetBgmVolume();
@@ -27,6 +29,7 @@ public class MenuInitializeState : StateBase {
 		scene.MSeToggle.isOn = PlayerPrefsManager.Instance.GetSeIsMute();
 		scene.UpdateSeVolumeText();
 
+		// TODO この辺、ちゃんとコルーチンで非同期読み込み待ちする事
 		// Dungeonの初期化
 		ResourceManager.Instance.RequestExecuteOrder(
 			DungeonButtonPath,
@@ -42,6 +45,30 @@ public class MenuInitializeState : StateBase {
 
 					obj.GetComponent<DungeonButtonController>().Initialize(data.Value, scene.OnClickDungeonListButtonCallback);
 
+				}
+			}
+		);
+
+		// TODO この辺、ちゃんとコルーチンで非同期読み込み待ちする事
+		// カードアンロックの初期化
+		ResourceManager.Instance.RequestExecuteOrder(
+			CardContentItemPath,
+			ExecuteOrder.Type.GameObject,
+			scene.gameObject,
+			(rawobj) => {
+				var cardDict = MasterActionTable.Instance.GetCloneDict();
+				foreach (var data in cardDict) {
+					GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
+					obj.transform.SetParent(scene.CardContent.transform);
+					obj.transform.localPosition = Vector3.zero;
+					obj.transform.localScale = Vector3.one;
+
+					obj.GetComponent<CardContentItem>().Initialize(
+						data.Value,
+						(data) => {
+							
+						}
+					);
 				}
 			}
 		);

@@ -64,6 +64,16 @@ public partial class MenuScene : SceneBase
 	[SerializeField]
 	private Text SFMuteText = null;
 	// ↑↑オプションメニュー↑↑
+	
+	// ↓↓カードアンロック↓↓
+	[SerializeField]
+	private GameObject SFCardUnlockRoot = null;
+	public GameObject CardUnlockRoot => SFCardUnlockRoot;
+
+	[SerializeField]
+	private GameObject SFCardContent = null;
+	public GameObject CardContent => SFCardContent;
+	// ↑↑カードアンロック↑↑
 
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -118,6 +128,15 @@ public partial class MenuScene : SceneBase
 			return;
 		}
 		DungeonRoot.SetActive(true);
+	}
+	
+	public void OnClickCardUnlockButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+			return;
+		}
+		CardUnlockRoot.SetActive(true);
 	}
 	// ↑↑メニュー機能↑↑
 
@@ -233,5 +252,15 @@ public partial class MenuScene : SceneBase
     	}
 	}
 	// ↑↑オプション機能↑↑
-
+	
+	// ↓↓カードアンロック↓↓
+	public void OnClickCardUnlockCloseButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+			return;
+		}
+		CardUnlockRoot.SetActive(false);
+	}
+	// ↑↑カードアンロック↑↑
 }

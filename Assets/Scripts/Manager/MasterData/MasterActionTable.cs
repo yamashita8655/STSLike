@@ -8,6 +8,7 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 		public int Id { get; private set; }
 		public int Rarity { get; private set; }
 		public string Name { get; private set; }
+		public string Detail { get; private set; }
 		public EnumSelf.ActionType Type1 { get; private set; }
 		public int Value1 { get; private set; }
 		public int Value2 { get; private set; }
@@ -16,6 +17,7 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 			int id,
 			int rarity,
 			string name,
+			string detail,
 			EnumSelf.ActionType type1,
 			int value1,
 			int value2
@@ -24,6 +26,7 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 			Id			= id;
 			Rarity		= rarity;
 			Name		= name;
+			Detail		= detail;
 			Type1		= type1;
 			Value1		= value1;
 			Value2		= value2;
@@ -51,15 +54,17 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 		for (int i = 1; i < lineList.Count; i++) {
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
 
-			EnumSelf.ActionType type1 = GetActionType(paramList[4]);
+			EnumSelf.ActionType type1 = GetActionType(paramList[5]);
 
 			Data data = new Data(
 				int.Parse(paramList[0]),
 				int.Parse(paramList[1]),
 				paramList[2],
+				//paramList[3], // cospはデータとして不要
+				paramList[4],
 				type1,
-				int.Parse(paramList[5]),
-				int.Parse(paramList[6])
+				int.Parse(paramList[6]),
+				int.Parse(paramList[7])
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);
@@ -90,4 +95,11 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 
 		return data;
 	}
+	
+	// ディクショナリは外で操作されると困るので、クローンを返す
+	public Dictionary<int, Data> GetCloneDict()
+    {
+		Dictionary<int, Data> dict = new Dictionary<int, Data>(DataDict);
+        return dict;
+    }
 }
