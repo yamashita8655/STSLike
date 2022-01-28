@@ -6,6 +6,7 @@ public class MenuInitializeState : StateBase {
 
 	private readonly string DungeonButtonPath = "Prefab/UI/DungeonButton";
 	private readonly string CardContentItemPath = "Prefab/UI/CardContentItem";
+	private readonly string ArtifactContentItemPath = "Prefab/UI/ArtifactContentItem";
 
     /// <summary>
     /// メイン前処理.
@@ -18,6 +19,7 @@ public class MenuInitializeState : StateBase {
 		scene.OptionRoot.SetActive(false);
 		scene.DungeonRoot.SetActive(false);
 		scene.CardUnlockRoot.SetActive(false);
+		scene.ArtifactUnlockRoot.SetActive(false);
 
 		// BGMに関する設定
 		scene.MBgmSlider.value = PlayerPrefsManager.Instance.GetBgmVolume();
@@ -64,6 +66,30 @@ public class MenuInitializeState : StateBase {
 					obj.transform.localScale = Vector3.one;
 
 					obj.GetComponent<CardContentItem>().Initialize(
+						data.Value,
+						(data) => {
+							
+						}
+					);
+				}
+			}
+		);
+		
+		// TODO この辺、ちゃんとコルーチンで非同期読み込み待ちする事
+		// アーティファクトアンロックの初期化
+		ResourceManager.Instance.RequestExecuteOrder(
+			ArtifactContentItemPath,
+			ExecuteOrder.Type.GameObject,
+			scene.gameObject,
+			(rawobj) => {
+				var artifactDict = MasterArtifactTable.Instance.GetCloneDict();
+				foreach (var data in artifactDict) {
+					GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
+					obj.transform.SetParent(scene.ArtifactContent.transform);
+					obj.transform.localPosition = Vector3.zero;
+					obj.transform.localScale = Vector3.one;
+
+					obj.GetComponent<ArtifactContentItem>().Initialize(
 						data.Value,
 						(data) => {
 							

@@ -74,6 +74,16 @@ public partial class MenuScene : SceneBase
 	private GameObject SFCardContent = null;
 	public GameObject CardContent => SFCardContent;
 	// ↑↑カードアンロック↑↑
+	
+	// ↓↓アーティファクトアンロック↓↓
+	[SerializeField]
+	private GameObject SFArtifactUnlockRoot = null;
+	public GameObject ArtifactUnlockRoot => SFArtifactUnlockRoot;
+
+	[SerializeField]
+	private GameObject SFArtifactContent = null;
+	public GameObject ArtifactContent => SFArtifactContent;
+	// ↑↑アーティファクトアンロック↑↑
 
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -137,6 +147,15 @@ public partial class MenuScene : SceneBase
 			return;
 		}
 		CardUnlockRoot.SetActive(true);
+	}
+	
+	public void OnClickArtifactUnlockButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+			return;
+		}
+		ArtifactUnlockRoot.SetActive(true);
 	}
 	// ↑↑メニュー機能↑↑
 
@@ -263,4 +282,15 @@ public partial class MenuScene : SceneBase
 		CardUnlockRoot.SetActive(false);
 	}
 	// ↑↑カードアンロック↑↑
+	
+	// ↓↓アーティファクトアンロック↓↓
+	public void OnClickArtifactUnlockCloseButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+			return;
+		}
+		ArtifactUnlockRoot.SetActive(false);
+	}
+	// ↑↑アーティファクトアンロック↑↑
 }
