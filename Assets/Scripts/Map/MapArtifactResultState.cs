@@ -30,7 +30,12 @@ public class MapArtifactResultState : StateBase {
 				obj.transform.localPosition = Vector3.zero;
 				obj.transform.localScale = Vector3.one;
 
-				obj.GetComponent<ArtifactButtonContentItem>().Initialize(data, (d) => {});
+				obj.GetComponent<ArtifactButtonContentItem>().Initialize(
+					data,
+					(d) => {
+						scene.OnClickCarryArtifactButton(d);
+					}
+				);
 			}
 		);
 

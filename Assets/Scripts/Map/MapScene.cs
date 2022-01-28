@@ -199,6 +199,22 @@ public partial class MapScene : SceneBase
 	[SerializeField]
 	private Text CuArtifactDetailText = null;
 	public Text ArtifactDetailText => CuArtifactDetailText;
+
+	[SerializeField]
+	private GameObject CuCarryArtifactDetailRoot = null;
+	public GameObject CarryArtifactDetailRoot => CuCarryArtifactDetailRoot;
+	
+	[SerializeField]
+	private Text CuCarryArtifactNameText = null;
+	public Text CarryArtifactNameText => CuCarryArtifactNameText;
+	
+	[SerializeField]
+	private Text CuCarryArtifactDetailText = null;
+	public Text CarryArtifactDetailText => CuCarryArtifactDetailText;
+	
+	[SerializeField]
+	private Image CuCarryArtifactImage = null;
+	public Image CarryArtifactImage => CuCarryArtifactImage;
 	
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -412,6 +428,30 @@ public partial class MapScene : SceneBase
 		}
 
 		LogManager.Instance.Log("Admob");
+	}
+	
+	public void OnClickCarryArtifactButton(MasterArtifactTable.Data data) {
+		// ユーザー入力待機状態でなければ、処理しない
+		//var stm = StateMachineManager.Instance;
+		//if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
+		//	return;
+		//}
+
+		CuCarryArtifactNameText.text = data.Name;
+		CuCarryArtifactDetailText.text = data.Detail;
+		ResourceManager.Instance.RequestExecuteOrder(
+			data.ImagePath,
+			ExecuteOrder.Type.Sprite,
+			this.gameObject,
+			(rawSprite) => {
+				CuCarryArtifactImage.sprite = rawSprite as Sprite;
+			}
+		);
+		CuCarryArtifactDetailRoot.SetActive(true);
+	}
+	
+	public void OnClickCarryArtifactDetailCloseButton() {
+		CuCarryArtifactDetailRoot.SetActive(false);
 	}
 
 	public void UpdateParameterText() {
