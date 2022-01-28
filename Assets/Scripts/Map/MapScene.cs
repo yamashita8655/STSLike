@@ -158,6 +158,19 @@ public partial class MapScene : SceneBase
 	[SerializeField]
 	private GameObject CuAdmobButton = null;
 	public GameObject AdmobButton => CuAdmobButton;
+
+	// アーティファクト関係
+	[SerializeField]
+	private GameObject CuArtifactRoot = null;
+	public GameObject ArtifactRoot => CuArtifactRoot;
+	
+	[SerializeField]
+	private Text[] CuArtifactTexts = null;
+	public Text[] ArtifactTexts => CuArtifactTexts;
+	
+	[SerializeField]
+	private Button CuArtifactDecideButton = null;
+	public Button ArtifactDecideButton => CuArtifactDecideButton;
 	
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -204,6 +217,8 @@ public partial class MapScene : SceneBase
 
 		if (type == EnumSelf.MapType.Heal) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealInitialize);
+		} else if (type == EnumSelf.MapType.Treasure) {
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ArtifactInitialize);
 		} else {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleInitialize);
 		}
@@ -317,6 +332,36 @@ public partial class MapScene : SceneBase
 			return;
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealResult);
+	}
+
+	// 以下アーティファクト系
+	public void OnClickArtifactSkipButton() {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.ArtifactUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ArtifactEnd);
+	}
+	
+	public void OnClickArtifactButton(int index) {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.ArtifactUserWait) {
+			return;
+		}
+		ArtifactDecideButton.interactable = true;
+		MapDataCarrier.Instance.SelectArtifactIndex = index;
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ArtifactDetailUpdate);
+	}
+	
+	public void OnClickArtifactDecideButton() {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.ArtifactUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ArtifactResult);
 	}
 	
 	// リザルト処理

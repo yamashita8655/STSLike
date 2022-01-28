@@ -30,8 +30,10 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public int NowFloor = 0;
 	
 	public int SelectHealIndex = 0;
-	
 	public List<MasterHealTable.Data> HealList = null;
+	
+	public int SelectArtifactIndex = 0;
+	public List<MasterArtifactTable.Data> ArtifactList = null;
 	
 	public int ContinuousCount = 0;
 	public int MaxContinuousCount = 0;
@@ -50,6 +52,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		DiceValueList = new List<int>();
 		TreasureList = new List<MasterActionTable.Data>();
 		HealList = new List<MasterHealTable.Data>();
+		ArtifactList = new List<MasterArtifactTable.Data>();
 		DungeonData = null;
 	}
 

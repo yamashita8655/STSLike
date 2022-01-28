@@ -37,6 +37,12 @@ public partial class MapScene : SceneBase
 		stm.AddState(StateMachineName.Map, (int)MapState.HealInitialize, new MapHealInitializeState());
 		stm.AddState(StateMachineName.Map, (int)MapState.HealResult, new MapHealResultState());
 		stm.AddState(StateMachineName.Map, (int)MapState.HealUserWait, new MapHealUserWaitState());
+		stm.AddState(StateMachineName.Map, (int)MapState.ArtifactDetailUpdate, new MapArtifactDetailUpdateState());
+		stm.AddState(StateMachineName.Map, (int)MapState.ArtifactDisplay, new MapArtifactDisplayState());
+		stm.AddState(StateMachineName.Map, (int)MapState.ArtifactEnd, new MapArtifactEndState());
+		stm.AddState(StateMachineName.Map, (int)MapState.ArtifactInitialize, new MapArtifactInitializeState());
+		stm.AddState(StateMachineName.Map, (int)MapState.ArtifactResult, new MapArtifactResultState());
+		stm.AddState(StateMachineName.Map, (int)MapState.ArtifactUserWait, new MapArtifactUserWaitState());
 		stm.AddState(StateMachineName.Map, (int)MapState.Initialize, new MapInitializeState());
 		stm.AddState(StateMachineName.Map, (int)MapState.ResultChangeDisplay, new MapResultChangeDisplayState());
 		stm.AddState(StateMachineName.Map, (int)MapState.ResultChangeResult, new MapResultChangeResultState());
