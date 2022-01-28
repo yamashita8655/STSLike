@@ -1,7 +1,7 @@
 id,rarity,name,detail,imagepath
-1,1,王女の指輪,戦闘時毎ターン終了時、HP1回復,ring
-2,1,騎士の指輪,与えるダメージが1増加する,ring2
-3,2,自動盾,サイコロの出目の数だけ、シールドを得る,autoshield
-4,3,戦乙女のお守り,戦闘報酬が1ランク上昇する,valkyrieamulet
-5,4,サイコロ,サイコロが1個増える,adddice
-6,5,フェニックスののう,死亡時、完全復活する,phoenixbrain
+1,1,王女の指輪,戦闘時毎ターン終了時、HP1回復,Image/UI/Artifact/ring
+2,1,騎士の指輪,与えるダメージが1増加する,Image/UI/Artifact/ring2
+3,2,自動盾,サイコロの出目の数だけ、シールドを得る,Image/UI/Artifact/autoshield
+4,3,戦乙女のお守り,戦闘報酬が1ランク上昇する,Image/UI/Artifact/valkyrieamulet
+5,4,サイコロ,サイコロが1個増える,Image/UI/Artifact/adddice
+6,5,フェニックスののう,死亡時、完全復活する,Image/UI/Artifact/phoenixbrain

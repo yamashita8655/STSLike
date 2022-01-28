@@ -12,6 +12,10 @@ public class MapResultInitializeState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		scene.TreasureDecideButton.interactable = false;
+		
+		scene.TreasureDetailCardName.gameObject.SetActive(false);
+		scene.TreasureDetailCardImage.gameObject.SetActive(false);
+		scene.TreasureDetailCardDetail.gameObject.SetActive(false);
 			
 		// TODO treasureカウント3決め打ち
 		MapDataCarrier.Instance.TreasureList.Clear();

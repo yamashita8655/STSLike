@@ -12,6 +12,24 @@ public class MapResultDetailUpdateState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
+		int index = MapDataCarrier.Instance.SelectTreasureIndex;
+		MasterActionTable.Data data = MapDataCarrier.Instance.TreasureList[index];
+		
+		scene.TreasureDetailCardName.gameObject.SetActive(true);
+		scene.TreasureDetailCardImage.gameObject.SetActive(true);
+		scene.TreasureDetailCardDetail.gameObject.SetActive(true);
+
+		scene.TreasureDetailCardName.text = data.Name;
+		ResourceManager.Instance.RequestExecuteOrder(
+			data.ImagePath,
+			ExecuteOrder.Type.Sprite,
+			scene.gameObject,
+			(rawSprite) => {
+				scene.TreasureDetailCardImage.sprite = rawSprite as Sprite;
+			}
+		);
+		scene.TreasureDetailCardDetail.text = string.Format(data.Detail, data.Value1, data.Value2);
+
 		return true;
 	}
 

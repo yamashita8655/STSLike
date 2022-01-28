@@ -37,14 +37,14 @@ public class CardContentItem : MonoBehaviour
 			}
 		);
 		
-		//ResourceManager.Instance.RequestExecuteOrder(
-		//	string.Format(FramePath, data.Rarity.ToString()),
-		//	ExecuteOrder.Type.Sprite,
-		//	this.gameObject,
-		//	(rawSprite) => {
-		//		CardImage.sprite = rawSprite as Sprite;
-		//	}
-		//);
+		ResourceManager.Instance.RequestExecuteOrder(
+			data.ImagePath,
+			ExecuteOrder.Type.Sprite,
+			this.gameObject,
+			(rawSprite) => {
+				CardImage.sprite = rawSprite as Sprite;
+			}
+		);
 
 		CardName.text = data.Name;
 		CardDetail.text = string.Format(data.Detail, data.Value1, data.Value2);

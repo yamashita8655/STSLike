@@ -9,8 +9,6 @@ public class ArtifactButtonContentItem : MonoBehaviour
 	[SerializeField]
 	private Image ArtifactImage = null;
 
-	private readonly string ImagePath = "Image/UI/Artifact/{0}";
-
 	private Action<MasterArtifactTable.Data> Callback = null;
 
 	private MasterArtifactTable.Data Data = null;
@@ -20,7 +18,7 @@ public class ArtifactButtonContentItem : MonoBehaviour
 		Data = data;
 
 		ResourceManager.Instance.RequestExecuteOrder(
-			string.Format(ImagePath, data.ImagePath),
+			data.ImagePath,
 			ExecuteOrder.Type.Sprite,
 			this.gameObject,
 			(rawSprite) => {

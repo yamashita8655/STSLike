@@ -49,7 +49,7 @@ public class MapBattleInitializeState : StateBase {
 
 		// TODO 本当は、読み込み待ちした方が良い
 		ResourceManager.Instance.RequestExecuteOrder(
-			"Image/Map/Enemy/" + data.ImagePath,
+			data.ImagePath,
 			ExecuteOrder.Type.Sprite,
 			scene.gameObject,
 			(spriteObj) => {

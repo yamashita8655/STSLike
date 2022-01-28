@@ -9,6 +9,7 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 		public int Rarity { get; private set; }
 		public string Name { get; private set; }
 		public string Detail { get; private set; }
+		public string ImagePath { get; private set; }
 		public EnumSelf.ActionType Type1 { get; private set; }
 		public int Value1 { get; private set; }
 		public int Value2 { get; private set; }
@@ -18,6 +19,7 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 			int rarity,
 			string name,
 			string detail,
+			string imagePath,
 			EnumSelf.ActionType type1,
 			int value1,
 			int value2
@@ -27,6 +29,7 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 			Rarity		= rarity;
 			Name		= name;
 			Detail		= detail;
+			ImagePath	= imagePath;
 			Type1		= type1;
 			Value1		= value1;
 			Value2		= value2;
@@ -54,7 +57,7 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 		for (int i = 1; i < lineList.Count; i++) {
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
 
-			EnumSelf.ActionType type1 = GetActionType(paramList[5]);
+			EnumSelf.ActionType type1 = GetActionType(paramList[6]);
 
 			Data data = new Data(
 				int.Parse(paramList[0]),
@@ -62,9 +65,10 @@ public class MasterActionTable : SimpleSingleton<MasterActionTable>
 				paramList[2],
 				//paramList[3], // cospはデータとして不要
 				paramList[4],
+				paramList[5],
 				type1,
-				int.Parse(paramList[6]),
-				int.Parse(paramList[7])
+				int.Parse(paramList[7]),
+				int.Parse(paramList[8])
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);

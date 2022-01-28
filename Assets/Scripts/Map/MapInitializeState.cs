@@ -18,6 +18,7 @@ public class MapInitializeState : StateBase {
 		scene.HealRoot.SetActive(false);
 		scene.MapRoot.SetActive(true);
 		scene.DungeonResultRoot.SetActive(false);
+		scene.ArtifactRoot.SetActive(false);
 
 		MapDataCarrier.Instance.HandDifficultList.Clear();
 		for (int i = 0; i < scene.DifficultImages.Length; i++) {

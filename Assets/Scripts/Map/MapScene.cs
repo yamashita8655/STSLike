@@ -99,6 +99,18 @@ public partial class MapScene : SceneBase
 	public Text[] TreasureNameTexts => CuTreasureNameTexts;
 	
 	[SerializeField]
+	private Text CuTreasureDetailCardName = null;
+	public Text TreasureDetailCardName => CuTreasureDetailCardName;
+	
+	[SerializeField]
+	private Text CuTreasureDetailCardDetail = null;
+	public Text TreasureDetailCardDetail => CuTreasureDetailCardDetail;
+	
+	[SerializeField]
+	private Image CuTreasureDetailCardImage = null;
+	public Image TreasureDetailCardImage => CuTreasureDetailCardImage;
+	
+	[SerializeField]
 	private Text CuNowFloorText = null;
 	public Text NowFloorText => CuNowFloorText;
 	
@@ -175,6 +187,18 @@ public partial class MapScene : SceneBase
 	[SerializeField]
 	private GameObject CuArtifactContentRoot = null;
 	public GameObject ArtifactContentRoot => CuArtifactContentRoot;
+	
+	[SerializeField]
+	private Text CuArtifactNameText = null;
+	public Text ArtifactNameText => CuArtifactNameText;
+	
+	[SerializeField]
+	private Image CuArtifactImage = null;
+	public Image ArtifactImage => CuArtifactImage;
+	
+	[SerializeField]
+	private Text CuArtifactDetailText = null;
+	public Text ArtifactDetailText => CuArtifactDetailText;
 	
 	// Start is called before the first frame update
 	IEnumerator Start() {

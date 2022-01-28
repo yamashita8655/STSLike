@@ -16,6 +16,10 @@ public class MapArtifactInitializeState : StateBase {
 		scene.MapRoot.SetActive(false);
 
 		scene.ArtifactDecideButton.interactable = false;
+		
+		scene.ArtifactNameText.gameObject.SetActive(false);
+		scene.ArtifactImage.gameObject.SetActive(false);
+		scene.ArtifactDetailText.gameObject.SetActive(false);
 			
 		// TODO Artifactカウント3決め打ち
 		MapDataCarrier.Instance.ArtifactList.Clear();

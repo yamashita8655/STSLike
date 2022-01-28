@@ -11,6 +11,24 @@ public class MapArtifactDetailUpdateState : StateBase {
     override public bool OnBeforeMain()
     {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		
+		int index = MapDataCarrier.Instance.SelectArtifactIndex;
+		MasterArtifactTable.Data data = MapDataCarrier.Instance.ArtifactList[index];
+		
+		scene.ArtifactNameText.gameObject.SetActive(true);
+		scene.ArtifactImage.gameObject.SetActive(true);
+		scene.ArtifactDetailText.gameObject.SetActive(true);
+
+		scene.ArtifactNameText.text = data.Name;
+		ResourceManager.Instance.RequestExecuteOrder(
+			data.ImagePath,
+			ExecuteOrder.Type.Sprite,
+			scene.gameObject,
+			(rawSprite) => {
+				scene.ArtifactImage.sprite = rawSprite as Sprite;
+			}
+		);
+		scene.ArtifactDetailText.text = data.Detail;
 		return true;
     }
 
