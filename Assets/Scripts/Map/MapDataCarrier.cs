@@ -44,6 +44,8 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public MasterDungeonTable.Data DungeonData { get; set; }
 	
 	public bool IsClear { get; set; }
+	
+	public List<MasterArtifactTable.Data> GetArtifactList = null;
 
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
@@ -53,6 +55,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		TreasureList = new List<MasterActionTable.Data>();
 		HealList = new List<MasterHealTable.Data>();
 		ArtifactList = new List<MasterArtifactTable.Data>();
+		GetArtifactList = new List<MasterArtifactTable.Data>();
 		DungeonData = null;
 	}
 

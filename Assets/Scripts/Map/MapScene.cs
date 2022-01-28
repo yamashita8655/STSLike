@@ -172,6 +172,10 @@ public partial class MapScene : SceneBase
 	private Button CuArtifactDecideButton = null;
 	public Button ArtifactDecideButton => CuArtifactDecideButton;
 	
+	[SerializeField]
+	private GameObject CuArtifactContentRoot = null;
+	public GameObject ArtifactContentRoot => CuArtifactContentRoot;
+	
 	// Start is called before the first frame update
 	IEnumerator Start() {
 		while (EntryPoint.IsInitialized == false) {

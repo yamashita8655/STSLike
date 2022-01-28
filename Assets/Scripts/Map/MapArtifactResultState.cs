@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MapArtifactResultState : StateBase {
 
+	private readonly string ArtifactButtonPath = "Prefab/UI/ArtifactButtonItem";
     /// <summary>
     /// メイン前処理.
     /// 戻り値は、同一フレーム内で次の処理に移行してよければfalse、1フレーム飛ばして欲しい場合はfalse.
@@ -17,6 +18,21 @@ public class MapArtifactResultState : StateBase {
 		MasterArtifactTable.Data data = MapDataCarrier.Instance.ArtifactList[artifactIndex];
 
 		// TODO ここで、アーティファクト管理に獲得したアーティファクトを加える
+		MapDataCarrier.Instance.GetArtifactList.Add(data);
+
+		ResourceManager.Instance.RequestExecuteOrder(
+			ArtifactButtonPath,
+			ExecuteOrder.Type.GameObject,
+			scene.gameObject,
+			(rawObj) => {
+				GameObject obj = GameObject.Instantiate(rawObj) as GameObject;
+				obj.transform.SetParent(scene.ArtifactContentRoot.transform);
+				obj.transform.localPosition = Vector3.zero;
+				obj.transform.localScale = Vector3.one;
+
+				obj.GetComponent<ArtifactButtonContentItem>().Initialize(data, (d) => {});
+			}
+		);
 
 		return true;
     }

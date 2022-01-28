@@ -9,18 +9,21 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 		public int Rarity { get; private set; }
 		public string Name { get; private set; }
 		public string Detail { get; private set; }
+		public string ImagePath { get; private set; }
 
         public Data(
 			int id,
 			int rarity,
 			string name,
-			string detail
+			string detail,
+			string imagePath
 		)
 		{
 			Id			= id;
 			Rarity		= rarity;
 			Name		= name;
 			Detail		= detail;
+			ImagePath	= imagePath;
 		}
 	};
 
@@ -49,7 +52,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 				int.Parse(paramList[0]),
 				int.Parse(paramList[1]),
 				paramList[2],
-				paramList[3]
+				paramList[3],
+				paramList[4]
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);
