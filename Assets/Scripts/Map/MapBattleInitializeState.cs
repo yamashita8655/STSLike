@@ -22,19 +22,31 @@ public class MapBattleInitializeState : StateBase {
 		player.SetNowShield(0);
 		scene.PlayerShieldText.text = "";
 		
+		for (int i = 0; i < MapDataCarrier.Instance.ValueObjects.Count; i++) {
+			GameObject.Destroy(MapDataCarrier.Instance.ValueObjects[i]);
+		}
+
 		for (int i = 0; i < scene.PlayerActionNameStrings.Length; i++) {
+			int index = i;
 			MasterAction2Table.Data pdata = player.GetActionData2(i);
 			scene.PlayerActionNameStrings[i].text = pdata.Name;
 			// TODO ダメージの短縮表示の見せ方を考える必要がある
-			//scene.PlayerActionValueStrings[i].text = pdata.Value1.ToString();
+			var list = pdata.ActionPackList;
+			for (int i2 = 0; i2 < list.Count; i2++) {
+				int index2 = i2;
+				ResourceManager.Instance.RequestExecuteOrder(
+					Const.ValueItemPath,
+					ExecuteOrder.Type.GameObject,
+					scene.gameObject,
+					(rawObject) => {
+						GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+						obj.GetComponent<ValueController>().Initialize(list[index2], scene.PlayerActionValueRoots[index]);
+						MapDataCarrier.Instance.ValueObjects.Add(obj);
+					}
+				);
+			}
 		}
 		
-		//for (int i = 0; i < scene.PlayerActionNameStrings.Length; i++) {
-		//	MasterActionTable.Data pdata = player.GetActionData(i);
-		//	scene.PlayerActionNameStrings[i].text = pdata.Name;
-		//	scene.PlayerActionValueStrings[i].text = pdata.Value1.ToString();
-		//}
-
 		// 敵出現
 		// TODO ID決め打ち
 		//int enemyId = 3;

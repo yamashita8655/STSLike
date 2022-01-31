@@ -63,8 +63,8 @@ public partial class MapScene : SceneBase
 	public Text[] PlayerActionNameStrings => CuPlayerActionNameStrings;
 	
 	[SerializeField]
-	private Text[] CuPlayerActionValueStrings = null;
-	public Text[] PlayerActionValueStrings => CuPlayerActionValueStrings;
+	private GameObject[] CuPlayerActionValueRoots = null;
+	public GameObject[] PlayerActionValueRoots => CuPlayerActionValueRoots;
 	
 	[SerializeField]
 	private Button[] CuPlayerActionButtons = null;
