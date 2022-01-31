@@ -13,17 +13,11 @@ public class MapBattleEnemyAttackResultState : StateBase {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
-		MasterActionTable.Data data = enemy.GetActionData();
+		MasterAction2Table.Data data = enemy.GetActionData2();
 
-		MapDataCarrier.Instance.EnemyContinuousCount = 0;
-		MapDataCarrier.Instance.EnemyMaxContinuousCount = 0;
+		MapDataCarrier.Instance.EnemyActionPackCount = 0;
+		MapDataCarrier.Instance.EnemyMaxActionPackCount = data.ActionPackList.Count;
 		
-		// 数値の初期化などはここで一度行い、実際の数値の増減ループは
-		// ValueChange-BattleCheck間で行う
-		if (data.Type1 == EnumSelf.ActionType.ContinuousDamage) {
-			MapDataCarrier.Instance.EnemyMaxContinuousCount = data.Value2;
-		}
-
 		return true;
 	}
 

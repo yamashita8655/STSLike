@@ -10,10 +10,15 @@ public class PlayerStatus
 	private int NowShield;
 	private int MaxShield;
 	private List<MasterActionTable.Data> ActionDataList;
+	private List<MasterAction2Table.Data> ActionDataList2;
 	private int MaxDiceCount;
 
 	public PlayerStatus() {
 		ActionDataList = new List<MasterActionTable.Data>(){
+			null,null,null,null,null,null
+		};
+		
+		ActionDataList2 = new List<MasterAction2Table.Data>(){
 			null,null,null,null,null,null
 		};
 	}
@@ -53,6 +58,13 @@ public class PlayerStatus
 	}
 	public MasterActionTable.Data GetActionData(int index) {
 		return ActionDataList[index];
+	}
+	
+	public void SetActionData2(int index, MasterAction2Table.Data data) {
+		ActionDataList2[index] = data;
+	}
+	public MasterAction2Table.Data GetActionData2(int index) {
+		return ActionDataList2[index];
 	}
 	
 	public void SetMaxDiceCount(int val) {
@@ -109,9 +121,11 @@ public class EnemyStatus
 	// とりあえず、一個だけ登録
 	// 複数持たせて、ローテかランダムかの対応は、後でやる
 	private List<MasterActionTable.Data> ActionDataList;
+	private List<MasterAction2Table.Data> ActionDataList2;
 
 	public EnemyStatus() {
 		ActionDataList = new List<MasterActionTable.Data>();
+		ActionDataList2 = new List<MasterAction2Table.Data>();
 	}
 	
 	public void SetNowHp(int val) {
@@ -150,6 +164,13 @@ public class EnemyStatus
 	public MasterActionTable.Data GetActionData() {
 		// TODO とりあえず0番目決め打ち
 		return ActionDataList[0];
+	}
+	
+	public void AddActionData2(MasterAction2Table.Data data) {
+		ActionDataList2.Add(data);
+	}
+	public MasterAction2Table.Data GetActionData2() {
+		return ActionDataList2[0];
 	}
 	
 	public void SetNowShield(int val) {

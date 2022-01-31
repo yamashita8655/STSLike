@@ -22,7 +22,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	
 	public int SelectTreasureIndex = 0;
 
-	public List<MasterActionTable.Data> TreasureList = null;
+	public List<MasterAction2Table.Data> TreasureList = null;
 	
 	public int SelectChangeIndex = 0;
 	
@@ -37,9 +37,13 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	
 	public int ContinuousCount = 0;
 	public int MaxContinuousCount = 0;
+	public int ActionPackCount = 0;
+	public int MaxActionPackCount = 0;
 	
 	public int EnemyContinuousCount = 0;
 	public int EnemyMaxContinuousCount = 0;
+	public int EnemyActionPackCount = 0;
+	public int EnemyMaxActionPackCount = 0;
 
 	public MasterDungeonTable.Data DungeonData { get; set; }
 	
@@ -52,7 +56,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		MapTypeList = new List<EnumSelf.MapType>();
 		HandDifficultList = new List<int>();
 		DiceValueList = new List<int>();
-		TreasureList = new List<MasterActionTable.Data>();
+		TreasureList = new List<MasterAction2Table.Data>();
 		HealList = new List<MasterHealTable.Data>();
 		ArtifactList = new List<MasterArtifactTable.Data>();
 		GetArtifactList = new List<MasterArtifactTable.Data>();

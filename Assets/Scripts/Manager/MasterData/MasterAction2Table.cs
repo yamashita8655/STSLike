@@ -8,18 +8,24 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 		public int Id { get; private set; }
 		public int Rarity { get; private set; }
 		public string Name { get; private set; }
+		public string Detail { get; private set; }
+		public string ImagePath { get; private set; }
 		public List<ActionPack> ActionPackList { get; private set; }
 
         public Data(
 			int id,
 			int rarity,
 			string name,
+			string detail,
+			string imagePath,
 			List<ActionPack> actionPackList
 		)
 		{
 			Id				= id;
 			Rarity			= rarity;
 			Name			= name;
+			Detail			= detail;
+			ImagePath		= imagePath;
 			ActionPackList	= actionPackList;
 		}
 	};
@@ -47,7 +53,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 
 			// アクションパックを先に作っておく
 			List<ActionPack> list = new List<ActionPack>();
-			int index = 4;
+			int index = 6;
 			while (true) {
 				if (paramList[index] == "NONE") {
 					break;
@@ -68,6 +74,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 				int.Parse(paramList[0]),
 				int.Parse(paramList[1]),
 				paramList[2],
+				paramList[4],
+				paramList[5],
 				list
 			);
 
@@ -135,6 +143,13 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 
 		return data;
 	}
+	
+	// ディクショナリは外で操作されると困るので、クローンを返す
+	public Dictionary<int, Data> GetCloneDict()
+    {
+		Dictionary<int, Data> dict = new Dictionary<int, Data>(DataDict);
+        return dict;
+    }
 }
 
 public class ActionPack {

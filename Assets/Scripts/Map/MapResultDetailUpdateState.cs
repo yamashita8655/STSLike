@@ -13,7 +13,7 @@ public class MapResultDetailUpdateState : StateBase {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
 		int index = MapDataCarrier.Instance.SelectTreasureIndex;
-		MasterActionTable.Data data = MapDataCarrier.Instance.TreasureList[index];
+		MasterAction2Table.Data data = MapDataCarrier.Instance.TreasureList[index];
 		
 		scene.TreasureDetailCardName.gameObject.SetActive(true);
 		scene.TreasureDetailCardImage.gameObject.SetActive(true);
@@ -28,7 +28,12 @@ public class MapResultDetailUpdateState : StateBase {
 				scene.TreasureDetailCardImage.sprite = rawSprite as Sprite;
 			}
 		);
-		scene.TreasureDetailCardDetail.text = string.Format(data.Detail, data.Value1, data.Value2);
+
+		System.Object[] arguments = new System.Object[data.ActionPackList.Count];
+		for (int i = 0; i < data.ActionPackList.Count; i++) {
+			arguments[i] = data.ActionPackList[i].Value;
+		}
+		scene.TreasureDetailCardDetail.text = string.Format(data.Detail, arguments);
 
 		return true;
 	}

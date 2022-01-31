@@ -21,11 +21,19 @@ public class MapBattleInitializeState : StateBase {
 		player.SetMaxShield(999999);
 		player.SetNowShield(0);
 		scene.PlayerShieldText.text = "";
+		
 		for (int i = 0; i < scene.PlayerActionNameStrings.Length; i++) {
-			MasterActionTable.Data pdata = player.GetActionData(i);
+			MasterAction2Table.Data pdata = player.GetActionData2(i);
 			scene.PlayerActionNameStrings[i].text = pdata.Name;
-			scene.PlayerActionValueStrings[i].text = pdata.Value1.ToString();
+			// TODO ダメージの短縮表示の見せ方を考える必要がある
+			//scene.PlayerActionValueStrings[i].text = pdata.Value1.ToString();
 		}
+		
+		//for (int i = 0; i < scene.PlayerActionNameStrings.Length; i++) {
+		//	MasterActionTable.Data pdata = player.GetActionData(i);
+		//	scene.PlayerActionNameStrings[i].text = pdata.Name;
+		//	scene.PlayerActionValueStrings[i].text = pdata.Value1.ToString();
+		//}
 
 		// 敵出現
 		// TODO ID決め打ち
@@ -39,8 +47,8 @@ public class MapBattleInitializeState : StateBase {
 		enemy.SetNowShield(0);
 		scene.EnemyShieldText.text = "";
 		// TODO とりあえず、一個目決め打ちで
-		MasterActionTable.Data actionData = MasterActionTable.Instance.GetData(data.ActionId1);
-		enemy.AddActionData(actionData);
+		MasterAction2Table.Data actionData = MasterAction2Table.Instance.GetData(data.ActionId1);
+		enemy.AddActionData2(actionData);
 		MapDataCarrier.Instance.CuEnemyStatus = enemy;
 
 		scene.EnemyNowHpText.text = data.Hp.ToString();
@@ -59,7 +67,8 @@ public class MapBattleInitializeState : StateBase {
 
 		// TODO とりあえず、敵の行動はここで一回決め打ちして動かさない
 		scene.EnemyActionText.text = actionData.Name;
-		scene.EnemyActionValueText.text = actionData.Value1.ToString();
+		// TODO 効果量の見せ方は、プレイヤー同様に考える必要がある
+		//scene.EnemyActionValueText.text = actionData.Value1.ToString();
 
 		return true;
 	}

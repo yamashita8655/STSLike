@@ -46,6 +46,14 @@ public class MapInitializeState : StateBase {
 		status.SetActionData(3, MasterActionTable.Instance.GetData(11));
 		status.SetActionData(4, MasterActionTable.Instance.GetData(20));
 		status.SetActionData(5, MasterActionTable.Instance.GetData(21));
+		
+		status.SetActionData2(0, MasterAction2Table.Instance.GetData(1));
+		status.SetActionData2(1, MasterAction2Table.Instance.GetData(7));
+		status.SetActionData2(2, MasterAction2Table.Instance.GetData(12));
+		status.SetActionData2(3, MasterAction2Table.Instance.GetData(17));
+		status.SetActionData2(4, MasterAction2Table.Instance.GetData(2));
+		status.SetActionData2(5, MasterAction2Table.Instance.GetData(8));
+
 
 		status.SetMaxDiceCount(3);
 		MapDataCarrier.Instance.CuPlayerStatus = status;

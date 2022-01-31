@@ -22,7 +22,7 @@ public class MapResultInitializeState : StateBase {
 		for (int i = 0; i < 3; i++) {
 			// TODO 1~7決め打ち
 			int id = UnityEngine.Random.Range(1, 8);
-			MasterActionTable.Data data = MasterActionTable.Instance.GetData(id);
+			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(id);
 			MapDataCarrier.Instance.TreasureList.Add(data);
 			scene.TreasureNameTexts[i].text = data.Name;
 		}

@@ -42,17 +42,10 @@ public class MapBattleCheckState : StateBase {
 		} else {
 			// プレイヤーのターンの場合
 			if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleValueChange) {
-
-				// 連続攻撃回数が残っていたら、もう一回ダメージ計算
-				bool isContinuous = false;
-				if (MapDataCarrier.Instance.MaxContinuousCount != 0) {
-					if (MapDataCarrier.Instance.ContinuousCount < MapDataCarrier.Instance.MaxContinuousCount) {
-						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleValueChange);
-						isContinuous = true;
-					}
-				}
-
-				if (isContinuous == false) {
+				// アクションパックの処理が全て終わっていなかったら、次のアクションパックの処理を行う
+				if (MapDataCarrier.Instance.ActionPackCount < MapDataCarrier.Instance.MaxActionPackCount) {
+					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleValueChange);
+				} else {
 					if (MapDataCarrier.Instance.DiceValueList.Count == 0) {
 						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyTurnStart);
 					} else {
@@ -60,17 +53,10 @@ public class MapBattleCheckState : StateBase {
 					}
 				}
 			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleEnemyValueChange) {
-
-				// 連続攻撃回数が残っていたら、もう一回ダメージ計算
-				bool isContinuous = false;
-				if (MapDataCarrier.Instance.EnemyMaxContinuousCount != 0) {
-					if (MapDataCarrier.Instance.EnemyContinuousCount < MapDataCarrier.Instance.EnemyMaxContinuousCount) {
-						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange);
-						isContinuous = true;
-					}
-				}
-
-				if (isContinuous == false) {
+				// アクションパックの処理が全て終わっていなかったら、次のアクションパックの処理を行う
+				if (MapDataCarrier.Instance.EnemyActionPackCount < MapDataCarrier.Instance.EnemyMaxActionPackCount) {
+					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange);
+				} else {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnStart);
 				}
 			}
@@ -85,3 +71,86 @@ public class MapBattleCheckState : StateBase {
 	{
 	}
 }
+
+//public class MapBattleCheckState : StateBase {
+//
+//	private bool IsWin = false;
+//	private bool IsDead = false;
+//
+//	/// <summary>
+//	/// 初期化前処理.
+//	/// </summary>
+//	override public bool OnBeforeInit()
+//	{
+//		var scene = MapDataCarrier.Instance.Scene as MapScene;
+//
+//		IsWin = false;
+//		IsDead = false;
+//
+//		if (MapDataCarrier.Instance.CuEnemyStatus.IsDead()) {
+//			IsWin = true;
+//		}
+//
+//		if (MapDataCarrier.Instance.CuPlayerStatus.IsDead()) {
+//			IsDead = true;
+//		}
+//
+//		return true;
+//	}
+//
+//	/// <summary>
+//	/// メイン更新処理.
+//	/// </summary>
+//	/// <param name="delta">経過時間</param>
+//	override public void OnUpdateMain(float delta)
+//	{
+//		if (IsWin) {
+//			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleWin);
+//		} else if (IsDead) {
+//			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleLose);
+//		} else {
+//			// プレイヤーのターンの場合
+//			if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleValueChange) {
+//
+//				// 連続攻撃回数が残っていたら、もう一回ダメージ計算
+//				bool isContinuous = false;
+//				if (MapDataCarrier.Instance.MaxContinuousCount != 0) {
+//					if (MapDataCarrier.Instance.ContinuousCount < MapDataCarrier.Instance.MaxContinuousCount) {
+//						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleValueChange);
+//						isContinuous = true;
+//					}
+//				}
+//
+//				if (isContinuous == false) {
+//					if (MapDataCarrier.Instance.DiceValueList.Count == 0) {
+//						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyTurnStart);
+//					} else {
+//						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
+//					}
+//				}
+//			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleEnemyValueChange) {
+//
+//				// 連続攻撃回数が残っていたら、もう一回ダメージ計算
+//				bool isContinuous = false;
+//				if (MapDataCarrier.Instance.EnemyMaxContinuousCount != 0) {
+//					if (MapDataCarrier.Instance.EnemyContinuousCount < MapDataCarrier.Instance.EnemyMaxContinuousCount) {
+//						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange);
+//						isContinuous = true;
+//					}
+//				}
+//
+//				if (isContinuous == false) {
+//					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnStart);
+//				}
+//			}
+//		}
+//		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
+//	}
+//
+//	/// <summary>
+//	/// ステート解放時処理.
+//	/// </summary>
+//	override public void OnRelease()
+//	{
+//	}
+//}

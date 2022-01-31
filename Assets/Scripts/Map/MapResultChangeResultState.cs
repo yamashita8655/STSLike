@@ -13,13 +13,14 @@ public class MapResultChangeResultState : StateBase {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		
 		int treasureIndex = MapDataCarrier.Instance.SelectTreasureIndex;
-		MasterActionTable.Data data = MapDataCarrier.Instance.TreasureList[treasureIndex];
+		MasterAction2Table.Data data = MapDataCarrier.Instance.TreasureList[treasureIndex];
 
 		int changeIndex = MapDataCarrier.Instance.SelectChangeIndex;
-		MapDataCarrier.Instance.CuPlayerStatus.SetActionData(changeIndex, data);
+		MapDataCarrier.Instance.CuPlayerStatus.SetActionData2(changeIndex, data);
 
 		scene.PlayerActionNameStrings[changeIndex].text = data.Name;
-		scene.PlayerActionValueStrings[changeIndex].text = data.Value1.ToString();
+		// TODO 見せ方考える
+		//scene.PlayerActionValueStrings[changeIndex].text = data.Value1.ToString();
 
 		return true;
 	}

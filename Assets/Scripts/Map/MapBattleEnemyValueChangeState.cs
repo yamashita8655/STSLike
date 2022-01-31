@@ -13,18 +13,20 @@ public class MapBattleEnemyValueChangeState : StateBase {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
-		MasterActionTable.Data data = enemy.GetActionData();
+		MasterAction2Table.Data data = enemy.GetActionData2();
 
-		if (data.Type1 == EnumSelf.ActionType.AddDamage) {
-			CalcDamageNormalDamage(data);
-		} else if (data.Type1 == EnumSelf.ActionType.ContinuousDamage) {
-			CalcDamageNormalDamage(data);
-			MapDataCarrier.Instance.EnemyContinuousCount++;
-		} else if (data.Type1 == EnumSelf.ActionType.Heal) {
-			MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(data.Value1);
-		} else if (data.Type1 == EnumSelf.ActionType.AddShield) {
-			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(data.Value1);
+		int count = MapDataCarrier.Instance.EnemyActionPackCount;
+		ActionPack pack = data.ActionPackList[count]; 
+
+		if (pack.Effect == EnumSelf.EffectType.Damage) {
+			CalcDamageNormalDamage(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
+			CalcHeal(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.Shield) {
+			CalcShield(pack);
 		}
+
+		MapDataCarrier.Instance.EnemyActionPackCount++;
 
 		scene.UpdateParameterText();
 
@@ -47,13 +49,41 @@ public class MapBattleEnemyValueChangeState : StateBase {
 	{
 	}
 	
-	private void CalcDamageNormalDamage(MasterActionTable.Data data) {
-		int shield = MapDataCarrier.Instance.CuPlayerStatus.GetNowShield();
-		MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-data.Value1);
-		int overDamage = shield - data.Value1;
-
-		if (overDamage < 0) {
-			MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(overDamage);
+	private void CalcDamageNormalDamage(ActionPack pack) {
+		int shield = 0;
+		int overDamage = 0;
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			shield = MapDataCarrier.Instance.CuPlayerStatus.GetNowShield();
+			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-pack.Value);
+			overDamage = shield - pack.Value;
+			if (overDamage < 0) {
+				MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(overDamage);
+			}
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			shield = MapDataCarrier.Instance.CuEnemyStatus.GetNowShield();
+			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(-pack.Value);
+			overDamage = shield - pack.Value;
+			if (overDamage < 0) {
+				MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(overDamage);
+			}
+		}
+	}
+	
+	private void CalcHeal(ActionPack pack) {
+		int heal = pack.Value;
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(heal);
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(heal);
+		}
+	}
+	
+	private void CalcShield(ActionPack pack) {
+		int shield = pack.Value;
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(shield);
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(shield);
 		}
 	}
 }
