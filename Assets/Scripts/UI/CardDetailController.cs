@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardContentItem : MonoBehaviour
+public class CardDetailController : MonoBehaviour
 {
 	[SerializeField]
 	private Image RarityFrameImage = null;
@@ -17,14 +17,10 @@ public class CardContentItem : MonoBehaviour
 	
 	[SerializeField]
 	private Text CardDetail = null;
+	
 
-	private Action<MasterAction2Table.Data> Callback = null;
-
-	private MasterAction2Table.Data Data = null;
-
-	public void Initialize(MasterAction2Table.Data data, Action<MasterAction2Table.Data> callback) {
-
-		Data = data;
+	public void Open(MasterAction2Table.Data data) {
+		gameObject.SetActive(true);
 
 		ResourceManager.Instance.RequestExecuteOrder(
 			string.Format(Const.RarityFrameImagePath, data.Rarity.ToString()),
@@ -45,19 +41,18 @@ public class CardContentItem : MonoBehaviour
 		);
 
 		CardName.text = data.Name;
-
 		System.Object[] arguments = new System.Object[data.ActionPackList.Count];
 		for (int i = 0; i < data.ActionPackList.Count; i++) {
 			arguments[i] = data.ActionPackList[i].Value;
 		}
 		CardDetail.text = string.Format(data.Detail, arguments);
-
-		Callback = callback;
 	}
 	
-	public void OnClick() {
-		if (Callback != null) {
-			Callback(Data);
-		}
+	public void Close() {
+		gameObject.SetActive(false);
+	}
+	
+	public void OnClickCloseButton() {
+		Close();
 	}
 }

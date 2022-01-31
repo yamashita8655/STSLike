@@ -201,20 +201,12 @@ public partial class MapScene : SceneBase
 	public Text ArtifactDetailText => CuArtifactDetailText;
 
 	[SerializeField]
-	private GameObject CuCarryArtifactDetailRoot = null;
-	public GameObject CarryArtifactDetailRoot => CuCarryArtifactDetailRoot;
+	private ArtifactDetailController CuCarryArtifactDetailController = null;
+	public ArtifactDetailController CarryArtifactDetailController => CuCarryArtifactDetailController;
 	
 	[SerializeField]
-	private Text CuCarryArtifactNameText = null;
-	public Text CarryArtifactNameText => CuCarryArtifactNameText;
-	
-	[SerializeField]
-	private Text CuCarryArtifactDetailText = null;
-	public Text CarryArtifactDetailText => CuCarryArtifactDetailText;
-	
-	[SerializeField]
-	private Image CuCarryArtifactImage = null;
-	public Image CarryArtifactImage => CuCarryArtifactImage;
+	private CardDetailController CuCarryCardDetailController = null;
+	public CardDetailController CarryCardDetailController => CuCarryCardDetailController;
 	
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -437,23 +429,20 @@ public partial class MapScene : SceneBase
 		//	return;
 		//}
 
-		CuCarryArtifactNameText.text = data.Name;
-		CuCarryArtifactDetailText.text = data.Detail;
-		ResourceManager.Instance.RequestExecuteOrder(
-			data.ImagePath,
-			ExecuteOrder.Type.Sprite,
-			this.gameObject,
-			(rawSprite) => {
-				CuCarryArtifactImage.sprite = rawSprite as Sprite;
-			}
-		);
-		CuCarryArtifactDetailRoot.SetActive(true);
+		CarryArtifactDetailController.Open(data);
 	}
 	
-	public void OnClickCarryArtifactDetailCloseButton() {
-		CuCarryArtifactDetailRoot.SetActive(false);
-	}
+	public void OnClickCarryCardDetailButton(int index) {
+		// ユーザー入力待機状態でなければ、処理しない
+		//var stm = StateMachineManager.Instance;
+		//if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
+		//	return;
+		//}
 
+		MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData2(index);
+		CarryCardDetailController.Open(data);
+	}
+	
 	public void UpdateParameterText() {
 		PlayerNowHpText.text = MapDataCarrier.Instance.CuPlayerStatus.GetNowHp().ToString();
 		EnemyNowHpText.text = MapDataCarrier.Instance.CuEnemyStatus.GetNowHp().ToString();

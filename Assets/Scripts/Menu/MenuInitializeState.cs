@@ -58,7 +58,7 @@ public class MenuInitializeState : StateBase {
 			ExecuteOrder.Type.GameObject,
 			scene.gameObject,
 			(rawobj) => {
-				var cardDict = MasterActionTable.Instance.GetCloneDict();
+				var cardDict = MasterAction2Table.Instance.GetCloneDict();
 				foreach (var data in cardDict) {
 					GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
 					obj.transform.SetParent(scene.CardContent.transform);

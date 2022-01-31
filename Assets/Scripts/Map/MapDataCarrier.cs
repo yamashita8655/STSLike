@@ -35,13 +35,9 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public int SelectArtifactIndex = 0;
 	public List<MasterArtifactTable.Data> ArtifactList = null;
 	
-	public int ContinuousCount = 0;
-	public int MaxContinuousCount = 0;
 	public int ActionPackCount = 0;
 	public int MaxActionPackCount = 0;
 	
-	public int EnemyContinuousCount = 0;
-	public int EnemyMaxContinuousCount = 0;
 	public int EnemyActionPackCount = 0;
 	public int EnemyMaxActionPackCount = 0;
 

@@ -20,7 +20,8 @@ public class MapInitializeState : StateBase {
 		scene.DungeonResultRoot.SetActive(false);
 		scene.ArtifactRoot.SetActive(false);
 
-		scene.CarryArtifactDetailRoot.SetActive(false);
+		scene.CarryArtifactDetailController.Close();
+		scene.CarryCardDetailController.Close();
 
 		MapDataCarrier.Instance.HandDifficultList.Clear();
 		for (int i = 0; i < scene.DifficultImages.Length; i++) {
