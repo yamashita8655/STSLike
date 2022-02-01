@@ -12,9 +12,9 @@ public class ValueController : MonoBehaviour
 	[SerializeField]
 	private Text  EffectValue = null;
 	
-	public void Initialize(ActionPack pack, GameObject attachRoot) {
+	public void Initialize(EnumSelf.EffectType type, int val, GameObject attachRoot) {
 
-		string path = ConvertEffectType2Path(pack);
+		string path = ConvertEffectType2Path(type);
 
 		ResourceManager.Instance.RequestExecuteOrder(
 			path,
@@ -25,21 +25,23 @@ public class ValueController : MonoBehaviour
 			}
 		);
 
-		EffectValue.text = pack.Value.ToString();
+		EffectValue.text = val.ToString();
 
 		transform.SetParent(attachRoot.transform);
 		transform.localPosition = Vector3.zero;
 		transform.localScale = Vector3.one;
 	}
 
-	private string ConvertEffectType2Path(ActionPack pack) {
+	private string ConvertEffectType2Path(EnumSelf.EffectType type) {
 		string ret = "";
-		if (pack.Effect == EnumSelf.EffectType.Damage) {
+		if (type == EnumSelf.EffectType.Damage) {
 			ret = Const.DamageImagePath;
-		} else if (pack.Effect == EnumSelf.EffectType.Shield) {
+		} else if (type == EnumSelf.EffectType.Shield) {
 			ret = Const.ShieldImagePath;
-		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
+		} else if (type == EnumSelf.EffectType.Heal) {
 			ret = Const.HealImagePath;
+		} else if (type == EnumSelf.EffectType.Strength) {
+			ret = Const.PowerImagePath;
 		}
 
 		return ret;

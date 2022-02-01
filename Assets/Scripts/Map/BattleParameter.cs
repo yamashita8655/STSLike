@@ -12,6 +12,10 @@ public class PlayerStatus
 	private List<MasterActionTable.Data> ActionDataList;
 	private List<MasterAction2Table.Data> ActionDataList2;
 	private int MaxDiceCount;
+	
+	private Power BuffPower = null;
+	private Power DebuffPower = null;
+	private bool IsPowerUpdateFlag = false;
 
 	public PlayerStatus() {
 		ActionDataList = new List<MasterActionTable.Data>(){
@@ -21,6 +25,9 @@ public class PlayerStatus
 		ActionDataList2 = new List<MasterAction2Table.Data>(){
 			null,null,null,null,null,null
 		};
+		
+		BuffPower = new Power();
+		DebuffPower = new Power();
 	}
 
 	public void SetNowHp(int val) {
@@ -107,6 +114,34 @@ public class PlayerStatus
 	public bool IsDead() {
 		return (NowHp <= 0);
 	}
+	
+	public void AddPower(EnumSelf.PowerType type, int val) {
+		if (val < 0) {
+			DebuffPower.AddParameter(type, val);
+		} else {
+			BuffPower.AddParameter(type, val);
+		}
+		IsPowerUpdateFlag = true;
+	}
+	
+	public Power GetPower() {
+		Power retPower = new Power();
+		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+			int val = BuffPower.GetParameter((EnumSelf.PowerType)i) + DebuffPower.GetParameter((EnumSelf.PowerType)i);
+			retPower.SetParameter((EnumSelf.PowerType)i, val);
+		}
+
+		return retPower;
+	}
+	
+
+	public bool GetAndResetUpdatePowerFlag() {
+		bool isUpdate = IsPowerUpdateFlag;
+		if (IsPowerUpdateFlag == true) {
+			IsPowerUpdateFlag = false;
+		}
+		return isUpdate;
+	}
 }
 
 public class EnemyStatus
@@ -123,13 +158,20 @@ public class EnemyStatus
 	private List<MasterActionTable.Data> ActionDataList;
 	private List<MasterAction2Table.Data> ActionDataList2;
 
-	// TODO 
 	private MasterEnemyTable.Data Data = null;
 	private int CurrentActionIndex = 0;
+
+	private MasterAction2Table.Data DecideActionData = null;
+
+	private Power BuffPower = null;
+	private Power DebuffPower = null;
+	private bool IsPowerUpdateFlag = false;
 
 	public EnemyStatus(MasterEnemyTable.Data data) {
 		ActionDataList = new List<MasterActionTable.Data>();
 		ActionDataList2 = new List<MasterAction2Table.Data>();
+		BuffPower = new Power();
+		DebuffPower = new Power();
 		Data = data;
 	}
 	
@@ -175,6 +217,11 @@ public class EnemyStatus
 		ActionDataList2.Add(data);
 	}
 	public MasterAction2Table.Data GetActionData2() {
+		return DecideActionData;
+	}
+
+	public void LotActionData2() {
+	
 		MasterAction2Table.Data data = null;
 		if (Data.ActionType == EnumSelf.EnemyActionType.Random) {
 			int all = ActionDataList2.Count;
@@ -183,8 +230,11 @@ public class EnemyStatus
 		} else if (Data.ActionType == EnumSelf.EnemyActionType.Rotation) {
 			data = ActionDataList2[CurrentActionIndex];
 			CurrentActionIndex++;
+			if (CurrentActionIndex >= ActionDataList2.Count) {
+				CurrentActionIndex = 0;
+			} 
 		}
-		return data;
+		DecideActionData = data;
 	}
 	
 	public void SetNowShield(int val) {
@@ -219,5 +269,54 @@ public class EnemyStatus
 
 	public bool IsDead() {
 		return (NowHp <= 0);
+	}
+
+	public void AddPower(EnumSelf.PowerType type, int val) {
+		if (val < 0) {
+			DebuffPower.AddParameter(type, val);
+		} else {
+			BuffPower.AddParameter(type, val);
+		}
+
+		IsPowerUpdateFlag = true;
+	}
+
+	public Power GetPower() {
+		Power retPower = new Power();
+		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+			int val = BuffPower.GetParameter((EnumSelf.PowerType)i) + DebuffPower.GetParameter((EnumSelf.PowerType)i);
+			retPower.SetParameter((EnumSelf.PowerType)i, val);
+		}
+
+		return retPower;
+	}
+	
+	public bool GetAndResetUpdatePowerFlag() {
+		bool isUpdate = IsPowerUpdateFlag;
+		if (IsPowerUpdateFlag == true) {
+			IsPowerUpdateFlag = false;
+		}
+		return isUpdate;
+	}
+}
+
+public class Power {
+	private List<int> Parameter = new List<int>();
+	public Power() {
+		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+			Parameter.Add(0);
+		}
+	}
+
+	public int GetParameter(EnumSelf.PowerType type) {
+		return Parameter[(int)type];
+	}
+	
+	public void SetParameter(EnumSelf.PowerType type, int val) {
+		Parameter[(int)type] = val;
+	}
+	
+	public void AddParameter(EnumSelf.PowerType type, int val) {
+		Parameter[(int)type] += val;
 	}
 }

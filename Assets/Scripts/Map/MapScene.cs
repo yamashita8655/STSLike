@@ -71,6 +71,10 @@ public partial class MapScene : SceneBase
 	public Button[] PlayerActionButtons => CuPlayerActionButtons;
 	
 	[SerializeField]
+	private GameObject CuPowerRoot = null;
+	public GameObject PowerRoot => CuPowerRoot;
+	
+	[SerializeField]
 	private Text CuEnemyNameText = null;
 	public Text EnemyNameText => CuEnemyNameText;
 	
@@ -81,6 +85,10 @@ public partial class MapScene : SceneBase
 	[SerializeField]
 	private GameObject CuEnemyActionValueRoot = null;
 	public GameObject EnemyActionValueRoot => CuEnemyActionValueRoot;
+	
+	[SerializeField]
+	private GameObject CuEnemyPowerRoot = null;
+	public GameObject EnemyPowerRoot => CuEnemyPowerRoot;
 	
 	[SerializeField]
 	private GameObject CuResultRoot = null;
@@ -459,6 +467,58 @@ public partial class MapScene : SceneBase
 			EnemyShieldText.text = string.Format("[{0}]", enemyShield.ToString());
 		} else {
 			EnemyShieldText.text = "";
+		}
+
+		// バフデバフの更新
+		if (MapDataCarrier.Instance.CuPlayerStatus.GetAndResetUpdatePowerFlag() == true) {
+			for (int i = 0; i < MapDataCarrier.Instance.PowerObjects.Count; i++) {
+				GameObject.Destroy(MapDataCarrier.Instance.PowerObjects[i]);
+			}
+			MapDataCarrier.Instance.PowerObjects.Clear();
+
+			Power power = MapDataCarrier.Instance.CuPlayerStatus.GetPower();
+			for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+				int index = i;
+				int val = power.GetParameter((EnumSelf.PowerType)index);
+				if (val != 0) {
+					ResourceManager.Instance.RequestExecuteOrder(
+						Const.PowerControllerPath,
+						ExecuteOrder.Type.GameObject,
+						this.gameObject,
+						(rawObject) => {
+							GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+							obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, val, PowerRoot);
+							MapDataCarrier.Instance.PowerObjects.Add(obj);
+						}
+					);
+				}
+			}
+		}
+		
+		if (MapDataCarrier.Instance.CuEnemyStatus.GetAndResetUpdatePowerFlag() == true) {
+			for (int i = 0; i < MapDataCarrier.Instance.EnemyPowerObjects.Count; i++) {
+				GameObject.Destroy(MapDataCarrier.Instance.EnemyPowerObjects[i]);
+			}
+			MapDataCarrier.Instance.EnemyPowerObjects.Clear();
+
+			Power power = MapDataCarrier.Instance.CuEnemyStatus.GetPower();
+			for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+				int index = i;
+				int val = power.GetParameter((EnumSelf.PowerType)index);
+				if (val != 0) {
+					ResourceManager.Instance.RequestExecuteOrder(
+						Const.PowerControllerPath,
+						ExecuteOrder.Type.GameObject,
+						this.gameObject,
+						(rawObject) => {
+							GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+							obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, val, EnemyPowerRoot);
+							MapDataCarrier.Instance.EnemyPowerObjects.Add(obj);
+						}
+					);
+				}
+			}
+
 		}
 	}
 }

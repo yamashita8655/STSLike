@@ -17,6 +17,8 @@ public class MapBattleEnemyLotActionState : StateBase {
 		}
 		MapDataCarrier.Instance.EnemyValueObjects.Clear();
 
+		// 抽選をして、初めて行動が確定する
+		MapDataCarrier.Instance.CuEnemyStatus.LotActionData2();
 		MasterAction2Table.Data data = MapDataCarrier.Instance.CuEnemyStatus.GetActionData2();
 		// テキスト表示
 		scene.EnemyActionText.text = data.Name;
@@ -31,7 +33,11 @@ public class MapBattleEnemyLotActionState : StateBase {
 				scene.gameObject,
 				(rawObject) => {
 					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-					obj.GetComponent<ValueController>().Initialize(list[index], scene.EnemyActionValueRoot);
+					int val = list[index].Value;
+					if (list[index].Effect == EnumSelf.EffectType.Damage) {
+						val += MapDataCarrier.Instance.CuEnemyStatus.GetPower().GetParameter(EnumSelf.PowerType.Strength);
+					}
+					obj.GetComponent<ValueController>().Initialize(list[index].Effect, val, scene.EnemyActionValueRoot);
 					MapDataCarrier.Instance.EnemyValueObjects.Add(obj);
 				}
 			);

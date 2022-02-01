@@ -24,6 +24,8 @@ public class MapBattleEnemyValueChangeState : StateBase {
 			CalcHeal(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Shield) {
 			CalcShield(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.Strength) {
+			UpdatePower(pack);
 		}
 
 		MapDataCarrier.Instance.EnemyActionPackCount++;
@@ -51,18 +53,20 @@ public class MapBattleEnemyValueChangeState : StateBase {
 	
 	private void CalcDamageNormalDamage(ActionPack pack) {
 		int shield = 0;
+		int powerStrength = MapDataCarrier.Instance.CuEnemyStatus.GetPower().GetParameter(EnumSelf.PowerType.Strength);
 		int overDamage = 0;
+			int damage = pack.Value+powerStrength;
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			shield = MapDataCarrier.Instance.CuPlayerStatus.GetNowShield();
-			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-pack.Value);
-			overDamage = shield - pack.Value;
+			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-damage);
+			overDamage = shield - damage;
 			if (overDamage < 0) {
 				MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(overDamage);
 			}
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			shield = MapDataCarrier.Instance.CuEnemyStatus.GetNowShield();
-			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(-pack.Value);
-			overDamage = shield - pack.Value;
+			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(-damage);
+			overDamage = shield - damage;
 			if (overDamage < 0) {
 				MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(overDamage);
 			}
@@ -85,5 +89,24 @@ public class MapBattleEnemyValueChangeState : StateBase {
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(shield);
 		}
+	}
+	
+	private void UpdatePower(ActionPack pack) {
+		int val = pack.Value;
+		EnumSelf.PowerType pType = ConvertEffectType2PowerType(pack.Effect);
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			MapDataCarrier.Instance.CuPlayerStatus.AddPower(pType, val);
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			MapDataCarrier.Instance.CuEnemyStatus.AddPower(pType, val);
+		}
+	}
+
+	private EnumSelf.PowerType ConvertEffectType2PowerType(EnumSelf.EffectType type) {
+		EnumSelf.PowerType pType = EnumSelf.PowerType.None;
+		if (type == EnumSelf.EffectType.Strength) {
+			pType = EnumSelf.PowerType.Strength;
+		}
+
+		return pType;
 	}
 }

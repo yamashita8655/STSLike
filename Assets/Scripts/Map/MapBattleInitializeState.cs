@@ -40,7 +40,7 @@ public class MapBattleInitializeState : StateBase {
 					scene.gameObject,
 					(rawObject) => {
 						GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-						obj.GetComponent<ValueController>().Initialize(list[index2], scene.PlayerActionValueRoots[index]);
+						obj.GetComponent<ValueController>().Initialize(list[index2].Effect, list[index2].Value, scene.PlayerActionValueRoots[index]);
 						MapDataCarrier.Instance.ValueObjects.Add(obj);
 					}
 				);

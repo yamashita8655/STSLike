@@ -33,6 +33,7 @@ public partial class EnumSelf : MonoBehaviour {
         Damage,
         Shield,
         Heal,
+        Strength,
 		Max
 	};
 	
@@ -61,5 +62,11 @@ public partial class EnumSelf : MonoBehaviour {
 		None,
 		Random,
 		Rotation
+	}
+
+	public enum PowerType {
+		None = -1,
+		Strength = 0,
+		Max
 	}
 }
