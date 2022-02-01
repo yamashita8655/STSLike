@@ -56,4 +56,10 @@ public partial class EnumSelf : MonoBehaviour {
 		BattleEnd,
 		Max
 	};
+
+	public enum EnemyActionType {
+		None,
+		Random,
+		Rotation
+	}
 }

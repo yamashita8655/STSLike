@@ -79,8 +79,8 @@ public partial class MapScene : SceneBase
 	public Text EnemyActionText => CuEnemyActionText;
 	
 	[SerializeField]
-	private Text CuEnemyActionValueText = null;
-	public Text EnemyActionValueText => CuEnemyActionValueText;
+	private GameObject CuEnemyActionValueRoot = null;
+	public GameObject EnemyActionValueRoot => CuEnemyActionValueRoot;
 	
 	[SerializeField]
 	private GameObject CuResultRoot = null;

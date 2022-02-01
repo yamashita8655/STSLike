@@ -48,6 +48,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public List<MasterArtifactTable.Data> GetArtifactList = null;
 	
 	public List<GameObject> ValueObjects { get; set; }
+	public List<GameObject> EnemyValueObjects { get; set; }
 
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
@@ -59,6 +60,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		ArtifactList = new List<MasterArtifactTable.Data>();
 		GetArtifactList = new List<MasterArtifactTable.Data>();
 		ValueObjects = new List<GameObject>();
+		EnemyValueObjects = new List<GameObject>();
 		DungeonData = null;
 	}
 

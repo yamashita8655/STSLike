@@ -10,10 +10,8 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 		public int Hp { get; private set; }
 		public int MHp { get; private set; }
 		public string ImagePath { get; private set; }
-		public int ActionType { get; private set; }
-		public int ActionId1 { get; private set; }
-		public int ActionId2 { get; private set; }
-		public int ActionId3 { get; private set; }
+		public EnumSelf.EnemyActionType ActionType { get; private set; }
+		public List<int> ActionIds { get; private set; }
 
         public Data(
 			int id,
@@ -21,10 +19,8 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 			int hp,
 			int mHp,
 			string imagePath,
-			int actionType,
-			int actionId1,
-			int actionId2,
-			int actionId3
+			EnumSelf.EnemyActionType actionType,
+			List<int> actionIds
 		)
 		{
 			Id			= id;
@@ -33,9 +29,7 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 			MHp			= mHp;
 			ImagePath	= imagePath;
 			ActionType	= actionType;
-			ActionId1	= actionId1;
-			ActionId2 	= actionId2;
-            ActionId3   = actionId3;
+			ActionIds	= actionIds;
 		}
 	};
 
@@ -60,20 +54,42 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 		for (int i = 1; i < lineList.Count; i++) {
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
 
+			// アクションIDリストを先に作っておく
+			List<int> list = new List<int>();
+			int index = 6;
+			while (true) {
+				if (paramList[index] == "NONE") {
+					break;
+				}
+				list.Add(int.Parse(paramList[index]));
+
+				index++;
+			}
+
 			Data data = new Data(
 				int.Parse(paramList[0]),
 				paramList[1],
 				int.Parse(paramList[2]),
 				int.Parse(paramList[3]),
 				paramList[4],
-				int.Parse(paramList[5]),
-				int.Parse(paramList[6]),
-				int.Parse(paramList[7]),
-				int.Parse(paramList[8])
+				GetEnemyActionType(paramList[5]),
+				list
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);
 		}
+	}
+	
+	private EnumSelf.EnemyActionType GetEnemyActionType(string typeString) {
+		EnumSelf.EnemyActionType type = EnumSelf.EnemyActionType.None;
+
+		if (typeString == "Random") {
+			type = EnumSelf.EnemyActionType.Random;
+		} else if (typeString == "Rotation") {
+			type = EnumSelf.EnemyActionType.Rotation;
+		}
+
+		return type;
 	}
 
 	// DataはSet関数をpublicに用意していないので、クローンにしなくて良い

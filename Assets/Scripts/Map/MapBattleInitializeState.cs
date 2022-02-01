@@ -25,12 +25,12 @@ public class MapBattleInitializeState : StateBase {
 		for (int i = 0; i < MapDataCarrier.Instance.ValueObjects.Count; i++) {
 			GameObject.Destroy(MapDataCarrier.Instance.ValueObjects[i]);
 		}
+		MapDataCarrier.Instance.ValueObjects.Clear();
 
 		for (int i = 0; i < scene.PlayerActionNameStrings.Length; i++) {
 			int index = i;
 			MasterAction2Table.Data pdata = player.GetActionData2(i);
 			scene.PlayerActionNameStrings[i].text = pdata.Name;
-			// TODO ダメージの短縮表示の見せ方を考える必要がある
 			var list = pdata.ActionPackList;
 			for (int i2 = 0; i2 < list.Count; i2++) {
 				int index2 = i2;
@@ -48,19 +48,20 @@ public class MapBattleInitializeState : StateBase {
 		}
 		
 		// 敵出現
-		// TODO ID決め打ち
-		//int enemyId = 3;
 		int enemyId = LotEnemyId();
 		MasterEnemyTable.Data data = MasterEnemyTable.Instance.GetData(enemyId);
-		EnemyStatus enemy = new EnemyStatus();
+		EnemyStatus enemy = new EnemyStatus(data);
 		enemy.SetMaxHp(data.MHp);
 		enemy.SetNowHp(data.Hp);
 		enemy.SetMaxShield(999999);
 		enemy.SetNowShield(0);
 		scene.EnemyShieldText.text = "";
-		// TODO とりあえず、一個目決め打ちで
-		MasterAction2Table.Data actionData = MasterAction2Table.Instance.GetData(data.ActionId1);
-		enemy.AddActionData2(actionData);
+
+		for (int i = 0; i < data.ActionIds.Count; i++) {
+			MasterAction2Table.Data actionData = MasterAction2Table.Instance.GetData(data.ActionIds[i]);
+			enemy.AddActionData2(actionData);
+		}
+
 		MapDataCarrier.Instance.CuEnemyStatus = enemy;
 
 		scene.EnemyNowHpText.text = data.Hp.ToString();
@@ -76,11 +77,6 @@ public class MapBattleInitializeState : StateBase {
 				scene.EnemyImage.sprite = spriteObj as Sprite;
 			}
 		);
-
-		// TODO とりあえず、敵の行動はここで一回決め打ちして動かさない
-		scene.EnemyActionText.text = actionData.Name;
-		// TODO 効果量の見せ方は、プレイヤー同様に考える必要がある
-		//scene.EnemyActionValueText.text = actionData.Value1.ToString();
 
 		return true;
 	}
@@ -149,7 +145,8 @@ public class MapBattleInitializeState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnStart);
+		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnStart);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyLotAction);
 	}
 
 	/// <summary>

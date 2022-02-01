@@ -33,6 +33,7 @@ public enum MapState : int
 	BattleDiceRoll,
 	BattleDiceRollUserWait,
 	BattleEnd,
+	BattleEnemyLotAction,
 	BattleEnemyAttackResult,
 	BattleEnemyAttack,
 	BattleEnemyTurnEnd,

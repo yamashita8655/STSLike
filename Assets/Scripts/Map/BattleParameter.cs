@@ -123,9 +123,14 @@ public class EnemyStatus
 	private List<MasterActionTable.Data> ActionDataList;
 	private List<MasterAction2Table.Data> ActionDataList2;
 
-	public EnemyStatus() {
+	// TODO 
+	private MasterEnemyTable.Data Data = null;
+	private int CurrentActionIndex = 0;
+
+	public EnemyStatus(MasterEnemyTable.Data data) {
 		ActionDataList = new List<MasterActionTable.Data>();
 		ActionDataList2 = new List<MasterAction2Table.Data>();
+		Data = data;
 	}
 	
 	public void SetNowHp(int val) {
@@ -170,7 +175,16 @@ public class EnemyStatus
 		ActionDataList2.Add(data);
 	}
 	public MasterAction2Table.Data GetActionData2() {
-		return ActionDataList2[0];
+		MasterAction2Table.Data data = null;
+		if (Data.ActionType == EnumSelf.EnemyActionType.Random) {
+			int all = ActionDataList2.Count;
+			int index = UnityEngine.Random.Range(0, all);
+			data = ActionDataList2[index];
+		} else if (Data.ActionType == EnumSelf.EnemyActionType.Rotation) {
+			data = ActionDataList2[CurrentActionIndex];
+			CurrentActionIndex++;
+		}
+		return data;
 	}
 	
 	public void SetNowShield(int val) {

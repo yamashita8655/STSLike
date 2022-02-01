@@ -57,7 +57,8 @@ public class MapBattleCheckState : StateBase {
 				if (MapDataCarrier.Instance.EnemyActionPackCount < MapDataCarrier.Instance.EnemyMaxActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange);
 				} else {
-					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnStart);
+					//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnStart);
+					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyLotAction);
 				}
 			}
 		}

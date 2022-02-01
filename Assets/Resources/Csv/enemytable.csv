@@ -1,5 +1,11 @@
 id,name,hp,mhp,imagepath,actiontype,actionid1,actionid2,actionid3
-1,スライム,20,20,Image/Map/Enemy/slime,1,8,0,0
-2,ゴブリン,30,30,Image/Map/Enemy/goblin,1,18,0,0
-3,デバッグかかし,999,999,Image/Map/Enemy/slime,1,1003,0,0
-1001,ボススライム,100,100,Image/Map/Enemy/bossslime,1,1004,0,0
+1,ゴブリン,30,30,Image/Map/Enemy/goblin,Random,1001,1002,NONE
+2,ラット,30,30,Image/Map/Enemy/rat,Random,18,NONE,
+3,スパイダー,20,20,Image/Map/Enemy/slime,Random,8,NONE,
+4,スライム,20,20,Image/Map/Enemy/slime,Random,8,NONE,
+5,スネーク,20,20,Image/Map/Enemy/snake,Random,8,NONE,
+6,バット,20,20,Image/Map/Enemy/bat,Random,8,NONE,
+7,キラービー,20,20,Image/Map/Enemy/killerbe,Random,8,NONE,
+8,ホブゴブリン,20,20,Image/Map/Enemy/hobgoblin,Random,8,NONE,
+1001,森の大樹,100,100,Image/Map/Enemy/woodking,Random,1004,NONE,
+9999,デバッグかかし,999,999,Image/Map/Enemy/slime,Random,1003,NONE,
