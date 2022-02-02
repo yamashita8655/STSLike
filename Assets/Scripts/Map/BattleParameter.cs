@@ -17,6 +17,8 @@ public class PlayerStatus
 	private Power DebuffPower = null;
 	private bool IsPowerUpdateFlag = false;
 
+	private TurnPower CuTurnPower = null;
+
 	public PlayerStatus() {
 		ActionDataList = new List<MasterActionTable.Data>(){
 			null,null,null,null,null,null
@@ -28,6 +30,8 @@ public class PlayerStatus
 		
 		BuffPower = new Power();
 		DebuffPower = new Power();
+
+		CuTurnPower = new TurnPower();
 	}
 
 	public void SetNowHp(int val) {
@@ -134,6 +138,18 @@ public class PlayerStatus
 		return retPower;
 	}
 	
+	public void AddTurnPower(EnumSelf.TurnPowerType type, int val) {
+		CuTurnPower.AddTurnPowerCount(type, val);
+		IsPowerUpdateFlag = true;
+	}
+	
+	public TurnPower GetTurnPower() {
+		return CuTurnPower;
+	}
+	
+	public int GetTurnPowerCount(EnumSelf.TurnPowerType type) {
+		return CuTurnPower.GetTurnPowerCount(type);
+	}
 
 	public bool GetAndResetUpdatePowerFlag() {
 		bool isUpdate = IsPowerUpdateFlag;
@@ -167,12 +183,15 @@ public class EnemyStatus
 	private Power DebuffPower = null;
 	private bool IsPowerUpdateFlag = false;
 
+	private TurnPower CuTurnPower = null;
+
 	public EnemyStatus(MasterEnemyTable.Data data) {
 		ActionDataList = new List<MasterActionTable.Data>();
 		ActionDataList2 = new List<MasterAction2Table.Data>();
 		BuffPower = new Power();
 		DebuffPower = new Power();
 		Data = data;
+		CuTurnPower = new TurnPower();
 	}
 	
 	public void SetNowHp(int val) {
@@ -291,6 +310,16 @@ public class EnemyStatus
 		return retPower;
 	}
 	
+	public void AddTurnPower(EnumSelf.TurnPowerType type, int val) {
+		CuTurnPower.AddTurnPowerCount(type, val);
+		IsPowerUpdateFlag = true;
+	}
+	
+	public TurnPower GetTurnPower() {
+		return CuTurnPower;
+	}
+	
+	
 	public bool GetAndResetUpdatePowerFlag() {
 		bool isUpdate = IsPowerUpdateFlag;
 		if (IsPowerUpdateFlag == true) {
@@ -300,6 +329,7 @@ public class EnemyStatus
 	}
 }
 
+// こっちは、効果が永続で、効果量が可変する物。
 public class Power {
 	private List<int> Parameter = new List<int>();
 	public Power() {
@@ -318,5 +348,30 @@ public class Power {
 	
 	public void AddParameter(EnumSelf.PowerType type, int val) {
 		Parameter[(int)type] += val;
+	}
+}
+
+// こっちは、効果量は固定で、効果ターンが可変する物。
+public class TurnPower {
+	private List<int> TurnPowerCount = new List<int>();
+	public TurnPower() {
+		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+			TurnPowerCount.Add(0);
+		}
+	}
+
+	public int GetTurnPowerCount(EnumSelf.TurnPowerType type) {
+		return TurnPowerCount[(int)type];
+	}
+	
+	public void SetTurnPowerCount(EnumSelf.TurnPowerType type, int val) {
+		TurnPowerCount[(int)type] = val;
+	}
+	
+	public void AddTurnPowerCount(EnumSelf.TurnPowerType type, int val) {
+		TurnPowerCount[(int)type] += val;
+		if (TurnPowerCount[(int)type] < 0) {
+			TurnPowerCount[(int)type] = 0;
+		}
 	}
 }

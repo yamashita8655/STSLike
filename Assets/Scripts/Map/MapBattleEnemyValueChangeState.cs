@@ -26,6 +26,8 @@ public class MapBattleEnemyValueChangeState : StateBase {
 			CalcShield(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Strength) {
 			UpdatePower(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.DiceMinusOne) {
+			UpdateTurnPower(pack);
 		}
 
 		MapDataCarrier.Instance.EnemyActionPackCount++;
@@ -105,6 +107,25 @@ public class MapBattleEnemyValueChangeState : StateBase {
 		EnumSelf.PowerType pType = EnumSelf.PowerType.None;
 		if (type == EnumSelf.EffectType.Strength) {
 			pType = EnumSelf.PowerType.Strength;
+		}
+
+		return pType;
+	}
+	
+	private void UpdateTurnPower(ActionPack pack) {
+		int val = pack.Value;
+		EnumSelf.TurnPowerType pType = ConvertEffectType2TurnPowerType(pack.Effect);
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			MapDataCarrier.Instance.CuPlayerStatus.AddTurnPower(pType, val);
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			MapDataCarrier.Instance.CuEnemyStatus.AddTurnPower(pType, val);
+		}
+	}
+
+	private EnumSelf.TurnPowerType ConvertEffectType2TurnPowerType(EnumSelf.EffectType type) {
+		EnumSelf.TurnPowerType pType = EnumSelf.TurnPowerType.None;
+		if (type == EnumSelf.EffectType.DiceMinusOne) {
+			pType = EnumSelf.TurnPowerType.DiceMinusOne;
 		}
 
 		return pType;

@@ -11,6 +11,12 @@ public class MapBattlePlayerTurnEndState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		var status = MapDataCarrier.Instance.CuPlayerStatus;
+		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+			status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
+		}
+
+		scene.UpdateParameterText();
 		return true;
 	}
 
@@ -20,7 +26,7 @@ public class MapBattlePlayerTurnEndState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyTurnStart);
 	}
 
 	/// <summary>

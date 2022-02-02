@@ -33,7 +33,9 @@ public partial class EnumSelf : MonoBehaviour {
         Damage,
         Shield,
         Heal,
+		// バフ、デバフ
         Strength,
+        DiceMinusOne,
 		Max
 	};
 	
@@ -63,10 +65,23 @@ public partial class EnumSelf : MonoBehaviour {
 		Random,
 		Rotation
 	}
+	
+	// TODO これ、マスターデータで設定しないから、どこかにどっちのタイプに属するのか
+	// 書いておかないとダメだな…。
+	public enum PowerKind {
+		Power = 0,
+		TurnPower,
+	}
 
 	public enum PowerType {
 		None = -1,
 		Strength = 0,
+		Max
+	}
+	
+	public enum TurnPowerType {
+		None = -1,
+		DiceMinusOne = 0,
 		Max
 	}
 }

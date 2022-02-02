@@ -47,7 +47,8 @@ public class MapBattleCheckState : StateBase {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleValueChange);
 				} else {
 					if (MapDataCarrier.Instance.DiceValueList.Count == 0) {
-						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyTurnStart);
+						//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyTurnStart);
+						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnEnd);
 					} else {
 						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
 					}
@@ -57,7 +58,6 @@ public class MapBattleCheckState : StateBase {
 				if (MapDataCarrier.Instance.EnemyActionPackCount < MapDataCarrier.Instance.EnemyMaxActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange);
 				} else {
-					//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnStart);
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyLotAction);
 				}
 			}

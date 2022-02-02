@@ -19,8 +19,16 @@ public class MapBattleDiceRollState : StateBase {
 			scene.DiceImages[i].gameObject.SetActive(false);
 		}
 
+		// ダイスのデバフ処理
 		PlayerStatus status = MapDataCarrier.Instance.CuPlayerStatus;
-		for (int i = 0; i < status.GetMaxDiceCount(); i++) {
+		int diceCount = status.GetMaxDiceCount();
+		if (status.GetTurnPowerCount(EnumSelf.TurnPowerType.DiceMinusOne) > 0) {
+			diceCount--;
+			if (diceCount < 0) {
+				diceCount = 0;
+			}
+		}
+		for (int i = 0; i < diceCount; i++) {
 			scene.DiceImages[i].gameObject.SetActive(true);
 			int seed = UnityEngine.Random.Range(0, 6000);
 			int dice = 0;
