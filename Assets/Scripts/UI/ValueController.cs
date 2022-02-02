@@ -40,10 +40,13 @@ public class ValueController : MonoBehaviour
 			ret = Const.ShieldImagePath;
 		} else if (type == EnumSelf.EffectType.Heal) {
 			ret = Const.HealImagePath;
-		} else if (type == EnumSelf.EffectType.Strength) {
+		} else if (
+			(type == EnumSelf.EffectType.Strength) ||
+			(type == EnumSelf.EffectType.Regenerate)
+		) {
 			ret = Const.PowerImagePath;
 		} else if (type == EnumSelf.EffectType.DiceMinusOne) {
-			ret = Const.DebugImagePath;
+			ret = Const.DebuffImagePath;
 		}
 
 		return ret;

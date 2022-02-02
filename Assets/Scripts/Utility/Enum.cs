@@ -36,6 +36,7 @@ public partial class EnumSelf : MonoBehaviour {
 		// バフ、デバフ
         Strength,
         DiceMinusOne,
+        Regenerate,
 		Max
 	};
 	
@@ -76,6 +77,7 @@ public partial class EnumSelf : MonoBehaviour {
 	public enum PowerType {
 		None = -1,
 		Strength = 0,
+		Regenerate,
 		Max
 	}
 	

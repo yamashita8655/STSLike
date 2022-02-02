@@ -96,6 +96,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Strength;
 		} else if (typeString == "DiceMinusOne") {
 			type = EnumSelf.EffectType.DiceMinusOne;
+		} else if (typeString == "Regenerate") {
+			type = EnumSelf.EffectType.Regenerate;
 		}
 
 		return type;

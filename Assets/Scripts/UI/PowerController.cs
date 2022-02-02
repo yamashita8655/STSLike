@@ -36,6 +36,8 @@ public class PowerController : MonoBehaviour
 		string ret = "";
 		if (type == EnumSelf.PowerType.Strength) {
 			ret = Const.StrengthImagePath;
+		} else if (type == EnumSelf.PowerType.Regenerate) {
+			ret = Const.RegenerateImagePath;
 		}
 
 		return ret;

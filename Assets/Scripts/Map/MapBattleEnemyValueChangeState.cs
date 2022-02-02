@@ -24,7 +24,10 @@ public class MapBattleEnemyValueChangeState : StateBase {
 			CalcHeal(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Shield) {
 			CalcShield(pack);
-		} else if (pack.Effect == EnumSelf.EffectType.Strength) {
+		} else if (
+			(pack.Effect == EnumSelf.EffectType.Strength) ||
+			(pack.Effect == EnumSelf.EffectType.Regenerate)
+		) {
 			UpdatePower(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.DiceMinusOne) {
 			UpdateTurnPower(pack);
@@ -107,6 +110,8 @@ public class MapBattleEnemyValueChangeState : StateBase {
 		EnumSelf.PowerType pType = EnumSelf.PowerType.None;
 		if (type == EnumSelf.EffectType.Strength) {
 			pType = EnumSelf.PowerType.Strength;
+		} else if (type == EnumSelf.EffectType.Regenerate) {
+			pType = EnumSelf.PowerType.Regenerate;
 		}
 
 		return pType;
