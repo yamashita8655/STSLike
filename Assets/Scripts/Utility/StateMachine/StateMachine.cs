@@ -316,7 +316,7 @@ public class StateMachine
 	{
 		return CurrentSaveState;
 	}
-
+	
 	/// <summary>
 	/// ステート本体の取得.
 	/// </summary>

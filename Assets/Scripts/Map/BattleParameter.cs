@@ -9,8 +9,8 @@ public class PlayerStatus
 	private int MaxHp;
 	private int NowShield;
 	private int MaxShield;
-	private List<MasterActionTable.Data> ActionDataList;
-	private List<MasterAction2Table.Data> ActionDataList2;
+	private List<MasterAction2Table.Data> ActionDataList;
+	private List<MasterAction2Table.Data> InitiativeActionDataList;
 	private int MaxDiceCount;
 	
 	private Power BuffPower = null;
@@ -20,13 +20,10 @@ public class PlayerStatus
 	private TurnPower CuTurnPower = null;
 
 	public PlayerStatus() {
-		ActionDataList = new List<MasterActionTable.Data>(){
+		ActionDataList = new List<MasterAction2Table.Data>(){
 			null,null,null,null,null,null
 		};
-		
-		ActionDataList2 = new List<MasterAction2Table.Data>(){
-			null,null,null,null,null,null
-		};
+		InitiativeActionDataList = new List<MasterAction2Table.Data>();
 		
 		BuffPower = new Power();
 		DebuffPower = new Power();
@@ -63,19 +60,34 @@ public class PlayerStatus
 			MaxHp = 1;
 		}
 	}
-
-	public void SetActionData(int index, MasterActionTable.Data data) {
+	
+	public void SetActionData(int index, MasterAction2Table.Data data) {
 		ActionDataList[index] = data;
 	}
-	public MasterActionTable.Data GetActionData(int index) {
+	public MasterAction2Table.Data GetActionData(int index) {
 		return ActionDataList[index];
 	}
-	
-	public void SetActionData2(int index, MasterAction2Table.Data data) {
-		ActionDataList2[index] = data;
+	public void AddActionData(int index, MasterAction2Table.Data data) {
+		ActionDataList[index] = data;
 	}
-	public MasterAction2Table.Data GetActionData2(int index) {
-		return ActionDataList2[index];
+	
+	public MasterAction2Table.Data GetInitiativeFirstActionData() {
+		MasterAction2Table.Data data = null;
+		if (InitiativeActionDataList.Count != 0) {
+			data = InitiativeActionDataList[0];
+		}
+		return data;
+	}
+	public void RemoveInitiativeFirstActionData() {
+		if (InitiativeActionDataList.Count != 0) {
+			InitiativeActionDataList.RemoveAt(0);
+		}
+	}
+	public int GetInitiativeActionDataCount() {
+		return InitiativeActionDataList.Count;
+	}
+	public void AddInitiativeActionData(MasterAction2Table.Data data) {
+		InitiativeActionDataList.Add(data);
 	}
 	
 	public void SetMaxDiceCount(int val) {
@@ -171,8 +183,8 @@ public class EnemyStatus
 	// TODO
 	// とりあえず、一個だけ登録
 	// 複数持たせて、ローテかランダムかの対応は、後でやる
-	private List<MasterActionTable.Data> ActionDataList;
-	private List<MasterAction2Table.Data> ActionDataList2;
+	private List<MasterAction2Table.Data> ActionDataList;
+	private List<MasterAction2Table.Data> InitiativeActionDataList;
 
 	private MasterEnemyTable.Data Data = null;
 	private int CurrentActionIndex = 0;
@@ -186,8 +198,8 @@ public class EnemyStatus
 	private TurnPower CuTurnPower = null;
 
 	public EnemyStatus(MasterEnemyTable.Data data) {
-		ActionDataList = new List<MasterActionTable.Data>();
-		ActionDataList2 = new List<MasterAction2Table.Data>();
+		ActionDataList = new List<MasterAction2Table.Data>();
+		InitiativeActionDataList = new List<MasterAction2Table.Data>();
 		BuffPower = new Power();
 		DebuffPower = new Power();
 		Data = data;
@@ -224,32 +236,43 @@ public class EnemyStatus
 		}
 	}
 	
-	public void AddActionData(MasterActionTable.Data data) {
+	public void AddActionData(MasterAction2Table.Data data) {
 		ActionDataList.Add(data);
 	}
-	public MasterActionTable.Data GetActionData() {
-		// TODO とりあえず0番目決め打ち
-		return ActionDataList[0];
-	}
-	
-	public void AddActionData2(MasterAction2Table.Data data) {
-		ActionDataList2.Add(data);
-	}
-	public MasterAction2Table.Data GetActionData2() {
+	public MasterAction2Table.Data GetActionData() {
 		return DecideActionData;
 	}
+	
+	public MasterAction2Table.Data GetInitiativeFirstActionData() {
+		MasterAction2Table.Data data = null;
+		if (InitiativeActionDataList.Count != 0) {
+			data = InitiativeActionDataList[0];
+		}
+		return data;
+	}
+	public int GetInitiativeActionDataCount() {
+		return InitiativeActionDataList.Count;
+	}
+	public void RemoveInitiativeFirstActionData() {
+		if (InitiativeActionDataList.Count != 0) {
+			InitiativeActionDataList.RemoveAt(0);
+		}
+	}
+	public void AddInitiativeActionData(MasterAction2Table.Data data) {
+		InitiativeActionDataList.Add(data);
+	}
 
-	public void LotActionData2() {
+	public void LotActionData() {
 	
 		MasterAction2Table.Data data = null;
 		if (Data.ActionType == EnumSelf.EnemyActionType.Random) {
-			int all = ActionDataList2.Count;
+			int all = ActionDataList.Count;
 			int index = UnityEngine.Random.Range(0, all);
-			data = ActionDataList2[index];
+			data = ActionDataList[index];
 		} else if (Data.ActionType == EnumSelf.EnemyActionType.Rotation) {
-			data = ActionDataList2[CurrentActionIndex];
+			data = ActionDataList[CurrentActionIndex];
 			CurrentActionIndex++;
-			if (CurrentActionIndex >= ActionDataList2.Count) {
+			if (CurrentActionIndex >= ActionDataList.Count) {
 				CurrentActionIndex = 0;
 			} 
 		}

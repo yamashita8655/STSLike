@@ -38,8 +38,14 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public int ActionPackCount = 0;
 	public int MaxActionPackCount = 0;
 	
+	public int InitiativeActionPackCount = 0;
+	public int MaxInitiativeActionPackCount = 0;
+	
 	public int EnemyActionPackCount = 0;
 	public int EnemyMaxActionPackCount = 0;
+	
+	public int EnemyInitiativeActionPackCount = 0;
+	public int EnemyMaxInitiativeActionPackCount = 0;
 
 	public MasterDungeonTable.Data DungeonData { get; set; }
 	

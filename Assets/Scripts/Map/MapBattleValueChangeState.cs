@@ -14,17 +14,17 @@ public class MapBattleValueChangeState : StateBase {
 
 		int select = MapDataCarrier.Instance.SelectAttackIndex;
 
-		MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData2(select);
+		MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
 
 		int count = MapDataCarrier.Instance.ActionPackCount;
 		ActionPack pack = data.ActionPackList[count]; 
 
 		if (pack.Effect == EnumSelf.EffectType.Damage) {
-			CalcDamageNormalDamage(pack);
+			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
-			CalcHeal(pack);
+			BattleCalculationFunction.PlayerCalcHeal(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Shield) {
-			CalcShield(pack);
+			BattleCalculationFunction.PlayerCalcShield(pack);
 		}
 
 		MapDataCarrier.Instance.ActionPackCount++;
@@ -50,43 +50,43 @@ public class MapBattleValueChangeState : StateBase {
 	{
 	}
 
-	private void CalcDamageNormalDamage(ActionPack pack) {
-		int shield = 0;
-		int overDamage = 0;
-		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			shield = MapDataCarrier.Instance.CuEnemyStatus.GetNowShield();
-			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(-pack.Value);
-			overDamage = shield - pack.Value;
-			if (overDamage < 0) {
-				MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(overDamage);
-			}
-		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			shield = MapDataCarrier.Instance.CuPlayerStatus.GetNowShield();
-			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-pack.Value);
-			overDamage = shield - pack.Value;
-			if (overDamage < 0) {
-				MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(overDamage);
-			}
-		}
-	}
-	
-	private void CalcHeal(ActionPack pack) {
-		int heal = pack.Value;
-		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(heal);
-		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(heal);
-		}
-	}
-	
-	private void CalcShield(ActionPack pack) {
-		int shield = pack.Value;
-		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(shield);
-		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(shield);
-		}
-	}
+	//private void CalcDamageNormalDamage(ActionPack pack) {
+	//	int shield = 0;
+	//	int overDamage = 0;
+	//	if (pack.Target == EnumSelf.TargetType.Opponent) {
+	//		shield = MapDataCarrier.Instance.CuEnemyStatus.GetNowShield();
+	//		MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(-pack.Value);
+	//		overDamage = shield - pack.Value;
+	//		if (overDamage < 0) {
+	//			MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(overDamage);
+	//		}
+	//	} else if (pack.Target == EnumSelf.TargetType.Self) {
+	//		shield = MapDataCarrier.Instance.CuPlayerStatus.GetNowShield();
+	//		MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-pack.Value);
+	//		overDamage = shield - pack.Value;
+	//		if (overDamage < 0) {
+	//			MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(overDamage);
+	//		}
+	//	}
+	//}
+	//
+	//private void CalcHeal(ActionPack pack) {
+	//	int heal = pack.Value;
+	//	if (pack.Target == EnumSelf.TargetType.Opponent) {
+	//		MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(heal);
+	//	} else if (pack.Target == EnumSelf.TargetType.Self) {
+	//		MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(heal);
+	//	}
+	//}
+	//
+	//private void CalcShield(ActionPack pack) {
+	//	int shield = pack.Value;
+	//	if (pack.Target == EnumSelf.TargetType.Opponent) {
+	//		MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(shield);
+	//	} else if (pack.Target == EnumSelf.TargetType.Self) {
+	//		MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(shield);
+	//	}
+	//}
 	
 /*
 	/// <summary>

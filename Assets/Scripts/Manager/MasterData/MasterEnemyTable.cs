@@ -11,6 +11,7 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 		public int MHp { get; private set; }
 		public string ImagePath { get; private set; }
 		public EnumSelf.EnemyActionType ActionType { get; private set; }
+		public string InitiativeActionId { get; private set; }
 		public List<int> ActionIds { get; private set; }
 
         public Data(
@@ -20,6 +21,7 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 			int mHp,
 			string imagePath,
 			EnumSelf.EnemyActionType actionType,
+			string initiativeActionId,
 			List<int> actionIds
 		)
 		{
@@ -29,6 +31,7 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 			MHp			= mHp;
 			ImagePath	= imagePath;
 			ActionType	= actionType;
+			InitiativeActionId = initiativeActionId;
 			ActionIds	= actionIds;
 		}
 	};
@@ -56,7 +59,7 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 
 			// アクションIDリストを先に作っておく
 			List<int> list = new List<int>();
-			int index = 6;
+			int index = 7;
 			while (true) {
 				if (paramList[index] == "NONE") {
 					break;
@@ -73,6 +76,7 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 				int.Parse(paramList[3]),
 				paramList[4],
 				GetEnemyActionType(paramList[5]),
+				paramList[6],
 				list
 			);
 

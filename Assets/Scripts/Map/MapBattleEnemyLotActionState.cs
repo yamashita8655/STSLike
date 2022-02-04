@@ -18,8 +18,8 @@ public class MapBattleEnemyLotActionState : StateBase {
 		MapDataCarrier.Instance.EnemyValueObjects.Clear();
 
 		// 抽選をして、初めて行動が確定する
-		MapDataCarrier.Instance.CuEnemyStatus.LotActionData2();
-		MasterAction2Table.Data data = MapDataCarrier.Instance.CuEnemyStatus.GetActionData2();
+		MapDataCarrier.Instance.CuEnemyStatus.LotActionData();
+		MasterAction2Table.Data data = MapDataCarrier.Instance.CuEnemyStatus.GetActionData();
 		// テキスト表示
 		scene.EnemyActionText.text = data.Name;
 

@@ -196,7 +196,7 @@ public class StateMachineManager
 
 		return val.GetSaveState();
 	}
-
+	
 	/// <summary>
 	/// ステート本体の取得.
 	/// </summary>

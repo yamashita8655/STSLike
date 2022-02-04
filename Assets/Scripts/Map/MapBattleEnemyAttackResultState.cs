@@ -13,7 +13,7 @@ public class MapBattleEnemyAttackResultState : StateBase {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
-		MasterAction2Table.Data data = enemy.GetActionData2();
+		MasterAction2Table.Data data = enemy.GetActionData();
 
 		MapDataCarrier.Instance.EnemyActionPackCount = 0;
 		MapDataCarrier.Instance.EnemyMaxActionPackCount = data.ActionPackList.Count;

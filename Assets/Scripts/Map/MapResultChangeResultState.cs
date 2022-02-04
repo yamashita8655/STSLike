@@ -16,7 +16,7 @@ public class MapResultChangeResultState : StateBase {
 		MasterAction2Table.Data data = MapDataCarrier.Instance.TreasureList[treasureIndex];
 
 		int changeIndex = MapDataCarrier.Instance.SelectChangeIndex;
-		MapDataCarrier.Instance.CuPlayerStatus.SetActionData2(changeIndex, data);
+		MapDataCarrier.Instance.CuPlayerStatus.SetActionData(changeIndex, data);
 
 		scene.PlayerActionNameStrings[changeIndex].text = data.Name;
 		// TODO 見せ方考える

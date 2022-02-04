@@ -21,6 +21,13 @@ public class MapBattleInitializeState : StateBase {
 		player.SetMaxShield(999999);
 		player.SetNowShield(0);
 		scene.PlayerShieldText.text = "";
+
+		// TODO プレイヤーのイニシアチブIDは、どっかで設定しないとね
+		// レリック効果とかで。
+		//string pInitiativeActionId = data.InitiativeActionId;
+		//if (pInitiativeActionId != "NONE") {
+		//	enemy.AddInitiativeActionData(MasterAction2Table.Instance.GetData(initiativeActionId));
+		//}
 		
 		for (int i = 0; i < MapDataCarrier.Instance.ValueObjects.Count; i++) {
 			GameObject.Destroy(MapDataCarrier.Instance.ValueObjects[i]);
@@ -29,7 +36,7 @@ public class MapBattleInitializeState : StateBase {
 
 		for (int i = 0; i < scene.PlayerActionNameStrings.Length; i++) {
 			int index = i;
-			MasterAction2Table.Data pdata = player.GetActionData2(i);
+			MasterAction2Table.Data pdata = player.GetActionData(i);
 			scene.PlayerActionNameStrings[i].text = pdata.Name;
 			var list = pdata.ActionPackList;
 			for (int i2 = 0; i2 < list.Count; i2++) {
@@ -59,7 +66,13 @@ public class MapBattleInitializeState : StateBase {
 
 		for (int i = 0; i < data.ActionIds.Count; i++) {
 			MasterAction2Table.Data actionData = MasterAction2Table.Instance.GetData(data.ActionIds[i]);
-			enemy.AddActionData2(actionData);
+			enemy.AddActionData(actionData);
+		}
+
+		// TODO イニシアチブアクションは、別ステートで持った方がいいかも
+		string initiativeActionId = data.InitiativeActionId;
+		if (initiativeActionId != "NONE") {
+			enemy.AddInitiativeActionData(MasterAction2Table.Instance.GetData(int.Parse(initiativeActionId)));
 		}
 
 		MapDataCarrier.Instance.CuEnemyStatus = enemy;
@@ -67,6 +80,7 @@ public class MapBattleInitializeState : StateBase {
 		scene.EnemyNowHpText.text = data.Hp.ToString();
 		scene.EnemyMaxHpText.text = data.MHp.ToString();
 		scene.EnemyNameText.text = data.Name;
+
 
 		// TODO 本当は、読み込み待ちした方が良い
 		ResourceManager.Instance.RequestExecuteOrder(
@@ -145,8 +159,8 @@ public class MapBattleInitializeState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnStart);
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyLotAction);
+		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyLotAction);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerInitiative);
 	}
 
 	/// <summary>

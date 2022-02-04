@@ -455,7 +455,7 @@ public partial class MapScene : SceneBase
 		//	return;
 		//}
 
-		MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData2(index);
+		MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(index);
 		CarryCardDetailController.Open(data);
 	}
 	
