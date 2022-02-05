@@ -4,6 +4,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleCalculationFunction {
+	public static void PlayerValueChange(ActionPack pack) {
+		if (pack.Effect == EnumSelf.EffectType.Damage) {
+			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
+			BattleCalculationFunction.PlayerCalcHeal(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.Shield) {
+			BattleCalculationFunction.PlayerCalcShield(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.ShieldDamage) {
+			BattleCalculationFunction.PlayerCalcShieldDamage(pack);
+		}
+	}
+
+	public static void EnemyValueChange(ActionPack pack) {
+		if (pack.Effect == EnumSelf.EffectType.Damage) {
+			BattleCalculationFunction.EnemyCalcDamageNormalDamage(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
+			BattleCalculationFunction.EnemyCalcHeal(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.Shield) {
+			BattleCalculationFunction.EnemyCalcShield(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.ShieldDamage) {
+			BattleCalculationFunction.EnemyCalcShieldDamage(pack);
+		} else if (
+			(pack.Effect == EnumSelf.EffectType.Strength) ||
+			(pack.Effect == EnumSelf.EffectType.Regenerate)
+		) {
+			BattleCalculationFunction.EnemyUpdatePower(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.DiceMinusOne) {
+			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
+		}
+	}
+
 	// Player用
 	public static void PlayerCalcDamageNormalDamage(ActionPack pack) {
 		int shield = 0;
@@ -22,6 +53,14 @@ public class BattleCalculationFunction {
 			if (overDamage < 0) {
 				MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(overDamage);
 			}
+		}
+	}
+	
+	public static void PlayerCalcShieldDamage(ActionPack pack) {
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(-pack.Value);
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-pack.Value);
 		}
 	}
 	
@@ -63,6 +102,14 @@ public class BattleCalculationFunction {
 			if (overDamage < 0) {
 				MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(overDamage);
 			}
+		}
+	}
+	
+	public static void EnemyCalcShieldDamage(ActionPack pack) {
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-pack.Value);
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(-pack.Value);
 		}
 	}
 	

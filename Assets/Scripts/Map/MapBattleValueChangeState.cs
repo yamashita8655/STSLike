@@ -18,14 +18,16 @@ public class MapBattleValueChangeState : StateBase {
 
 		int count = MapDataCarrier.Instance.ActionPackCount;
 		ActionPack pack = data.ActionPackList[count]; 
+		
+		BattleCalculationFunction.PlayerValueChange(pack);
 
-		if (pack.Effect == EnumSelf.EffectType.Damage) {
-			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
-		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
-			BattleCalculationFunction.PlayerCalcHeal(pack);
-		} else if (pack.Effect == EnumSelf.EffectType.Shield) {
-			BattleCalculationFunction.PlayerCalcShield(pack);
-		}
+		//if (pack.Effect == EnumSelf.EffectType.Damage) {
+		//	BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
+		//} else if (pack.Effect == EnumSelf.EffectType.Heal) {
+		//	BattleCalculationFunction.PlayerCalcHeal(pack);
+		//} else if (pack.Effect == EnumSelf.EffectType.Shield) {
+		//	BattleCalculationFunction.PlayerCalcShield(pack);
+		//}
 
 		MapDataCarrier.Instance.ActionPackCount++;
 

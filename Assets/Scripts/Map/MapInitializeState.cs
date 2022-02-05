@@ -41,12 +41,12 @@ public class MapInitializeState : StateBase {
 		//data = MasterActionTable.Instance.GetData(2);
 		//status.SetActionData(5, data);
 		// TODO 初期装備は、テストの為色々変えている
-		status.SetActionData(0, MasterAction2Table.Instance.GetData(1));
-		status.SetActionData(1, MasterAction2Table.Instance.GetData(7));
-		status.SetActionData(2, MasterAction2Table.Instance.GetData(12));
-		status.SetActionData(3, MasterAction2Table.Instance.GetData(17));
-		status.SetActionData(4, MasterAction2Table.Instance.GetData(2));
-		status.SetActionData(5, MasterAction2Table.Instance.GetData(8));
+		status.SetActionData(0, MasterAction2Table.Instance.GetData(25));
+		status.SetActionData(1, MasterAction2Table.Instance.GetData(25));
+		status.SetActionData(2, MasterAction2Table.Instance.GetData(25));
+		status.SetActionData(3, MasterAction2Table.Instance.GetData(21));
+		status.SetActionData(4, MasterAction2Table.Instance.GetData(21));
+		status.SetActionData(5, MasterAction2Table.Instance.GetData(21));
 
 
 		status.SetMaxDiceCount(3);

@@ -17,13 +17,17 @@ public class MapBattleInitiativeValueChangeState : StateBase {
 		int count = MapDataCarrier.Instance.InitiativeActionPackCount;
 		ActionPack pack = data.ActionPackList[count]; 
 
-		if (pack.Effect == EnumSelf.EffectType.Damage) {
-			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
-		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
-			BattleCalculationFunction.PlayerCalcHeal(pack);
-		} else if (pack.Effect == EnumSelf.EffectType.Shield) {
-			BattleCalculationFunction.PlayerCalcShield(pack);
-		}
+		BattleCalculationFunction.PlayerValueChange(pack);
+
+		//if (pack.Effect == EnumSelf.EffectType.Damage) {
+		//	BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
+		//} else if (pack.Effect == EnumSelf.EffectType.Heal) {
+		//	BattleCalculationFunction.PlayerCalcHeal(pack);
+		//} else if (pack.Effect == EnumSelf.EffectType.Shield) {
+		//	BattleCalculationFunction.PlayerCalcShield(pack);
+		//} else if (pack.Effect == EnumSelf.EffectType.ShieldDamage) {
+		//	BattleCalculationFunction.PlayerCalcShieldDamage(pack);
+		//}
 
 		MapDataCarrier.Instance.InitiativeActionPackCount++;
 

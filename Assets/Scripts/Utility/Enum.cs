@@ -32,6 +32,7 @@ public partial class EnumSelf : MonoBehaviour {
         None,
         Damage,
         Shield,
+        ShieldDamage,
         Heal,
 		// バフ、デバフ
         Strength,
