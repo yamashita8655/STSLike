@@ -39,6 +39,7 @@ public partial class EnumSelf : MonoBehaviour {
         DiceMinusOne,
         Regenerate,
         ReverseHeal,
+        Poison,
 		Max
 	};
 	
@@ -80,6 +81,7 @@ public partial class EnumSelf : MonoBehaviour {
 		None = -1,
 		Strength = 0,
 		Regenerate,
+		Poison,
 		Max
 	}
 	

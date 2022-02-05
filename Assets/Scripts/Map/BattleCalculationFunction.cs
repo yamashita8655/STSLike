@@ -13,6 +13,12 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.PlayerCalcShield(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.ShieldDamage) {
 			BattleCalculationFunction.PlayerCalcShieldDamage(pack);
+		} else if (
+			(pack.Effect == EnumSelf.EffectType.Strength) ||
+			(pack.Effect == EnumSelf.EffectType.Poison) ||
+			(pack.Effect == EnumSelf.EffectType.Regenerate)
+		) {
+			BattleCalculationFunction.PlayerUpdatePower(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.ReverseHeal) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
 		}
@@ -29,6 +35,7 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.EnemyCalcShieldDamage(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.Strength) ||
+			(pack.Effect == EnumSelf.EffectType.Poison) ||
 			(pack.Effect == EnumSelf.EffectType.Regenerate)
 		) {
 			BattleCalculationFunction.EnemyUpdatePower(pack);
@@ -37,6 +44,33 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
 		) {
 			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
+		}
+	}
+	
+	public static void PlayerTurnStartValueChange() {
+		// 再生などのバフをチェック
+		PlayerStatus status = MapDataCarrier.Instance.CuPlayerStatus;
+		Power power = status.GetPower();
+
+		// 再生
+		int val = power.GetParameter(EnumSelf.PowerType.Regenerate);
+		if (val > 0) {
+			bool isReverse = false;
+			if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerCount(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
+				isReverse = true;
+			}
+
+			if (isReverse == true) {
+				status.AddNowHp(-val);
+			} else {
+				status.AddNowHp(val);
+			}
+		}
+		
+		// 毒
+		val = power.GetParameter(EnumSelf.PowerType.Poison);
+		if (val > 0) {
+			status.AddNowHp(-val);
 		}
 	}
 	
@@ -51,6 +85,8 @@ public class BattleCalculationFunction {
 		// 再生などのバフをチェック
 		EnemyStatus status = MapDataCarrier.Instance.CuEnemyStatus;
 		Power power = status.GetPower();
+
+		// 再生
 		int val = power.GetParameter(EnumSelf.PowerType.Regenerate);
 		if (val > 0) {
 			bool isReverse = false;
@@ -63,6 +99,12 @@ public class BattleCalculationFunction {
 			} else {
 				status.AddNowHp(val);
 			}
+		}
+		
+		// 毒
+		val = power.GetParameter(EnumSelf.PowerType.Poison);
+		if (val > 0) {
+			status.AddNowHp(-val);
 		}
 	}
 
@@ -137,6 +179,16 @@ public class BattleCalculationFunction {
 			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(shield);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(shield);
+		}
+	}
+	
+	public static void PlayerUpdatePower(ActionPack pack) {
+		int val = pack.Value;
+		EnumSelf.PowerType pType = ConvertEffectType2PowerType(pack.Effect);
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			MapDataCarrier.Instance.CuEnemyStatus.AddPower(pType, val);
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			MapDataCarrier.Instance.CuPlayerStatus.AddPower(pType, val);
 		}
 	}
 	
@@ -256,6 +308,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.PowerType.Strength;
 		} else if (type == EnumSelf.EffectType.Regenerate) {
 			pType = EnumSelf.PowerType.Regenerate;
+		} else if (type == EnumSelf.EffectType.Poison) {
+			pType = EnumSelf.PowerType.Poison;
 		}
 
 		return pType;
