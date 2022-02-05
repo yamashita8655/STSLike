@@ -104,6 +104,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.ReverseHeal;
 		} else if (typeString == "Poison") {
 			type = EnumSelf.EffectType.Poison;
+		} else if (typeString == "Weakness") {
+			type = EnumSelf.EffectType.Weakness;
 		}
 
 		return type;

@@ -42,6 +42,8 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.DiceMinusOneImagePath;
 		} else if (type == EnumSelf.TurnPowerType.ReverseHeal) {
 			ret = Const.ReverseHealImagePath;
+		} else if (type == EnumSelf.TurnPowerType.Weakness) {
+			ret = Const.WeaknessImagePath;
 		}
 
 		return ret;

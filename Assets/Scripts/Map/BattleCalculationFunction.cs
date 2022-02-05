@@ -19,7 +19,10 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Regenerate)
 		) {
 			BattleCalculationFunction.PlayerUpdatePower(pack);
-		} else if (pack.Effect == EnumSelf.EffectType.ReverseHeal) {
+		} else if (
+			(pack.Effect == EnumSelf.EffectType.ReverseHeal) ||
+			(pack.Effect == EnumSelf.EffectType.Weakness)
+		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
 		}
 	}
@@ -41,6 +44,7 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.EnemyUpdatePower(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.DiceMinusOne) ||
+			(pack.Effect == EnumSelf.EffectType.Weakness) ||
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
 		) {
 			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
@@ -118,18 +122,27 @@ public class BattleCalculationFunction {
 	// Player用
 	public static void PlayerCalcDamageNormalDamage(ActionPack pack) {
 		int shield = 0;
+		int powerStrength = MapDataCarrier.Instance.CuPlayerStatus.GetPower().GetParameter(EnumSelf.PowerType.Strength);
 		int overDamage = 0;
+		int damage = pack.Value+powerStrength;
+		
+		// 脱力しているかどうか
+		if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerCount(EnumSelf.TurnPowerType.Weakness) > 0) {
+			// 与ダメが25％下がる
+			damage = (int)((float)damage * 0.75f);
+		}
+
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			shield = MapDataCarrier.Instance.CuEnemyStatus.GetNowShield();
-			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(-pack.Value);
-			overDamage = shield - pack.Value;
+			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(-damage);
+			overDamage = shield - damage;
 			if (overDamage < 0) {
 				MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(overDamage);
 			}
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			shield = MapDataCarrier.Instance.CuPlayerStatus.GetNowShield();
-			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-pack.Value);
-			overDamage = shield - pack.Value;
+			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-damage);
+			overDamage = shield - damage;
 			if (overDamage < 0) {
 				MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(overDamage);
 			}
@@ -207,7 +220,14 @@ public class BattleCalculationFunction {
 		int shield = 0;
 		int powerStrength = MapDataCarrier.Instance.CuEnemyStatus.GetPower().GetParameter(EnumSelf.PowerType.Strength);
 		int overDamage = 0;
-			int damage = pack.Value+powerStrength;
+		int damage = pack.Value+powerStrength;
+
+		// 脱力しているかどうか
+		if (MapDataCarrier.Instance.CuEnemyStatus.GetTurnPowerCount(EnumSelf.TurnPowerType.Weakness) > 0) {
+			// 与ダメが25％下がる
+			damage = (int)((float)damage * 0.75f);
+		}
+
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			shield = MapDataCarrier.Instance.CuPlayerStatus.GetNowShield();
 			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-damage);
@@ -297,6 +317,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.DiceMinusOne;
 		} else if (type == EnumSelf.EffectType.ReverseHeal) {
 			pType = EnumSelf.TurnPowerType.ReverseHeal;
+		} else if (type == EnumSelf.EffectType.Weakness) {
+			pType = EnumSelf.TurnPowerType.Weakness;
 		}
 
 		return pType;

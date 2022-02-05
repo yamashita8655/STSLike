@@ -2,9 +2,9 @@ id,name,hp,mhp,imagepath,actiontype,initiativeactionid,actionid1,actionid2,actio
 1,ゴブリン,30,30,Image/Map/Enemy/goblin,Random,NONE,1001,1002,NONE,
 2,ラット,30,30,Image/Map/Enemy/rat,Rotation,NONE,1003,1003,1004,NONE
 3,スパイダー,30,30,Image/Map/Enemy/spider,Random,NONE,1005,1006,NONE,
-4,スライム,100,100,Image/Map/Enemy/slime,Rotation,1008,1009,1009,1010,NONE
-5,スネーク,100,100,Image/Map/Enemy/snake,Random,NONE,1011,1012,NONE,
-6,バット,20,20,Image/Map/Enemy/bat,Random,NONE,8,NONE,,
+4,スライム,30,30,Image/Map/Enemy/slime,Rotation,1008,1009,1009,1010,NONE
+5,スネーク,30,30,Image/Map/Enemy/snake,Random,NONE,1011,1012,NONE,
+6,バット,100,100,Image/Map/Enemy/bat,Random,NONE,1013,1014,NONE,
 7,キラービー,20,20,Image/Map/Enemy/killerbe,Random,NONE,8,NONE,,
 8,ホブゴブリン,20,20,Image/Map/Enemy/hobgoblin,Random,NONE,8,NONE,,
 1001,森の大樹,100,100,Image/Map/Enemy/woodking,Random,NONE,1004,NONE,,

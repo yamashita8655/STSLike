@@ -50,6 +50,7 @@ public class ValueController : MonoBehaviour
 		} else if (
 			(type == EnumSelf.EffectType.DiceMinusOne) ||
 			(type == EnumSelf.EffectType.Poison) ||
+			(type == EnumSelf.EffectType.Weakness) ||
 			(type == EnumSelf.EffectType.ReverseHeal)
 		) {
 			ret = Const.DebuffImagePath;

@@ -572,7 +572,6 @@ public partial class MapScene : SceneBase
 					);
 				}
 			}
-
 		}
 	}
 }
