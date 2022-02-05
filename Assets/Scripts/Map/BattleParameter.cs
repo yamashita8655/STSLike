@@ -342,6 +342,9 @@ public class EnemyStatus
 		return CuTurnPower;
 	}
 	
+	public int GetTurnPowerCount(EnumSelf.TurnPowerType type) {
+		return CuTurnPower.GetTurnPowerCount(type);
+	}
 	
 	public bool GetAndResetUpdatePowerFlag() {
 		bool isUpdate = IsPowerUpdateFlag;

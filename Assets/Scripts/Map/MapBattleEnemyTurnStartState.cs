@@ -14,13 +14,7 @@ public class MapBattleEnemyTurnStartState : StateBase {
 		MapDataCarrier.Instance.CuEnemyStatus.SetNowShield(0);
 		scene.EnemyShieldText.text = "";
 
-		// 再生などのバフをチェック
-		EnemyStatus status = MapDataCarrier.Instance.CuEnemyStatus;
-		Power power = status.GetPower();
-		int val = power.GetParameter(EnumSelf.PowerType.Regenerate);
-		if (val > 0) {
-			status.AddNowHp(val);
-		}
+		BattleCalculationFunction.EnemyTurnStartValueChange();
 
 		scene.UpdateParameterText();
 

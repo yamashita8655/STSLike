@@ -11,10 +11,7 @@ public class MapBattlePlayerTurnEndState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
-		var status = MapDataCarrier.Instance.CuPlayerStatus;
-		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
-			status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
-		}
+		BattleCalculationFunction.PlayerTurnEndValueChange();
 
 		scene.UpdateParameterText();
 		return true;

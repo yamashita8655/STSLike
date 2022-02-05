@@ -100,6 +100,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.DiceMinusOne;
 		} else if (typeString == "Regenerate") {
 			type = EnumSelf.EffectType.Regenerate;
+		} else if (typeString == "ReverseHeal") {
+			type = EnumSelf.EffectType.ReverseHeal;
 		}
 
 		return type;

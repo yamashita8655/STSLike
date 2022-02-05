@@ -47,7 +47,10 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.Regenerate)
 		) {
 			ret = Const.PowerImagePath;
-		} else if (type == EnumSelf.EffectType.DiceMinusOne) {
+		} else if (
+			(type == EnumSelf.EffectType.DiceMinusOne) ||
+			(type == EnumSelf.EffectType.ReverseHeal)
+		) {
 			ret = Const.DebuffImagePath;
 		}
 

@@ -23,4 +23,5 @@ public partial class Const {
 	// こっちは、数値固定でターン可変
 	public static readonly string TurnPowerControllerPath = "Prefab/UI/TurnPowerController";
 	public static readonly string DiceMinusOneImagePath = "Image/UI/Map/diceminusone";
+	public static readonly string ReverseHealImagePath = "Image/UI/Map/reverseheal";
 }

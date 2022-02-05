@@ -38,6 +38,7 @@ public partial class EnumSelf : MonoBehaviour {
         Strength,
         DiceMinusOne,
         Regenerate,
+        ReverseHeal,
 		Max
 	};
 	
@@ -85,6 +86,7 @@ public partial class EnumSelf : MonoBehaviour {
 	public enum TurnPowerType {
 		None = -1,
 		DiceMinusOne = 0,
+		ReverseHeal,
 		Max
 	}
 }

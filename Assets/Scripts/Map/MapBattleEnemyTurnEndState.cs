@@ -14,6 +14,8 @@ public class MapBattleEnemyTurnEndState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		BattleCalculationFunction.EnemyTurnEndValueChange();
+		scene.UpdateParameterText();
 		return true;
 	}
 
@@ -23,7 +25,7 @@ public class MapBattleEnemyTurnEndState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyAttackResult);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyLotAction);
 	}
 
 	/// <summary>
