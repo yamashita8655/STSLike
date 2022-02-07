@@ -12,6 +12,7 @@ public partial class Const {
 	public static readonly string ShieldImagePath = "Image/UI/Card/shield";
 	public static readonly string HealImagePath = "Image/UI/Card/heal";
 	public static readonly string ShieldBreakImagePath = "Image/UI/Card/shieldbreak";
+	public static readonly string WarningImagePath = "Image/UI/Card/warning";
 	public static readonly string PowerImagePath = "Image/UI/Card/power";
 	public static readonly string DebuffImagePath = "Image/UI/Card/debuff";
 	

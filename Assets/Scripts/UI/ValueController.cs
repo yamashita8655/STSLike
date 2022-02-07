@@ -45,6 +45,10 @@ public class ValueController : MonoBehaviour
 			EffectValue.color = Color.white;
 		}
 
+		if (type == EnumSelf.EffectType.Warning) {
+			EffectValue.text = "";
+		}
+
 		gameObject.SetActive(true);
 	}
 
@@ -58,6 +62,8 @@ public class ValueController : MonoBehaviour
 			ret = Const.ShieldBreakImagePath;
 		} else if (type == EnumSelf.EffectType.Heal) {
 			ret = Const.HealImagePath;
+		} else if (type == EnumSelf.EffectType.Warning) {
+			ret = Const.WarningImagePath;
 		} else if (
 			(type == EnumSelf.EffectType.Strength) ||
 			(type == EnumSelf.EffectType.Regenerate)

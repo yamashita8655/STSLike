@@ -15,11 +15,6 @@ public class MapBattleCheckState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
-		for (int i = 0; i < 6; i++) {
-			scene.UpdatePlayerValueObject(i);
-		}
-		scene.UpdateEnemyValueObject();
-
 		IsWin = false;
 		IsDead = false;
 
@@ -40,6 +35,8 @@ public class MapBattleCheckState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
+		var scene = MapDataCarrier.Instance.Scene as MapScene;
+
 		if (IsWin) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleWin);
 		} else if (IsDead) {
@@ -60,6 +57,11 @@ public class MapBattleCheckState : StateBase {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyInitiative);
 				}
 			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleValueChange) {// プレイヤーのターンの場合
+				for (int i = 0; i < 6; i++) {
+					scene.UpdatePlayerValueObject(i);
+				}
+				scene.UpdateEnemyValueObject();
+
 				// アクションパックの処理が全て終わっていなかったら、次のアクションパックの処理を行う
 				if (MapDataCarrier.Instance.ActionPackCount < MapDataCarrier.Instance.MaxActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleValueChange);
@@ -71,6 +73,11 @@ public class MapBattleCheckState : StateBase {
 					}
 				}
 			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleEnemyValueChange) {
+				for (int i = 0; i < 6; i++) {
+					scene.UpdatePlayerValueObject(i);
+				}
+				scene.UpdateEnemyValueObject();
+
 				// アクションパックの処理が全て終わっていなかったら、次のアクションパックの処理を行う
 				if (MapDataCarrier.Instance.EnemyActionPackCount < MapDataCarrier.Instance.EnemyMaxActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange);

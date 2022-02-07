@@ -20,21 +20,6 @@ public class MapBattleEnemyValueChangeState : StateBase {
 
 		BattleCalculationFunction.EnemyValueChange(pack);
 
-		//if (pack.Effect == EnumSelf.EffectType.Damage) {
-		//	BattleCalculationFunction.EnemyCalcDamageNormalDamage(pack);
-		//} else if (pack.Effect == EnumSelf.EffectType.Heal) {
-		//	BattleCalculationFunction.EnemyCalcHeal(pack);
-		//} else if (pack.Effect == EnumSelf.EffectType.Shield) {
-		//	BattleCalculationFunction.EnemyCalcShield(pack);
-		//} else if (
-		//	(pack.Effect == EnumSelf.EffectType.Strength) ||
-		//	(pack.Effect == EnumSelf.EffectType.Regenerate)
-		//) {
-		//	BattleCalculationFunction.EnemyUpdatePower(pack);
-		//} else if (pack.Effect == EnumSelf.EffectType.DiceMinusOne) {
-		//	BattleCalculationFunction.EnemyUpdateTurnPower(pack);
-		//}
-
 		MapDataCarrier.Instance.EnemyActionPackCount++;
 
 		scene.UpdateParameterText();
