@@ -478,6 +478,7 @@ public partial class MapScene : SceneBase
 	
 	public void UpdatePlayerValueObject(int diceIndex) {
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
 
 		MasterAction2Table.Data pdata = player.GetActionData(diceIndex);
 		CuPlayerActionNameStrings[diceIndex].text = pdata.Name;
@@ -494,6 +495,10 @@ public partial class MapScene : SceneBase
 				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
 					val = (int)((float)val * 0.75f);
 				}
+				
+				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
+					val = (int)((float)val * 1.5f);
+				}
 			}
 			MapDataCarrier.Instance.ValueObjects[diceIndex][index].GetComponent<ValueController>().UpdateDisplay(
 				list[index].Effect,
@@ -509,6 +514,7 @@ public partial class MapScene : SceneBase
 	
 	public void UpdateEnemyValueObject() {
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
 
 		MasterAction2Table.Data data = MapDataCarrier.Instance.CuEnemyStatus.GetActionData();
 		// テキスト表示
@@ -527,8 +533,15 @@ public partial class MapScene : SceneBase
 				val += strength;
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
 					val = (int)((float)val * 0.75f);
+					Debug.Log("Weak:" + val);
+				}
+				
+				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
+					val = (int)((float)val * 1.5f);
+					Debug.Log("Vulnerable:" + val);
 				}
 			}
+
 
 			GameObject obj = MapDataCarrier.Instance.EnemyValueObjects[index];
 			obj.GetComponent<ValueController>().UpdateDisplay(list[index].Effect, list[index].Value, val);

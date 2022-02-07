@@ -63,6 +63,8 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.ReverseHealImagePath;
 		} else if (type == EnumSelf.TurnPowerType.Weakness) {
 			ret = Const.WeaknessImagePath;
+		} else if (type == EnumSelf.TurnPowerType.Vulnerable) {
+			ret = Const.VulnerableImagePath;
 		}
 
 		return ret;

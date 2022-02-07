@@ -47,10 +47,10 @@ public class MapInitializeState : StateBase {
 		// TODO 初期装備は、テストの為色々変えている
 		status.SetActionData(0, MasterAction2Table.Instance.GetData(22));
 		status.SetActionData(1, MasterAction2Table.Instance.GetData(23));
-		status.SetActionData(2, MasterAction2Table.Instance.GetData(24));
-		status.SetActionData(3, MasterAction2Table.Instance.GetData(24));
+		status.SetActionData(2, MasterAction2Table.Instance.GetData(27));
+		status.SetActionData(3, MasterAction2Table.Instance.GetData(28));
 		status.SetActionData(4, MasterAction2Table.Instance.GetData(27));
-		status.SetActionData(5, MasterAction2Table.Instance.GetData(27));
+		status.SetActionData(5, MasterAction2Table.Instance.GetData(28));
 
 
 		status.SetMaxDiceCount(3);
@@ -195,9 +195,10 @@ public class MapInitializeState : StateBase {
 						MapDataCarrier.Instance.ValueObjects[index1].Add(obj);
 						LoadedCount++;
 						if (LoadedCount == LoadCount) {
-							for (int i3 = 0; i3 < diceCount; i3++) {
-								scene.UpdatePlayerValueObject(i3);
-							}
+							// どうせ戦闘開始に更新するから、ここで呼び出す必要ないかもしれない
+							//for (int i3 = 0; i3 < diceCount; i3++) {
+							//	scene.UpdatePlayerValueObject(i3);
+							//}
 							LoadEnemyValueObjects();
 						}
 					}

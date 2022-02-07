@@ -21,6 +21,7 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.PlayerUpdatePower(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal) ||
+			(pack.Effect == EnumSelf.EffectType.Vulnerable) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -45,6 +46,7 @@ public class BattleCalculationFunction {
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.DiceMinusOne) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness) ||
+			(pack.Effect == EnumSelf.EffectType.Vulnerable) ||
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
 		) {
 			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
@@ -137,6 +139,12 @@ public class BattleCalculationFunction {
 		}
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			// 相手弱体しているか
+			if (MapDataCarrier.Instance.CuEnemyStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
+				// 与ダメが50％上がる
+				damage = (int)((float)damage * 1.5f);
+			}
+
 			shield = MapDataCarrier.Instance.CuEnemyStatus.GetNowShield();
 			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(-damage);
 			overDamage = shield - damage;
@@ -237,8 +245,15 @@ public class BattleCalculationFunction {
 			// 与ダメが25％下がる
 			damage = (int)((float)damage * 0.75f);
 		}
+		
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			// 弱体しているかどうか
+			if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
+				// 与ダメが50％上がる
+				damage = (int)((float)damage * 1.5f);
+			}
+
 			shield = MapDataCarrier.Instance.CuPlayerStatus.GetNowShield();
 			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-damage);
 			overDamage = shield - damage;
@@ -335,6 +350,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.ReverseHeal;
 		} else if (type == EnumSelf.EffectType.Weakness) {
 			pType = EnumSelf.TurnPowerType.Weakness;
+		} else if (type == EnumSelf.EffectType.Vulnerable) {
+			pType = EnumSelf.TurnPowerType.Vulnerable;
 		}
 
 		return pType;

@@ -41,6 +41,7 @@ public partial class EnumSelf : MonoBehaviour {
         ReverseHeal,
         Poison,
         Weakness,
+        Vulnerable,
 		Max
 	};
 	
@@ -91,13 +92,7 @@ public partial class EnumSelf : MonoBehaviour {
 		DiceMinusOne = 0,
 		ReverseHeal,
 		Weakness,
+        Vulnerable,
 		Max
-	}
-
-	public enum PowerState : int {
-		None = 0,// 変化なし
-		New,	// 新規で追加
-		Update,	// 数値更新
-		Delete,	// 無くなった
 	}
 }
