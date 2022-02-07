@@ -12,7 +12,7 @@ public class ValueController : MonoBehaviour
 	[SerializeField]
 	private Text  EffectValue = null;
 	
-	public void Initialize(EnumSelf.EffectType type, int val, GameObject attachRoot) {
+	public void Initialize(EnumSelf.EffectType type, int originalVal, int val, GameObject attachRoot) {
 
 		string path = ConvertEffectType2Path(type);
 
@@ -25,7 +25,17 @@ public class ValueController : MonoBehaviour
 			}
 		);
 
+		Debug.Log("originalVal:" + originalVal);
+		Debug.Log("val:" + val);
+
 		EffectValue.text = val.ToString();
+		if (originalVal > val) {
+			EffectValue.color = Color.red;
+			Debug.Log("RED");
+		} else if (originalVal < val) {
+			EffectValue.color = Color.green;
+			Debug.Log("GREEN");
+		}
 
 		transform.SetParent(attachRoot.transform);
 		transform.localPosition = Vector3.zero;

@@ -60,6 +60,9 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public List<GameObject> TurnPowerObjects { get; set; }
 	public List<GameObject> EnemyPowerObjects { get; set; }
 	public List<GameObject> EnemyTurnPowerObjects { get; set; }
+	
+	public List<int> PowerValues { get; set; }
+	public List<int> TurnPowerValues { get; set; }
 
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
@@ -76,6 +79,17 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		TurnPowerObjects = new List<GameObject>();
 		EnemyPowerObjects = new List<GameObject>();
 		EnemyTurnPowerObjects = new List<GameObject>();
+
+		PowerValues = new List<int>();
+		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+			PowerValues.Add(0);
+		}
+
+		TurnPowerValues = new List<int>();
+		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+			TurnPowerValues.Add(0);
+		}
+
 		DungeonData = null;
 	}
 

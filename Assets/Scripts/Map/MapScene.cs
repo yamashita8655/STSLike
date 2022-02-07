@@ -478,100 +478,175 @@ public partial class MapScene : SceneBase
 		}
 
 		// バフデバフの更新
-		if (MapDataCarrier.Instance.CuPlayerStatus.GetAndResetUpdatePowerFlag() == true) {
-			for (int i = 0; i < MapDataCarrier.Instance.PowerObjects.Count; i++) {
-				GameObject.Destroy(MapDataCarrier.Instance.PowerObjects[i]);
-			}
-			MapDataCarrier.Instance.PowerObjects.Clear();
+		//if (MapDataCarrier.Instance.CuPlayerStatus.GetAndResetUpdatePowerFlag() == true) {
+		//	for (int i = 0; i < MapDataCarrier.Instance.PowerObjects.Count; i++) {
+		//		GameObject.Destroy(MapDataCarrier.Instance.PowerObjects[i]);
+		//	}
+		//	MapDataCarrier.Instance.PowerObjects.Clear();
 
-			Power power = MapDataCarrier.Instance.CuPlayerStatus.GetPower();
-			for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
-				int index = i;
-				int val = power.GetParameter((EnumSelf.PowerType)index);
-				if (val != 0) {
-					ResourceManager.Instance.RequestExecuteOrder(
-						Const.PowerControllerPath,
-						ExecuteOrder.Type.GameObject,
-						this.gameObject,
-						(rawObject) => {
-							GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-							obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, val, PowerRoot);
-							MapDataCarrier.Instance.PowerObjects.Add(obj);
-						}
-					);
-				}
-			}
-			
-			for (int i = 0; i < MapDataCarrier.Instance.TurnPowerObjects.Count; i++) {
-				GameObject.Destroy(MapDataCarrier.Instance.TurnPowerObjects[i]);
-			}
-			MapDataCarrier.Instance.TurnPowerObjects.Clear();
+		//	Power power = MapDataCarrier.Instance.CuPlayerStatus.GetPower();
+		//	for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+		//		int index = i;
+		//		int val = power.GetParameter((EnumSelf.PowerType)index);
+		//		if (val != 0) {
+		//			ResourceManager.Instance.RequestExecuteOrder(
+		//				Const.PowerControllerPath,
+		//				ExecuteOrder.Type.GameObject,
+		//				this.gameObject,
+		//				(rawObject) => {
+		//					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+		//					obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, val, PowerRoot);
+		//					MapDataCarrier.Instance.PowerObjects.Add(obj);
+		//				}
+		//			);
+		//		}
+		//	}
+		//	
+		//	for (int i = 0; i < MapDataCarrier.Instance.TurnPowerObjects.Count; i++) {
+		//		GameObject.Destroy(MapDataCarrier.Instance.TurnPowerObjects[i]);
+		//	}
+		//	MapDataCarrier.Instance.TurnPowerObjects.Clear();
 
-			TurnPower turnPower = MapDataCarrier.Instance.CuPlayerStatus.GetTurnPower();
-			for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
-				int index = i;
-				int val = turnPower.GetTurnPowerCount((EnumSelf.TurnPowerType)index);
-				if (val != 0) {
-					ResourceManager.Instance.RequestExecuteOrder(
-						Const.TurnPowerControllerPath,
-						ExecuteOrder.Type.GameObject,
-						this.gameObject,
-						(rawObject) => {
-							GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-							obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, val, TurnPowerRoot);
-							MapDataCarrier.Instance.TurnPowerObjects.Add(obj);
+		//	TurnPower turnPower = MapDataCarrier.Instance.CuPlayerStatus.GetTurnPower();
+		//	for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+		//		int index = i;
+		//		int val = turnPower.GetTurnPowerCount((EnumSelf.TurnPowerType)index);
+		//		if (val != 0) {
+		//			ResourceManager.Instance.RequestExecuteOrder(
+		//				Const.TurnPowerControllerPath,
+		//				ExecuteOrder.Type.GameObject,
+		//				this.gameObject,
+		//				(rawObject) => {
+		//					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+		//					obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, val, TurnPowerRoot);
+		//					MapDataCarrier.Instance.TurnPowerObjects.Add(obj);
+		//				}
+		//			);
+		//		}
+		//	}
+		//}
+		//
+		//if (MapDataCarrier.Instance.CuEnemyStatus.GetAndResetUpdatePowerFlag() == true) {
+		//	for (int i = 0; i < MapDataCarrier.Instance.EnemyPowerObjects.Count; i++) {
+		//		GameObject.Destroy(MapDataCarrier.Instance.EnemyPowerObjects[i]);
+		//	}
+		//	MapDataCarrier.Instance.EnemyPowerObjects.Clear();
+
+		//	Power power = MapDataCarrier.Instance.CuEnemyStatus.GetPower();
+		//	for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+		//		int index = i;
+		//		int val = power.GetParameter((EnumSelf.PowerType)index);
+		//		if (val != 0) {
+		//			ResourceManager.Instance.RequestExecuteOrder(
+		//				Const.PowerControllerPath,
+		//				ExecuteOrder.Type.GameObject,
+		//				this.gameObject,
+		//				(rawObject) => {
+		//					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+		//					obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, val, EnemyPowerRoot);
+		//					MapDataCarrier.Instance.EnemyPowerObjects.Add(obj);
+		//				}
+		//			);
+		//		}
+		//	}
+		//	
+		//	for (int i = 0; i < MapDataCarrier.Instance.EnemyTurnPowerObjects.Count; i++) {
+		//		GameObject.Destroy(MapDataCarrier.Instance.EnemyTurnPowerObjects[i]);
+		//	}
+		//	MapDataCarrier.Instance.EnemyTurnPowerObjects.Clear();
+
+		//	TurnPower turnPower = MapDataCarrier.Instance.CuEnemyStatus.GetTurnPower();
+		//	for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+		//		int index = i;
+		//		int val = turnPower.GetTurnPowerCount((EnumSelf.TurnPowerType)index);
+		//		if (val != 0) {
+		//			ResourceManager.Instance.RequestExecuteOrder(
+		//				Const.TurnPowerControllerPath,
+		//				ExecuteOrder.Type.GameObject,
+		//				this.gameObject,
+		//				(rawObject) => {
+		//					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+		//					obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, val, EnemyTurnPowerRoot);
+		//					MapDataCarrier.Instance.EnemyTurnPowerObjects.Add(obj);
+		//				}
+		//			);
+		//		}
+		//	}
+		//}
+	}
+	
+	public void UpdatePlayerValueObject() {
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+
+		for (int i = 0; i < MapDataCarrier.Instance.ValueObjects.Count; i++) {
+			GameObject.Destroy(MapDataCarrier.Instance.ValueObjects[i]);
+		}
+		MapDataCarrier.Instance.ValueObjects.Clear();
+
+		for (int i = 0; i < CuPlayerActionNameStrings.Length; i++) {
+			int index = i;
+			MasterAction2Table.Data pdata = player.GetActionData(i);
+			CuPlayerActionNameStrings[i].text = pdata.Name;
+			var list = pdata.ActionPackList;
+			for (int i2 = 0; i2 < list.Count; i2++) {
+				int index2 = i2;
+				ResourceManager.Instance.RequestExecuteOrder(
+					Const.ValueItemPath,
+					ExecuteOrder.Type.GameObject,
+					gameObject,
+					(rawObject) => {
+						GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+						int val = list[index2].Value;
+						if (list[index2].Effect == EnumSelf.EffectType.Damage) {
+							int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
+							val += strength;
+							if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
+								val = (int)((float)val * 0.75f);
+							}
 						}
-					);
-				}
+						obj.GetComponent<ValueController>().Initialize(list[index2].Effect, list[index2].Value, val, CuPlayerActionValueRoots[index]);
+						MapDataCarrier.Instance.ValueObjects.Add(obj);
+					}
+				);
 			}
 		}
+	}
+	
+	public void UpdateEnemyValueObject() {
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+
+		for (int i = 0; i < MapDataCarrier.Instance.EnemyValueObjects.Count; i++) {
+			GameObject.Destroy(MapDataCarrier.Instance.EnemyValueObjects[i]);
+		}
+		MapDataCarrier.Instance.EnemyValueObjects.Clear();
 		
-		if (MapDataCarrier.Instance.CuEnemyStatus.GetAndResetUpdatePowerFlag() == true) {
-			for (int i = 0; i < MapDataCarrier.Instance.EnemyPowerObjects.Count; i++) {
-				GameObject.Destroy(MapDataCarrier.Instance.EnemyPowerObjects[i]);
-			}
-			MapDataCarrier.Instance.EnemyPowerObjects.Clear();
+		MasterAction2Table.Data data = MapDataCarrier.Instance.CuEnemyStatus.GetActionData();
+		// テキスト表示
+		CuEnemyActionText.text = data.Name;
 
-			Power power = MapDataCarrier.Instance.CuEnemyStatus.GetPower();
-			for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
-				int index = i;
-				int val = power.GetParameter((EnumSelf.PowerType)index);
-				if (val != 0) {
-					ResourceManager.Instance.RequestExecuteOrder(
-						Const.PowerControllerPath,
-						ExecuteOrder.Type.GameObject,
-						this.gameObject,
-						(rawObject) => {
-							GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-							obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, val, EnemyPowerRoot);
-							MapDataCarrier.Instance.EnemyPowerObjects.Add(obj);
+		// 効果量表示
+		var list = data.ActionPackList;
+		for (int i = 0; i < list.Count; i++) {
+			int index = i;
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.ValueItemPath,
+				ExecuteOrder.Type.GameObject,
+				gameObject,
+				(rawObject) => {
+					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+					int val = list[index].Value;
+					if (list[index].Effect == EnumSelf.EffectType.Damage) {
+						int strength = enemy.GetPower().GetValue(EnumSelf.PowerType.Strength);
+						val += strength;
+						if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
+							val = (int)((float)val * 0.75f);
 						}
-					);
+					}
+					obj.GetComponent<ValueController>().Initialize(list[index].Effect, list[index].Value, val, CuEnemyActionValueRoot);
+					MapDataCarrier.Instance.EnemyValueObjects.Add(obj);
 				}
-			}
-			
-			for (int i = 0; i < MapDataCarrier.Instance.EnemyTurnPowerObjects.Count; i++) {
-				GameObject.Destroy(MapDataCarrier.Instance.EnemyTurnPowerObjects[i]);
-			}
-			MapDataCarrier.Instance.EnemyTurnPowerObjects.Clear();
-
-			TurnPower turnPower = MapDataCarrier.Instance.CuEnemyStatus.GetTurnPower();
-			for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
-				int index = i;
-				int val = turnPower.GetTurnPowerCount((EnumSelf.TurnPowerType)index);
-				if (val != 0) {
-					ResourceManager.Instance.RequestExecuteOrder(
-						Const.TurnPowerControllerPath,
-						ExecuteOrder.Type.GameObject,
-						this.gameObject,
-						(rawObject) => {
-							GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-							obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, val, EnemyTurnPowerRoot);
-							MapDataCarrier.Instance.EnemyTurnPowerObjects.Add(obj);
-						}
-					);
-				}
-			}
+			);
 		}
+
 	}
 }

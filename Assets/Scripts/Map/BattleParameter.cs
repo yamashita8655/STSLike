@@ -15,7 +15,6 @@ public class PlayerStatus
 	
 	private Power BuffPower = null;
 	private Power DebuffPower = null;
-	private bool IsPowerUpdateFlag = false;
 
 	private TurnPower CuTurnPower = null;
 
@@ -133,42 +132,32 @@ public class PlayerStatus
 	
 	public void AddPower(EnumSelf.PowerType type, int val) {
 		if (val < 0) {
-			DebuffPower.AddParameter(type, val);
+			DebuffPower.AddValue(type, val);
 		} else {
-			BuffPower.AddParameter(type, val);
+			BuffPower.AddValue(type, val);
 		}
-		IsPowerUpdateFlag = true;
 	}
 	
 	public Power GetPower() {
 		Power retPower = new Power();
 		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
-			int val = BuffPower.GetParameter((EnumSelf.PowerType)i) + DebuffPower.GetParameter((EnumSelf.PowerType)i);
-			retPower.SetParameter((EnumSelf.PowerType)i, val);
+			int val = BuffPower.GetValue((EnumSelf.PowerType)i) + DebuffPower.GetValue((EnumSelf.PowerType)i);
+			retPower.SetValue((EnumSelf.PowerType)i, val);
 		}
 
 		return retPower;
 	}
 	
 	public void AddTurnPower(EnumSelf.TurnPowerType type, int val) {
-		CuTurnPower.AddTurnPowerCount(type, val);
-		IsPowerUpdateFlag = true;
+		CuTurnPower.AddTurnPowerValue(type, val);
 	}
 	
 	public TurnPower GetTurnPower() {
 		return CuTurnPower;
 	}
 	
-	public int GetTurnPowerCount(EnumSelf.TurnPowerType type) {
-		return CuTurnPower.GetTurnPowerCount(type);
-	}
-
-	public bool GetAndResetUpdatePowerFlag() {
-		bool isUpdate = IsPowerUpdateFlag;
-		if (IsPowerUpdateFlag == true) {
-			IsPowerUpdateFlag = false;
-		}
-		return isUpdate;
+	public int GetTurnPowerValue(EnumSelf.TurnPowerType type) {
+		return CuTurnPower.GetTurnPowerValue(type);
 	}
 }
 
@@ -193,7 +182,6 @@ public class EnemyStatus
 
 	private Power BuffPower = null;
 	private Power DebuffPower = null;
-	private bool IsPowerUpdateFlag = false;
 
 	private TurnPower CuTurnPower = null;
 
@@ -315,43 +303,32 @@ public class EnemyStatus
 
 	public void AddPower(EnumSelf.PowerType type, int val) {
 		if (val < 0) {
-			DebuffPower.AddParameter(type, val);
+			DebuffPower.AddValue(type, val);
 		} else {
-			BuffPower.AddParameter(type, val);
+			BuffPower.AddValue(type, val);
 		}
-
-		IsPowerUpdateFlag = true;
 	}
 
 	public Power GetPower() {
 		Power retPower = new Power();
 		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
-			int val = BuffPower.GetParameter((EnumSelf.PowerType)i) + DebuffPower.GetParameter((EnumSelf.PowerType)i);
-			retPower.SetParameter((EnumSelf.PowerType)i, val);
+			int val = BuffPower.GetValue((EnumSelf.PowerType)i) + DebuffPower.GetValue((EnumSelf.PowerType)i);
+			retPower.SetValue((EnumSelf.PowerType)i, val);
 		}
 
 		return retPower;
 	}
 	
 	public void AddTurnPower(EnumSelf.TurnPowerType type, int val) {
-		CuTurnPower.AddTurnPowerCount(type, val);
-		IsPowerUpdateFlag = true;
+		CuTurnPower.AddTurnPowerValue(type, val);
 	}
 	
 	public TurnPower GetTurnPower() {
 		return CuTurnPower;
 	}
 	
-	public int GetTurnPowerCount(EnumSelf.TurnPowerType type) {
-		return CuTurnPower.GetTurnPowerCount(type);
-	}
-	
-	public bool GetAndResetUpdatePowerFlag() {
-		bool isUpdate = IsPowerUpdateFlag;
-		if (IsPowerUpdateFlag == true) {
-			IsPowerUpdateFlag = false;
-		}
-		return isUpdate;
+	public int GetTurnPowerValue(EnumSelf.TurnPowerType type) {
+		return CuTurnPower.GetTurnPowerValue(type);
 	}
 }
 
@@ -364,40 +341,41 @@ public class Power {
 		}
 	}
 
-	public int GetParameter(EnumSelf.PowerType type) {
+	public int GetValue(EnumSelf.PowerType type) {
 		return Parameter[(int)type];
 	}
 	
-	public void SetParameter(EnumSelf.PowerType type, int val) {
+	public void SetValue(EnumSelf.PowerType type, int val) {
 		Parameter[(int)type] = val;
 	}
 	
-	public void AddParameter(EnumSelf.PowerType type, int val) {
+	public void AddValue(EnumSelf.PowerType type, int val) {
 		Parameter[(int)type] += val;
 	}
 }
 
 // こっちは、効果量は固定で、効果ターンが可変する物。
 public class TurnPower {
-	private List<int> TurnPowerCount = new List<int>();
+	private List<int> TurnPowerParameter = new List<int>();
 	public TurnPower() {
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
-			TurnPowerCount.Add(0);
+			TurnPowerParameter.Add(0);
 		}
 	}
 
-	public int GetTurnPowerCount(EnumSelf.TurnPowerType type) {
-		return TurnPowerCount[(int)type];
+	public int GetTurnPowerValue(EnumSelf.TurnPowerType type) {
+		return TurnPowerParameter[(int)type];
 	}
 	
-	public void SetTurnPowerCount(EnumSelf.TurnPowerType type, int val) {
-		TurnPowerCount[(int)type] = val;
-	}
+	//public void SetTurnPowerCount(EnumSelf.TurnPowerType type, int val) {
+	//	TurnPowerCount[(int)type] = val;
+	//}
 	
-	public void AddTurnPowerCount(EnumSelf.TurnPowerType type, int val) {
-		TurnPowerCount[(int)type] += val;
-		if (TurnPowerCount[(int)type] < 0) {
-			TurnPowerCount[(int)type] = 0;
+	public void AddTurnPowerValue(EnumSelf.TurnPowerType type, int val) {
+		TurnPowerParameter[(int)type] += val;
+		if (TurnPowerParameter[(int)type] < 0) {
+			TurnPowerParameter[(int)type] = 0;
 		}
 	}
 }
+

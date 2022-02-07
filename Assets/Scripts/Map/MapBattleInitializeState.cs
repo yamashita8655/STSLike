@@ -22,37 +22,31 @@ public class MapBattleInitializeState : StateBase {
 		player.SetNowShield(0);
 		scene.PlayerShieldText.text = "";
 
-		// TODO プレイヤーのイニシアチブIDは、どっかで設定しないとね
-		// レリック効果とかで。
-		//string pInitiativeActionId = data.InitiativeActionId;
-		//if (pInitiativeActionId != "NONE") {
-		//	enemy.AddInitiativeActionData(MasterAction2Table.Instance.GetData(initiativeActionId));
+		scene.UpdatePlayerValueObject();
+		//for (int i = 0; i < MapDataCarrier.Instance.ValueObjects.Count; i++) {
+		//	GameObject.Destroy(MapDataCarrier.Instance.ValueObjects[i]);
 		//}
-		
-		for (int i = 0; i < MapDataCarrier.Instance.ValueObjects.Count; i++) {
-			GameObject.Destroy(MapDataCarrier.Instance.ValueObjects[i]);
-		}
-		MapDataCarrier.Instance.ValueObjects.Clear();
+		//MapDataCarrier.Instance.ValueObjects.Clear();
 
-		for (int i = 0; i < scene.PlayerActionNameStrings.Length; i++) {
-			int index = i;
-			MasterAction2Table.Data pdata = player.GetActionData(i);
-			scene.PlayerActionNameStrings[i].text = pdata.Name;
-			var list = pdata.ActionPackList;
-			for (int i2 = 0; i2 < list.Count; i2++) {
-				int index2 = i2;
-				ResourceManager.Instance.RequestExecuteOrder(
-					Const.ValueItemPath,
-					ExecuteOrder.Type.GameObject,
-					scene.gameObject,
-					(rawObject) => {
-						GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-						obj.GetComponent<ValueController>().Initialize(list[index2].Effect, list[index2].Value, scene.PlayerActionValueRoots[index]);
-						MapDataCarrier.Instance.ValueObjects.Add(obj);
-					}
-				);
-			}
-		}
+		//for (int i = 0; i < scene.PlayerActionNameStrings.Length; i++) {
+		//	int index = i;
+		//	MasterAction2Table.Data pdata = player.GetActionData(i);
+		//	scene.PlayerActionNameStrings[i].text = pdata.Name;
+		//	var list = pdata.ActionPackList;
+		//	for (int i2 = 0; i2 < list.Count; i2++) {
+		//		int index2 = i2;
+		//		ResourceManager.Instance.RequestExecuteOrder(
+		//			Const.ValueItemPath,
+		//			ExecuteOrder.Type.GameObject,
+		//			scene.gameObject,
+		//			(rawObject) => {
+		//				GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+		//				obj.GetComponent<ValueController>().Initialize(list[index2].Effect, list[index2].Value, scene.PlayerActionValueRoots[index]);
+		//				MapDataCarrier.Instance.ValueObjects.Add(obj);
+		//			}
+		//		);
+		//	}
+		//}
 		
 		// 敵出現
 		int enemyId = LotEnemyId();

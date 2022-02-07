@@ -93,4 +93,11 @@ public partial class EnumSelf : MonoBehaviour {
 		Weakness,
 		Max
 	}
+
+	public enum PowerState : int {
+		None = 0,// 変化なし
+		New,	// 新規で追加
+		Update,	// 数値更新
+		Delete,	// 無くなった
+	}
 }

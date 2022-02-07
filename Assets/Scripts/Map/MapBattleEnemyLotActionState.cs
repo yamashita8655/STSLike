@@ -12,36 +12,38 @@ public class MapBattleEnemyLotActionState : StateBase {
     {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
-		for (int i = 0; i < MapDataCarrier.Instance.EnemyValueObjects.Count; i++) {
-			GameObject.Destroy(MapDataCarrier.Instance.EnemyValueObjects[i]);
-		}
-		MapDataCarrier.Instance.EnemyValueObjects.Clear();
+		//for (int i = 0; i < MapDataCarrier.Instance.EnemyValueObjects.Count; i++) {
+		//	GameObject.Destroy(MapDataCarrier.Instance.EnemyValueObjects[i]);
+		//}
+		//MapDataCarrier.Instance.EnemyValueObjects.Clear();
 
 		// 抽選をして、初めて行動が確定する
 		MapDataCarrier.Instance.CuEnemyStatus.LotActionData();
-		MasterAction2Table.Data data = MapDataCarrier.Instance.CuEnemyStatus.GetActionData();
-		// テキスト表示
-		scene.EnemyActionText.text = data.Name;
+		scene.UpdateEnemyValueObject();
 
-		// 効果量表示
-		var list = data.ActionPackList;
-		for (int i = 0; i < list.Count; i++) {
-			int index = i;
-			ResourceManager.Instance.RequestExecuteOrder(
-				Const.ValueItemPath,
-				ExecuteOrder.Type.GameObject,
-				scene.gameObject,
-				(rawObject) => {
-					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-					int val = list[index].Value;
-					if (list[index].Effect == EnumSelf.EffectType.Damage) {
-						val += MapDataCarrier.Instance.CuEnemyStatus.GetPower().GetParameter(EnumSelf.PowerType.Strength);
-					}
-					obj.GetComponent<ValueController>().Initialize(list[index].Effect, val, scene.EnemyActionValueRoot);
-					MapDataCarrier.Instance.EnemyValueObjects.Add(obj);
-				}
-			);
-		}
+		//MasterAction2Table.Data data = MapDataCarrier.Instance.CuEnemyStatus.GetActionData();
+		//// テキスト表示
+		//scene.EnemyActionText.text = data.Name;
+
+		//// 効果量表示
+		//var list = data.ActionPackList;
+		//for (int i = 0; i < list.Count; i++) {
+		//	int index = i;
+		//	ResourceManager.Instance.RequestExecuteOrder(
+		//		Const.ValueItemPath,
+		//		ExecuteOrder.Type.GameObject,
+		//		scene.gameObject,
+		//		(rawObject) => {
+		//			GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+		//			int val = list[index].Value;
+		//			if (list[index].Effect == EnumSelf.EffectType.Damage) {
+		//				val += MapDataCarrier.Instance.CuEnemyStatus.GetPower().GetParameter(EnumSelf.PowerType.Strength);
+		//			}
+		//			obj.GetComponent<ValueController>().Initialize(list[index].Effect, list[index].Value, val, scene.EnemyActionValueRoot);
+		//			MapDataCarrier.Instance.EnemyValueObjects.Add(obj);
+		//		}
+		//	);
+		//}
 
 		return false;
     }

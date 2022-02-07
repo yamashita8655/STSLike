@@ -11,6 +11,8 @@ public class PowerController : MonoBehaviour
 	
 	[SerializeField]
 	private Text PowerValue = null;
+
+	private int Value = 0;
 	
 	public void Initialize(EnumSelf.PowerType type, int val, GameObject attachRoot) {
 
@@ -25,11 +27,27 @@ public class PowerController : MonoBehaviour
 			}
 		);
 
-		PowerValue.text = val.ToString();
+		Value = val;
 
 		transform.SetParent(attachRoot.transform);
 		transform.localPosition = Vector3.zero;
 		transform.localScale = Vector3.one;
+
+		UpdateText();
+	}
+
+	public void SetValue(int val) {
+		Value = val;
+		UpdateText();
+	}
+
+	private void UpdateText() {
+		PowerValue.text = Value.ToString();
+		if (Value == 0) {
+			gameObject.SetActive(false);
+		} else {
+			gameObject.SetActive(true);
+		}
 	}
 
 	private string ConvertType2Path(EnumSelf.PowerType type) {

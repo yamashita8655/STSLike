@@ -22,7 +22,7 @@ public class MapBattleDiceRollState : StateBase {
 		// ダイスのデバフ処理
 		PlayerStatus status = MapDataCarrier.Instance.CuPlayerStatus;
 		int diceCount = status.GetMaxDiceCount();
-		if (status.GetTurnPowerCount(EnumSelf.TurnPowerType.DiceMinusOne) > 0) {
+		if (status.GetTurnPowerValue(EnumSelf.TurnPowerType.DiceMinusOne) > 0) {
 			diceCount--;
 			if (diceCount < 0) {
 				diceCount = 0;

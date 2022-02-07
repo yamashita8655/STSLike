@@ -64,6 +64,64 @@ public class MapInitializeState : StateBase {
 
 		MapDataCarrier.Instance.IsClear = false;
 
+		// バトルで使用する状態異常オブジェクトの初期化をしてしまう
+		// なぜなら、バトル毎に生成する物ではない為
+		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+			int index = i;
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.PowerControllerPath,
+				ExecuteOrder.Type.GameObject,
+				scene.gameObject,
+				(rawObject) => {
+					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+					obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, 0, scene.PowerRoot);
+					MapDataCarrier.Instance.PowerObjects.Add(obj);
+				}
+			);
+		}
+		
+		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+			int index = i;
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.TurnPowerControllerPath,
+				ExecuteOrder.Type.GameObject,
+				scene.gameObject,
+				(rawObject) => {
+					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+					obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, 0, scene.TurnPowerRoot);
+					MapDataCarrier.Instance.TurnPowerObjects.Add(obj);
+				}
+			);
+		}
+		
+		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+			int index = i;
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.PowerControllerPath,
+				ExecuteOrder.Type.GameObject,
+				scene.gameObject,
+				(rawObject) => {
+					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+					obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, 0, scene.EnemyPowerRoot);
+					MapDataCarrier.Instance.EnemyPowerObjects.Add(obj);
+				}
+			);
+		}
+		
+		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+			int index = i;
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.TurnPowerControllerPath,
+				ExecuteOrder.Type.GameObject,
+				scene.gameObject,
+				(rawObject) => {
+					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+					obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, 0, scene.EnemyTurnPowerRoot);
+					MapDataCarrier.Instance.EnemyTurnPowerObjects.Add(obj);
+				}
+			);
+		}
+
 		return true;
 	}
 

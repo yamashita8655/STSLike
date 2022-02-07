@@ -12,6 +12,8 @@ public class TurnPowerController : MonoBehaviour
 	[SerializeField]
 	private Text TurnValue = null;
 
+	private int RemainTurn = 0;
+
 	public void Initialize(EnumSelf.TurnPowerType type, int turn, GameObject attachRoot) {
 
 		string path = ConvertType2Path(type);
@@ -29,11 +31,28 @@ public class TurnPowerController : MonoBehaviour
 		transform.localPosition = Vector3.zero;
 		transform.localScale = Vector3.one;
 
-		UpdateTurn(turn);
+		RemainTurn = turn;
+
+		UpdateTurn();
+	}
+	
+	public void SetTurn(int turn) {
+		RemainTurn = turn;
+		// TODO 恐らく、ここにセットする前にturnの補正していると思うけど、一応。
+		if (RemainTurn < 0) {
+			RemainTurn = 0;
+		}
+
+		UpdateTurn();
 	}
 
-	public void UpdateTurn(int turn) {
-		TurnValue.text = turn.ToString();
+	private void UpdateTurn() {
+		TurnValue.text = RemainTurn.ToString();
+		if (RemainTurn <= 0) {
+			gameObject.SetActive(false);
+		} else {
+			gameObject.SetActive(true);
+		}
 	}
 
 	private string ConvertType2Path(EnumSelf.TurnPowerType type) {

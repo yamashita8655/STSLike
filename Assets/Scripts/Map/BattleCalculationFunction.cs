@@ -57,10 +57,10 @@ public class BattleCalculationFunction {
 		Power power = status.GetPower();
 
 		// 再生
-		int val = power.GetParameter(EnumSelf.PowerType.Regenerate);
+		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
 		if (val > 0) {
 			bool isReverse = false;
-			if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerCount(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
+			if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
 				isReverse = true;
 			}
 
@@ -72,7 +72,7 @@ public class BattleCalculationFunction {
 		}
 		
 		// 毒
-		val = power.GetParameter(EnumSelf.PowerType.Poison);
+		val = power.GetValue(EnumSelf.PowerType.Poison);
 		if (val > 0) {
 			status.AddNowHp(-val);
 		}
@@ -82,6 +82,8 @@ public class BattleCalculationFunction {
 		var status = MapDataCarrier.Instance.CuPlayerStatus;
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
 			status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
+			int turn = status.GetTurnPowerValue((EnumSelf.TurnPowerType)i);
+			MapDataCarrier.Instance.TurnPowerObjects[(int)i].GetComponent<TurnPowerController>().SetTurn(turn);
 		}
 	}
 	
@@ -91,10 +93,10 @@ public class BattleCalculationFunction {
 		Power power = status.GetPower();
 
 		// 再生
-		int val = power.GetParameter(EnumSelf.PowerType.Regenerate);
+		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
 		if (val > 0) {
 			bool isReverse = false;
-			if (MapDataCarrier.Instance.CuEnemyStatus.GetTurnPowerCount(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
+			if (MapDataCarrier.Instance.CuEnemyStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
 				isReverse = true;
 			}
 
@@ -106,7 +108,7 @@ public class BattleCalculationFunction {
 		}
 		
 		// 毒
-		val = power.GetParameter(EnumSelf.PowerType.Poison);
+		val = power.GetValue(EnumSelf.PowerType.Poison);
 		if (val > 0) {
 			status.AddNowHp(-val);
 		}
@@ -116,18 +118,20 @@ public class BattleCalculationFunction {
 		var status = MapDataCarrier.Instance.CuEnemyStatus;
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
 			status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
+			int turn = status.GetTurnPowerValue((EnumSelf.TurnPowerType)i);
+			MapDataCarrier.Instance.EnemyTurnPowerObjects[(int)i].GetComponent<TurnPowerController>().SetTurn(turn);
 		}
 	}
 
 	// Player用
 	public static void PlayerCalcDamageNormalDamage(ActionPack pack) {
 		int shield = 0;
-		int powerStrength = MapDataCarrier.Instance.CuPlayerStatus.GetPower().GetParameter(EnumSelf.PowerType.Strength);
+		int powerStrength = MapDataCarrier.Instance.CuPlayerStatus.GetPower().GetValue(EnumSelf.PowerType.Strength);
 		int overDamage = 0;
 		int damage = pack.Value+powerStrength;
 		
 		// 脱力しているかどうか
-		if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerCount(EnumSelf.TurnPowerType.Weakness) > 0) {
+		if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
 			// 与ダメが25％下がる
 			damage = (int)((float)damage * 0.75f);
 		}
@@ -163,7 +167,7 @@ public class BattleCalculationFunction {
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			bool isReverse = false;
-			if (MapDataCarrier.Instance.CuEnemyStatus.GetTurnPowerCount(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
+			if (MapDataCarrier.Instance.CuEnemyStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
 				isReverse = true;
 			}
 
@@ -174,7 +178,7 @@ public class BattleCalculationFunction {
 			}
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			bool isReverse = false;
-			if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerCount(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
+			if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
 				isReverse = true;
 			}
 
@@ -200,8 +204,10 @@ public class BattleCalculationFunction {
 		EnumSelf.PowerType pType = ConvertEffectType2PowerType(pack.Effect);
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			MapDataCarrier.Instance.CuEnemyStatus.AddPower(pType, val);
+			MapDataCarrier.Instance.EnemyPowerObjects[(int)pType].GetComponent<PowerController>().SetValue(val);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			MapDataCarrier.Instance.CuPlayerStatus.AddPower(pType, val);
+			MapDataCarrier.Instance.PowerObjects[(int)pType].GetComponent<PowerController>().SetValue(val);
 		}
 	}
 	
@@ -210,20 +216,24 @@ public class BattleCalculationFunction {
 		EnumSelf.TurnPowerType pType = ConvertEffectType2TurnPowerType(pack.Effect);
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			MapDataCarrier.Instance.CuEnemyStatus.AddTurnPower(pType, val);
+			int turn = MapDataCarrier.Instance.CuEnemyStatus.GetTurnPowerValue(pType);
+			MapDataCarrier.Instance.EnemyTurnPowerObjects[(int)pType].GetComponent<TurnPowerController>().SetTurn(turn);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			MapDataCarrier.Instance.CuPlayerStatus.AddTurnPower(pType, val);
+			int turn = MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerValue(pType);
+			MapDataCarrier.Instance.TurnPowerObjects[(int)pType].GetComponent<TurnPowerController>().SetTurn(turn);
 		}
 	}
 	
 	// Enemy用
 	public static void EnemyCalcDamageNormalDamage(ActionPack pack) {
 		int shield = 0;
-		int powerStrength = MapDataCarrier.Instance.CuEnemyStatus.GetPower().GetParameter(EnumSelf.PowerType.Strength);
+		int powerStrength = MapDataCarrier.Instance.CuEnemyStatus.GetPower().GetValue(EnumSelf.PowerType.Strength);
 		int overDamage = 0;
 		int damage = pack.Value+powerStrength;
 
 		// 脱力しているかどうか
-		if (MapDataCarrier.Instance.CuEnemyStatus.GetTurnPowerCount(EnumSelf.TurnPowerType.Weakness) > 0) {
+		if (MapDataCarrier.Instance.CuEnemyStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
 			// 与ダメが25％下がる
 			damage = (int)((float)damage * 0.75f);
 		}
@@ -257,7 +267,7 @@ public class BattleCalculationFunction {
 		int heal = pack.Value;
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			bool isReverse = false;
-			if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerCount(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
+			if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
 				isReverse = true;
 			}
 
@@ -268,7 +278,7 @@ public class BattleCalculationFunction {
 			}
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			bool isReverse = false;
-			if (MapDataCarrier.Instance.CuEnemyStatus.GetTurnPowerCount(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
+			if (MapDataCarrier.Instance.CuEnemyStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
 				isReverse = true;
 			}
 
@@ -294,8 +304,10 @@ public class BattleCalculationFunction {
 		EnumSelf.PowerType pType = ConvertEffectType2PowerType(pack.Effect);
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			MapDataCarrier.Instance.CuPlayerStatus.AddPower(pType, val);
+			MapDataCarrier.Instance.PowerObjects[(int)pType].GetComponent<PowerController>().SetValue(val);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			MapDataCarrier.Instance.CuEnemyStatus.AddPower(pType, val);
+			MapDataCarrier.Instance.EnemyPowerObjects[(int)pType].GetComponent<PowerController>().SetValue(val);
 		}
 	}
 
@@ -305,8 +317,12 @@ public class BattleCalculationFunction {
 		EnumSelf.TurnPowerType pType = ConvertEffectType2TurnPowerType(pack.Effect);
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			MapDataCarrier.Instance.CuPlayerStatus.AddTurnPower(pType, val);
+			int turn = MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerValue(pType);
+			MapDataCarrier.Instance.TurnPowerObjects[(int)pType].GetComponent<TurnPowerController>().SetTurn(turn);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			MapDataCarrier.Instance.CuEnemyStatus.AddTurnPower(pType, val);
+			int turn = MapDataCarrier.Instance.CuEnemyStatus.GetTurnPowerValue(pType);
+			MapDataCarrier.Instance.EnemyTurnPowerObjects[(int)pType].GetComponent<TurnPowerController>().SetTurn(turn);
 		}
 	}
 
