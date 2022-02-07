@@ -22,31 +22,21 @@ public class MapBattleInitializeState : StateBase {
 		player.SetNowShield(0);
 		scene.PlayerShieldText.text = "";
 
-		scene.UpdatePlayerValueObject();
-		//for (int i = 0; i < MapDataCarrier.Instance.ValueObjects.Count; i++) {
-		//	GameObject.Destroy(MapDataCarrier.Instance.ValueObjects[i]);
-		//}
-		//MapDataCarrier.Instance.ValueObjects.Clear();
+		// プレイヤーバフの初期化
+		player.ResetPower();
+		player.ResetTurnPower();
+		// バフ表示の初期化
+		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+			MapDataCarrier.Instance.PowerObjects[i].GetComponent<PowerController>().SetValue(0);
+		}
+		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+			MapDataCarrier.Instance.TurnPowerObjects[i].GetComponent<TurnPowerController>().SetTurn(0);
+		}
 
-		//for (int i = 0; i < scene.PlayerActionNameStrings.Length; i++) {
-		//	int index = i;
-		//	MasterAction2Table.Data pdata = player.GetActionData(i);
-		//	scene.PlayerActionNameStrings[i].text = pdata.Name;
-		//	var list = pdata.ActionPackList;
-		//	for (int i2 = 0; i2 < list.Count; i2++) {
-		//		int index2 = i2;
-		//		ResourceManager.Instance.RequestExecuteOrder(
-		//			Const.ValueItemPath,
-		//			ExecuteOrder.Type.GameObject,
-		//			scene.gameObject,
-		//			(rawObject) => {
-		//				GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-		//				obj.GetComponent<ValueController>().Initialize(list[index2].Effect, list[index2].Value, scene.PlayerActionValueRoots[index]);
-		//				MapDataCarrier.Instance.ValueObjects.Add(obj);
-		//			}
-		//		);
-		//	}
-		//}
+		for (int i = 0; i < 6; i++) {
+			scene.UpdatePlayerValueObject(i);
+		}
+
 		
 		// 敵出現
 		int enemyId = LotEnemyId();
@@ -56,6 +46,16 @@ public class MapBattleInitializeState : StateBase {
 		enemy.SetNowHp(data.Hp);
 		enemy.SetMaxShield(999999);
 		enemy.SetNowShield(0);
+		// 敵バフの初期化
+		enemy.ResetPower();
+		enemy.ResetTurnPower();
+		// バフ表示の初期化
+		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+			MapDataCarrier.Instance.EnemyPowerObjects[i].GetComponent<PowerController>().SetValue(0);
+		}
+		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+			MapDataCarrier.Instance.EnemyTurnPowerObjects[i].GetComponent<TurnPowerController>().SetTurn(0);
+		}
 		scene.EnemyShieldText.text = "";
 
 		for (int i = 0; i < data.ActionIds.Count; i++) {

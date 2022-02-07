@@ -11,9 +11,7 @@ public class MapBattleEndState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
-		//scene.BattleRoot.SetActive(false);
-		//scene.MapRoot.SetActive(true);
-
+		
 		Debug.Log("MapBattleEndState");
 
 		return true;

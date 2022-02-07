@@ -15,6 +15,11 @@ public class MapBattleCheckState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
+		for (int i = 0; i < 6; i++) {
+			scene.UpdatePlayerValueObject(i);
+		}
+		scene.UpdateEnemyValueObject();
+
 		IsWin = false;
 		IsDead = false;
 

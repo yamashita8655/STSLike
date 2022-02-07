@@ -159,6 +159,19 @@ public class PlayerStatus
 	public int GetTurnPowerValue(EnumSelf.TurnPowerType type) {
 		return CuTurnPower.GetTurnPowerValue(type);
 	}
+	
+	public void ResetPower() {
+		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+			BuffPower.SetValue((EnumSelf.PowerType)i, 0);
+			DebuffPower.SetValue((EnumSelf.PowerType)i, 0);
+		}
+	}
+	
+	public void ResetTurnPower() {
+		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+			CuTurnPower.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 0);
+		}
+	}
 }
 
 public class EnemyStatus
@@ -330,6 +343,19 @@ public class EnemyStatus
 	public int GetTurnPowerValue(EnumSelf.TurnPowerType type) {
 		return CuTurnPower.GetTurnPowerValue(type);
 	}
+
+	public void ResetPower() {
+		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+			BuffPower.SetValue((EnumSelf.PowerType)i, 0);
+			DebuffPower.SetValue((EnumSelf.PowerType)i, 0);
+		}
+	}
+	
+	public void ResetTurnPower() {
+		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+			CuTurnPower.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 0);
+		}
+	}
 }
 
 // こっちは、効果が永続で、効果量が可変する物。
@@ -367,9 +393,9 @@ public class TurnPower {
 		return TurnPowerParameter[(int)type];
 	}
 	
-	//public void SetTurnPowerCount(EnumSelf.TurnPowerType type, int val) {
-	//	TurnPowerCount[(int)type] = val;
-	//}
+	public void SetTurnPowerValue(EnumSelf.TurnPowerType type, int val) {
+		TurnPowerParameter[(int)type] = val;
+	}
 	
 	public void AddTurnPowerValue(EnumSelf.TurnPowerType type, int val) {
 		TurnPowerParameter[(int)type] += val;

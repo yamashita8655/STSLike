@@ -12,8 +12,19 @@ public class ValueController : MonoBehaviour
 	[SerializeField]
 	private Text  EffectValue = null;
 	
-	public void Initialize(EnumSelf.EffectType type, int originalVal, int val, GameObject attachRoot) {
+	public void Initialize(GameObject attachRoot) {
+		transform.SetParent(attachRoot.transform);
+		transform.localPosition = Vector3.zero;
+		transform.localScale = Vector3.one;
 
+		gameObject.SetActive(false);
+	}
+	
+	public void Hide() {
+		gameObject.SetActive(false);
+	}
+
+	public void UpdateDisplay(EnumSelf.EffectType type, int originalVal, int val) {
 		string path = ConvertEffectType2Path(type);
 
 		ResourceManager.Instance.RequestExecuteOrder(
@@ -25,21 +36,16 @@ public class ValueController : MonoBehaviour
 			}
 		);
 
-		Debug.Log("originalVal:" + originalVal);
-		Debug.Log("val:" + val);
-
 		EffectValue.text = val.ToString();
 		if (originalVal > val) {
 			EffectValue.color = Color.red;
-			Debug.Log("RED");
 		} else if (originalVal < val) {
 			EffectValue.color = Color.green;
-			Debug.Log("GREEN");
+		} else if (originalVal == val) {
+			EffectValue.color = Color.white;
 		}
 
-		transform.SetParent(attachRoot.transform);
-		transform.localPosition = Vector3.zero;
-		transform.localScale = Vector3.one;
+		gameObject.SetActive(true);
 	}
 
 	private string ConvertEffectType2Path(EnumSelf.EffectType type) {

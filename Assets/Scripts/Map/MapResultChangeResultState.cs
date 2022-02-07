@@ -19,6 +19,8 @@ public class MapResultChangeResultState : StateBase {
 		MapDataCarrier.Instance.CuPlayerStatus.SetActionData(changeIndex, data);
 
 		scene.PlayerActionNameStrings[changeIndex].text = data.Name;
+		scene.UpdatePlayerValueObject(changeIndex);
+
 		// TODO 見せ方考える
 		//scene.PlayerActionValueStrings[changeIndex].text = data.Value1.ToString();
 
