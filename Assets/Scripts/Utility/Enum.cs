@@ -13,14 +13,14 @@ public partial class EnumSelf : MonoBehaviour {
 		Max
 	};
 	
-	public enum ActionType {
-        None,
-        AddDamage,
-        ContinuousDamage,
-        Heal,
-        AddShield,
-		Max
-	};
+	//public enum ActionType {
+    //    None,
+    //    AddDamage,
+    //    ContinuousDamage,
+    //    Heal,
+    //    AddShield,
+	//	Max
+	//};
 	
 	public enum HealType {
         None,
@@ -94,6 +94,11 @@ public partial class EnumSelf : MonoBehaviour {
 		ReverseHeal,
 		Weakness,
         Vulnerable,
+		Max
+	}
+	
+	public enum AIChangeType {
+		None = -1,
 		Max
 	}
 }

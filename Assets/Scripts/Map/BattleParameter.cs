@@ -197,6 +197,8 @@ public class EnemyStatus
 	private Power DebuffPower = null;
 
 	private TurnPower CuTurnPower = null;
+	
+	private MasterEnemyAITable.Data AIData = null;
 
 	public EnemyStatus(MasterEnemyTable.Data data) {
 		ActionDataList = new List<MasterAction2Table.Data>();
@@ -243,6 +245,9 @@ public class EnemyStatus
 	public MasterAction2Table.Data GetActionData() {
 		return DecideActionData;
 	}
+	public void ClearActionData() {
+		ActionDataList.Clear();
+	}
 	
 	public MasterAction2Table.Data GetInitiativeFirstActionData() {
 		MasterAction2Table.Data data = null;
@@ -266,11 +271,11 @@ public class EnemyStatus
 	public void LotActionData() {
 	
 		MasterAction2Table.Data data = null;
-		if (Data.ActionType == EnumSelf.EnemyActionType.Random) {
+		if (AIData.EnemyActionType == EnumSelf.EnemyActionType.Random) {
 			int all = ActionDataList.Count;
 			int index = UnityEngine.Random.Range(0, all);
 			data = ActionDataList[index];
-		} else if (Data.ActionType == EnumSelf.EnemyActionType.Rotation) {
+		} else if (AIData.EnemyActionType == EnumSelf.EnemyActionType.Rotation) {
 			data = ActionDataList[CurrentActionIndex];
 			CurrentActionIndex++;
 			if (CurrentActionIndex >= ActionDataList.Count) {
@@ -355,6 +360,19 @@ public class EnemyStatus
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
 			CuTurnPower.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 0);
 		}
+	}
+
+	public void UpdateAIData(MasterEnemyAITable.Data data) {
+		ClearActionData();
+		AIData = data;
+		for (int i = 0; i < AIData.ActionIds.Count; i++) {
+			MasterAction2Table.Data actionData = MasterAction2Table.Instance.GetData(data.ActionIds[i]);
+			AddActionData(actionData);
+		}
+	}
+	
+	public MasterEnemyAITable.Data GetAIData() {
+		return AIData;
 	}
 }
 

@@ -53,10 +53,14 @@ public class MapBattleInitializeState : StateBase {
 		}
 		scene.EnemyShieldText.text = "";
 
-		for (int i = 0; i < data.ActionIds.Count; i++) {
-			MasterAction2Table.Data actionData = MasterAction2Table.Instance.GetData(data.ActionIds[i]);
-			enemy.AddActionData(actionData);
-		}
+		// 敵AIの初期化
+		MasterEnemyAITable.Data aiData = MasterEnemyAITable.Instance.GetData(data.AIID);
+		enemy.UpdateAIData(aiData);
+
+		//for (int i = 0; i < data.ActionIds.Count; i++) {
+		//	MasterAction2Table.Data actionData = MasterAction2Table.Instance.GetData(data.ActionIds[i]);
+		//	enemy.AddActionData(actionData);
+		//}
 
 		// TODO イニシアチブアクションは、別ステートで持った方がいいかも
 		string initiativeActionId = data.InitiativeActionId;

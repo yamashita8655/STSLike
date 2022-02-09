@@ -369,4 +369,22 @@ public class BattleCalculationFunction {
 
 		return pType;
 	}
+	
+	static public EnumSelf.EnemyActionType ConvertString2EnemyActionType(string typeString) {
+		EnumSelf.EnemyActionType type = EnumSelf.EnemyActionType.None;
+
+		if (typeString == "Random") {
+			type = EnumSelf.EnemyActionType.Random;
+		} else if (typeString == "Rotation") {
+			type = EnumSelf.EnemyActionType.Rotation;
+		}
+
+		return type;
+	}
+	
+	static public EnumSelf.AIChangeType ConvertString2AIChangeType(string typeString) {
+		EnumSelf.AIChangeType type = EnumSelf.AIChangeType.None;
+
+		return type;
+	}
 }
