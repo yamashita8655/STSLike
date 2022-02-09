@@ -96,6 +96,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Heal;
 		} else if (typeString == "Warning") {
 			type = EnumSelf.EffectType.Warning;
+		} else if (typeString == "Stun") {
+			type = EnumSelf.EffectType.Stun;
 		} else if (typeString == "Strength") {
 			type = EnumSelf.EffectType.Strength;
 		} else if (typeString == "DiceMinusOne") {

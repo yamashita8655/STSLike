@@ -45,7 +45,10 @@ public class ValueController : MonoBehaviour
 			EffectValue.color = Color.white;
 		}
 
-		if (type == EnumSelf.EffectType.Warning) {
+		if (
+			(type == EnumSelf.EffectType.Warning) ||
+			(type == EnumSelf.EffectType.Stun)
+		) {
 			EffectValue.text = "";
 		}
 
@@ -64,6 +67,8 @@ public class ValueController : MonoBehaviour
 			ret = Const.HealImagePath;
 		} else if (type == EnumSelf.EffectType.Warning) {
 			ret = Const.WarningImagePath;
+		} else if (type == EnumSelf.EffectType.Stun) {
+			ret = Const.StunImagePath;
 		} else if (
 			(type == EnumSelf.EffectType.Strength) ||
 			(type == EnumSelf.EffectType.Regenerate)

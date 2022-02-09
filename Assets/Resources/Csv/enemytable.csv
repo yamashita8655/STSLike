@@ -6,6 +6,6 @@ id,name,hp,mhp,imagepath,initiativeactionid,aiid
 5,スネーク,30,30,Image/Map/Enemy/snake,NONE,50
 6,バット,30,30,Image/Map/Enemy/bat,NONE,60
 7,キラービー,30,30,Image/Map/Enemy/killerbe,NONE,70
-8,ホブゴブリン,100,100,Image/Map/Enemy/hobgoblin,1020,80
-1001,森の大樹,100,100,Image/Map/Enemy/woodking,NONE,10
+8,ホブゴブリン,30,30,Image/Map/Enemy/hobgoblin,1020,80
+9,森の大樹,100,100,Image/Map/Enemy/woodking,NONE,90
 9999,デバッグかかし,999,999,Image/Map/Enemy/slime,NONE,10
