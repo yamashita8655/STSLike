@@ -77,6 +77,7 @@ public class ValueController : MonoBehaviour
 		} else if (
 			(type == EnumSelf.EffectType.DiceMinusOne) ||
 			(type == EnumSelf.EffectType.Poison) ||
+			(type == EnumSelf.EffectType.Patient) ||
 			(type == EnumSelf.EffectType.Weakness) ||
 			(type == EnumSelf.EffectType.Vulnerable) ||
 			(type == EnumSelf.EffectType.ReverseHeal)

@@ -20,6 +20,11 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		BattleCalculationFunction.PlayerTurnStartValueChange();
 
 		scene.UpdateParameterText();
+		
+		//// TODO もう少し呼び出す回数最適化できそうな気がする
+		//for (int i = 0; i < 6; i++) {
+		//	scene.UpdatePlayerValueObject(i);
+		//}
 		return true;
 	}
 

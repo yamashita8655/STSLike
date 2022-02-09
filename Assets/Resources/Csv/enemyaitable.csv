@@ -7,5 +7,6 @@ id,enemyactiontype,actionids,aichangetype,aichangevalue,afteraiid
 60,Random,1013-1014,NONE,0,0
 70,Random,1015-1016,NONE,0,0
 80,Rotation,1017-1018-1019,NONE,0,0
-90,Random,1021-1019,NONE,0,0
+90,Rotation,1023-1023-1024-1025,NONE,0,0
+91,Rotation,1021-1026,TurnProgress,2,90
 100,Random,1003,NONE,0,0

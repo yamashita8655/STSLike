@@ -112,6 +112,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Weakness;
 		} else if (typeString == "Vulnerable") {
 			type = EnumSelf.EffectType.Vulnerable;
+		} else if (typeString == "Patient") {
+			type = EnumSelf.EffectType.Patient;
 		}
 
 		return type;

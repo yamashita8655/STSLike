@@ -57,6 +57,7 @@ public class MapBattleCheckState : StateBase {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyInitiative);
 				}
 			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleValueChange) {// プレイヤーのターンの場合
+
 				for (int i = 0; i < 6; i++) {
 					scene.UpdatePlayerValueObject(i);
 				}

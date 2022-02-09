@@ -44,6 +44,7 @@ public partial class EnumSelf : MonoBehaviour {
         Poison,
         Weakness,
         Vulnerable,
+        Patient,
 		Max
 	};
 	
@@ -95,11 +96,13 @@ public partial class EnumSelf : MonoBehaviour {
 		ReverseHeal,
 		Weakness,
         Vulnerable,
+		Patient,
 		Max
 	}
 	
 	public enum AIChangeType {
 		None = -1,
+		TurnProgress = 0,// 指定されたターンが経過したら、指定のAIIDに遷移する。基のIDに戻る際も、Rotationで2個セットして、2ターンと決め打ちすれば、これを使って実現可能
 		Max
 	}
 }

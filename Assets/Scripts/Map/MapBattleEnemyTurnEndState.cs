@@ -15,6 +15,9 @@ public class MapBattleEnemyTurnEndState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		BattleCalculationFunction.EnemyTurnEndValueChange();
+		// ここで、ターン経過によるAI変更を行う必要があるかのチェックを行う
+		MapDataCarrier.Instance.CuEnemyStatus.CheckAIForTurnProgress();
+
 		scene.UpdateParameterText();
 		return true;
 	}

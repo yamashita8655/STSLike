@@ -17,6 +17,9 @@ public class MapBattleEnemyTurnStartState : StateBase {
 		BattleCalculationFunction.EnemyTurnStartValueChange();
 
 		scene.UpdateParameterText();
+		
+		// TODO これ、もう少し呼び出す回数最適化できそうな気がするが…
+		scene.UpdateEnemyValueObject();
 
 		return true;
 	}

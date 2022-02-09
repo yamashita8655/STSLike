@@ -29,5 +29,6 @@ public partial class Const {
 	public static readonly string ReverseHealImagePath = "Image/UI/Map/reverseheal";
 	public static readonly string WeaknessImagePath = "Image/UI/Map/weakness";
 	public static readonly string VulnerableImagePath = "Image/UI/Map/vulnerable";
+	public static readonly string PatientImagePath = "Image/UI/Map/patient";
 
 }

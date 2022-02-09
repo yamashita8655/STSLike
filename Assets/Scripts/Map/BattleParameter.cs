@@ -167,6 +167,10 @@ public class PlayerStatus
 		}
 	}
 	
+	public void SetTurnPowerValue(EnumSelf.TurnPowerType type, int val) {
+		CuTurnPower.SetTurnPowerValue((EnumSelf.TurnPowerType)type, val);
+	}
+	
 	public void ResetTurnPower() {
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
 			CuTurnPower.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 0);
@@ -190,6 +194,8 @@ public class EnemyStatus
 
 	private MasterEnemyTable.Data Data = null;
 	private int CurrentActionIndex = 0;
+	
+	private int CurrentAITurnCountIndex = 0;
 
 	private MasterAction2Table.Data DecideActionData = null;
 
@@ -282,7 +288,22 @@ public class EnemyStatus
 				CurrentActionIndex = 0;
 			} 
 		}
+
+		CurrentAITurnCountIndex++;
+
 		DecideActionData = data;
+	}
+
+	public void CheckAIForTurnProgress() {
+		if (AIData.AIChangeType == EnumSelf.AIChangeType.TurnProgress) {
+			if (CurrentAITurnCountIndex >= AIData.AIChangeValue) {
+				AIData = MasterEnemyAITable.Instance.GetData(AIData.AfterAIId);
+				UpdateAIData(AIData);
+				// ターンプログレスは、敵のターン終了、つまり、行動再抽選前に行うので
+				// ここでは再抽選しない
+				//status.LotActionData();
+			}
+		}
 	}
 	
 	public void SetNowShield(int val) {
@@ -356,17 +377,33 @@ public class EnemyStatus
 		}
 	}
 	
+	public void SetTurnPowerValue(EnumSelf.TurnPowerType type, int val) {
+		CuTurnPower.SetTurnPowerValue((EnumSelf.TurnPowerType)type, val);
+	}
+	
 	public void ResetTurnPower() {
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
 			CuTurnPower.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 0);
 		}
 	}
 
+	//// こっちは、初期化時に呼び出す関数
+	//public void InitializeAIData(MasterEnemyAITable.Data data) {
+	//	AIData = data;
+	//	for (int i = 0; i < AIData.ActionIds.Count; i++) {
+	//		MasterAction2Table.Data actionData = MasterAction2Table.Instance.GetData(AIData.ActionIds[i]);
+	//		AddActionData(actionData);
+	//	}
+	//}
+
+	// こっちは、バトル中にAIが切り替わる時に呼び出す関数
 	public void UpdateAIData(MasterEnemyAITable.Data data) {
+		CurrentActionIndex = 0;
+		CurrentAITurnCountIndex = 0;
 		ClearActionData();
 		AIData = data;
 		for (int i = 0; i < AIData.ActionIds.Count; i++) {
-			MasterAction2Table.Data actionData = MasterAction2Table.Instance.GetData(data.ActionIds[i]);
+			MasterAction2Table.Data actionData = MasterAction2Table.Instance.GetData(AIData.ActionIds[i]);
 			AddActionData(actionData);
 		}
 	}
