@@ -13,6 +13,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public List<EnumSelf.MapType> MapTypeList = null;
 	
 	public List<int> HandDifficultList = null;
+	public int SelectDifficultNumber { get; set; }
 	
 	public PlayerStatus CuPlayerStatus = null;
 	public EnemyStatus CuEnemyStatus = null;

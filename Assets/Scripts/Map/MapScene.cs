@@ -262,6 +262,7 @@ public partial class MapScene : SceneBase
 		int mapIndex = MapDataCarrier.Instance.CurrentMapNumber;
 		EnumSelf.MapType type = MapDataCarrier.Instance.MapTypeList[mapIndex];
 		MapDataCarrier.Instance.CurrentMapNumber++;
+		MapDataCarrier.Instance.SelectDifficultNumber = MapDataCarrier.Instance.HandDifficultList[index];
 		MapDataCarrier.Instance.HandDifficultList[index] = -1;
 		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
 

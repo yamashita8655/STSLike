@@ -37,8 +37,18 @@ public class MapBattleInitializeState : StateBase {
 		int enemyId = LotEnemyId();
 		MasterEnemyTable.Data data = MasterEnemyTable.Instance.GetData(enemyId);
 		EnemyStatus enemy = new EnemyStatus(data);
-		enemy.SetMaxHp(data.MHp);
-		enemy.SetNowHp(data.Hp);
+		float difficultHpRate = 0f;
+		if (MapDataCarrier.Instance.SelectDifficultNumber == 0) {
+			difficultHpRate = 0.1f;
+		} else if (MapDataCarrier.Instance.SelectDifficultNumber == 1) {
+			difficultHpRate = 0.2f;
+		} else if (MapDataCarrier.Instance.SelectDifficultNumber == 3) {
+			difficultHpRate = -0.33f;
+		}
+		int mHp = (int)(((float)data.MHp) * (1f-difficultHpRate));
+		int hp = (int)(((float)data.Hp) * (1f-difficultHpRate));
+		enemy.SetMaxHp(mHp);
+		enemy.SetNowHp(hp);
 		enemy.SetMaxShield(999999);
 		enemy.SetNowShield(0);
 		// 敵バフの初期化
@@ -106,20 +116,29 @@ public class MapBattleInitializeState : StateBase {
 
 		MasterDungeonTable.Data dungeonData = MapDataCarrier.Instance.DungeonData;
 
-
-		if (nowFloor == maxFloor) {
-			// 最後の部屋なら、ボスの抽選IDを使う
-			lotId = dungeonData.BossLotId;
+		if (MapDataCarrier.Instance.SelectDifficultNumber == 4) {
+			if (nowFloor == maxFloor) {
+				// TODO とりあえず、今は5が選択されても、最後の部屋は通常のボスの抽選IDを使う
+				lotId = dungeonData.BossLotId;
+			} else {
+				lotId = dungeonData.EliteLotId;
+			}
 		} else {
-			var lotFloors = dungeonData.LotFloors;
-			var enemyLotIds = dungeonData.EnemyLotIds;
-			for (int i = 0; i < lotFloors.Count; i++) {
-				if (nowFloor <= lotFloors[i]) {
-					lotId = enemyLotIds[i];
-					break;
+			if (nowFloor == maxFloor) {
+				// 最後の部屋なら、ボスの抽選IDを使う
+				lotId = dungeonData.BossLotId;
+			} else {
+				var lotFloors = dungeonData.LotFloors;
+				var enemyLotIds = dungeonData.EnemyLotIds;
+				for (int i = 0; i < lotFloors.Count; i++) {
+					if (nowFloor <= lotFloors[i]) {
+						lotId = enemyLotIds[i];
+						break;
+					}
 				}
 			}
 		}
+
 
 		Debug.Log("lotId:" + lotId);
 
