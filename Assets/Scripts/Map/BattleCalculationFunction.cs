@@ -443,4 +443,29 @@ public class BattleCalculationFunction {
 
 		return type;
 	}
+
+	static public int LotRarity(List<int> lotWeightList) {
+		int allWeight = 0;
+		for (int i = 0; i < lotWeightList.Count; i++) {
+			allWeight += lotWeightList[i];
+		}
+
+		int weight = UnityEngine.Random.Range(0, allWeight);
+
+		int startWeight = 0;
+		int endWeight = lotWeightList[0]-1;
+
+		int rarity = 0;
+		for (int i = 0; i < lotWeightList.Count; i++) {
+			if ((startWeight <= weight) && (weight <= endWeight)) {
+				rarity = i+1;
+				break;
+			}
+
+			startWeight = endWeight+1;
+			endWeight = startWeight + lotWeightList[i+1]-1;
+		}
+
+		return rarity;
+	}
 }

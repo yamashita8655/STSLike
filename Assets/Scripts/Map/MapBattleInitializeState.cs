@@ -37,16 +37,16 @@ public class MapBattleInitializeState : StateBase {
 		int enemyId = LotEnemyId();
 		MasterEnemyTable.Data data = MasterEnemyTable.Instance.GetData(enemyId);
 		EnemyStatus enemy = new EnemyStatus(data);
-		float difficultHpRate = 0f;
+		int difficultHpRate = 0;
 		if (MapDataCarrier.Instance.SelectDifficultNumber == 0) {
-			difficultHpRate = 0.1f;
+			difficultHpRate = 20;
 		} else if (MapDataCarrier.Instance.SelectDifficultNumber == 1) {
-			difficultHpRate = 0.2f;
+			difficultHpRate = 10;
 		} else if (MapDataCarrier.Instance.SelectDifficultNumber == 3) {
-			difficultHpRate = -0.33f;
+			difficultHpRate = -33;
 		}
-		int mHp = (int)(((float)data.MHp) * (1f-difficultHpRate));
-		int hp = (int)(((float)data.Hp) * (1f-difficultHpRate));
+		int mHp = data.MHp - (data.MHp * difficultHpRate / 100);
+		int hp = data.Hp - (data.Hp * difficultHpRate / 100);
 		enemy.SetMaxHp(mHp);
 		enemy.SetNowHp(hp);
 		enemy.SetMaxShield(999999);
@@ -80,8 +80,8 @@ public class MapBattleInitializeState : StateBase {
 
 		MapDataCarrier.Instance.CuEnemyStatus = enemy;
 
-		scene.EnemyNowHpText.text = data.Hp.ToString();
-		scene.EnemyMaxHpText.text = data.MHp.ToString();
+		scene.EnemyNowHpText.text = hp.ToString();
+		scene.EnemyMaxHpText.text = mHp.ToString();
 		scene.EnemyNameText.text = data.Name;
 
 

@@ -33,6 +33,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 	private readonly string FilePath = "csv/actiontable2";
 
 	private Dictionary<int, Data> DataDict = new Dictionary<int, Data>();
+	
+	private List<List<int>> RarityCardList = new List<List<int>>();
 
 	public void Initialize()
 	{
@@ -45,6 +47,12 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 		string text = asset.text;
 		char[] split = {'\n'};
 		List<string> lineList = Functions.SplitString(text, split);
+
+		RarityCardList.Add(new List<int>());
+		RarityCardList.Add(new List<int>());
+		RarityCardList.Add(new List<int>());
+		RarityCardList.Add(new List<int>());
+		RarityCardList.Add(new List<int>());
 
 		char[] split2 = { ',' };
 		// 1行目はメタデータなので、読み飛ばす
@@ -80,6 +88,11 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);
+
+			// TODO とりあえず、1000以下がプレイヤーのカードという扱い
+			if (int.Parse(paramList[0]) < 1000) {
+				RarityCardList[int.Parse(paramList[1])-1].Add(int.Parse(paramList[0]));
+			}
 		}
 	}
 
@@ -172,6 +185,13 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 		Dictionary<int, Data> dict = new Dictionary<int, Data>(DataDict);
         return dict;
     }
+	
+	// リストは外で操作されると困るので、クローンを返す
+	public List<int> GetRarityCardCloneList(int rarity)
+	{
+		List<int> list = new List<int>(RarityCardList[rarity-1]);
+		return list;
+	}
 }
 
 public class ActionPack {

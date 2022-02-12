@@ -16,12 +16,35 @@ public class MapResultInitializeState : StateBase {
 		scene.TreasureDetailCardName.gameObject.SetActive(false);
 		scene.TreasureDetailCardImage.gameObject.SetActive(false);
 		scene.TreasureDetailCardDetail.gameObject.SetActive(false);
+
+		int difficult = MapDataCarrier.Instance.SelectDifficultNumber;
+
+		// TODO とりあえず1番目のレシオセットを固定で使う
+		MasterCardLotTable.Data lotData = MasterCardLotTable.Instance.GetData("1");
+		List<int> weightList = lotData.LotList[difficult];
+
 			
 		// TODO treasureカウント3決め打ち
 		MapDataCarrier.Instance.TreasureList.Clear();
 		for (int i = 0; i < 3; i++) {
-			// TODO 1~7決め打ち
-			int id = UnityEngine.Random.Range(1, 8);
+			int rarity = BattleCalculationFunction.LotRarity(weightList);
+			var cardList = MasterAction2Table.Instance.GetRarityCardCloneList(rarity);
+			
+			int id = 0;
+			while (true) {
+				int index = UnityEngine.Random.Range(0, cardList.Count);
+				id = cardList[index];
+				bool isSame = false;
+				for (int i2 = 0; i2 < MapDataCarrier.Instance.TreasureList.Count; i2++) {
+					if (MapDataCarrier.Instance.TreasureList[i2].Id == id) {
+						isSame = true;
+						break;
+					}
+				}
+				if (isSame == false) {
+					break;
+				}
+			}
 			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(id);
 			MapDataCarrier.Instance.TreasureList.Add(data);
 			scene.TreasureNameTexts[i].text = data.Name;
