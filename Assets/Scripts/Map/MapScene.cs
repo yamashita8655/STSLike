@@ -127,6 +127,10 @@ public partial class MapScene : SceneBase
 	public Image TreasureDetailCardImage => CuTreasureDetailCardImage;
 	
 	[SerializeField]
+	private Image CuTreasureRarityFrameImage = null;
+	public Image TreasureRarityFrameImage => CuTreasureRarityFrameImage;
+	
+	[SerializeField]
 	private Text CuNowFloorText = null;
 	public Text NowFloorText => CuNowFloorText;
 	

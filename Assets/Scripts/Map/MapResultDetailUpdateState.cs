@@ -28,6 +28,15 @@ public class MapResultDetailUpdateState : StateBase {
 				scene.TreasureDetailCardImage.sprite = rawSprite as Sprite;
 			}
 		);
+		
+		ResourceManager.Instance.RequestExecuteOrder(
+			string.Format(Const.RarityFrameImagePath, data.Rarity),
+			ExecuteOrder.Type.Sprite,
+			scene.gameObject,
+			(rawSprite) => {
+				scene.TreasureRarityFrameImage.sprite = rawSprite as Sprite;
+			}
+		);
 
 		System.Object[] arguments = new System.Object[data.ActionPackList.Count];
 		for (int i = 0; i < data.ActionPackList.Count; i++) {
