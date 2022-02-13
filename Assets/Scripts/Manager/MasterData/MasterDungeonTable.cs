@@ -8,6 +8,7 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 		public string Id { get; private set; }
 		public string Name { get; private set; }
 		public string Detail { get; private set; }
+		public string ImagePath { get; private set; }
 		public int FloorCount { get; private set; }
 		public List<int> EnemyLotIds { get; private set; }
 		public List<int> LotFloors { get; private set; }
@@ -19,6 +20,7 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 			string id,
 			string name,
 			string detail,
+			string imagePath,
 			int floorCount,
 			List<int> enemyLotIds,
 			List<int> lotFloors,
@@ -30,6 +32,7 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 			Id = id;
 			Name = name;
 			Detail = detail;
+			ImagePath = imagePath;
 			FloorCount = floorCount;
 			EnemyLotIds = enemyLotIds;
 			LotFloors = lotFloors;
@@ -64,8 +67,8 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 			}
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
 
-			List<string> enemyLotIdString = Functions.SplitString(paramList[4], split3);
-			List<string> lotFloorString = Functions.SplitString(paramList[5], split3);
+			List<string> enemyLotIdString = Functions.SplitString(paramList[5], split3);
+			List<string> lotFloorString = Functions.SplitString(paramList[6], split3);
 
 			List<int> enemyLotIds = new List<int>();
 			for (int i2 = 0; i2 < enemyLotIdString.Count; i2++) {
@@ -81,12 +84,13 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 				paramList[0],
 				paramList[1],
 				paramList[2],
-				int.Parse(paramList[3]),
+				paramList[3],
+				int.Parse(paramList[4]),
 				enemyLotIds,
 				lotFloors,
-				int.Parse(paramList[6]),
 				int.Parse(paramList[7]),
-				int.Parse(paramList[8])
+				int.Parse(paramList[8]),
+				int.Parse(paramList[9])
 			);
 
 			DataDict.Add(paramList[0], data);

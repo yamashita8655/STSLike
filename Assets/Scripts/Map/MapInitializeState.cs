@@ -228,12 +228,28 @@ public class MapInitializeState : StateBase {
 					MapDataCarrier.Instance.EnemyValueObjects.Add(obj);
 					LoadedCount++;
 					if (LoadedCount == LoadCount) {
-						FadeManager.Instance.FadeIn(0.5f, null);
-						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
+						//FadeManager.Instance.FadeIn(0.5f, null);
+						//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
+						LoadBgImage();
 					}
 				}
 			);
 		}
+	}
+	
+	private void LoadBgImage() {
+		var scene = MapDataCarrier.Instance.Scene as MapScene;
+
+		ResourceManager.Instance.RequestExecuteOrder(
+			MapDataCarrier.Instance.DungeonData.ImagePath,
+			ExecuteOrder.Type.Sprite,
+			scene.gameObject,
+			(rawSprite) => {
+				scene.BgImage.sprite = rawSprite as Sprite;
+				FadeManager.Instance.FadeIn(0.5f, null);
+				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
+			}
+		);
 	}
 
 

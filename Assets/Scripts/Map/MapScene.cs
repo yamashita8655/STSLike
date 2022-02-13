@@ -162,6 +162,10 @@ public partial class MapScene : SceneBase
 	private Image CuEnemyImage = null;
 	public Image EnemyImage => CuEnemyImage;
 	
+	[SerializeField]
+	private Image CuBgImage = null;
+	public Image BgImage => CuBgImage;
+	
 	// ダンジョンリザルト関係
 	[SerializeField]
 	private GameObject CuDungeonResultRoot = null;
