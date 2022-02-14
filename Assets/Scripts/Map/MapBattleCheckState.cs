@@ -43,13 +43,14 @@ public class MapBattleCheckState : StateBase {
 		} else if (IsWin) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleWin);
 		} else {
-
             if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleInitiativeValueChange) {// プレイヤーのイニシアチブ
 				if (MapDataCarrier.Instance.InitiativeActionPackCount < MapDataCarrier.Instance.MaxInitiativeActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleInitiativeValueChange);
 				} else {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerInitiative);
 				}
+            } else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattlePlayerTurnStart) {// プレイヤーのターンスタート時のHP変動
+				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
             } else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleEnemyInitiativeValueChange) {// 敵のイニシアチブ
 				if (MapDataCarrier.Instance.EnemyInitiativeActionPackCount < MapDataCarrier.Instance.EnemyInitiativeActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleInitiativeValueChange);
@@ -57,6 +58,8 @@ public class MapBattleCheckState : StateBase {
 					MapDataCarrier.Instance.CuEnemyStatus.RemoveInitiativeFirstActionData();
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyInitiative);
 				}
+            } else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleEnemyTurnStart) {// 敵のターンスタート時のHP変動
+				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyAttackResult);
 			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleValueChange) {// プレイヤーのターンの場合
 
 				for (int i = 0; i < 6; i++) {

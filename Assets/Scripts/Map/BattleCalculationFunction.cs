@@ -6,7 +6,11 @@ using UnityEngine;
 public class BattleCalculationFunction {
 	public static void PlayerValueChange(ActionPack pack) {
 		if (pack.Effect == EnumSelf.EffectType.Damage) {
-			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
+			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack, false);
+		} else if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
+			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack, true);
+		} else if (pack.Effect == EnumSelf.EffectType.RemovePower) {
+			BattleCalculationFunction.PlayerRemovePower(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
 			BattleCalculationFunction.PlayerCalcHeal(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Shield) {
@@ -29,12 +33,18 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.DebugDisaster) {
+			BattleCalculationFunction.PlayerDebugDisaster(pack);
 		}
 	}
 
 	public static void EnemyValueChange(ActionPack pack) {
 		if (pack.Effect == EnumSelf.EffectType.Damage) {
-			BattleCalculationFunction.EnemyCalcDamageNormalDamage(pack);
+			BattleCalculationFunction.EnemyCalcDamageNormalDamage(pack, false);
+		} else if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
+			BattleCalculationFunction.EnemyCalcDamageNormalDamage(pack, true);
+		} else if (pack.Effect == EnumSelf.EffectType.RemovePower) {
+			BattleCalculationFunction.EnemyRemovePower(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
 			BattleCalculationFunction.EnemyCalcHeal(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Shield) {
@@ -164,7 +174,7 @@ public class BattleCalculationFunction {
 	}
 
 	// Player用
-	public static void PlayerCalcDamageNormalDamage(ActionPack pack) {
+	public static void PlayerCalcDamageNormalDamage(ActionPack pack, bool isSuction) {
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
 		int shield = 0;
@@ -190,6 +200,9 @@ public class BattleCalculationFunction {
 			overDamage = shield - damage;
 			if (overDamage < 0) {
 				EnemyUpdateHp(overDamage);
+				if (isSuction == true) {
+					PlayerUpdateHp(-overDamage);
+				}
 			}
 
 			// 相手が棘状態か
@@ -204,12 +217,37 @@ public class BattleCalculationFunction {
 			}
 
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			shield = player.GetNowShield();
-			player.AddNowShield(-damage);
-			overDamage = shield - damage;
-			if (overDamage < 0) {
-				PlayerUpdateHp(overDamage);
-			}
+			LogManager.Instance.LogError("PlayerCalcDamageNormalDamage:Effect:Damage,Target:Self,自分を対象にしたDamageは未実装予定");
+			//shield = player.GetNowShield();
+			//player.AddNowShield(-damage);
+			//overDamage = shield - damage;
+			//if (overDamage < 0) {
+			//	PlayerUpdateHp(overDamage);
+			//}
+		}
+	}
+	
+	public static void PlayerRemovePower(ActionPack pack) {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			enemy.ResetPower();
+			enemy.ResetTurnPower();
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			player.ResetPower();
+			player.ResetTurnPower();
+		}
+		
+		// 表示更新
+		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+			PlayerUpdatePower((EnumSelf.PowerType)i);
+			EnemyUpdatePower((EnumSelf.PowerType)i);
+		}
+		
+		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+			PlayerUpdateTurnPower((EnumSelf.TurnPowerType)i);
+			EnemyUpdateTurnPower((EnumSelf.TurnPowerType)i);
 		}
 	}
 	
@@ -287,6 +325,13 @@ public class BattleCalculationFunction {
 		}
 	}
 	
+	// こっちは、数値が他のタイミングで変動した際の更新
+	public static void PlayerUpdatePower(EnumSelf.PowerType type) {
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		int nowVal = player.GetPower().GetValue(type);
+		MapDataCarrier.Instance.PowerObjects[(int)type].GetComponent<PowerController>().SetValue(nowVal);
+	}
+	
 	public static void PlayerUpdateTurnPower(ActionPack pack) {
 		int val = pack.Value;
 		EnumSelf.TurnPowerType pType = ConvertEffectType2TurnPowerType(pack.Effect);
@@ -306,8 +351,49 @@ public class BattleCalculationFunction {
 		MapDataCarrier.Instance.TurnPowerObjects[(int)type].GetComponent<TurnPowerController>().SetTurn(turn);
 	}
 	
+	public static void PlayerDebugDisaster(ActionPack pack) {
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+				enemy.AddPower((EnumSelf.PowerType)i, 10);
+			}
+			
+			for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+				// PatientはAI変わっちゃうので、含めない
+				if (i == (int)EnumSelf.TurnPowerType.Patient) {
+					continue;
+				}
+				enemy.AddTurnPower((EnumSelf.TurnPowerType)i, 10);
+			}
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+				player.AddPower((EnumSelf.PowerType)i, 10);
+			}
+			
+			for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+				// PatientはAI変わっちゃうので、含めない
+				if (i == (int)EnumSelf.TurnPowerType.Patient) {
+					continue;
+				}
+				player.AddTurnPower((EnumSelf.TurnPowerType)i, 10);
+			}
+		}
+		
+		// 
+		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+			PlayerUpdatePower((EnumSelf.PowerType)i);
+			EnemyUpdatePower((EnumSelf.PowerType)i);
+		}
+		
+		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+			PlayerUpdateTurnPower((EnumSelf.TurnPowerType)i);
+			EnemyUpdateTurnPower((EnumSelf.TurnPowerType)i);
+		}
+	}
+	
 	// Enemy用
-	public static void EnemyCalcDamageNormalDamage(ActionPack pack) {
+	public static void EnemyCalcDamageNormalDamage(ActionPack pack, bool isSuction) {
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
 
@@ -335,6 +421,9 @@ public class BattleCalculationFunction {
 			overDamage = shield - damage;
 			if (overDamage < 0) {
 				PlayerUpdateHp(overDamage);
+				if (isSuction == true) {
+					EnemyUpdateHp(-overDamage);
+				}
 			}
 			
 			// 相手が棘状態か
@@ -348,12 +437,37 @@ public class BattleCalculationFunction {
 				}
 			}
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			shield = enemy.GetNowShield();
-			enemy.AddNowShield(-damage);
-			overDamage = shield - damage;
-			if (overDamage < 0) {
-				EnemyUpdateHp(overDamage);
-			}
+			LogManager.Instance.LogError("EnemyCalcDamageNormalDamage:Effect:Damage,Target:Self,自分を対象にしたDamageは未実装予定");
+			//shield = enemy.GetNowShield();
+			//enemy.AddNowShield(-damage);
+			//overDamage = shield - damage;
+			//if (overDamage < 0) {
+			//	EnemyUpdateHp(overDamage);
+			//}
+		}
+	}
+	
+	public static void EnemyRemovePower(ActionPack pack) {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			player.ResetPower();
+			player.ResetTurnPower();
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			enemy.ResetPower();
+			enemy.ResetTurnPower();
+		}
+		
+		// 表示更新
+		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
+			PlayerUpdatePower((EnumSelf.PowerType)i);
+			EnemyUpdatePower((EnumSelf.PowerType)i);
+		}
+		
+		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
+			PlayerUpdateTurnPower((EnumSelf.TurnPowerType)i);
+			EnemyUpdateTurnPower((EnumSelf.TurnPowerType)i);
 		}
 	}
 	
@@ -412,6 +526,7 @@ public class BattleCalculationFunction {
 		}
 	}
 	
+	// こっちは、アクションパックによる付与
 	public static void EnemyUpdatePower(ActionPack pack) {
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
@@ -427,6 +542,13 @@ public class BattleCalculationFunction {
 			int nowVal = enemy.GetPower().GetValue(pType);
 			MapDataCarrier.Instance.EnemyPowerObjects[(int)pType].GetComponent<PowerController>().SetValue(nowVal);
 		}
+	}
+	
+	// こっちは、数値が他のタイミングで変動した際の更新
+	public static void EnemyUpdatePower(EnumSelf.PowerType type) {
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		int nowVal = enemy.GetPower().GetValue(type);
+		MapDataCarrier.Instance.EnemyPowerObjects[(int)type].GetComponent<PowerController>().SetValue(nowVal);
 	}
 
 	// こっちは、アクションパックによる付与

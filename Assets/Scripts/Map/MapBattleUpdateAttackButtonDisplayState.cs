@@ -41,7 +41,7 @@ public class MapBattleUpdateAttackButtonDisplayState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattlePlayerTurnStart) {
+		if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleCheck) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleDiceRollUserWait);
 		} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleDiceRoll) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);

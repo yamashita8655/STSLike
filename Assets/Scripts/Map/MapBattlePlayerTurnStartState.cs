@@ -36,7 +36,7 @@ public class MapBattlePlayerTurnStartState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
 	}
 
 	/// <summary>

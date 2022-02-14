@@ -13,15 +13,6 @@ public partial class EnumSelf : MonoBehaviour {
 		Max
 	};
 	
-	//public enum ActionType {
-    //    None,
-    //    AddDamage,
-    //    ContinuousDamage,
-    //    Heal,
-    //    AddShield,
-	//	Max
-	//};
-	
 	public enum HealType {
         None,
         Heal,
@@ -31,6 +22,8 @@ public partial class EnumSelf : MonoBehaviour {
 	public enum EffectType {
         None,
         Damage,
+        DamageSuction,
+        RemovePower,
         Shield,
         ShieldDamage,
         Heal,
@@ -48,6 +41,9 @@ public partial class EnumSelf : MonoBehaviour {
         Patient,
         AutoShield,
         Thorn,
+
+		// デバッグ用状態変化
+        DebugDisaster,
 		Max
 	};
 	

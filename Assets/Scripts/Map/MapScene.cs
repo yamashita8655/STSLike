@@ -498,7 +498,10 @@ public partial class MapScene : SceneBase
 				LogManager.Instance.LogError("MapScene:UpdatePlayerValueObject:添え字10以上になってる");
 			}
 			int val = list[index].Value;
-			if (list[index].Effect == EnumSelf.EffectType.Damage) {
+			if (
+					(list[index].Effect == EnumSelf.EffectType.Damage) ||
+					(list[index].Effect == EnumSelf.EffectType.DamageSuction)
+			) {
 				int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
 				val += strength;
 				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
@@ -537,7 +540,10 @@ public partial class MapScene : SceneBase
 				LogManager.Instance.LogError("MapScene:UpdateEnemyValueObject:ValueObject10個超えてるよ");
 			}
 			int val = list[index].Value;
-			if (list[index].Effect == EnumSelf.EffectType.Damage) {
+			if (
+				(list[index].Effect == EnumSelf.EffectType.Damage) ||
+				(list[index].Effect == EnumSelf.EffectType.DamageSuction)
+			) {
 				int strength = enemy.GetPower().GetValue(EnumSelf.PowerType.Strength);
 				val += strength;
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {

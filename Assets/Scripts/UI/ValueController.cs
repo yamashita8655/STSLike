@@ -48,6 +48,7 @@ public class ValueController : MonoBehaviour
 		if (
 			(type == EnumSelf.EffectType.Warning) ||
 			(type == EnumSelf.EffectType.Death) ||
+			(type == EnumSelf.EffectType.RemovePower) ||
 			(type == EnumSelf.EffectType.Stun)
 		) {
 			EffectValue.text = "";
@@ -58,7 +59,10 @@ public class ValueController : MonoBehaviour
 
 	private string ConvertEffectType2Path(EnumSelf.EffectType type) {
 		string ret = "";
-		if (type == EnumSelf.EffectType.Damage) {
+		if (
+			(type == EnumSelf.EffectType.Damage) ||
+			(type == EnumSelf.EffectType.DamageSuction)
+		) {
 			ret = Const.DamageImagePath;
 		} else if (type == EnumSelf.EffectType.Shield) {
 			ret = Const.ShieldImagePath;
@@ -66,7 +70,10 @@ public class ValueController : MonoBehaviour
 			ret = Const.ShieldBreakImagePath;
 		} else if (type == EnumSelf.EffectType.Heal) {
 			ret = Const.HealImagePath;
-		} else if (type == EnumSelf.EffectType.Warning) {
+		} else if (
+			(type == EnumSelf.EffectType.Warning) ||
+			(type == EnumSelf.EffectType.DebugDisaster)
+		) {
 			ret = Const.WarningImagePath;
 		} else if (type == EnumSelf.EffectType.Stun) {
 			ret = Const.StunImagePath;
@@ -85,6 +92,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.Patient) ||
 			(type == EnumSelf.EffectType.Weakness) ||
 			(type == EnumSelf.EffectType.Vulnerable) ||
+			(type == EnumSelf.EffectType.RemovePower) ||
 			(type == EnumSelf.EffectType.ReverseHeal)
 		) {
 			ret = Const.DebuffImagePath;

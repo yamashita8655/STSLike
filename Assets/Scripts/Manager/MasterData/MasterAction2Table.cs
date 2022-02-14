@@ -101,6 +101,10 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 
 		if (typeString == "Damage") {
 			type = EnumSelf.EffectType.Damage;
+		} else if (typeString == "DamageSuction") {
+			type = EnumSelf.EffectType.DamageSuction;
+		} else if (typeString == "RemovePower") {
+			type = EnumSelf.EffectType.RemovePower;
 		} else if (typeString == "Shield") {
 			type = EnumSelf.EffectType.Shield;
 		} else if (typeString == "ShieldDamage") {
@@ -133,6 +137,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.AutoShield;
 		} else if (typeString == "Thorn") {
 			type = EnumSelf.EffectType.Thorn;
+		} else if (typeString == "DebugDisaster") {
+			type = EnumSelf.EffectType.DebugDisaster;
 		}
 
 		return type;
