@@ -40,8 +40,39 @@ public class ResourceManager : SimpleMonoBehaviourSingleton<ResourceManager>
 
 	public void RequestExecuteOrder(string pathAndName, ExecuteOrder.Type type, GameObject targetObject, Action<UnityEngine.Object> endCallback)
 	{
-		ExecuteOrder order = new ExecuteOrder(pathAndName, type, targetObject, endCallback);
-		LoadOrderList.Add(order);
+		// 既にリソースが読まれてたら、ExecuteOrderに乗せる必要が無いので、同一フレーム内でコールバックを返してしまう
+		bool alreadyLoaded = false;
+		if (type == ExecuteOrder.Type.Sprite) {
+			Sprite res = null;
+			SpriteCacheDict.TryGetValue(pathAndName, out res);
+			if (res != null) {
+				alreadyLoaded = true;
+				endCallback(res);
+			}
+		} else if (type == ExecuteOrder.Type.GameObject) {
+			GameObject res = null;
+			GameObjectCacheDict.TryGetValue(pathAndName, out res);
+			if (res != null) {
+				alreadyLoaded = true;
+                endCallback(res);
+			}
+		} else if (type == ExecuteOrder.Type.AudioClip) {
+			// TODO 音系はSoundManagerでキャッシュしてるけど、機構別々でいいのかな？
+		} else if (type == ExecuteOrder.Type.AudioMixer) {
+			// TODO 音系はSoundManagerでキャッシュしてるけど、機構別々でいいのかな？
+		} else if (type == ExecuteOrder.Type.TextAsset) {
+			TextAsset res = null;
+			TextAssetCacheDict.TryGetValue(pathAndName, out res);
+			if (res != null) {
+				alreadyLoaded = true;
+				endCallback(res);
+			}
+		}
+
+		if (alreadyLoaded == false) {
+			ExecuteOrder order = new ExecuteOrder(pathAndName, type, targetObject, endCallback);
+			LoadOrderList.Add(order);
+		}
 	}
 
 	// Update is called once per frame

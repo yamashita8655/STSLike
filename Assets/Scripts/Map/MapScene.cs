@@ -35,6 +35,10 @@ public partial class MapScene : SceneBase
 	public GameObject DiceRollButton => CuDiceRollButton;
 	
 	[SerializeField]
+	private Image[] CuAttackButtonImages = null;
+	public Image[] AttackButtonImages => CuAttackButtonImages;
+	
+	[SerializeField]
 	private GameObject CuMapRoot = null;
 	public GameObject MapRoot => CuMapRoot;
 	
@@ -491,6 +495,18 @@ public partial class MapScene : SceneBase
 
 		MasterAction2Table.Data pdata = player.GetActionData(diceIndex);
 		CuPlayerActionNameStrings[diceIndex].text = pdata.Name;
+
+		// TODO これ、MapInitializeStateで先読みしといた方がいいかも
+		int attackIndex = diceIndex;
+		ResourceManager.Instance.RequestExecuteOrder(
+			string.Format(Const.AttackButtonImagePath, pdata.Rarity),
+			ExecuteOrder.Type.Sprite,
+			gameObject,
+			(rawSprite) => {
+				CuAttackButtonImages[attackIndex].sprite = rawSprite as Sprite;
+			}
+		);
+
 		var list = pdata.ActionPackList;
 		int index = 0;
 		for (index = 0; index < list.Count; index++) {
@@ -559,7 +575,6 @@ public partial class MapScene : SceneBase
 				}
 			} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
-					Debug.Log("Weakness!!!!!!");
 					val = val - (val * 25 / 100);
 				}
 			}

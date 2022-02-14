@@ -22,7 +22,7 @@ public class Loader
         }
 
         if (resReq.asset == null) {
-            LogManager.Instance.LogError("Loader:resReq.asset == null : " + pathAndName);
+            LogManager.Instance.LogError("Loader:LoadSprite:resReq.asset == null : " + pathAndName);
         }
 
         endCallback(resReq.asset);
@@ -39,7 +39,7 @@ public class Loader
         }
 
         if (resReq.asset == null) {
-            LogManager.Instance.LogError("Loader:resReq.asset == null : " + pathAndName);
+            LogManager.Instance.LogError("Loader:LoadGameObject:resReq.asset == null : " + pathAndName);
         }
 
         endCallback(resReq.asset);
@@ -56,7 +56,7 @@ public class Loader
         }
 
         if (resReq.asset == null) {
-            LogManager.Instance.LogError("Loader:resReq.asset == null : " + pathAndName);
+            LogManager.Instance.LogError("Loader:LoadAudioClip:resReq.asset == null : " + pathAndName);
         }
 
         endCallback(resReq.asset);
@@ -73,7 +73,7 @@ public class Loader
         }
 
         if (resReq.asset == null) {
-            LogManager.Instance.LogError("Loader:resReq.asset == null : " + pathAndName);
+            LogManager.Instance.LogError("Loader:LoadAudioMixer:resReq.asset == null : " + pathAndName);
         }
 
         endCallback(resReq.asset);
@@ -90,7 +90,7 @@ public class Loader
         }
 
         if (resReq.asset == null) {
-            LogManager.Instance.LogError("Loader:resReq.asset == null : " + pathAndName);
+            LogManager.Instance.LogError("Loader:LoadTextAsset:resReq.asset == null : " + pathAndName);
         }
 
         endCallback(resReq.asset);
@@ -107,7 +107,7 @@ public class Loader
         }
 
         if (resReq.asset == null) {
-            LogManager.Instance.LogError("Loader:resReq.asset == null : " + pathAndName);
+            LogManager.Instance.LogError("Loader:Load:resReq.asset == null : " + pathAndName);
         }
 
         endCallback(resReq.asset);

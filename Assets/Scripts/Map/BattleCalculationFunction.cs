@@ -209,7 +209,7 @@ public class BattleCalculationFunction {
 				damage = damage + (damage * 50 / 100);
 			}
 
-			// 朽ちた体状態だったら、その数値分HPを減算して、数値を1増やす
+			// 朽ちた体状態だったら、その数値分ダメージを加算して、数値を1増やす
 			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody) > 0) {
 				int rotbodyVal = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody);
 				damage += rotbodyVal;
@@ -451,7 +451,7 @@ public class BattleCalculationFunction {
 				damage = damage + (damage * 50 / 100);
 			}
 			
-			// 朽ちた体状態だったら、その数値分HPを減算して、数値を1増やす
+			// 朽ちた体状態だったら、その数値分ダメージを加算して、数値を1増やす
 			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody) > 0) {
 				int rotbodyVal = player.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody);
 				damage += rotbodyVal;

@@ -18,11 +18,8 @@ public class MapResultChangeResultState : StateBase {
 		int changeIndex = MapDataCarrier.Instance.SelectChangeIndex;
 		MapDataCarrier.Instance.CuPlayerStatus.SetActionData(changeIndex, data);
 
-		scene.PlayerActionNameStrings[changeIndex].text = data.Name;
+		//scene.PlayerActionNameStrings[changeIndex].text = data.Name;
 		scene.UpdatePlayerValueObject(changeIndex);
-
-		// TODO 見せ方考える
-		//scene.PlayerActionValueStrings[changeIndex].text = data.Value1.ToString();
 
 		return true;
 	}
