@@ -30,6 +30,8 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Vulnerable) ||
 			(pack.Effect == EnumSelf.EffectType.AutoShield) ||
 			(pack.Effect == EnumSelf.EffectType.Thorn) ||
+			(pack.Effect == EnumSelf.EffectType.RotBody) ||
+			(pack.Effect == EnumSelf.EffectType.ShieldWeakness) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -62,10 +64,12 @@ public class BattleCalculationFunction {
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.DiceMinusOne) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness) ||
+			(pack.Effect == EnumSelf.EffectType.ShieldWeakness) ||
 			(pack.Effect == EnumSelf.EffectType.Vulnerable) ||
 			(pack.Effect == EnumSelf.EffectType.Patient) ||
 			(pack.Effect == EnumSelf.EffectType.AutoShield) ||
 			(pack.Effect == EnumSelf.EffectType.Thorn) ||
+			(pack.Effect == EnumSelf.EffectType.RotBody) ||
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
 		) {
 			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
@@ -115,8 +119,13 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
+			} else if (
+				(i == (int)EnumSelf.TurnPowerType.RotBody)
+			) {
+				status.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 1);
+			} else {
+				status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
 			}
-			status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
 			int turn = status.GetTurnPowerValue((EnumSelf.TurnPowerType)i);
 			MapDataCarrier.Instance.TurnPowerObjects[(int)i].GetComponent<TurnPowerController>().SetTurn(turn);
 		}
@@ -166,8 +175,13 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
+			} else if (
+				(i == (int)EnumSelf.TurnPowerType.RotBody)
+			) {
+				status.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 1);
+			} else {
+				status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
 			}
-			status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
 			int turn = status.GetTurnPowerValue((EnumSelf.TurnPowerType)i);
 			MapDataCarrier.Instance.EnemyTurnPowerObjects[(int)i].GetComponent<TurnPowerController>().SetTurn(turn);
 		}
@@ -185,14 +199,14 @@ public class BattleCalculationFunction {
 		// 脱力しているかどうか
 		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
 			// 与ダメが25％下がる
-			damage = (int)((float)damage * 0.75f);
+			damage = damage - (damage * 25 / 100);
 		}
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			// 相手弱体しているか
 			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
 				// 与ダメが50％上がる
-				damage = (int)((float)damage * 1.5f);
+				damage = damage + (damage * 50 / 100);
 			}
 
 			shield = enemy.GetNowShield();
@@ -289,11 +303,24 @@ public class BattleCalculationFunction {
 	}
 	
 	public static void PlayerCalcShield(ActionPack pack) {
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
 		int shield = pack.Value;
+
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(shield);
+			// シールド低下しているかどうか
+			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
+				// シールドが25％下がる
+				shield = shield - (shield * 25 / 100);
+			}
+			enemy.AddNowShield(shield);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(shield);
+			// シールド低下しているかどうか
+			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
+				// シールドが25％下がる
+				shield = shield - (shield * 25 / 100);
+			}
+			player.AddNowShield(shield);
 		}
 	}
 	
@@ -405,7 +432,7 @@ public class BattleCalculationFunction {
 		// 脱力しているかどうか
 		if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
 			// 与ダメが25％下がる
-			damage = (int)((float)damage * 0.75f);
+			damage = damage - (damage * 25 / 100);
 		}
 		
 
@@ -413,7 +440,7 @@ public class BattleCalculationFunction {
 			// 弱体しているかどうか
 			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
 				// 与ダメが50％上がる
-				damage = (int)((float)damage * 1.5f);
+				damage = damage + (damage * 50 / 100);
 			}
 
 			shield = player.GetNowShield();
@@ -472,10 +499,25 @@ public class BattleCalculationFunction {
 	}
 	
 	public static void EnemyCalcShieldDamage(ActionPack pack) {
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		
+		int shield = pack.Value;
+
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-pack.Value);
+			// シールド低下しているかどうか
+			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
+				// シールドが25％下がる
+				shield = shield - (shield * 25 / 100);
+			}
+			player.AddNowShield(-pack.Value);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(-pack.Value);
+			// シールド低下しているかどうか
+			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
+				// シールドが25％下がる
+				shield = shield - (shield * 25 / 100);
+			}
+			enemy.AddNowShield(-pack.Value);
 		}
 	}
 	
@@ -581,6 +623,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.ReverseHeal;
 		} else if (type == EnumSelf.EffectType.Weakness) {
 			pType = EnumSelf.TurnPowerType.Weakness;
+		} else if (type == EnumSelf.EffectType.ShieldWeakness) {
+			pType = EnumSelf.TurnPowerType.ShieldWeakness;
 		} else if (type == EnumSelf.EffectType.Vulnerable) {
 			pType = EnumSelf.TurnPowerType.Vulnerable;
 		} else if (type == EnumSelf.EffectType.Patient) {
@@ -589,6 +633,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.AutoShield;
 		} else if (type == EnumSelf.EffectType.Thorn) {
 			pType = EnumSelf.TurnPowerType.Thorn;
+		} else if (type == EnumSelf.EffectType.RotBody) {
+			pType = EnumSelf.TurnPowerType.RotBody;
 		}
 
 		return pType;

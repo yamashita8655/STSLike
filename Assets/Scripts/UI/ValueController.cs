@@ -91,8 +91,10 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.Poison) ||
 			(type == EnumSelf.EffectType.Patient) ||
 			(type == EnumSelf.EffectType.Weakness) ||
+			(type == EnumSelf.EffectType.ShieldWeakness) ||
 			(type == EnumSelf.EffectType.Vulnerable) ||
 			(type == EnumSelf.EffectType.RemovePower) ||
+			(type == EnumSelf.EffectType.RotBody) ||
 			(type == EnumSelf.EffectType.ReverseHeal)
 		) {
 			ret = Const.DebuffImagePath;

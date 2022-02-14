@@ -131,12 +131,16 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Weakness;
 		} else if (typeString == "Vulnerable") {
 			type = EnumSelf.EffectType.Vulnerable;
+		} else if (typeString == "ShieldWeakness") {
+			type = EnumSelf.EffectType.ShieldWeakness;
 		} else if (typeString == "Patient") {
 			type = EnumSelf.EffectType.Patient;
 		} else if (typeString == "AutoShield") {
 			type = EnumSelf.EffectType.AutoShield;
 		} else if (typeString == "Thorn") {
 			type = EnumSelf.EffectType.Thorn;
+		} else if (typeString == "RotBody") {
+			type = EnumSelf.EffectType.RotBody;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}

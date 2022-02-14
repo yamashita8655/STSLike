@@ -505,11 +505,15 @@ public partial class MapScene : SceneBase
 				int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
 				val += strength;
 				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
-					val = (int)((float)val * 0.75f);
+					val = val - (val * 25 / 100);
 				}
 				
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
-					val = (int)((float)val * 1.5f);
+					val = val + (val * 50 / 100);
+				}
+			} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
+				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
+					val = val - (val * 25 / 100);
 				}
 			}
 			MapDataCarrier.Instance.ValueObjects[diceIndex][index].GetComponent<ValueController>().UpdateDisplay(
@@ -547,16 +551,18 @@ public partial class MapScene : SceneBase
 				int strength = enemy.GetPower().GetValue(EnumSelf.PowerType.Strength);
 				val += strength;
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
-					val = (int)((float)val * 0.75f);
-					Debug.Log("Weak:" + val);
+					val = val - (val * 25 / 100);
 				}
 				
 				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
-					val = (int)((float)val * 1.5f);
-					Debug.Log("Vulnerable:" + val);
+					val = val + (val * 50 / 100);
+				}
+			} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
+				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
+					Debug.Log("Weakness!!!!!!");
+					val = val - (val * 25 / 100);
 				}
 			}
-
 
 			GameObject obj = MapDataCarrier.Instance.EnemyValueObjects[index];
 			obj.GetComponent<ValueController>().UpdateDisplay(list[index].Effect, list[index].Value, val);

@@ -24,12 +24,14 @@ public partial class Const {
 	public static readonly string RegenerateImagePath = "Image/UI/Map/regenerate";
 	public static readonly string PoisonImagePath = "Image/UI/Map/poison";
 	public static readonly string ThornImagePath = "Image/UI/Map/thorn";
+	public static readonly string RotBodyImagePath = "Image/UI/Map/rotbody";
 
 	// こっちは、数値固定でターン可変
 	public static readonly string TurnPowerControllerPath = "Prefab/UI/TurnPowerController";
 	public static readonly string DiceMinusOneImagePath = "Image/UI/Map/diceminusone";
 	public static readonly string ReverseHealImagePath = "Image/UI/Map/reverseheal";
 	public static readonly string WeaknessImagePath = "Image/UI/Map/weakness";
+	public static readonly string ShieldWeaknessImagePath = "Image/UI/Map/shieldweakness";
 	public static readonly string VulnerableImagePath = "Image/UI/Map/vulnerable";
 	public static readonly string PatientImagePath = "Image/UI/Map/patient";
 	public static readonly string AutoShieldImagePath = "Image/UI/Map/autoshield";

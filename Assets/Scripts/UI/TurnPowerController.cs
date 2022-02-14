@@ -63,6 +63,8 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.ReverseHealImagePath;
 		} else if (type == EnumSelf.TurnPowerType.Weakness) {
 			ret = Const.WeaknessImagePath;
+		} else if (type == EnumSelf.TurnPowerType.ShieldWeakness) {
+			ret = Const.ShieldWeaknessImagePath;
 		} else if (type == EnumSelf.TurnPowerType.Vulnerable) {
 			ret = Const.VulnerableImagePath;
 		} else if (type == EnumSelf.TurnPowerType.Patient) {
@@ -71,6 +73,8 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.AutoShieldImagePath;
 		} else if (type == EnumSelf.TurnPowerType.Thorn) {
 			ret = Const.ThornImagePath;
+		} else if (type == EnumSelf.TurnPowerType.RotBody) {
+			ret = Const.RotBodyImagePath;
 		}
 
 		return ret;

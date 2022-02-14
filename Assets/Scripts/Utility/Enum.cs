@@ -38,9 +38,11 @@ public partial class EnumSelf : MonoBehaviour {
         Poison,
         Weakness,
         Vulnerable,
+        ShieldWeakness,
         Patient,
         AutoShield,
         Thorn,
+        RotBody,
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -96,12 +98,16 @@ public partial class EnumSelf : MonoBehaviour {
 		DiceMinusOne = 0,
 		ReverseHeal,
 		Weakness,
+		ShieldWeakness,
         Vulnerable,
 
-		// ターン経過時に1ずつ減らさない物
+		// ターン経過時に変動しない物
 		Patient,
 		AutoShield,
 		Thorn,
+
+		// ターン経過時に、1にリセットする物
+        RotBody,
 		Max
 	}
 	
