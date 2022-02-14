@@ -18,3 +18,4 @@ id,enemyactiontype,actionids,aichangetype,aichangevalue,afteraiid
 240,Random,2013-2014,NONE,0,0
 250,Random,2016,TurnProgress,1,251
 251,Random,2017-2018,NONE,0,0
+260,Rotation,2019-2019-2020,NONE,0,0
