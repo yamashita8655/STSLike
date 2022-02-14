@@ -10,3 +10,4 @@ id,enemyactiontype,actionids,aichangetype,aichangevalue,afteraiid
 90,Rotation,1023-1023-1024-1025,NONE,0,0
 91,Rotation,1021-1026,TurnProgress,2,90
 100,Random,1003,NONE,0,0
+210,Random,2001-2002-2003,NONE,0,0

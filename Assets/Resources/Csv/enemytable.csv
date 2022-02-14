@@ -9,4 +9,5 @@ id,name,hp,mhp,imagepath,initiativeactionid,aiid
 8,ホブゴブリン,30,30,Image/Map/Enemy/hobgoblin,1020,80
 9,森の大樹,250,250,Image/Map/Enemy/woodking,1022,90
 10,森の守護者,120,120,Image/Map/Enemy/forestguardian,1022,100
+21,スケルトン,60,60,Image/Map/Enemy/skeleton,NONE,210
 9999,デバッグかかし,999,999,Image/Map/Enemy/slime,NONE,10
