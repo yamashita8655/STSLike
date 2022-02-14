@@ -13,4 +13,5 @@ id,name,hp,mhp,imagepath,initiativeactionid,aiid
 22,ゴースト,60,60,Image/Map/Enemy/ghost,NONE,220
 23,ロックフェイス,60,60,Image/Map/Enemy/rockface,NONE,230
 24,アーマーラット,60,60,Image/Map/Enemy/armorrat,2012,240
+25,ゾンビ,60,60,Image/Map/Enemy/zombie,2015,250
 9999,デバッグかかし,999,999,Image/Map/Enemy/slime,NONE,10
