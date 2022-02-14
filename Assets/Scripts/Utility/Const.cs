@@ -23,6 +23,7 @@ public partial class Const {
 	public static readonly string StrengthImagePath = "Image/UI/Map/strength";
 	public static readonly string RegenerateImagePath = "Image/UI/Map/regenerate";
 	public static readonly string PoisonImagePath = "Image/UI/Map/poison";
+	public static readonly string ThornImagePath = "Image/UI/Map/thorn";
 
 	// こっちは、数値固定でターン可変
 	public static readonly string TurnPowerControllerPath = "Prefab/UI/TurnPowerController";

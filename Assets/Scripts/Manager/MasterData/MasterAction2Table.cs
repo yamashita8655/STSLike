@@ -131,6 +131,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Patient;
 		} else if (typeString == "AutoShield") {
 			type = EnumSelf.EffectType.AutoShield;
+		} else if (typeString == "Thorn") {
+			type = EnumSelf.EffectType.Thorn;
 		}
 
 		return type;

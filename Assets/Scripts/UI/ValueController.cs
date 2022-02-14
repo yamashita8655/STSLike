@@ -75,6 +75,7 @@ public class ValueController : MonoBehaviour
 		} else if (
 			(type == EnumSelf.EffectType.Strength) ||
 			(type == EnumSelf.EffectType.AutoShield) ||
+			(type == EnumSelf.EffectType.Thorn) ||
 			(type == EnumSelf.EffectType.Regenerate)
 		) {
 			ret = Const.PowerImagePath;

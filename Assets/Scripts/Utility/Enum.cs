@@ -47,6 +47,7 @@ public partial class EnumSelf : MonoBehaviour {
         Vulnerable,
         Patient,
         AutoShield,
+        Thorn,
 		Max
 	};
 	
@@ -84,11 +85,13 @@ public partial class EnumSelf : MonoBehaviour {
 		TurnPower,
 	}
 
+	
+	//
 	public enum PowerType {
 		None = -1,
 		Strength = 0,
-		Regenerate,
-		Poison,
+		Regenerate,// TODO これも、マイナス値が無いから、TurnPowerなのでは…
+		Poison,// TODO これも、マイナス値が無いから、TurnPowerなのでは…
 		Max
 	}
 	
@@ -102,6 +105,7 @@ public partial class EnumSelf : MonoBehaviour {
 		// ターン経過時に1ずつ減らさない物
 		Patient,
 		AutoShield,
+		Thorn,
 		Max
 	}
 	
