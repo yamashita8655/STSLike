@@ -67,6 +67,8 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.VulnerableImagePath;
 		} else if (type == EnumSelf.TurnPowerType.Patient) {
 			ret = Const.PatientImagePath;
+		} else if (type == EnumSelf.TurnPowerType.AutoShield) {
+			ret = Const.AutoShieldImagePath;
 		}
 
 		return ret;

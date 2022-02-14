@@ -45,8 +45,8 @@ public class MapInitializeState : StateBase {
 		//status.SetActionData(5, MasterAction2Table.Instance.GetData(17));
 		status.SetActionData(0, MasterAction2Table.Instance.GetData(27));
 		status.SetActionData(1, MasterAction2Table.Instance.GetData(28));
-		status.SetActionData(2, MasterAction2Table.Instance.GetData(2));
-		status.SetActionData(3, MasterAction2Table.Instance.GetData(2));
+		status.SetActionData(2, MasterAction2Table.Instance.GetData(29));
+		status.SetActionData(3, MasterAction2Table.Instance.GetData(29));
 		status.SetActionData(4, MasterAction2Table.Instance.GetData(2));
 		status.SetActionData(5, MasterAction2Table.Instance.GetData(2));
 

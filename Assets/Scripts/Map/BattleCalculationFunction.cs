@@ -22,6 +22,7 @@ public class BattleCalculationFunction {
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal) ||
 			(pack.Effect == EnumSelf.EffectType.Vulnerable) ||
+			(pack.Effect == EnumSelf.EffectType.AutoShield) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -48,6 +49,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Weakness) ||
 			(pack.Effect == EnumSelf.EffectType.Vulnerable) ||
 			(pack.Effect == EnumSelf.EffectType.Patient) ||
+			(pack.Effect == EnumSelf.EffectType.AutoShield) ||
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
 		) {
 			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
@@ -56,8 +58,8 @@ public class BattleCalculationFunction {
 	
 	public static void PlayerTurnStartValueChange() {
 		// 再生などのバフをチェック
-		PlayerStatus status = MapDataCarrier.Instance.CuPlayerStatus;
-		Power power = status.GetPower();
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		Power power = player.GetPower();
 
 		// 再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
@@ -79,12 +81,22 @@ public class BattleCalculationFunction {
 		if (val > 0) {
 			PlayerUpdateHp(-val);
 		}
+		
+		// 敵のバフチェック
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		val = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.AutoShield);
+		if (val > 0) {
+			enemy.AddNowShield(val);
+		}
 	}
 	
 	public static void PlayerTurnEndValueChange() {
 		var status = MapDataCarrier.Instance.CuPlayerStatus;
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
-			if (i == (int)EnumSelf.TurnPowerType.Patient) {
+			if (
+				(i == (int)EnumSelf.TurnPowerType.Patient) || 
+				(i == (int)EnumSelf.TurnPowerType.AutoShield)
+			) {
 				continue;
 			}
 			status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
@@ -95,8 +107,8 @@ public class BattleCalculationFunction {
 	
 	public static void EnemyTurnStartValueChange() {
 		// 再生などのバフをチェック
-		EnemyStatus status = MapDataCarrier.Instance.CuEnemyStatus;
-		Power power = status.GetPower();
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		Power power = enemy.GetPower();
 
 		// 再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
@@ -119,12 +131,22 @@ public class BattleCalculationFunction {
 			EnemyUpdateHp(-val);
 
 		}
+		
+		// プレイヤーのバフチェック
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		val = player.GetTurnPowerValue(EnumSelf.TurnPowerType.AutoShield);
+		if (val > 0) {
+			player.AddNowShield(val);
+		}
 	}
 
 	public static void EnemyTurnEndValueChange() {
 		var status = MapDataCarrier.Instance.CuEnemyStatus;
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
-			if (i == (int)EnumSelf.TurnPowerType.Patient) {
+			if (
+				(i == (int)EnumSelf.TurnPowerType.Patient) ||
+				(i == (int)EnumSelf.TurnPowerType.AutoShield)
+			) {
 				continue;
 			}
 			status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
@@ -375,6 +397,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.Vulnerable;
 		} else if (type == EnumSelf.EffectType.Patient) {
 			pType = EnumSelf.TurnPowerType.Patient;
+		} else if (type == EnumSelf.EffectType.AutoShield) {
+			pType = EnumSelf.TurnPowerType.AutoShield;
 		}
 
 		return pType;
@@ -454,6 +478,10 @@ public class BattleCalculationFunction {
 
 		if (val < 0) {
 			// 0未満であれば、Hp減少という判断
+			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.AutoShield) > 0) {
+				player.AddTurnPower(EnumSelf.TurnPowerType.AutoShield, -1);
+				PlayerUpdateTurnPower(EnumSelf.TurnPowerType.AutoShield);
+			}
 		} else if (val > 0) {
 			// 0より大ければ、Hp増加という判断
 		}
@@ -469,7 +497,7 @@ public class BattleCalculationFunction {
 			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Patient) > 0) {
 				enemy.AddTurnPower(EnumSelf.TurnPowerType.Patient, val);
 				EnemyUpdateTurnPower(EnumSelf.TurnPowerType.Patient);
-				// もし、0以下になったら、Patiant解除
+				
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Patient) <= 0) {
 					// Patientは今後ユニークで増えていくので、それに該当するIDを決め打ちで指定する
 					MasterEnemyAITable.Data data = MasterEnemyAITable.Instance.GetData(91);
@@ -477,6 +505,11 @@ public class BattleCalculationFunction {
 					// 敵の行動開始前なので、行動を抽選しなおす
 					enemy.LotActionData();
 				}
+			}
+			
+			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.AutoShield) > 0) {
+				enemy.AddTurnPower(EnumSelf.TurnPowerType.AutoShield, -1);
+				EnemyUpdateTurnPower(EnumSelf.TurnPowerType.AutoShield);
 			}
 
 			// 他の条件とのかみ合わせ次第で、条件判定を考える

@@ -71,6 +71,7 @@ public class ValueController : MonoBehaviour
 			ret = Const.StunImagePath;
 		} else if (
 			(type == EnumSelf.EffectType.Strength) ||
+			(type == EnumSelf.EffectType.AutoShield) ||
 			(type == EnumSelf.EffectType.Regenerate)
 		) {
 			ret = Const.PowerImagePath;

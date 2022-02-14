@@ -45,6 +45,7 @@ public partial class EnumSelf : MonoBehaviour {
         Weakness,
         Vulnerable,
         Patient,
+        AutoShield,
 		Max
 	};
 	
@@ -96,7 +97,10 @@ public partial class EnumSelf : MonoBehaviour {
 		ReverseHeal,
 		Weakness,
         Vulnerable,
+
+		// ターン経過時に1ずつ減らさない物
 		Patient,
+		AutoShield,
 		Max
 	}
 	
