@@ -13,6 +13,8 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.PlayerCalcShield(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.ShieldDamage) {
 			BattleCalculationFunction.PlayerCalcShieldDamage(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.Death) {
+			BattleCalculationFunction.PlayerDeath(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.Strength) ||
 			(pack.Effect == EnumSelf.EffectType.Poison) ||
@@ -38,6 +40,8 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.EnemyCalcShield(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.ShieldDamage) {
 			BattleCalculationFunction.EnemyCalcShieldDamage(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.Death) {
+			BattleCalculationFunction.EnemyDeath(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.Strength) ||
 			(pack.Effect == EnumSelf.EffectType.Poison) ||
@@ -239,6 +243,17 @@ public class BattleCalculationFunction {
 		}
 	}
 	
+	public static void PlayerDeath(ActionPack pack) {
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			enemy.SetNowHp(0);
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			player.SetNowHp(0);
+		}
+	}
+	
 	public static void PlayerUpdatePower(ActionPack pack) {
 		int val = pack.Value;
 		EnumSelf.PowerType pType = ConvertEffectType2PowerType(pack.Effect);
@@ -348,6 +363,17 @@ public class BattleCalculationFunction {
 			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(shield);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(shield);
+		}
+	}
+	
+	public static void EnemyDeath(ActionPack pack) {
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			player.SetNowHp(0);
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			enemy.SetNowHp(0);
 		}
 	}
 	

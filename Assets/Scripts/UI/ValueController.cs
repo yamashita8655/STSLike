@@ -47,6 +47,7 @@ public class ValueController : MonoBehaviour
 
 		if (
 			(type == EnumSelf.EffectType.Warning) ||
+			(type == EnumSelf.EffectType.Death) ||
 			(type == EnumSelf.EffectType.Stun)
 		) {
 			EffectValue.text = "";
@@ -69,6 +70,8 @@ public class ValueController : MonoBehaviour
 			ret = Const.WarningImagePath;
 		} else if (type == EnumSelf.EffectType.Stun) {
 			ret = Const.StunImagePath;
+		} else if (type == EnumSelf.EffectType.Death) {
+			ret = Const.DeathImagePath;
 		} else if (
 			(type == EnumSelf.EffectType.Strength) ||
 			(type == EnumSelf.EffectType.AutoShield) ||

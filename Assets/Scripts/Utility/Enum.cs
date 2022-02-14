@@ -36,6 +36,7 @@ public partial class EnumSelf : MonoBehaviour {
         Heal,
         Warning,
         Stun,
+        Death,
 		// バフ、デバフ
         Strength,
         DiceMinusOne,

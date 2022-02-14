@@ -37,10 +37,11 @@ public class MapBattleCheckState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
-		if (IsWin) {
-			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleWin);
-		} else if (IsDead) {
+		// 自分が負ける判定が先に来る
+		if (IsDead) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleLose);
+		} else if (IsWin) {
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleWin);
 		} else {
 
             if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleInitiativeValueChange) {// プレイヤーのイニシアチブ
