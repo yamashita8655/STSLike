@@ -306,6 +306,26 @@ public class EnemyStatus
 		}
 	}
 	
+	public void CheckAIForHpBorder() {
+		if (AIData.AIChangeType == EnumSelf.AIChangeType.HpBorder) {
+			if (NowHp <= AIData.AIChangeValue) {
+				AIData = MasterEnemyAITable.Instance.GetData(AIData.AfterAIId);
+				UpdateAIData(AIData);
+				LotActionData();
+			}
+		}
+	}
+	
+	public void CheckAIForLotHpBorder() {
+		if (AIData.AIChangeType == EnumSelf.AIChangeType.LotHpBorder) {
+			if (NowHp <= AIData.AIChangeValue) {
+				AIData = MasterEnemyAITable.Instance.GetData(AIData.AfterAIId);
+				UpdateAIData(AIData);
+				LotActionData();
+			}
+		}
+	}
+	
 	public void SetNowShield(int val) {
 		NowShield = val;
 	}

@@ -11,3 +11,6 @@ id,enemyactiontype,actionids,aichangetype,aichangevalue,afteraiid
 91,Rotation,1021-1026,TurnProgress,2,90
 100,Random,1003,NONE,0,0
 210,Random,2001-2002-2003,NONE,0,0
+220,Random,2004-2005,LotHpBorder,20,221
+221,Random,2006,TurnProgress,1,222
+222,Random,2004-2005,NONE,0,0

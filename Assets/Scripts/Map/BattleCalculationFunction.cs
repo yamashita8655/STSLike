@@ -68,16 +68,16 @@ public class BattleCalculationFunction {
 			}
 
 			if (isReverse == true) {
-				status.AddNowHp(-val);
+				PlayerUpdateHp(-val);
 			} else {
-				status.AddNowHp(val);
+				PlayerUpdateHp(val);
 			}
 		}
 		
 		// 毒
 		val = power.GetValue(EnumSelf.PowerType.Poison);
 		if (val > 0) {
-			status.AddNowHp(-val);
+			PlayerUpdateHp(-val);
 		}
 	}
 	
@@ -107,31 +107,17 @@ public class BattleCalculationFunction {
 			}
 
 			if (isReverse == true) {
-				status.AddNowHp(-val);
+				EnemyUpdateHp(-val);
 			} else {
-				status.AddNowHp(val);
+				EnemyUpdateHp(val);
 			}
 		}
 		
 		// 毒
 		val = power.GetValue(EnumSelf.PowerType.Poison);
 		if (val > 0) {
-			status.AddNowHp(-val);
+			EnemyUpdateHp(-val);
 
-			// TODO このダメージ時の判定処理、2毒とDamage処理時で2重化してるから、どっかで統一の設計をする
-			// 敵の状態異常Patiantの数値があれば、その数値も減らす
-			if (status.GetTurnPowerValue(EnumSelf.TurnPowerType.Patient) > 0) {
-				status.AddTurnPower(EnumSelf.TurnPowerType.Patient, val);
-				EnemyUpdateTurnPower(EnumSelf.TurnPowerType.Patient);
-				// もし、0以下になったら、Patiant解除
-				if (status.GetTurnPowerValue(EnumSelf.TurnPowerType.Patient) <= 0) {
-					// Patientは今後ユニークで増えていくので、それに該当するIDを決め打ちで指定する
-					MasterEnemyAITable.Data data = MasterEnemyAITable.Instance.GetData(91);
-					status.UpdateAIData(data);
-					// 敵の行動開始前なので、行動を抽選しなおす
-					status.LotActionData();
-				}
-			}
 		}
 	}
 
@@ -173,29 +159,14 @@ public class BattleCalculationFunction {
 			enemy.AddNowShield(-damage);
 			overDamage = shield - damage;
 			if (overDamage < 0) {
-				enemy.AddNowHp(overDamage);
+				EnemyUpdateHp(overDamage);
 			}
-
-			// 敵の状態異常Patiantの数値があれば、その数値も減らす
-			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Patient) > 0) {
-				enemy.AddTurnPower(EnumSelf.TurnPowerType.Patient, overDamage);
-				EnemyUpdateTurnPower(EnumSelf.TurnPowerType.Patient);
-				// もし、0以下になったら、Patiant解除
-				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Patient) <= 0) {
-					// Patientは今後ユニークで増えていくので、それに該当するIDを決め打ちで指定する
-					MasterEnemyAITable.Data data = MasterEnemyAITable.Instance.GetData(91);
-					enemy.UpdateAIData(data);
-					// 敵の行動開始前なので、行動を抽選しなおす
-					enemy.LotActionData();
-				}
-			}
-
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			shield = player.GetNowShield();
 			player.AddNowShield(-damage);
 			overDamage = shield - damage;
 			if (overDamage < 0) {
-				player.AddNowHp(overDamage);
+				PlayerUpdateHp(overDamage);
 			}
 		}
 	}
@@ -219,9 +190,9 @@ public class BattleCalculationFunction {
 			}
 
 			if (isReverse == true) {
-				MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(-heal);
+				EnemyUpdateHp(-heal);
 			} else {
-				MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(heal);
+				EnemyUpdateHp(heal);
 			}
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			bool isReverse = false;
@@ -230,9 +201,9 @@ public class BattleCalculationFunction {
 			}
 
 			if (isReverse == true) {
-				MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(-heal);
+				PlayerUpdateHp(-heal);
 			} else {
-				MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(heal);
+				PlayerUpdateHp(heal);
 			}
 		}
 	}
@@ -302,14 +273,14 @@ public class BattleCalculationFunction {
 			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(-damage);
 			overDamage = shield - damage;
 			if (overDamage < 0) {
-				MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(overDamage);
+				PlayerUpdateHp(overDamage);
 			}
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			shield = MapDataCarrier.Instance.CuEnemyStatus.GetNowShield();
 			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(-damage);
 			overDamage = shield - damage;
 			if (overDamage < 0) {
-				MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(overDamage);
+				EnemyUpdateHp(overDamage);
 			}
 		}
 	}
@@ -331,9 +302,9 @@ public class BattleCalculationFunction {
 			}
 
 			if (isReverse == true) {
-				MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(-heal);
+				PlayerUpdateHp(-heal);
 			} else {
-				MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(heal);
+				PlayerUpdateHp(heal);
 			}
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			bool isReverse = false;
@@ -342,9 +313,9 @@ public class BattleCalculationFunction {
 			}
 
 			if (isReverse == true) {
-				MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(-heal);
+				EnemyUpdateHp(-heal);
 			} else {
-				MapDataCarrier.Instance.CuEnemyStatus.AddNowHp(heal);
+				EnemyUpdateHp(heal);
 			}
 		}
 	}
@@ -439,6 +410,10 @@ public class BattleCalculationFunction {
 		
 		if (typeString == "TurnProgress") {
 			type = EnumSelf.AIChangeType.TurnProgress;
+		} else if (typeString == "HpBorder") {
+			type = EnumSelf.AIChangeType.HpBorder;
+		} else if (typeString == "LotHpBorder") {
+			type = EnumSelf.AIChangeType.LotHpBorder;
 		}
 
 		return type;
@@ -467,5 +442,49 @@ public class BattleCalculationFunction {
 		}
 
 		return rarity;
+	}
+	
+	// 敵味方のHP増減はここで統一
+	// HP増減の内容（毒なのかダメージなのか）を知る必要が出てきた場合は、引数で渡してここで処理する
+	// また、HP変動時に判定する物も、ここで処理を統一する
+
+	static public void PlayerUpdateHp(int val) {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		player.AddNowHp(val);
+
+		if (val < 0) {
+			// 0未満であれば、Hp減少という判断
+		} else if (val > 0) {
+			// 0より大ければ、Hp増加という判断
+		}
+	}
+	
+	static public void EnemyUpdateHp(int val) {
+		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		enemy.AddNowHp(val);
+
+		if (val < 0) {
+			// 0未満であれば、Hp減少という判断
+			// 敵の状態異常Patiantの数値があれば、その数値も減らす
+			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Patient) > 0) {
+				enemy.AddTurnPower(EnumSelf.TurnPowerType.Patient, val);
+				EnemyUpdateTurnPower(EnumSelf.TurnPowerType.Patient);
+				// もし、0以下になったら、Patiant解除
+				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Patient) <= 0) {
+					// Patientは今後ユニークで増えていくので、それに該当するIDを決め打ちで指定する
+					MasterEnemyAITable.Data data = MasterEnemyAITable.Instance.GetData(91);
+					enemy.UpdateAIData(data);
+					// 敵の行動開始前なので、行動を抽選しなおす
+					enemy.LotActionData();
+				}
+			}
+
+			// 他の条件とのかみ合わせ次第で、条件判定を考える
+			// 現状あり得ないが、この書き方だと、PatientとHp減少が噛み合うと、HP減少が優先される
+			enemy.CheckAIForHpBorder();
+			
+		} else if (val > 0) {
+			// 0より大ければ、Hp増加という判断
+		}
 	}
 }
