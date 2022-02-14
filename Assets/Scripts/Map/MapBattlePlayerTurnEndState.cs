@@ -14,6 +14,11 @@ public class MapBattlePlayerTurnEndState : StateBase {
 		BattleCalculationFunction.PlayerTurnEndValueChange();
 
 		scene.UpdateParameterText();
+		
+		for (int i = 0; i < 6; i++) {
+			scene.UpdatePlayerValueObject(i);
+		}
+		scene.UpdateEnemyValueObject();
 		return true;
 	}
 

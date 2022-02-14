@@ -21,10 +21,12 @@ public class MapBattlePlayerTurnStartState : StateBase {
 
 		scene.UpdateParameterText();
 		
-		//// TODO もう少し呼び出す回数最適化できそうな気がする
-		//for (int i = 0; i < 6; i++) {
-		//	scene.UpdatePlayerValueObject(i);
-		//}
+		// TODO もう少し呼び出す回数最適化できそうな気がする
+		for (int i = 0; i < 6; i++) {
+			scene.UpdatePlayerValueObject(i);
+		}
+		// 自分の弱体が終わると、敵の表示も変える必要があるので、ここでも更新する
+		scene.UpdateEnemyValueObject();
 		return true;
 	}
 

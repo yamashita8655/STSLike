@@ -19,6 +19,7 @@ public class MapBattleEnemyLotActionState : StateBase {
 		MapDataCarrier.Instance.CuEnemyStatus.CheckAIForLotHpBorder();
 
 		scene.UpdateEnemyValueObject();
+
 		return false;
     }
 
