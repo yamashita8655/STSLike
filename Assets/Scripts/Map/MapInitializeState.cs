@@ -33,18 +33,18 @@ public class MapInitializeState : StateBase {
 		status.SetMaxHp(80);
 		status.SetNowHp(80);
 		// TODO 初期装備は、テストの為色々変えている
-		//status.SetActionData(0, MasterAction2Table.Instance.GetData(1));
-		//status.SetActionData(1, MasterAction2Table.Instance.GetData(1));
-		//status.SetActionData(2, MasterAction2Table.Instance.GetData(1));
-		//status.SetActionData(3, MasterAction2Table.Instance.GetData(2));
-		//status.SetActionData(4, MasterAction2Table.Instance.GetData(17));
-		//status.SetActionData(5, MasterAction2Table.Instance.GetData(17));
-		status.SetActionData(0, MasterAction2Table.Instance.GetData(7));
-		status.SetActionData(1, MasterAction2Table.Instance.GetData(9));
-		status.SetActionData(2, MasterAction2Table.Instance.GetData(11));
-		status.SetActionData(3, MasterAction2Table.Instance.GetData(34));
-		status.SetActionData(4, MasterAction2Table.Instance.GetData(34));
-		status.SetActionData(5, MasterAction2Table.Instance.GetData(34));
+		status.SetActionData(0, MasterAction2Table.Instance.GetData(1));
+		status.SetActionData(1, MasterAction2Table.Instance.GetData(1));
+		status.SetActionData(2, MasterAction2Table.Instance.GetData(1));
+		status.SetActionData(3, MasterAction2Table.Instance.GetData(2));
+		status.SetActionData(4, MasterAction2Table.Instance.GetData(17));
+		status.SetActionData(5, MasterAction2Table.Instance.GetData(17));
+		//status.SetActionData(0, MasterAction2Table.Instance.GetData(7));
+		//status.SetActionData(1, MasterAction2Table.Instance.GetData(9));
+		//status.SetActionData(2, MasterAction2Table.Instance.GetData(11));
+		//status.SetActionData(3, MasterAction2Table.Instance.GetData(34));
+		//status.SetActionData(4, MasterAction2Table.Instance.GetData(34));
+		//status.SetActionData(5, MasterAction2Table.Instance.GetData(34));
 
 
 		status.SetMaxDiceCount(3);
