@@ -31,7 +31,7 @@ public partial class EnumSelf : MonoBehaviour {
         Warning,
         Stun,
         Death,
-		Curse,
+		Curse,// 呪いに関しては、呪われたままの箇所は継続するが、トレジャー取得時に上書きすれば消せる
 		// バフ、デバフ
         Strength,
         DiceMinusOne,

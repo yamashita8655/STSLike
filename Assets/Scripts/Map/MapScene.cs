@@ -39,6 +39,10 @@ public partial class MapScene : SceneBase
 	public Image[] AttackButtonImages => CuAttackButtonImages;
 	
 	[SerializeField]
+	private GameObject CuTurnEndButtonObject = null;
+	public GameObject TurnEndButtonObject => CuTurnEndButtonObject;
+	
+	[SerializeField]
 	private GameObject CuMapRoot = null;
 	public GameObject MapRoot => CuMapRoot;
 	
@@ -317,6 +321,18 @@ public partial class MapScene : SceneBase
 
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
 	}
+	
+	public void OnClickTurnEndButton()
+	{
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.BattleAttackSelectUserWait) {
+			return;
+		}
+
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnSkip);
+	}
+
 
 	// ここからリザルト
 	public void OnClickTreasureButton(int index) {

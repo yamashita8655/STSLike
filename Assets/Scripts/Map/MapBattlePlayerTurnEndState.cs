@@ -11,6 +11,7 @@ public class MapBattlePlayerTurnEndState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		scene.TurnEndButtonObject.SetActive(false);
 		BattleCalculationFunction.PlayerTurnEndValueChange();
 
 		scene.UpdateParameterText();

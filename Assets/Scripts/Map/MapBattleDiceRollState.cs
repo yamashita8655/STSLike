@@ -12,6 +12,7 @@ public class MapBattleDiceRollState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		scene.DiceRollButton.SetActive(false);
+		scene.TurnEndButtonObject.SetActive(true);
 		
 		MapDataCarrier.Instance.DiceValueList.Clear();
 

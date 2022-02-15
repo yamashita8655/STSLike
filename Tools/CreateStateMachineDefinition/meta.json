@@ -35,6 +35,7 @@
 		"BattleLose",
 		"BattlePlayerInitiative",
 		"BattlePlayerTurnEnd",
+		"BattlePlayerTurnSkip",
 		"BattlePlayerTurnStart",
 		"BattleUpdateAttackButtonDisplay",
 		"BattleInitiativeValueChange",

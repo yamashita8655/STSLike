@@ -13,6 +13,7 @@ public class MapBattleInitializeState : StateBase {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		scene.BattleRoot.SetActive(true);
 		scene.MapRoot.SetActive(false);
+		scene.TurnEndButtonObject.SetActive(false);
 
 		MapDataCarrier.Instance.DiceValueList.Clear();
 

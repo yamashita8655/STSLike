@@ -66,12 +66,14 @@ public class MapBattleCheckState : StateBase {
 				if (MapDataCarrier.Instance.ActionPackCount < MapDataCarrier.Instance.MaxActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleValueChange);
 				} else {
-					// 処理が終わったら、呪いのアクションだった場合は、基に戻す
 					int select = MapDataCarrier.Instance.SelectAttackIndex;
-					MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
-					bool IsCurse = BattleCalculationFunction.IsCurse(data.Id);
-					if (IsCurse == true) {
-						MapDataCarrier.Instance.CuPlayerStatus.ResetActionData(select);
+					if (select != -1) {
+						// 処理が終わったら、呪いのアクションだった場合は、基に戻す
+						MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
+						bool IsCurse = BattleCalculationFunction.IsCurse(data.Id);
+						if (IsCurse == true) {
+							MapDataCarrier.Instance.CuPlayerStatus.ResetActionData(select);
+						}
 					}
 
 					if (MapDataCarrier.Instance.DiceValueList.Count == 0) {
