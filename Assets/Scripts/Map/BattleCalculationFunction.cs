@@ -19,6 +19,8 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.PlayerCalcShieldDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Death) {
 			BattleCalculationFunction.PlayerDeath(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
+			BattleCalculationFunction.PlayerCurse(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.Strength) ||
 			(pack.Effect == EnumSelf.EffectType.Poison) ||
@@ -31,6 +33,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.AutoShield) ||
 			(pack.Effect == EnumSelf.EffectType.Thorn) ||
 			(pack.Effect == EnumSelf.EffectType.RotBody) ||
+			(pack.Effect == EnumSelf.EffectType.DiceMinusOne) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldWeakness) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
@@ -55,6 +58,8 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.EnemyCalcShieldDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Death) {
 			BattleCalculationFunction.EnemyDeath(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
+			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.Strength) ||
 			(pack.Effect == EnumSelf.EffectType.Poison) ||
@@ -122,7 +127,9 @@ public class BattleCalculationFunction {
 			} else if (
 				(i == (int)EnumSelf.TurnPowerType.RotBody)
 			) {
-				status.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 1);
+				if (status.GetTurnPowerValue((EnumSelf.TurnPowerType)i) > 0) {
+					status.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 1);
+				}
 			} else {
 				status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
 			}
@@ -178,7 +185,9 @@ public class BattleCalculationFunction {
 			} else if (
 				(i == (int)EnumSelf.TurnPowerType.RotBody)
 			) {
-				status.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 1);
+				if (status.GetTurnPowerValue((EnumSelf.TurnPowerType)i) > 0) {
+					status.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 1);
+				}
 			} else {
 				status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
 			}
@@ -343,6 +352,33 @@ public class BattleCalculationFunction {
 		}
 	}
 	
+	public static void PlayerCurse(ActionPack pack) {
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+
+		if (pack.Target == EnumSelf.TargetType.Self) {
+			int actionId = pack.Value;
+			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(actionId);
+			List<MasterAction2Table.Data> list = player.GetActionDataCloseList();
+			List<int> notCurseIndexs = new List<int>();
+			for (int i = 0; i < list.Count; i++) {
+				if (IsCurse(list[i].Id) == true) {
+					continue;
+				}
+				notCurseIndexs.Add(i);
+			}
+
+			if (notCurseIndexs.Count == 0) {
+				// 全部呪い状態だったら、上書きしない
+			} else {
+				int index = UnityEngine.Random.Range(0, notCurseIndexs.Count);
+				player.SetCurseActionData(notCurseIndexs[index], data);
+			}
+		} else {
+			LogManager.Instance.LogError("PlayerCurse:Target:Opponent は、サポートしていない");
+		}
+	}
+	
 	public static void PlayerUpdatePower(ActionPack pack) {
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
@@ -352,11 +388,11 @@ public class BattleCalculationFunction {
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			enemy.AddPower(pType, val);
 			int nowVal = enemy.GetPower().GetValue(pType);
-			MapDataCarrier.Instance.EnemyPowerObjects[(int)pType].GetComponent<PowerController>().SetValue(val);
+			MapDataCarrier.Instance.EnemyPowerObjects[(int)pType].GetComponent<PowerController>().SetValue(nowVal);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			player.AddPower(pType, val);
 			int nowVal = player.GetPower().GetValue(pType);
-			MapDataCarrier.Instance.PowerObjects[(int)pType].GetComponent<PowerController>().SetValue(val);
+			MapDataCarrier.Instance.PowerObjects[(int)pType].GetComponent<PowerController>().SetValue(nowVal);
 		}
 	}
 	
@@ -584,6 +620,33 @@ public class BattleCalculationFunction {
 		}
 	}
 	
+	public static void EnemyCurse(ActionPack pack) {
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			int actionId = pack.Value;
+			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(actionId);
+			List<MasterAction2Table.Data> list = player.GetActionDataCloseList();
+			List<int> notCurseIndexs = new List<int>();
+			for (int i = 0; i < list.Count; i++) {
+				if (IsCurse(list[i].Id) == true) {
+					continue;
+				}
+				notCurseIndexs.Add(i);
+			}
+
+			if (notCurseIndexs.Count == 0) {
+				// 全部呪い状態だったら、上書きしない
+			} else {
+				int index = UnityEngine.Random.Range(0, notCurseIndexs.Count);
+				player.SetCurseActionData(notCurseIndexs[index], data);
+			}
+		} else {
+			LogManager.Instance.LogError("EnemyCurse:Target:Self は、サポートしていない");
+		}
+	}
+	
 	// こっちは、アクションパックによる付与
 	public static void EnemyUpdatePower(ActionPack pack) {
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
@@ -772,5 +835,13 @@ public class BattleCalculationFunction {
 		} else if (val > 0) {
 			// 0より大ければ、Hp増加という判断
 		}
+	}
+
+	static public bool IsCurse(int id) {
+		bool res = false;
+		if ((5000 <= id) && (id <= 5999)) {
+			res = true;
+		}
+		return res;
 	}
 }

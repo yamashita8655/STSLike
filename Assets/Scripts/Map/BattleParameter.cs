@@ -10,6 +10,7 @@ public class PlayerStatus
 	private int NowShield;
 	private int MaxShield;
 	private List<MasterAction2Table.Data> ActionDataList;
+	private List<MasterAction2Table.Data> BackupActionDataList;
 	private List<MasterAction2Table.Data> InitiativeActionDataList;
 	private int MaxDiceCount;
 	
@@ -20,6 +21,9 @@ public class PlayerStatus
 
 	public PlayerStatus() {
 		ActionDataList = new List<MasterAction2Table.Data>(){
+			null,null,null,null,null,null
+		};
+		BackupActionDataList = new List<MasterAction2Table.Data>(){
 			null,null,null,null,null,null
 		};
 		InitiativeActionDataList = new List<MasterAction2Table.Data>();
@@ -62,12 +66,20 @@ public class PlayerStatus
 	
 	public void SetActionData(int index, MasterAction2Table.Data data) {
 		ActionDataList[index] = data;
+		BackupActionDataList[index] = data;
+	}
+	public void SetCurseActionData(int index, MasterAction2Table.Data data) {
+		ActionDataList[index] = data;
+	}
+	public void ResetActionData(int index) {
+		ActionDataList[index] = BackupActionDataList[index];
 	}
 	public MasterAction2Table.Data GetActionData(int index) {
 		return ActionDataList[index];
 	}
-	public void AddActionData(int index, MasterAction2Table.Data data) {
-		ActionDataList[index] = data;
+	public List<MasterAction2Table.Data> GetActionDataCloseList() {
+		List<MasterAction2Table.Data> list = new List<MasterAction2Table.Data>(ActionDataList);
+		return list;
 	}
 	
 	public MasterAction2Table.Data GetInitiativeFirstActionData() {

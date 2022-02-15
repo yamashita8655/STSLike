@@ -52,8 +52,8 @@ public class MapBattleCheckState : StateBase {
             } else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattlePlayerTurnStart) {// プレイヤーのターンスタート時のHP変動
 				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
             } else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleEnemyInitiativeValueChange) {// 敵のイニシアチブ
-				if (MapDataCarrier.Instance.EnemyInitiativeActionPackCount < MapDataCarrier.Instance.EnemyInitiativeActionPackCount) {
-					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleInitiativeValueChange);
+				if (MapDataCarrier.Instance.EnemyInitiativeActionPackCount < MapDataCarrier.Instance.EnemyMaxInitiativeActionPackCount) {
+					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyInitiativeValueChange);
 				} else {
 					MapDataCarrier.Instance.CuEnemyStatus.RemoveInitiativeFirstActionData();
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyInitiative);
@@ -62,33 +62,43 @@ public class MapBattleCheckState : StateBase {
 				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyAttackResult);
 			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleValueChange) {// プレイヤーのターンの場合
 
-				for (int i = 0; i < 6; i++) {
-					scene.UpdatePlayerValueObject(i);
-				}
-				scene.UpdateEnemyValueObject();
-
 				// アクションパックの処理が全て終わっていなかったら、次のアクションパックの処理を行う
 				if (MapDataCarrier.Instance.ActionPackCount < MapDataCarrier.Instance.MaxActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleValueChange);
 				} else {
+					// 処理が終わったら、呪いのアクションだった場合は、基に戻す
+					int select = MapDataCarrier.Instance.SelectAttackIndex;
+					MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
+					bool IsCurse = BattleCalculationFunction.IsCurse(data.Id);
+					if (IsCurse == true) {
+						MapDataCarrier.Instance.CuPlayerStatus.ResetActionData(select);
+					}
+
 					if (MapDataCarrier.Instance.DiceValueList.Count == 0) {
 						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnEnd);
 					} else {
 						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
 					}
 				}
-			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleEnemyValueChange) {
+				
 				for (int i = 0; i < 6; i++) {
 					scene.UpdatePlayerValueObject(i);
 				}
 				scene.UpdateEnemyValueObject();
 
+			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleEnemyValueChange) {
 				// アクションパックの処理が全て終わっていなかったら、次のアクションパックの処理を行う
 				if (MapDataCarrier.Instance.EnemyActionPackCount < MapDataCarrier.Instance.EnemyMaxActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange);
 				} else {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyTurnEnd);
 				}
+				
+				for (int i = 0; i < 6; i++) {
+					scene.UpdatePlayerValueObject(i);
+				}
+				scene.UpdateEnemyValueObject();
+
 			}
 		}
 		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);

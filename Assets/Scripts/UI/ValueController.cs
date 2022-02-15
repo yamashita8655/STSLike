@@ -49,6 +49,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.Warning) ||
 			(type == EnumSelf.EffectType.Death) ||
 			(type == EnumSelf.EffectType.RemovePower) ||
+			(type == EnumSelf.EffectType.Curse) ||
 			(type == EnumSelf.EffectType.Stun)
 		) {
 			EffectValue.text = "";
@@ -95,6 +96,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.Vulnerable) ||
 			(type == EnumSelf.EffectType.RemovePower) ||
 			(type == EnumSelf.EffectType.RotBody) ||
+			(type == EnumSelf.EffectType.Curse) ||
 			(type == EnumSelf.EffectType.ReverseHeal)
 		) {
 			ret = Const.DebuffImagePath;
