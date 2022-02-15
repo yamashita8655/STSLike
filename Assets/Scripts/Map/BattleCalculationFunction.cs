@@ -9,6 +9,8 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack, false);
 		} else if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
 			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack, true);
+		} else if (pack.Effect == EnumSelf.EffectType.TrueDamage) {
+			BattleCalculationFunction.PlayerCalcTrueDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.RemovePower) {
 			BattleCalculationFunction.PlayerRemovePower(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
@@ -48,6 +50,8 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.EnemyCalcDamageNormalDamage(pack, false);
 		} else if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
 			BattleCalculationFunction.EnemyCalcDamageNormalDamage(pack, true);
+		} else if (pack.Effect == EnumSelf.EffectType.TrueDamage) {
+			BattleCalculationFunction.EnemyCalcTrueDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.RemovePower) {
 			BattleCalculationFunction.EnemyRemovePower(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
@@ -255,6 +259,16 @@ public class BattleCalculationFunction {
 			//if (overDamage < 0) {
 			//	PlayerUpdateHp(overDamage);
 			//}
+		}
+	}
+	
+	public static void PlayerCalcTrueDamage(ActionPack pack) {
+		int damage = pack.Value;
+		
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			EnemyUpdateHp(-damage);
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			PlayerUpdateHp(-damage);
 		}
 	}
 	
@@ -523,6 +537,16 @@ public class BattleCalculationFunction {
 			//if (overDamage < 0) {
 			//	EnemyUpdateHp(overDamage);
 			//}
+		}
+	}
+	
+	public static void EnemyCalcTrueDamage(ActionPack pack) {
+		int damage = pack.Value;
+		
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			PlayerUpdateHp(-damage);
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			EnemyUpdateHp(-damage);
 		}
 	}
 	

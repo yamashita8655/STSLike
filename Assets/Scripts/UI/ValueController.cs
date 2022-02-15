@@ -65,6 +65,8 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.DamageSuction)
 		) {
 			ret = Const.DamageImagePath;
+		} else if (type == EnumSelf.EffectType.TrueDamage) {
+			ret = Const.TrueDamageImagePath;
 		} else if (type == EnumSelf.EffectType.Shield) {
 			ret = Const.ShieldImagePath;
 		} else if (type == EnumSelf.EffectType.ShieldDamage) {
