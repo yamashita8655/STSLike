@@ -75,6 +75,8 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.ThornImagePath;
 		} else if (type == EnumSelf.TurnPowerType.RotBody) {
 			ret = Const.RotBodyImagePath;
+		} else if (type == EnumSelf.TurnPowerType.Versak) {
+			ret = Const.VersakImagePath;
 		}
 
 		return ret;

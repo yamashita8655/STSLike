@@ -45,6 +45,7 @@ public partial class EnumSelf : MonoBehaviour {
         AutoShield,
         Thorn,
         RotBody,
+        Versak,
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -103,10 +104,11 @@ public partial class EnumSelf : MonoBehaviour {
 		ShieldWeakness,
         Vulnerable,
 
-		// ターン経過時に変動しない物
+		// ターン経過時に変動しない物(他の条件で減少する物、もしくはしない物)
 		Patient,
 		AutoShield,
 		Thorn,
+		Versak,
 
 		// ターン経過時に、1にリセットする物
         RotBody,

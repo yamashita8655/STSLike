@@ -59,6 +59,11 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 		for (int i = 1; i < lineList.Count; i++) {
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
 
+			// 最初に#が付いてる物は、コメント行なので飛ばす
+			if (paramList[0] == "#") {
+				continue;
+			}
+
 			// アクションパックを先に作っておく
 			List<ActionPack> list = new List<ActionPack>();
 			int index = 6;
@@ -145,6 +150,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Thorn;
 		} else if (typeString == "RotBody") {
 			type = EnumSelf.EffectType.RotBody;
+		} else if (typeString == "Versak") {
+			type = EnumSelf.EffectType.Versak;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}

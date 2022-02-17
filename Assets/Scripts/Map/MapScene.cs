@@ -536,6 +536,10 @@ public partial class MapScene : SceneBase
 			) {
 				int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
 				val += strength;
+				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
+					val *= 2;
+				}
+
 				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
 					val = val - (val * 25 / 100);
 				}
@@ -543,6 +547,7 @@ public partial class MapScene : SceneBase
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
 					val = val + (val * 50 / 100);
 				}
+				
 			} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
 				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
 					val = val - (val * 25 / 100);
@@ -582,6 +587,10 @@ public partial class MapScene : SceneBase
 			) {
 				int strength = enemy.GetPower().GetValue(EnumSelf.PowerType.Strength);
 				val += strength;
+				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
+					val *= 2;
+				}
+
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
 					val = val - (val * 25 / 100);
 				}

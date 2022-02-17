@@ -35,6 +35,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.AutoShield) ||
 			(pack.Effect == EnumSelf.EffectType.Thorn) ||
 			(pack.Effect == EnumSelf.EffectType.RotBody) ||
+			(pack.Effect == EnumSelf.EffectType.Versak) ||
 			(pack.Effect == EnumSelf.EffectType.DiceMinusOne) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldWeakness) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
@@ -79,6 +80,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.AutoShield) ||
 			(pack.Effect == EnumSelf.EffectType.Thorn) ||
 			(pack.Effect == EnumSelf.EffectType.RotBody) ||
+			(pack.Effect == EnumSelf.EffectType.Versak) ||
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
 		) {
 			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
@@ -125,6 +127,7 @@ public class BattleCalculationFunction {
 			if (
 				(i == (int)EnumSelf.TurnPowerType.Patient) || 
 				(i == (int)EnumSelf.TurnPowerType.Thorn) || 
+				(i == (int)EnumSelf.TurnPowerType.Versak) || 
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -183,6 +186,7 @@ public class BattleCalculationFunction {
 			if (
 				(i == (int)EnumSelf.TurnPowerType.Patient) ||
 				(i == (int)EnumSelf.TurnPowerType.Thorn) ||
+				(i == (int)EnumSelf.TurnPowerType.Versak) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -216,6 +220,14 @@ public class BattleCalculationFunction {
 		}
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			// 狂戦士状態か
+			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
+				// 与ダメが倍になる
+				damage *= 2;
+				player.AddTurnPower(EnumSelf.TurnPowerType.Versak, -1);
+				PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Versak);
+			}
+
 			// 相手弱体しているか
 			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
 				// 与ダメが50％上がる
@@ -495,6 +507,14 @@ public class BattleCalculationFunction {
 		
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			// 狂戦士状態か
+			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
+				// 与ダメが倍になる
+				damage *= 2;
+				enemy.AddTurnPower(EnumSelf.TurnPowerType.Versak, -1);
+				EnemyUpdateTurnPower(EnumSelf.TurnPowerType.Versak);
+			}
+
 			// 弱体しているかどうか
 			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
 				// 与ダメが50％上がる
@@ -738,6 +758,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.Thorn;
 		} else if (type == EnumSelf.EffectType.RotBody) {
 			pType = EnumSelf.TurnPowerType.RotBody;
+		} else if (type == EnumSelf.EffectType.Versak) {
+			pType = EnumSelf.TurnPowerType.Versak;
 		}
 
 		return pType;

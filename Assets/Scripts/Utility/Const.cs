@@ -27,6 +27,7 @@ public partial class Const {
 	public static readonly string PoisonImagePath = "Image/UI/Map/poison";
 	public static readonly string ThornImagePath = "Image/UI/Map/thorn";
 	public static readonly string RotBodyImagePath = "Image/UI/Map/rotbody";
+	public static readonly string VersakImagePath = "Image/UI/Map/versak";
 
 	// こっちは、数値固定でターン可変
 	public static readonly string TurnPowerControllerPath = "Prefab/UI/TurnPowerController";
