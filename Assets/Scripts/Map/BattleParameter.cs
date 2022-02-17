@@ -485,6 +485,7 @@ public class TurnPower {
 	}
 	
 	public void AddTurnPowerValue(EnumSelf.TurnPowerType type, int val) {
+		Debug.Log(type);
 		TurnPowerParameter[(int)type] += val;
 		if (TurnPowerParameter[(int)type] < 0) {
 			TurnPowerParameter[(int)type] = 0;

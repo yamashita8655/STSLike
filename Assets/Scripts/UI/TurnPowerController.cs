@@ -81,6 +81,8 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.ReactiveShieldImagePath;
 		} else if (type == EnumSelf.TurnPowerType.SubStrength) {
 			ret = Const.SubStrengthImagePath;
+		} else if (type == EnumSelf.TurnPowerType.ShieldPreserve) {
+			ret = Const.ShieldPreserveImagePath;
 		}
 
 		return ret;

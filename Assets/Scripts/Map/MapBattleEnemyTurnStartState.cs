@@ -11,8 +11,6 @@ public class MapBattleEnemyTurnStartState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
-		MapDataCarrier.Instance.CuEnemyStatus.SetNowShield(0);
-		scene.EnemyShieldText.text = "";
 
 		BattleCalculationFunction.EnemyTurnStartValueChange();
 

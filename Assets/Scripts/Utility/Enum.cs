@@ -50,6 +50,7 @@ public partial class EnumSelf : MonoBehaviour {
         Versak,
         ReactiveShield,
         SubStrength,
+        ShieldPreserve,
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -108,6 +109,7 @@ public partial class EnumSelf : MonoBehaviour {
 		Weakness,
 		ShieldWeakness,
         Vulnerable,
+		ShieldPreserve,
 
 		// ターン経過時に変動しない物(他の条件で減少する物、もしくはしない物)
 		Patient,

@@ -14,8 +14,6 @@ public class MapBattlePlayerTurnStartState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
-		MapDataCarrier.Instance.CuPlayerStatus.SetNowShield(0);
-		scene.PlayerShieldText.text = "";
 		MapDataCarrier.Instance.SelectAttackIndex = -1;
 
 		BattleCalculationFunction.PlayerTurnStartValueChange();

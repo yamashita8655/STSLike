@@ -160,6 +160,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.ReactiveShield;
 		} else if (typeString == "SubStrength") {
 			type = EnumSelf.EffectType.SubStrength;
+		} else if (typeString == "ShieldPreserve") {
+			type = EnumSelf.EffectType.ShieldPreserve;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}

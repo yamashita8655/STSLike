@@ -92,6 +92,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.AutoShield) ||
 			(type == EnumSelf.EffectType.Thorn) ||
 			(type == EnumSelf.EffectType.Versak) ||
+			(type == EnumSelf.EffectType.ShieldPreserve) ||
 			(type == EnumSelf.EffectType.Regenerate)
 		) {
 			ret = Const.PowerImagePath;

@@ -40,10 +40,10 @@ public class MapInitializeState : StateBase {
 		//status.SetActionData(4, MasterAction2Table.Instance.GetData(20));
 		//status.SetActionData(5, MasterAction2Table.Instance.GetData(21));
 		status.SetActionData(0, MasterAction2Table.Instance.GetData(27));
-		status.SetActionData(1, MasterAction2Table.Instance.GetData(27));
+		status.SetActionData(1, MasterAction2Table.Instance.GetData(28));
 		status.SetActionData(2, MasterAction2Table.Instance.GetData(22));
 		status.SetActionData(3, MasterAction2Table.Instance.GetData(23));
-		status.SetActionData(4, MasterAction2Table.Instance.GetData(26));
+		status.SetActionData(4, MasterAction2Table.Instance.GetData(29));
 		status.SetActionData(5, MasterAction2Table.Instance.GetData(26));
 
 

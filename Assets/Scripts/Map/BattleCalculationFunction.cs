@@ -45,6 +45,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.ShieldWeakness) ||
 			(pack.Effect == EnumSelf.EffectType.ReactiveShield) ||
 			(pack.Effect == EnumSelf.EffectType.SubStrength) ||
+			(pack.Effect == EnumSelf.EffectType.ShieldPreserve) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -95,6 +96,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Versak) ||
 			(pack.Effect == EnumSelf.EffectType.ReactiveShield) ||
 			(pack.Effect == EnumSelf.EffectType.SubStrength) ||
+			(pack.Effect == EnumSelf.EffectType.ShieldPreserve) ||
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
 		) {
 			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
@@ -105,7 +107,12 @@ public class BattleCalculationFunction {
 		// 再生などのバフをチェック
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
 		Power power = player.GetPower();
-
+		
+		// 堅牢状態じゃなかったら、シールドを0にする
+		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) == 0) {
+			player.SetNowShield(0);
+		}
+		
 		// 再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
 		if (val > 0) {
@@ -133,16 +140,25 @@ public class BattleCalculationFunction {
 		if (val > 0) {
 			enemy.AddNowShield(val);
 		}
+		
+		// ターンスタート時に数値を減らす物
+		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) > 0) {
+			player.AddTurnPower(EnumSelf.TurnPowerType.ShieldPreserve, -1);
+			int turn = player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve);
+			MapDataCarrier.Instance.TurnPowerObjects[(int)EnumSelf.TurnPowerType.ShieldPreserve].GetComponent<TurnPowerController>().SetTurn(turn);
+		}
 	}
 	
 	public static void PlayerTurnEndValueChange() {
 		var status = MapDataCarrier.Instance.CuPlayerStatus;
+
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
 			if (
 				(i == (int)EnumSelf.TurnPowerType.Patient) || 
 				(i == (int)EnumSelf.TurnPowerType.Thorn) || 
 				(i == (int)EnumSelf.TurnPowerType.Versak) || 
 				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
+				(i == (int)EnumSelf.TurnPowerType.ShieldPreserve) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -167,12 +183,18 @@ public class BattleCalculationFunction {
 			int turn = status.GetTurnPowerValue((EnumSelf.TurnPowerType)i);
 			MapDataCarrier.Instance.TurnPowerObjects[(int)i].GetComponent<TurnPowerController>().SetTurn(turn);
 		}
+		
 	}
 	
 	public static void EnemyTurnStartValueChange() {
 		// 再生などのバフをチェック
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
 		Power power = enemy.GetPower();
+		
+		// 堅牢状態でなければ、シールドを消滅させる
+		if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) == 0) {
+			enemy.SetNowShield(0);
+		}
 
 		// 再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
@@ -202,16 +224,25 @@ public class BattleCalculationFunction {
 		if (val > 0) {
 			player.AddNowShield(val);
 		}
+		
+		// ターンスタート時に数値を減らす物
+		if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) > 0) {
+			enemy.AddTurnPower(EnumSelf.TurnPowerType.ShieldPreserve, -1);
+			int turn = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve);
+			MapDataCarrier.Instance.EnemyTurnPowerObjects[(int)EnumSelf.TurnPowerType.ShieldPreserve].GetComponent<TurnPowerController>().SetTurn(turn);
+		}
 	}
 
 	public static void EnemyTurnEndValueChange() {
 		var status = MapDataCarrier.Instance.CuEnemyStatus;
+		
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
 			if (
 				(i == (int)EnumSelf.TurnPowerType.Patient) ||
 				(i == (int)EnumSelf.TurnPowerType.Thorn) ||
 				(i == (int)EnumSelf.TurnPowerType.Versak) ||
 				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
+				(i == (int)EnumSelf.TurnPowerType.ShieldPreserve) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -840,6 +871,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.ReactiveShield;
 		} else if (type == EnumSelf.EffectType.SubStrength) {
 			pType = EnumSelf.TurnPowerType.SubStrength;
+		} else if (type == EnumSelf.EffectType.ShieldPreserve) {
+			pType = EnumSelf.TurnPowerType.ShieldPreserve;
 		}
 
 		return pType;
