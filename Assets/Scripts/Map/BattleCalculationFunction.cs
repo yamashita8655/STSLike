@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class BattleCalculationFunction {
 	public static void PlayerValueChange(ActionPack pack) {
-		if (pack.Effect == EnumSelf.EffectType.Damage) {
-			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack, false);
-		} else if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
-			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack, true);
+		if (
+			(pack.Effect == EnumSelf.EffectType.Damage) ||
+			(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
+			(pack.Effect == EnumSelf.EffectType.ShieldBash)
+		) {
+			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.TrueDamage) {
 			BattleCalculationFunction.PlayerCalcTrueDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.RemovePower) {
@@ -49,10 +51,12 @@ public class BattleCalculationFunction {
 	}
 
 	public static void EnemyValueChange(ActionPack pack) {
-		if (pack.Effect == EnumSelf.EffectType.Damage) {
-			BattleCalculationFunction.EnemyCalcDamageNormalDamage(pack, false);
-		} else if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
-			BattleCalculationFunction.EnemyCalcDamageNormalDamage(pack, true);
+		if (
+			(pack.Effect == EnumSelf.EffectType.Damage) ||
+			(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
+			(pack.Effect == EnumSelf.EffectType.ShieldBash)
+		) {
+			BattleCalculationFunction.EnemyCalcDamageNormalDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.TrueDamage) {
 			BattleCalculationFunction.EnemyCalcTrueDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.RemovePower) {
@@ -229,13 +233,21 @@ public class BattleCalculationFunction {
 	}
 
 	// Player用
-	public static void PlayerCalcDamageNormalDamage(ActionPack pack, bool isSuction) {
+	public static void PlayerCalcDamageNormalDamage(ActionPack pack) {
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
 		int shield = 0;
 		int powerStrength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
 		int overDamage = 0;
-		int damage = pack.Value+powerStrength;
+		int damage = 0;
+
+		if (pack.Effect == EnumSelf.EffectType.ShieldBash) {
+			damage = player.GetNowShield();
+		} else {
+			damage = pack.Value;
+		}
+			
+		damage = damage+powerStrength;
 		
 		// 脱力しているかどうか
 		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
@@ -276,7 +288,7 @@ public class BattleCalculationFunction {
 			overDamage = shield - damage;
 			if (overDamage < 0) {
 				EnemyUpdateHp(overDamage);
-				if (isSuction == true) {
+				if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
 					PlayerUpdateHp(-overDamage);
 				}
 			}
@@ -519,14 +531,22 @@ public class BattleCalculationFunction {
 	}
 	
 	// Enemy用
-	public static void EnemyCalcDamageNormalDamage(ActionPack pack, bool isSuction) {
+	public static void EnemyCalcDamageNormalDamage(ActionPack pack) {
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
 
 		int shield = 0;
 		int powerStrength = enemy.GetPower().GetValue(EnumSelf.PowerType.Strength);
 		int overDamage = 0;
-		int damage = pack.Value+powerStrength;
+		int damage = 0;
+
+		if (pack.Effect == EnumSelf.EffectType.ShieldBash) {
+			damage = enemy.GetNowShield();
+		} else {
+			damage = pack.Value;
+		}
+			
+		damage = damage+powerStrength;
 
 		// 脱力しているかどうか
 		if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
@@ -568,7 +588,7 @@ public class BattleCalculationFunction {
 			overDamage = shield - damage;
 			if (overDamage < 0) {
 				PlayerUpdateHp(overDamage);
-				if (isSuction == true) {
+				if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
 					EnemyUpdateHp(-overDamage);
 				}
 			}

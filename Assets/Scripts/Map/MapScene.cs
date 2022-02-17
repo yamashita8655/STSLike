@@ -531,9 +531,15 @@ public partial class MapScene : SceneBase
 			}
 			int val = list[index].Value;
 			if (
-					(list[index].Effect == EnumSelf.EffectType.Damage) ||
-					(list[index].Effect == EnumSelf.EffectType.DamageSuction)
+				(list[index].Effect == EnumSelf.EffectType.Damage) ||
+				(list[index].Effect == EnumSelf.EffectType.DamageSuction) ||
+				(list[index].Effect == EnumSelf.EffectType.ShieldBash)
 			) {
+				if (list[index].Effect == EnumSelf.EffectType.ShieldBash) {
+					val = player.GetNowShield();
+				} else {
+					val = list[index].Value;
+				}
 				int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
 				val += strength;
 				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
@@ -583,8 +589,14 @@ public partial class MapScene : SceneBase
 			int val = list[index].Value;
 			if (
 				(list[index].Effect == EnumSelf.EffectType.Damage) ||
-				(list[index].Effect == EnumSelf.EffectType.DamageSuction)
+				(list[index].Effect == EnumSelf.EffectType.DamageSuction) ||
+				(list[index].Effect == EnumSelf.EffectType.ShieldBash)
 			) {
+				if (list[index].Effect == EnumSelf.EffectType.ShieldBash) {
+					val = enemy.GetNowShield();
+				} else {
+					val = list[index].Value;
+				}
 				int strength = enemy.GetPower().GetValue(EnumSelf.PowerType.Strength);
 				val += strength;
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
