@@ -40,11 +40,11 @@ public class MapInitializeState : StateBase {
 		//status.SetActionData(4, MasterAction2Table.Instance.GetData(20));
 		//status.SetActionData(5, MasterAction2Table.Instance.GetData(21));
 		status.SetActionData(0, MasterAction2Table.Instance.GetData(1));
-		status.SetActionData(1, MasterAction2Table.Instance.GetData(2));
-		status.SetActionData(2, MasterAction2Table.Instance.GetData(3));
-		status.SetActionData(3, MasterAction2Table.Instance.GetData(9991));
-		status.SetActionData(4, MasterAction2Table.Instance.GetData(9991));
-		status.SetActionData(5, MasterAction2Table.Instance.GetData(9991));
+		status.SetActionData(1, MasterAction2Table.Instance.GetData(101));
+		status.SetActionData(2, MasterAction2Table.Instance.GetData(102));
+		status.SetActionData(3, MasterAction2Table.Instance.GetData(9990));
+		status.SetActionData(4, MasterAction2Table.Instance.GetData(9990));
+		status.SetActionData(5, MasterAction2Table.Instance.GetData(9990));
 
 
 		status.SetMaxDiceCount(3);

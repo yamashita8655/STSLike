@@ -38,6 +38,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Versak) ||
 			(pack.Effect == EnumSelf.EffectType.DiceMinusOne) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldWeakness) ||
+			(pack.Effect == EnumSelf.EffectType.ReactiveShield) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -81,6 +82,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Thorn) ||
 			(pack.Effect == EnumSelf.EffectType.RotBody) ||
 			(pack.Effect == EnumSelf.EffectType.Versak) ||
+			(pack.Effect == EnumSelf.EffectType.ReactiveShield) ||
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
 		) {
 			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
@@ -128,6 +130,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.Patient) || 
 				(i == (int)EnumSelf.TurnPowerType.Thorn) || 
 				(i == (int)EnumSelf.TurnPowerType.Versak) || 
+				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -187,6 +190,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.Patient) ||
 				(i == (int)EnumSelf.TurnPowerType.Thorn) ||
 				(i == (int)EnumSelf.TurnPowerType.Versak) ||
+				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -220,6 +224,11 @@ public class BattleCalculationFunction {
 		}
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			// 相手がリアクティブシールド状態か
+			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
+				player.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
+			}
+
 			// 狂戦士状態か
 			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
 				// 与ダメが倍になる
@@ -507,6 +516,11 @@ public class BattleCalculationFunction {
 		
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			// 相手がリアクティブシールド状態か
+			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
+				enemy.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
+			}
+
 			// 狂戦士状態か
 			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
 				// 与ダメが倍になる
@@ -760,6 +774,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.RotBody;
 		} else if (type == EnumSelf.EffectType.Versak) {
 			pType = EnumSelf.TurnPowerType.Versak;
+		} else if (type == EnumSelf.EffectType.ReactiveShield) {
+			pType = EnumSelf.TurnPowerType.ReactiveShield;
 		}
 
 		return pType;

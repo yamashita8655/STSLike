@@ -46,6 +46,7 @@ public partial class EnumSelf : MonoBehaviour {
         Thorn,
         RotBody,
         Versak,
+        ReactiveShield,
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -96,6 +97,7 @@ public partial class EnumSelf : MonoBehaviour {
 		Max
 	}
 	
+	// TODO こっちの定義、マイナス値が存在しない物、というくくりにした方が良さそう…。
 	public enum TurnPowerType {
 		None = -1,
 		DiceMinusOne = 0,
@@ -109,6 +111,7 @@ public partial class EnumSelf : MonoBehaviour {
 		AutoShield,
 		Thorn,
 		Versak,
+		ReactiveShield,
 
 		// ターン経過時に、1にリセットする物
         RotBody,

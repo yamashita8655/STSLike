@@ -152,6 +152,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.RotBody;
 		} else if (typeString == "Versak") {
 			type = EnumSelf.EffectType.Versak;
+		} else if (typeString == "ReactiveShield") {
+			type = EnumSelf.EffectType.ReactiveShield;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}
