@@ -34,6 +34,7 @@ id,rarity,name,cosp,detail,imagepath,effect,target,value,timing,,,,,,,,,,,,,
 102,3,クアドララッシュ,0,{0}ダメージを4回与える,Image/UI/Card/punch,Damage,Opponent,4,Add,Damage,Opponent,4,Add,Damage,Opponent,4,Add,Damage,Opponent,4,Add,NONE
 #,バフ系,,,,,,,,,,,,,,,,,,,,,
 400,2,ウォークライ,0,自身に「力」を{0}付与する。,Image/UI/Card/punch,Strength,Self,2,Add,NONE,,,,,,,,,,,,
+401,3,マッスルドープ,0,自身に「力」を{0}付与し、「力減少」を{1}付与する。,Image/UI/Card/punch,Strength,Self,4,Add,SubStrength,Self,4,Add,NONE,,,,,,,,
 #,状態異常付与系,,,,,,,,,,,,,,,,,,,,,
 500,3,攻撃破壊,0,{0}ターン、相手に「与ダメ減少」を付与,Image/UI/Card/punch,Weakness,Opponent,1,Add,NONE,,,,,,,,,,,,
 501,4,攻撃大破壊,0,{0}ターン、相手に「与ダメ減少」を付与,Image/UI/Card/punch,Weakness,Opponent,2,Add,NONE,,,,,,,,,,,,

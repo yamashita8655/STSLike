@@ -79,6 +79,8 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.VersakImagePath;
 		} else if (type == EnumSelf.TurnPowerType.ReactiveShield) {
 			ret = Const.ReactiveShieldImagePath;
+		} else if (type == EnumSelf.TurnPowerType.SubStrength) {
+			ret = Const.SubStrengthImagePath;
 		}
 
 		return ret;

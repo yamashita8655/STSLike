@@ -39,5 +39,6 @@ public partial class Const {
 	public static readonly string VulnerableImagePath = "Image/UI/Map/vulnerable";
 	public static readonly string PatientImagePath = "Image/UI/Map/patient";
 	public static readonly string AutoShieldImagePath = "Image/UI/Map/autoshield";
+	public static readonly string SubStrengthImagePath = "Image/UI/Map/substrength";
 
 }

@@ -39,6 +39,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DiceMinusOne) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldWeakness) ||
 			(pack.Effect == EnumSelf.EffectType.ReactiveShield) ||
+			(pack.Effect == EnumSelf.EffectType.SubStrength) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -83,6 +84,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.RotBody) ||
 			(pack.Effect == EnumSelf.EffectType.Versak) ||
 			(pack.Effect == EnumSelf.EffectType.ReactiveShield) ||
+			(pack.Effect == EnumSelf.EffectType.SubStrength) ||
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
 		) {
 			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
@@ -139,6 +141,15 @@ public class BattleCalculationFunction {
 			) {
 				if (status.GetTurnPowerValue((EnumSelf.TurnPowerType)i) > 0) {
 					status.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 1);
+				}
+			} else if (
+				(i == (int)EnumSelf.TurnPowerType.SubStrength)
+			) {
+				if (status.GetTurnPowerValue((EnumSelf.TurnPowerType)i) > 0) {
+					int substrength = status.GetTurnPowerValue(EnumSelf.TurnPowerType.SubStrength);
+					status.AddPower(EnumSelf.PowerType.Strength, -substrength);
+					status.SetTurnPowerValue(EnumSelf.TurnPowerType.SubStrength, 0);
+					PlayerUpdatePower(EnumSelf.PowerType.Strength);
 				}
 			} else {
 				status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
@@ -199,6 +210,15 @@ public class BattleCalculationFunction {
 			) {
 				if (status.GetTurnPowerValue((EnumSelf.TurnPowerType)i) > 0) {
 					status.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 1);
+				}
+			} else if (
+				(i == (int)EnumSelf.TurnPowerType.SubStrength)
+			) {
+				if (status.GetTurnPowerValue((EnumSelf.TurnPowerType)i) > 0) {
+					int substrength = status.GetTurnPowerValue(EnumSelf.TurnPowerType.SubStrength);
+					status.AddPower(EnumSelf.PowerType.Strength, -substrength);
+					status.SetTurnPowerValue(EnumSelf.TurnPowerType.SubStrength, 0);
+					EnemyUpdatePower(EnumSelf.PowerType.Strength);
 				}
 			} else {
 				status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
@@ -776,6 +796,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.Versak;
 		} else if (type == EnumSelf.EffectType.ReactiveShield) {
 			pType = EnumSelf.TurnPowerType.ReactiveShield;
+		} else if (type == EnumSelf.EffectType.SubStrength) {
+			pType = EnumSelf.TurnPowerType.SubStrength;
 		}
 
 		return pType;

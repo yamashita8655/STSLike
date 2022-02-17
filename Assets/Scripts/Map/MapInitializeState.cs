@@ -42,9 +42,9 @@ public class MapInitializeState : StateBase {
 		status.SetActionData(0, MasterAction2Table.Instance.GetData(1));
 		status.SetActionData(1, MasterAction2Table.Instance.GetData(101));
 		status.SetActionData(2, MasterAction2Table.Instance.GetData(102));
-		status.SetActionData(3, MasterAction2Table.Instance.GetData(9990));
-		status.SetActionData(4, MasterAction2Table.Instance.GetData(9990));
-		status.SetActionData(5, MasterAction2Table.Instance.GetData(9990));
+		status.SetActionData(3, MasterAction2Table.Instance.GetData(400));
+		status.SetActionData(4, MasterAction2Table.Instance.GetData(401));
+		status.SetActionData(5, MasterAction2Table.Instance.GetData(401));
 
 
 		status.SetMaxDiceCount(3);
@@ -259,6 +259,5 @@ public class MapInitializeState : StateBase {
 	/// ステート解放時処理.
 	/// </summary>
 	override public void OnRelease()
-	{
-	}
+	{ }
 }
