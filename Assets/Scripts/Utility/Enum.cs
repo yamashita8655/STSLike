@@ -27,6 +27,7 @@ public partial class EnumSelf : MonoBehaviour {
         TrueDamage,
         RemovePower,
         Shield,
+        ShieldDouble,
         ShieldDamage,
         Heal,
         Warning,

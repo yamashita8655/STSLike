@@ -116,6 +116,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.RemovePower;
 		} else if (typeString == "Shield") {
 			type = EnumSelf.EffectType.Shield;
+		} else if (typeString == "ShieldDouble") {
+			type = EnumSelf.EffectType.ShieldDouble;
 		} else if (typeString == "ShieldDamage") {
 			type = EnumSelf.EffectType.ShieldDamage;
 		} else if (typeString == "Heal") {

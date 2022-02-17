@@ -17,7 +17,10 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.PlayerRemovePower(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
 			BattleCalculationFunction.PlayerCalcHeal(pack);
-		} else if (pack.Effect == EnumSelf.EffectType.Shield) {
+		} else if (
+			(pack.Effect == EnumSelf.EffectType.Shield) ||
+			(pack.Effect == EnumSelf.EffectType.ShieldDouble)
+		) {
 			BattleCalculationFunction.PlayerCalcShield(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.ShieldDamage) {
 			BattleCalculationFunction.PlayerCalcShieldDamage(pack);
@@ -63,7 +66,10 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.EnemyRemovePower(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
 			BattleCalculationFunction.EnemyCalcHeal(pack);
-		} else if (pack.Effect == EnumSelf.EffectType.Shield) {
+		} else if (
+			(pack.Effect == EnumSelf.EffectType.Shield) ||
+			(pack.Effect == EnumSelf.EffectType.ShieldDouble)
+		) {
 			BattleCalculationFunction.EnemyCalcShield(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.ShieldDamage) {
 			BattleCalculationFunction.EnemyCalcShieldDamage(pack);
@@ -392,17 +398,25 @@ public class BattleCalculationFunction {
 		int shield = pack.Value;
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			// シールド低下しているかどうか
-			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
-				// シールドが25％下がる
-				shield = shield - (shield * 25 / 100);
+			if (pack.Effect == EnumSelf.EffectType.ShieldDouble) {
+				shield = enemy.GetNowShield();
+			} else {
+				// シールド低下しているかどうか
+				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
+					// シールドが25％下がる
+					shield = shield - (shield * 25 / 100);
+				}
 			}
 			enemy.AddNowShield(shield);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			// シールド低下しているかどうか
-			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
-				// シールドが25％下がる
-				shield = shield - (shield * 25 / 100);
+			if (pack.Effect == EnumSelf.EffectType.ShieldDouble) {
+				shield = player.GetNowShield();
+			} else {
+				// シールド低下しているかどうか
+				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
+					// シールドが25％下がる
+					shield = shield - (shield * 25 / 100);
+				}
 			}
 			player.AddNowShield(shield);
 		}
@@ -655,19 +669,27 @@ public class BattleCalculationFunction {
 		int shield = pack.Value;
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			// シールド低下しているかどうか
-			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
-				// シールドが25％下がる
-				shield = shield - (shield * 25 / 100);
+			if (pack.Effect == EnumSelf.EffectType.ShieldDouble) {
+				shield = player.GetNowShield();
+			} else {
+				// シールド低下しているかどうか
+				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
+					// シールドが25％下がる
+					shield = shield - (shield * 25 / 100);
+				}
 			}
-			player.AddNowShield(-pack.Value);
+			player.AddNowShield(shield);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			// シールド低下しているかどうか
-			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
-				// シールドが25％下がる
-				shield = shield - (shield * 25 / 100);
+			if (pack.Effect == EnumSelf.EffectType.ShieldDouble) {
+				shield = enemy.GetNowShield();
+			} else {
+				// シールド低下しているかどうか
+				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
+					// シールドが25％下がる
+					shield = shield - (shield * 25 / 100);
+				}
 			}
-			enemy.AddNowShield(-pack.Value);
+			enemy.AddNowShield(shield);
 		}
 	}
 	

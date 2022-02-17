@@ -50,6 +50,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.Death) ||
 			(type == EnumSelf.EffectType.RemovePower) ||
 			(type == EnumSelf.EffectType.Curse) ||
+			(type == EnumSelf.EffectType.ShieldDouble) ||
 			(type == EnumSelf.EffectType.Stun)
 		) {
 			EffectValue.text = "";
@@ -68,7 +69,10 @@ public class ValueController : MonoBehaviour
 			ret = Const.DamageImagePath;
 		} else if (type == EnumSelf.EffectType.TrueDamage) {
 			ret = Const.TrueDamageImagePath;
-		} else if (type == EnumSelf.EffectType.Shield) {
+		} else if (
+			(type == EnumSelf.EffectType.Shield) ||
+			(type == EnumSelf.EffectType.ShieldDouble)
+		) {
 			ret = Const.ShieldImagePath;
 		} else if (type == EnumSelf.EffectType.ShieldDamage) {
 			ret = Const.ShieldBreakImagePath;
