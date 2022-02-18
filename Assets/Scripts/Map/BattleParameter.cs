@@ -12,6 +12,7 @@ public class PlayerStatus
 	private List<MasterAction2Table.Data> ActionDataList;
 	private List<MasterAction2Table.Data> BackupActionDataList;
 	private List<MasterAction2Table.Data> InitiativeActionDataList;
+	private List<bool> ParameterFlagList;
 	private int MaxDiceCount;
 	
 	private Power BuffPower = null;
@@ -27,6 +28,11 @@ public class PlayerStatus
 			null,null,null,null,null,null
 		};
 		InitiativeActionDataList = new List<MasterAction2Table.Data>();
+
+		ParameterFlagList = new List<bool>();
+		for (int i = 0; i < (int)EnumSelf.ParameterType.Max; i++) {
+			ParameterFlagList.Add(false);
+		}
 		
 		BuffPower = new Power();
 		DebuffPower = new Power();
@@ -187,6 +193,14 @@ public class PlayerStatus
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
 			CuTurnPower.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 0);
 		}
+	}
+	
+	public void SetParameterListFlag(EnumSelf.ParameterType type, bool flag) {
+		ParameterFlagList[(int)type] = flag;
+	}
+	
+	public bool GetParameterListFlag(EnumSelf.ParameterType type) {
+		return ParameterFlagList[(int)type];
 	}
 }
 

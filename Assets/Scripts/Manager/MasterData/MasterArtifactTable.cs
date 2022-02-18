@@ -110,10 +110,12 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 
 		if (typeString == "Revive") {
 			type = EnumSelf.ParameterType.Revive;
+		} else if (typeString == "UsedRevive") {
+			type = EnumSelf.ParameterType.UsedRevive;
 		} else if (typeString == "UpgradeReward") {
 			type = EnumSelf.ParameterType.UpgradeReward;
-		} else if (typeString == "AutoShield") {
-			type = EnumSelf.ParameterType.AutoShield;
+		} else if (typeString == "DiceShield") {
+			type = EnumSelf.ParameterType.DiceShield;
 		} else if (typeString == "RestUp8") {
 			type = EnumSelf.ParameterType.RestUp8;
 		} else if (typeString == "RestUp15") {

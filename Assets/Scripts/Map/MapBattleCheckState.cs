@@ -14,16 +14,28 @@ public class MapBattleCheckState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
 
 		IsWin = false;
 		IsDead = false;
 
-		if (MapDataCarrier.Instance.CuEnemyStatus.IsDead()) {
+		if (enemy.IsDead()) {
 			IsWin = true;
 		}
 
-		if (MapDataCarrier.Instance.CuPlayerStatus.IsDead()) {
-			IsDead = true;
+		if (player.IsDead()) {
+			// リバイブ効果を持っていたら、復活させる
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.Revive) == true) {
+				player.SetNowHp(player.GetMaxHp()/2);
+				scene.RemoveArtifactObject(EnumSelf.ParameterType.Revive);
+				
+				// TODO 使用済みフェニックスののうの数値決め打ち
+				MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1001);
+				scene.AddArtifactObject(data);
+			} else {
+				IsDead = true;
+			}
 		}
 
 		return true;

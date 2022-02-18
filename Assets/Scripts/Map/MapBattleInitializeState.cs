@@ -27,8 +27,8 @@ public class MapBattleInitializeState : StateBase {
 		// 主に、アーティファクトによる、ターン開始時に掛かるバフ系
 		var artifactList = MapDataCarrier.Instance.CarryArtifactList;
 		for (int i = 0; i < artifactList.Count; i++) {
-			if (artifactList[i].ActionId != 0) {
-				MasterAction2Table.Data actionData = MasterAction2Table.Instance.GetData(artifactList[i].ActionId);
+			if (artifactList[i].GetData().ActionId != 0) {
+				MasterAction2Table.Data actionData = MasterAction2Table.Instance.GetData(artifactList[i].GetData().ActionId);
 				player.AddInitiativeActionData(actionData);
 			}
 		}

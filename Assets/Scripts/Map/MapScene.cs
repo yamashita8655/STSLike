@@ -627,6 +627,12 @@ public partial class MapScene : SceneBase
 	}
 	
 	public void AddArtifactObject(MasterArtifactTable.Data data) {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		if (data.ParameterType != EnumSelf.ParameterType.None) {
+			player.SetParameterListFlag(data.ParameterType, true);
+		}
+
+		MasterArtifactTable.Data localData = data;
 		ResourceManager.Instance.RequestExecuteOrder(
 			Const.ArtifactButtonPath,
 			ExecuteOrder.Type.GameObject,
@@ -637,13 +643,27 @@ public partial class MapScene : SceneBase
 				obj.transform.localPosition = Vector3.zero;
 				obj.transform.localScale = Vector3.one;
 
-				obj.GetComponent<ArtifactButtonContentItem>().Initialize(
-					data,
+				var component = obj.GetComponent<ArtifactButtonContentItem>();
+				component.Initialize(
+					localData,
 					(d) => {
 						OnClickCarryArtifactButton(d);
 					}
 				);
+				MapDataCarrier.Instance.CarryArtifactList.Add(component);
 			}
 		);
+	}
+	
+	public void RemoveArtifactObject(EnumSelf.ParameterType type) {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		for (int i = 0; i < MapDataCarrier.Instance.CarryArtifactList.Count; i++) {
+			if (MapDataCarrier.Instance.CarryArtifactList[i].GetData().ParameterType == type) {
+				GameObject.Destroy(MapDataCarrier.Instance.CarryArtifactList[i].gameObject);
+				MapDataCarrier.Instance.CarryArtifactList.RemoveAt(i);
+				break;
+			}
+		}
+		player.SetParameterListFlag(type, false);
 	}
 }

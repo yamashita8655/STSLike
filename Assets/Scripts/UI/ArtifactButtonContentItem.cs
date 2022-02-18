@@ -34,4 +34,8 @@ public class ArtifactButtonContentItem : MonoBehaviour
 			Callback(Data);
 		}
 	}
+	
+	public MasterArtifactTable.Data GetData() {
+		return Data;
+	}
 }

@@ -30,6 +30,7 @@ public class MapInitializeState : StateBase {
 
 		// プレイヤーパラメータ初期化
 		PlayerStatus status = new PlayerStatus();
+		MapDataCarrier.Instance.CuPlayerStatus = status;
 		status.SetMaxHp(80);
 		status.SetNowHp(80);
 		// TODO 初期装備は、テストの為色々変えている
@@ -49,11 +50,17 @@ public class MapInitializeState : StateBase {
 		// TODO アーティファクト効果テスト
 		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
 		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1);
-		MapDataCarrier.Instance.CarryArtifactList.Add(data);
+		scene.AddArtifactObject(data);
+		data = MasterArtifactTable.Instance.GetData(2);
+		scene.AddArtifactObject(data);
+		data = MasterArtifactTable.Instance.GetData(3);
+		scene.AddArtifactObject(data);
+		data = MasterArtifactTable.Instance.GetData(4);
+		scene.AddArtifactObject(data);
+		data = MasterArtifactTable.Instance.GetData(1000);
 		scene.AddArtifactObject(data);
 
 		status.SetMaxDiceCount(3);
-		MapDataCarrier.Instance.CuPlayerStatus = status;
 
 		scene.PlayerNowHpText.text = status.GetNowHp().ToString();
 		scene.PlayerMaxHpText.text = status.GetMaxHp().ToString();

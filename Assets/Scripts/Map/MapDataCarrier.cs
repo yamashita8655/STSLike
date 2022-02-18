@@ -52,7 +52,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	
 	public bool IsClear { get; set; }
 	
-	public List<MasterArtifactTable.Data> CarryArtifactList = null;
+	public List<ArtifactButtonContentItem> CarryArtifactList = null;
 	
 	public List<List<GameObject>> ValueObjects { get; set; }
 	public List<GameObject> EnemyValueObjects { get; set; }
@@ -73,7 +73,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		TreasureList = new List<MasterAction2Table.Data>();
 		HealList = new List<MasterHealTable.Data>();
 		ArtifactList = new List<MasterArtifactTable.Data>();
-		CarryArtifactList = new List<MasterArtifactTable.Data>();
+		CarryArtifactList = new List<ArtifactButtonContentItem>();
 
 		ValueObjects = new List<List<GameObject>>();
 		// サイコロの数は6個なので、6個分リスト作る

@@ -17,28 +17,7 @@ public class MapArtifactResultState : StateBase {
 		MasterArtifactTable.Data data = MapDataCarrier.Instance.ArtifactList[artifactIndex];
 
 		// TODO ここで、アーティファクト管理に獲得したアーティファクトを加える
-		MapDataCarrier.Instance.CarryArtifactList.Add(data);
-
 		scene.AddArtifactObject(data);
-
-		//ResourceManager.Instance.RequestExecuteOrder(
-		//	ArtifactButtonPath,
-		//	ExecuteOrder.Type.GameObject,
-		//	scene.gameObject,
-		//	(rawObj) => {
-		//		GameObject obj = GameObject.Instantiate(rawObj) as GameObject;
-		//		obj.transform.SetParent(scene.ArtifactContentRoot.transform);
-		//		obj.transform.localPosition = Vector3.zero;
-		//		obj.transform.localScale = Vector3.one;
-
-		//		obj.GetComponent<ArtifactButtonContentItem>().Initialize(
-		//			data,
-		//			(d) => {
-		//				scene.OnClickCarryArtifactButton(d);
-		//			}
-		//		);
-		//	}
-		//);
 
 		return true;
     }
