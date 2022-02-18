@@ -40,6 +40,9 @@ public class ResourceManager : SimpleMonoBehaviourSingleton<ResourceManager>
 
 	public void RequestExecuteOrder(string pathAndName, ExecuteOrder.Type type, GameObject targetObject, Action<UnityEngine.Object> endCallback)
 	{
+		if (string.IsNullOrEmpty(pathAndName)) {
+			LogManager.Instance.LogError("RequestExecuteOrder:pathAndName is null or empty");
+		}
 		// 既にリソースが読まれてたら、ExecuteOrderに乗せる必要が無いので、同一フレーム内でコールバックを返してしまう
 		bool alreadyLoaded = false;
 		if (type == ExecuteOrder.Type.Sprite) {

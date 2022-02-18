@@ -46,6 +46,11 @@ public class MapInitializeState : StateBase {
 		status.SetActionData(4, MasterAction2Table.Instance.GetData(29));
 		status.SetActionData(5, MasterAction2Table.Instance.GetData(26));
 
+		// TODO アーティファクト効果テスト
+		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
+		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1);
+		MapDataCarrier.Instance.CarryArtifactList.Add(data);
+		scene.AddArtifactObject(data);
 
 		status.SetMaxDiceCount(3);
 		MapDataCarrier.Instance.CuPlayerStatus = status;

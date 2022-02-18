@@ -10,13 +10,20 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 		public string Name { get; private set; }
 		public string Detail { get; private set; }
 		public string ImagePath { get; private set; }
+		public EnumSelf.ArtifactEffectType Type { get; private set; }
+		public int ActionId { get; private set; }
+		public EnumSelf.ParameterType ParameterType { get; private set; }
+
 
         public Data(
 			int id,
 			int rarity,
 			string name,
 			string detail,
-			string imagePath
+			string imagePath,
+			EnumSelf.ArtifactEffectType type,
+			int actionId,
+			EnumSelf.ParameterType parameterType
 		)
 		{
 			Id			= id;
@@ -24,6 +31,9 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			Name		= name;
 			Detail		= detail;
 			ImagePath	= imagePath;
+			Type		= type;
+			ActionId	= actionId;
+			ParameterType = parameterType;
 		}
 	};
 
@@ -48,12 +58,19 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 		for (int i = 1; i < lineList.Count; i++) {
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
 
+			if (paramList[0] == "#") {
+				continue;
+			}
+
 			Data data = new Data(
 				int.Parse(paramList[0]),
 				int.Parse(paramList[1]),
 				paramList[2],
 				paramList[3],
-				paramList[4]
+				paramList[4],
+				ConvertArtifactEffectType(paramList[5]),
+				int.Parse(paramList[6]),
+				ConvertParameterType(paramList[7])
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);
@@ -75,4 +92,40 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 		Dictionary<int, Data> dict = new Dictionary<int, Data>(DataDict);
         return dict;
     }
+	
+	private EnumSelf.ArtifactEffectType ConvertArtifactEffectType(string typeString) {
+		EnumSelf.ArtifactEffectType type = EnumSelf.ArtifactEffectType.None;
+
+		if (typeString == "ExecuteAction") {
+			type = EnumSelf.ArtifactEffectType.ExecuteAction;
+		} else if (typeString == "AddParameter") {
+			type = EnumSelf.ArtifactEffectType.AddParameter;
+		}
+
+		return type;
+	}
+	
+	private EnumSelf.ParameterType ConvertParameterType(string typeString) {
+		EnumSelf.ParameterType type = EnumSelf.ParameterType.None;
+
+		if (typeString == "Revive") {
+			type = EnumSelf.ParameterType.Revive;
+		} else if (typeString == "UpgradeReward") {
+			type = EnumSelf.ParameterType.UpgradeReward;
+		} else if (typeString == "AutoShield") {
+			type = EnumSelf.ParameterType.AutoShield;
+		} else if (typeString == "RestUp8") {
+			type = EnumSelf.ParameterType.RestUp8;
+		} else if (typeString == "RestUp15") {
+			type = EnumSelf.ParameterType.RestUp15;
+		} else if (typeString == "RestUp21") {
+			type = EnumSelf.ParameterType.RestUp21;
+		} else if (typeString == "AntiCurse") {
+			type = EnumSelf.ParameterType.AntiCurse;
+		} else if (typeString == "ApprenticeKnight") {
+			type = EnumSelf.ParameterType.ApprenticeKnight;
+		}
+
+		return type;
+	}
 }

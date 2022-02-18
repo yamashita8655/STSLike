@@ -23,6 +23,16 @@ public class MapBattleInitializeState : StateBase {
 		player.SetNowShield(0);
 		scene.PlayerShieldText.text = "";
 
+		// プレイヤーのイニシアチブ設定
+		// 主に、アーティファクトによる、ターン開始時に掛かるバフ系
+		var artifactList = MapDataCarrier.Instance.CarryArtifactList;
+		for (int i = 0; i < artifactList.Count; i++) {
+			if (artifactList[i].ActionId != 0) {
+				MasterAction2Table.Data actionData = MasterAction2Table.Instance.GetData(artifactList[i].ActionId);
+				player.AddInitiativeActionData(actionData);
+			}
+		}
+
 		// プレイヤーバフの初期化
 		player.ResetPower();
 		player.ResetTurnPower();

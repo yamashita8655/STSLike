@@ -5,6 +5,7 @@ using UnityEngine;
 public partial class Const {
 	public static readonly string RarityFrameImagePath = "Image/UI/Card/cardframe{0}";
 	public static readonly string AttackButtonImagePath = "Image/UI/Map/attackbuttonframe{0}";
+	public static readonly string ArtifactButtonPath = "Prefab/UI/ArtifactButtonItem";
 
 
 	public static readonly string ValueItemPath = "Prefab/UI/ValueItem";

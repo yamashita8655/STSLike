@@ -47,6 +47,7 @@ public class MapBattleCheckState : StateBase {
 				if (MapDataCarrier.Instance.InitiativeActionPackCount < MapDataCarrier.Instance.MaxInitiativeActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleInitiativeValueChange);
 				} else {
+					MapDataCarrier.Instance.CuPlayerStatus.RemoveInitiativeFirstActionData();
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerInitiative);
 				}
             } else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattlePlayerTurnStart) {// プレイヤーのターンスタート時のHP変動

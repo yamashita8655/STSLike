@@ -625,4 +625,25 @@ public partial class MapScene : SceneBase
 			obj.GetComponent<ValueController>().Hide();
 		}
 	}
+	
+	public void AddArtifactObject(MasterArtifactTable.Data data) {
+		ResourceManager.Instance.RequestExecuteOrder(
+			Const.ArtifactButtonPath,
+			ExecuteOrder.Type.GameObject,
+			gameObject,
+			(rawObj) => {
+				GameObject obj = GameObject.Instantiate(rawObj) as GameObject;
+				obj.transform.SetParent(CuArtifactContentRoot.transform);
+				obj.transform.localPosition = Vector3.zero;
+				obj.transform.localScale = Vector3.one;
+
+				obj.GetComponent<ArtifactButtonContentItem>().Initialize(
+					data,
+					(d) => {
+						OnClickCarryArtifactButton(d);
+					}
+				);
+			}
+		);
+	}
 }

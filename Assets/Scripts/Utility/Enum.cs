@@ -131,4 +131,22 @@ public partial class EnumSelf : MonoBehaviour {
 		LotHpBorder,// 敵抽選開始時に指定されたHp以下なら、指定のAIIDに遷移する。基のIDに戻ると、またHp減った時にHpボーダーを参照するので、同じ行動をするHpボーダーを条件としないAIを作って遷移した方が良い。
 		Max
 	}
+
+	public enum ArtifactEffectType {
+		None = -1,
+		ExecuteAction = 0,
+		AddParameter,
+	}
+	
+	public enum ParameterType {
+		None = -1,
+		Revive = 0,
+		UpgradeReward,
+		AutoShield,
+		RestUp8,
+		RestUp15,
+		RestUp21,
+		AntiCurse,
+		ApprenticeKnight,
+	}
 }
