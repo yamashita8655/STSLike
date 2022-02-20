@@ -9,10 +9,10 @@ public class MapUpdateDifficultState : StateBase {
 	private readonly int Level3Ratio = 200;
 	private readonly int Level4Ratio = 150;
 	private readonly int Level5Ratio = 50;
-	//private readonly int Level1Ratio = 200;
-	//private readonly int Level2Ratio = 200;
-	//private readonly int Level3Ratio = 200;
-	//private readonly int Level4Ratio = 200;
+	//private readonly int Level1Ratio = 0;
+	//private readonly int Level2Ratio = 0;
+	//private readonly int Level3Ratio = 0;
+	//private readonly int Level4Ratio = 0;
 	//private readonly int Level5Ratio = 200;
 
     /// <summary>

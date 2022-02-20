@@ -25,17 +25,11 @@ public class MapArtifactInitializeState : StateBase {
 
 		// TODO とりあえず1番目のレシオセットを固定で使う
 		MasterArtifactLotTable.Data lotData = MasterArtifactLotTable.Instance.GetData("1");
+
 		List<int> weightList = lotData.LotList[difficult];
 			
 		// TODO Artifactカウント3決め打ち
 		MapDataCarrier.Instance.ArtifactList.Clear();
-		//for (int i = 0; i < 3; i++) {
-		//	// TODO とりあえず、並べるIDは固定値にしておく。
-		//	// 後から、ちゃんと抽選、かつ、同IDは出ないように調整する
-		//	MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(i+1);
-		//	MapDataCarrier.Instance.ArtifactList.Add(data);
-		//	scene.ArtifactTexts[i].text = data.Name;
-		//}
 		
 		for (int i = 0; i < 3; i++) {
 			int id = 0;

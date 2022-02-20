@@ -21,10 +21,17 @@ public class MapResultInitializeState : StateBase {
 
 		int difficult = MapDataCarrier.Instance.SelectDifficultNumber;
 
+		// 戦乙女のお守りを持っていたら（UpgradeRewardがON）difficultを1上げる(=戦闘報酬の中身が良くなる)
+		if (MapDataCarrier.Instance.CuPlayerStatus.GetParameterListFlag(EnumSelf.ParameterType.UpgradeReward) == true) {
+			difficult++;
+			if (difficult >= 4) {
+				difficult = 4;
+			}
+		}
+
 		// TODO とりあえず1番目のレシオセットを固定で使う
 		MasterCardLotTable.Data lotData = MasterCardLotTable.Instance.GetData("1");
 		List<int> weightList = lotData.LotList[difficult];
-
 			
 		// TODO treasureカウント3決め打ち
 		MapDataCarrier.Instance.TreasureList.Clear();
