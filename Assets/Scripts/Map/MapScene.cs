@@ -487,21 +487,29 @@ public partial class MapScene : SceneBase
 	}
 	
 	public void UpdateParameterText() {
-		PlayerNowHpText.text = MapDataCarrier.Instance.CuPlayerStatus.GetNowHp().ToString();
-		EnemyNowHpText.text = MapDataCarrier.Instance.CuEnemyStatus.GetNowHp().ToString();
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
 
+		PlayerNowHpText.text = player.GetNowHp().ToString();
+		PlayerMaxHpText.text = player.GetMaxHp().ToString();
+		
 		int playerShield = MapDataCarrier.Instance.CuPlayerStatus.GetNowShield();
 		if (playerShield > 0) {
 			PlayerShieldText.text = string.Format("[{0}]", playerShield.ToString());
 		} else {
 			PlayerShieldText.text = "";
 		}
-		
-		int enemyShield = MapDataCarrier.Instance.CuEnemyStatus.GetNowShield();
-		if (enemyShield > 0) {
-			EnemyShieldText.text = string.Format("[{0}]", enemyShield.ToString());
-		} else {
-			EnemyShieldText.text = "";
+
+		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
+
+		if (enemy != null) {
+			EnemyNowHpText.text = enemy.GetNowHp().ToString();
+			EnemyMaxHpText.text = enemy.GetMaxHp().ToString();
+			int enemyShield = enemy.GetNowShield();
+			if (enemyShield > 0) {
+				EnemyShieldText.text = string.Format("[{0}]", enemyShield.ToString());
+			} else {
+				EnemyShieldText.text = "";
+			}
 		}
 	}
 	
@@ -634,6 +642,25 @@ public partial class MapScene : SceneBase
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 		if (data.ParameterType != EnumSelf.ParameterType.None) {
 			player.SetParameterListFlag(data.ParameterType, true);
+
+			// 最大HP増やす系は、ここで処理する
+			if (data.ParameterType == EnumSelf.ParameterType.AddMaxHp1) {
+				player.AddMaxHp(6);
+				player.AddNowHp(6);
+				UpdateParameterText();
+			} else if (data.ParameterType == EnumSelf.ParameterType.AddMaxHp2) {
+				player.AddMaxHp(10);
+				player.AddNowHp(10);
+				UpdateParameterText();
+			} else if (data.ParameterType == EnumSelf.ParameterType.AddMaxHp3) {
+				player.AddMaxHp(15);
+				player.AddNowHp(15);
+				UpdateParameterText();
+			} else if (data.ParameterType == EnumSelf.ParameterType.AddMaxHp4) {
+				player.AddMaxHp(21);
+				player.AddNowHp(21);
+				UpdateParameterText();
+			}
 		}
 
 		MasterArtifactTable.Data localData = data;

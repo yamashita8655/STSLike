@@ -18,5 +18,9 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1008,1008,NORMAL,4,見習い騎士の証,ダメージとシールドの組み合わせの効果しか持たないカードの効果量が、それぞれ+3。どちらか一つしか効果がないカードには無効。,Image/UI/Artifact/ring,AddParameter,0,ApprenticeKnight
 1009,1008,SPECIAL,5,騎士の宣誓,全てのサイコロにセットされたカードが、ダメージとシールドの組み合わせの効果しか持たないカードの場合、ダメージとシールドの組み合わせの効果しか持たないカードの効果量が、それぞれ倍になる。どちらか一つしか効果がないカードには無効。,Image/UI/Artifact/ring,AddParameter,0,ApprenticeKnight
 1010,4,SPECIAL,5,狂戦士の咆哮,全てのサイコロにセットされたカードが、ダメージの効果しか持たないカードの場合、ターン開始時、狂戦士を1得る。,Image/UI/Artifact/ring,AddParameter,0,AddVersak
+1011,1011,NORMAL,1,グミ,最大HPが+6,Image/UI/Artifact/gumi,AddParameter,0,AddMaxHp1
+1012,1012,NORMAL,2,キャンディ,最大HPが+10,Image/UI/Artifact/candy,AddParameter,0,AddMaxHp2
+1013,1013,NORMAL,3,クッキー,最大HPが+15,Image/UI/Artifact/cookie,AddParameter,0,AddMaxHp3
+1014,1014,NORMAL,4,チョコレート,最大HPが+21,Image/UI/Artifact/chocolate,AddParameter,0,AddMaxHp4
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award

@@ -154,6 +154,14 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.AntiCurse;
 		} else if (typeString == "ApprenticeKnight") {
 			type = EnumSelf.ParameterType.ApprenticeKnight;
+		} else if (typeString == "AddMaxHp1") {
+			type = EnumSelf.ParameterType.AddMaxHp1;
+		} else if (typeString == "AddMaxHp2") {
+			type = EnumSelf.ParameterType.AddMaxHp2;
+		} else if (typeString == "AddMaxHp3") {
+			type = EnumSelf.ParameterType.AddMaxHp3;
+		} else if (typeString == "AddMaxHp4") {
+			type = EnumSelf.ParameterType.AddMaxHp4;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}
