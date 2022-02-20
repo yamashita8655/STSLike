@@ -154,6 +154,7 @@ public partial class EnumSelf : MonoBehaviour {
 		WeaknessUp,
 		VulnerableUp,
 		Minimalist,
+		SupportFire,
 		Award,
 		Max,
 	}

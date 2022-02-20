@@ -17,7 +17,6 @@ public class MapResultChangeResultState : StateBase {
 		if (treasureIndex == 3) {
 			// 3の場合は、スキップが押された
 			var player = MapDataCarrier.Instance.CuPlayerStatus;
-			Debug.Log("SKIP!!!!!!!!!!!");
 			if (player.GetParameterListFlag(EnumSelf.ParameterType.Minimalist) == true) {
 				player.AddMaxHp(1);
 				player.AddNowHp(1);

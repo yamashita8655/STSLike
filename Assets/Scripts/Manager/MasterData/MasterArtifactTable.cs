@@ -168,6 +168,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.VulnerableUp;
 		} else if (typeString == "Minimalist") {
 			type = EnumSelf.ParameterType.Minimalist;
+		} else if (typeString == "SupportFire") {
+			type = EnumSelf.ParameterType.SupportFire;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}

@@ -114,6 +114,11 @@ public class BattleCalculationFunction {
 		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) == 0) {
 			player.SetNowShield(0);
 		}
+
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.SupportFire) == true) {
+			// シールドにも影響する3ダメージを与える
+			PlayerCalcDamageNormalDamage(3);
+		}
 		
 		// 再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
@@ -356,6 +361,23 @@ public class BattleCalculationFunction {
 			//if (overDamage < 0) {
 			//	PlayerUpdateHp(overDamage);
 			//}
+		}
+	}
+	
+	// こっちは、アクションパック以外で、シールドとのダメージ計算が必要な物
+	// アクションパックではないので、被ダメ時に反応する諸々は、こちらでは反応しない
+	public static void PlayerCalcDamageNormalDamage(int val) {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		int shield = 0;
+		int overDamage = 0;
+		int damage = val;
+			
+		shield = enemy.GetNowShield();
+		enemy.AddNowShield(-damage);
+		overDamage = shield - damage;
+		if (overDamage < 0) {
+			EnemyUpdateHp(overDamage);
 		}
 	}
 	
