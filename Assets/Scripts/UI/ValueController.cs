@@ -89,6 +89,7 @@ public class ValueController : MonoBehaviour
 			ret = Const.DeathImagePath;
 		} else if (
 			(type == EnumSelf.EffectType.Strength) ||
+			(type == EnumSelf.EffectType.Toughness) ||
 			(type == EnumSelf.EffectType.AutoShield) ||
 			(type == EnumSelf.EffectType.Thorn) ||
 			(type == EnumSelf.EffectType.Versak) ||

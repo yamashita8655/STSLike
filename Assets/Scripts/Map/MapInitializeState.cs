@@ -40,7 +40,7 @@ public class MapInitializeState : StateBase {
 		//status.SetActionData(3, MasterAction2Table.Instance.GetData(20));
 		//status.SetActionData(4, MasterAction2Table.Instance.GetData(20));
 		//status.SetActionData(5, MasterAction2Table.Instance.GetData(21));
-		status.SetActionData(0, MasterAction2Table.Instance.GetData(27));
+		status.SetActionData(0, MasterAction2Table.Instance.GetData(402));
 		status.SetActionData(1, MasterAction2Table.Instance.GetData(28));
 		status.SetActionData(2, MasterAction2Table.Instance.GetData(22));
 		status.SetActionData(3, MasterAction2Table.Instance.GetData(23));
@@ -54,9 +54,9 @@ public class MapInitializeState : StateBase {
 
 		// TODO アーティファクト効果テスト
 		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
-		//MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1002);
-		//scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1002);
+		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(5);
+		scene.AddArtifactObject(data);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(5);
 
 		//data = MasterArtifactTable.Instance.GetData(2);
 		//scene.AddArtifactObject(data);

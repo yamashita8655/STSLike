@@ -555,6 +555,8 @@ public partial class MapScene : SceneBase
 				}
 				
 			} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
+				int toughness = player.GetPower().GetValue(EnumSelf.PowerType.Toughness);
+				val += toughness;
 				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
 					val = val - (val * 25 / 100);
 				}
@@ -611,6 +613,8 @@ public partial class MapScene : SceneBase
 					val = val + (val * 50 / 100);
 				}
 			} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
+				int toughness = enemy.GetPower().GetValue(EnumSelf.PowerType.Toughness);
+				val += toughness;
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
 					val = val - (val * 25 / 100);
 				}

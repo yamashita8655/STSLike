@@ -30,6 +30,7 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.PlayerCurse(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.Strength) ||
+			(pack.Effect == EnumSelf.EffectType.Toughness) ||
 			(pack.Effect == EnumSelf.EffectType.Poison) ||
 			(pack.Effect == EnumSelf.EffectType.Regenerate)
 		) {
@@ -80,6 +81,7 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.Strength) ||
+			(pack.Effect == EnumSelf.EffectType.Toughness) ||
 			(pack.Effect == EnumSelf.EffectType.Poison) ||
 			(pack.Effect == EnumSelf.EffectType.Regenerate)
 		) {
@@ -426,7 +428,10 @@ public class BattleCalculationFunction {
 	public static void PlayerCalcShield(ActionPack pack) {
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
-		int shield = pack.Value;
+
+		int powerToughness = player.GetPower().GetValue(EnumSelf.PowerType.Toughness);
+
+		int shield = pack.Value+powerToughness;
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			if (pack.Effect == EnumSelf.EffectType.ShieldDouble) {
@@ -696,8 +701,9 @@ public class BattleCalculationFunction {
 	public static void EnemyCalcShieldDamage(ActionPack pack) {
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		int powerToughness = enemy.GetPower().GetValue(EnumSelf.PowerType.Toughness);
+		int shield = pack.Value+powerToughness;
 		
-		int shield = pack.Value;
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			if (pack.Effect == EnumSelf.EffectType.ShieldDouble) {
@@ -882,6 +888,8 @@ public class BattleCalculationFunction {
 		EnumSelf.PowerType pType = EnumSelf.PowerType.None;
 		if (type == EnumSelf.EffectType.Strength) {
 			pType = EnumSelf.PowerType.Strength;
+		} else if (type == EnumSelf.EffectType.Toughness) {
+			pType = EnumSelf.PowerType.Toughness;
 		} else if (type == EnumSelf.EffectType.Regenerate) {
 			pType = EnumSelf.PowerType.Regenerate;
 		} else if (type == EnumSelf.EffectType.Poison) {
