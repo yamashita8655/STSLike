@@ -65,6 +65,9 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public List<int> PowerValues { get; set; }
 	public List<int> TurnPowerValues { get; set; }
 
+	// レアリティ別の、トレジャーから手に入る、まだ未獲得のアーティファクトリスト
+	public List<List<int>> RarityNoAcquiredArtifactList { get; set; }
+
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
 		MapTypeList = new List<EnumSelf.MapType>();
@@ -96,8 +99,27 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
 			TurnPowerValues.Add(0);
 		}
+	
+		RarityNoAcquiredArtifactList = new List<List<int>>();
+		RarityNoAcquiredArtifactList.Add(new List<int>());
+		RarityNoAcquiredArtifactList.Add(new List<int>());
+		RarityNoAcquiredArtifactList.Add(new List<int>());
+		RarityNoAcquiredArtifactList.Add(new List<int>());
+		RarityNoAcquiredArtifactList.Add(new List<int>());
 
 		DungeonData = null;
+	}
+
+	public void RemoveRarityNoAcquiredArtifactList(int id) {
+		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(id);
+		int rarityIndex = data.Rarity-1;
+		var list = RarityNoAcquiredArtifactList[rarityIndex];
+		for (int i = 0; i < list.Count; i++) {
+			if (id == list[i]) {
+				list.RemoveAt(i);
+				break;
+			}
+		}
 	}
 
 	public void Release() {

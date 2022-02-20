@@ -65,6 +65,7 @@ public class EntryPoint : MonoBehaviour {
 		MasterArtifactTable.Instance.Initialize();
 		MasterEnemyAITable.Instance.Initialize();
 		MasterCardLotTable.Instance.Initialize();
+		MasterArtifactLotTable.Instance.Initialize();
 
 		// 色々
 		LocalServerManager.Instance.Initialize();

@@ -18,6 +18,9 @@ public class MapArtifactResultState : StateBase {
 
 		// TODO ここで、アーティファクト管理に獲得したアーティファクトを加える
 		scene.AddArtifactObject(data);
+		if (data.Id != 2000) {
+			MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(data.Id);
+		}
 
 		return true;
     }

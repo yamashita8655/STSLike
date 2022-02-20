@@ -47,18 +47,32 @@ public class MapInitializeState : StateBase {
 		status.SetActionData(4, MasterAction2Table.Instance.GetData(29));
 		status.SetActionData(5, MasterAction2Table.Instance.GetData(26));
 
+		// 未獲得アーティファクトリストを取得しておく
+		for (int i = 1; i < 6; i++) {
+			MapDataCarrier.Instance.RarityNoAcquiredArtifactList[i-1] = MasterArtifactTable.Instance.GetRarityArtifactCloneList(i);
+		}
+
 		// TODO アーティファクト効果テスト
 		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
-		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1);
-		scene.AddArtifactObject(data);
-		data = MasterArtifactTable.Instance.GetData(2);
-		scene.AddArtifactObject(data);
-		data = MasterArtifactTable.Instance.GetData(3);
-		scene.AddArtifactObject(data);
-		data = MasterArtifactTable.Instance.GetData(4);
-		scene.AddArtifactObject(data);
-		data = MasterArtifactTable.Instance.GetData(1000);
-		scene.AddArtifactObject(data);
+		//MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1);
+		//scene.AddArtifactObject(data);
+		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1);
+
+		//data = MasterArtifactTable.Instance.GetData(2);
+		//scene.AddArtifactObject(data);
+		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(2);
+
+		//data = MasterArtifactTable.Instance.GetData(3);
+		//scene.AddArtifactObject(data);
+		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(3);
+
+		//data = MasterArtifactTable.Instance.GetData(4);
+		//scene.AddArtifactObject(data);
+		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(4);
+
+		//data = MasterArtifactTable.Instance.GetData(1000);
+		//scene.AddArtifactObject(data);
+		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1000);
 
 		status.SetMaxDiceCount(3);
 

@@ -6,6 +6,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 {
 	public class Data {
 		public int Id { get; private set; }
+		public int UId { get; private set; }
+		public string LotType { get; private set; }
 		public int Rarity { get; private set; }
 		public string Name { get; private set; }
 		public string Detail { get; private set; }
@@ -17,6 +19,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 
         public Data(
 			int id,
+			int uid,
+			string lotType,
 			int rarity,
 			string name,
 			string detail,
@@ -27,6 +31,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 		)
 		{
 			Id			= id;
+			UId			= uid;
+			LotType		= lotType;
 			Rarity		= rarity;
 			Name		= name;
 			Detail		= detail;
@@ -41,6 +47,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 
 	private Dictionary<int, Data> DataDict = new Dictionary<int, Data>();
 
+	private List<List<int>> RarityArtifactList = new List<List<int>>();
+
 	public void Initialize()
 	{
 		if (DataDict.Count > 0) {
@@ -52,6 +60,12 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 		string text = asset.text;
 		char[] split = {'\n'};
 		List<string> lineList = Functions.SplitString(text, split);
+		
+		RarityArtifactList.Add(new List<int>());
+		RarityArtifactList.Add(new List<int>());
+		RarityArtifactList.Add(new List<int>());
+		RarityArtifactList.Add(new List<int>());
+		RarityArtifactList.Add(new List<int>());
 
 		char[] split2 = { ',' };
 		// 1行目はメタデータなので、読み飛ばす
@@ -66,14 +80,21 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 				int.Parse(paramList[0]),
 				int.Parse(paramList[1]),
 				paramList[2],
-				paramList[3],
+				int.Parse(paramList[3]),
 				paramList[4],
-				ConvertArtifactEffectType(paramList[5]),
-				int.Parse(paramList[6]),
-				ConvertParameterType(paramList[7])
+				paramList[5],
+				paramList[6],
+				ConvertArtifactEffectType(paramList[7]),
+				int.Parse(paramList[8]),
+				ConvertParameterType(paramList[9])
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);
+
+			// TODO NORMALが、トレジャーから手に入るリスト
+			if (paramList[2] == "NORMAL") {
+				RarityArtifactList[int.Parse(paramList[3])-1].Add(int.Parse(paramList[0]));
+			}
 		}
 	}
 
@@ -92,6 +113,13 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 		Dictionary<int, Data> dict = new Dictionary<int, Data>(DataDict);
         return dict;
     }
+	
+	// リストは外で操作されると困るので、クローンを返す
+	public List<int> GetRarityArtifactCloneList(int rarity)
+	{
+		List<int> list = new List<int>(RarityArtifactList[rarity-1]);
+		return list;
+	}
 	
 	private EnumSelf.ArtifactEffectType ConvertArtifactEffectType(string typeString) {
 		EnumSelf.ArtifactEffectType type = EnumSelf.ArtifactEffectType.None;
@@ -126,6 +154,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.AntiCurse;
 		} else if (typeString == "ApprenticeKnight") {
 			type = EnumSelf.ParameterType.ApprenticeKnight;
+		} else if (typeString == "Award") {
+			type = EnumSelf.ParameterType.Award;
 		}
 
 		return type;

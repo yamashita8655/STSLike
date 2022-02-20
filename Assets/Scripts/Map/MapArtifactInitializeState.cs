@@ -20,13 +20,67 @@ public class MapArtifactInitializeState : StateBase {
 		scene.ArtifactNameText.gameObject.SetActive(false);
 		scene.ArtifactImage.gameObject.SetActive(false);
 		scene.ArtifactDetailText.gameObject.SetActive(false);
+		
+		int difficult = MapDataCarrier.Instance.SelectDifficultNumber;
+
+		// TODO とりあえず1番目のレシオセットを固定で使う
+		MasterArtifactLotTable.Data lotData = MasterArtifactLotTable.Instance.GetData("1");
+		List<int> weightList = lotData.LotList[difficult];
 			
 		// TODO Artifactカウント3決め打ち
 		MapDataCarrier.Instance.ArtifactList.Clear();
+		//for (int i = 0; i < 3; i++) {
+		//	// TODO とりあえず、並べるIDは固定値にしておく。
+		//	// 後から、ちゃんと抽選、かつ、同IDは出ないように調整する
+		//	MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(i+1);
+		//	MapDataCarrier.Instance.ArtifactList.Add(data);
+		//	scene.ArtifactTexts[i].text = data.Name;
+		//}
+		
 		for (int i = 0; i < 3; i++) {
-			// TODO とりあえず、並べるIDは固定値にしておく。
-			// 後から、ちゃんと抽選、かつ、同IDは出ないように調整する
-			MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(i+1);
+			int id = 0;
+			bool noArtifact = false;
+			int rarity = BattleCalculationFunction.LotRarity(weightList);
+			List<int> artifactCloneList = null;
+			while (true) {
+				artifactCloneList = new List<int>(MapDataCarrier.Instance.RarityNoAcquiredArtifactList[rarity-1]);
+				if (artifactCloneList.Count == 0) {
+					rarity--;
+					if (rarity == 0) {
+						noArtifact = true;
+						break;
+					}
+				} else {
+					break;
+				}
+			}
+
+			if (noArtifact == true) {
+				// アーティファクト抽選テーブルに、アーティファクトが存在しない（つまり、全て獲得済み）であれば、
+				// 強制的に、2000番（やり込み証明書）を獲得する
+				id = 2000;
+			} else {
+				// こっちはカードと違って重複が許されないので、
+				// 予め、抽選リストから今回抽選済みのアーティファクトを削除しておく
+				for (int i2 = 0; i2 < i; i2++) {
+					for (int i3 = 0; i3 < artifactCloneList.Count; i3++) {
+						if (MapDataCarrier.Instance.ArtifactList[i2].Id == artifactCloneList[i3]) {
+							artifactCloneList.RemoveAt(i3);
+							break;
+						}
+					}
+				}
+
+				if (artifactCloneList.Count == 0) {
+					// で、それで抽選リストが空になっていれば、2000番を獲得する
+					id = 2000;
+				} else {
+					int index = UnityEngine.Random.Range(0, artifactCloneList.Count);
+					id = artifactCloneList[index];
+				}
+			}
+				
+			MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(id);
 			MapDataCarrier.Instance.ArtifactList.Add(data);
 			scene.ArtifactTexts[i].text = data.Name;
 		}

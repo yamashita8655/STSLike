@@ -151,6 +151,7 @@ public partial class EnumSelf : MonoBehaviour {
 		RestUp21,
 		AntiCurse,
 		ApprenticeKnight,
+		Award,
 		Max,
 	}
 }
