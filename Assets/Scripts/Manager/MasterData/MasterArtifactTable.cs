@@ -166,6 +166,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.WeaknessUp;
 		} else if (typeString == "VulnerableUp") {
 			type = EnumSelf.ParameterType.VulnerableUp;
+		} else if (typeString == "Minimalist") {
+			type = EnumSelf.ParameterType.Minimalist;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}

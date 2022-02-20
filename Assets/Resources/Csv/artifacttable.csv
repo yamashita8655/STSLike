@@ -26,5 +26,6 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1014,1014,NORMAL,4,チョコレート,最大HPが+21,Image/UI/Artifact/chocolate,AddParameter,0,AddMaxHp4
 1015,1015,NORMAL,4,脱力の刻印,与ダメ減少の効果が、25％→40％に増加する,Image/UI/Artifact/weaknessup,AddParameter,0,WeaknessUp
 1016,1016,NORMAL,4,虚弱の刻印,被ダメ上昇の効果が、50％→75％に増加する,Image/UI/Artifact/vulnerableup,AddParameter,0,VulnerableUp
+1017,1017,NORMAL,2,ミニマリスト入門書,戦闘終了後の報酬をスキップする度、最大HP+1,Image/UI/Artifact/minimalist,AddParameter,0,Minimalist
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award

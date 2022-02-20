@@ -13,13 +13,25 @@ public class MapResultChangeResultState : StateBase {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		
 		int treasureIndex = MapDataCarrier.Instance.SelectTreasureIndex;
-		MasterAction2Table.Data data = MapDataCarrier.Instance.TreasureList[treasureIndex];
 
-		int changeIndex = MapDataCarrier.Instance.SelectChangeIndex;
-		MapDataCarrier.Instance.CuPlayerStatus.SetActionData(changeIndex, data);
+		if (treasureIndex == 3) {
+			// 3の場合は、スキップが押された
+			var player = MapDataCarrier.Instance.CuPlayerStatus;
+			Debug.Log("SKIP!!!!!!!!!!!");
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.Minimalist) == true) {
+				player.AddMaxHp(1);
+				player.AddNowHp(1);
+				scene.UpdateParameterText();
+			}
+		} else {
+			MasterAction2Table.Data data = MapDataCarrier.Instance.TreasureList[treasureIndex];
 
-		//scene.PlayerActionNameStrings[changeIndex].text = data.Name;
-		scene.UpdatePlayerValueObject(changeIndex);
+			int changeIndex = MapDataCarrier.Instance.SelectChangeIndex;
+			MapDataCarrier.Instance.CuPlayerStatus.SetActionData(changeIndex, data);
+
+			//scene.PlayerActionNameStrings[changeIndex].text = data.Name;
+			scene.UpdatePlayerValueObject(changeIndex);
+		}
 
 		return true;
 	}

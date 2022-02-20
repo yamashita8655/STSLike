@@ -187,7 +187,7 @@ public class BattleCalculationFunction {
 		}
 		
 	}
-	
+
 	public static void EnemyTurnStartValueChange() {
 		// 再生などのバフをチェック
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
