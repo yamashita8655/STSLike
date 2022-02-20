@@ -41,9 +41,9 @@ public class MapInitializeState : StateBase {
 		//status.SetActionData(3, MasterAction2Table.Instance.GetData(20));
 		//status.SetActionData(4, MasterAction2Table.Instance.GetData(20));
 		//status.SetActionData(5, MasterAction2Table.Instance.GetData(21));
-		status.SetActionData(0, MasterAction2Table.Instance.GetData(402));
-		status.SetActionData(1, MasterAction2Table.Instance.GetData(28));
-		status.SetActionData(2, MasterAction2Table.Instance.GetData(22));
+		status.SetActionData(0, MasterAction2Table.Instance.GetData(3));
+		status.SetActionData(1, MasterAction2Table.Instance.GetData(504));
+		status.SetActionData(2, MasterAction2Table.Instance.GetData(504));
 		status.SetActionData(3, MasterAction2Table.Instance.GetData(23));
 		status.SetActionData(4, MasterAction2Table.Instance.GetData(29));
 		status.SetActionData(5, MasterAction2Table.Instance.GetData(26));
@@ -55,17 +55,17 @@ public class MapInitializeState : StateBase {
 
 		// TODO アーティファクト効果テスト
 		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
-		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1004);
+		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1015);
 		scene.AddArtifactObject(data);
-		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1004);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1015);
 
-		data = MasterArtifactTable.Instance.GetData(1005);
+		data = MasterArtifactTable.Instance.GetData(1016);
 		scene.AddArtifactObject(data);
-		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1005);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1016);
 
-		data = MasterArtifactTable.Instance.GetData(1006);
-		scene.AddArtifactObject(data);
-		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1006);
+		//data = MasterArtifactTable.Instance.GetData(1006);
+		//scene.AddArtifactObject(data);
+		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1006);
 
 		//data = MasterArtifactTable.Instance.GetData(4);
 		//scene.AddArtifactObject(data);

@@ -563,7 +563,12 @@ public partial class MapScene : SceneBase
 				}
 				
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
-					val = val + (val * 50 / 100);
+					if (player.GetParameterListFlag(EnumSelf.ParameterType.VulnerableUp) == true) {
+						// 与ダメが75％上がる
+						val = val + (val * 75 / 100);
+					} else {
+						val = val + (val * 50 / 100);
+					}
 				}
 				
 			} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
@@ -618,7 +623,11 @@ public partial class MapScene : SceneBase
 				}
 
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
-					val = val - (val * 25 / 100);
+					if (player.GetParameterListFlag(EnumSelf.ParameterType.WeaknessUp) == true) {
+						val = val - (val * 40 / 100);
+					} else {
+						val = val - (val * 25 / 100);
+					}
 				}
 				
 				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {

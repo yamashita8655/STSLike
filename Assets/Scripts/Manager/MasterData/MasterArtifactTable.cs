@@ -162,6 +162,10 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.AddMaxHp3;
 		} else if (typeString == "AddMaxHp4") {
 			type = EnumSelf.ParameterType.AddMaxHp4;
+		} else if (typeString == "WeaknessUp") {
+			type = EnumSelf.ParameterType.WeaknessUp;
+		} else if (typeString == "VulnerableUp") {
+			type = EnumSelf.ParameterType.VulnerableUp;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}

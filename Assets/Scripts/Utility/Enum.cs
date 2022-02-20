@@ -151,6 +151,8 @@ public partial class EnumSelf : MonoBehaviour {
 		AddMaxHp2,
 		AddMaxHp3,
 		AddMaxHp4,
+		WeaknessUp,
+		VulnerableUp,
 		Award,
 		Max,
 	}

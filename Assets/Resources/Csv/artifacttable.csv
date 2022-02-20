@@ -24,5 +24,7 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1012,1012,NORMAL,2,キャンディ,最大HPが+10,Image/UI/Artifact/candy,AddParameter,0,AddMaxHp2
 1013,1013,NORMAL,3,クッキー,最大HPが+15,Image/UI/Artifact/cookie,AddParameter,0,AddMaxHp3
 1014,1014,NORMAL,4,チョコレート,最大HPが+21,Image/UI/Artifact/chocolate,AddParameter,0,AddMaxHp4
+1015,1015,NORMAL,4,脱力の刻印,与ダメ減少の効果が、25％→40％に増加する,Image/UI/Artifact/weaknessup,AddParameter,0,WeaknessUp
+1016,1016,NORMAL,4,虚弱の刻印,被ダメ上昇の効果が、50％→75％に増加する,Image/UI/Artifact/vulnerableup,AddParameter,0,VulnerableUp
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award

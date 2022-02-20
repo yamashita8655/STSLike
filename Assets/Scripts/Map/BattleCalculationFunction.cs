@@ -310,8 +310,13 @@ public class BattleCalculationFunction {
 
 			// 相手弱体しているか
 			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
-				// 与ダメが50％上がる
-				damage = damage + (damage * 50 / 100);
+				if (player.GetParameterListFlag(EnumSelf.ParameterType.VulnerableUp) == true) {
+					// 与ダメが75％上がる
+					damage = damage + (damage * 75 / 100);
+				} else {
+					// 与ダメが50％上がる
+					damage = damage + (damage * 50 / 100);
+				}
 			}
 
 			// 朽ちた体状態だったら、その数値分ダメージを加算して、数値を1増やす
@@ -600,8 +605,13 @@ public class BattleCalculationFunction {
 
 		// 脱力しているかどうか
 		if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
-			// 与ダメが25％下がる
-			damage = damage - (damage * 25 / 100);
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.WeaknessUp) == true) {
+				// 与ダメが40％下がる
+				damage = damage - (damage * 40 / 100);
+			} else {
+				// 与ダメが25％下がる
+				damage = damage - (damage * 25 / 100);
+			}
 		}
 		
 
