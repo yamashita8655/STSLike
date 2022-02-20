@@ -38,6 +38,17 @@ public class MapArtifactInitializeState : StateBase {
 			List<int> artifactCloneList = null;
 			while (true) {
 				artifactCloneList = new List<int>(MapDataCarrier.Instance.RarityNoAcquiredArtifactList[rarity-1]);
+				// リストが空じゃなかった場合も、こっちはカードと違って重複が許されないので、
+				// 予め、抽選リストから今回抽選済みのアーティファクトを削除しておく
+				for (int i2 = 0; i2 < i; i2++) {
+					for (int i3 = 0; i3 < artifactCloneList.Count; i3++) {
+						if (MapDataCarrier.Instance.ArtifactList[i2].Id == artifactCloneList[i3]) {
+							artifactCloneList.RemoveAt(i3);
+							break;
+						}
+					}
+				}
+
 				if (artifactCloneList.Count == 0) {
 					rarity--;
 					if (rarity == 0) {
@@ -54,24 +65,8 @@ public class MapArtifactInitializeState : StateBase {
 				// 強制的に、2000番（やり込み証明書）を獲得する
 				id = 2000;
 			} else {
-				// こっちはカードと違って重複が許されないので、
-				// 予め、抽選リストから今回抽選済みのアーティファクトを削除しておく
-				for (int i2 = 0; i2 < i; i2++) {
-					for (int i3 = 0; i3 < artifactCloneList.Count; i3++) {
-						if (MapDataCarrier.Instance.ArtifactList[i2].Id == artifactCloneList[i3]) {
-							artifactCloneList.RemoveAt(i3);
-							break;
-						}
-					}
-				}
-
-				if (artifactCloneList.Count == 0) {
-					// で、それで抽選リストが空になっていれば、2000番を獲得する
-					id = 2000;
-				} else {
-					int index = UnityEngine.Random.Range(0, artifactCloneList.Count);
-					id = artifactCloneList[index];
-				}
+				int index = UnityEngine.Random.Range(0, artifactCloneList.Count);
+				id = artifactCloneList[index];
 			}
 				
 			MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(id);
