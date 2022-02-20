@@ -16,21 +16,16 @@ public class MapHealInitializeState : StateBase {
 		scene.MapRoot.SetActive(false);
 
 		scene.HealDecideButton.interactable = false;
-			
-		// TODO Healカウント3決め打ち
-		MapDataCarrier.Instance.HealList.Clear();
-		// かつ、一個目は回復固定
-		MasterHealTable.Data data = MasterHealTable.Instance.GetData(1);
-		MapDataCarrier.Instance.HealList.Add(data);
-		scene.HealTexts[0].text = data.Name;
 
-		for (int i = 1; i < 3; i++) {
-			// TODO 2~7決め打ち
-			int id = UnityEngine.Random.Range(2, 8);
-			data = MasterHealTable.Instance.GetData(id);
-			MapDataCarrier.Instance.HealList.Add(data);
-			scene.HealTexts[i].text = data.Name;
-		}
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+			
+		MasterHealTable.Data data = MasterHealTable.Instance.GetData(1);
+		scene.HealTexts[0].text = data.Name;
+		data = MasterHealTable.Instance.GetData(2);
+		scene.HealTexts[1].text = data.Name;
+		scene.HealTexts[2].text = "未定";
+
+		scene.HealDetailText.text = "";
 
 		return true;
 	}

@@ -13,12 +13,6 @@ public partial class EnumSelf : MonoBehaviour {
 		Max
 	};
 	
-	public enum HealType {
-        None,
-        Heal,
-		Max
-	};
-	
 	public enum EffectType {
         None,
         Damage,
@@ -148,9 +142,9 @@ public partial class EnumSelf : MonoBehaviour {
 		UsedRevive,
 		UpgradeReward,
 		DiceShield,
-		RestUp8,
-		RestUp15,
-		RestUp21,
+		RestUp1,
+		RestUp2,
+		RestUp3,
 		AntiCurse,
 		ApprenticeKnight,
 		AddMaxHp1,

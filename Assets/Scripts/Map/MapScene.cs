@@ -155,6 +155,10 @@ public partial class MapScene : SceneBase
 	public Text[] HealTexts => CuHealTexts;
 	
 	[SerializeField]
+	private Text CuHealDetailText = null;
+	public Text HealDetailText => CuHealDetailText;
+	
+	[SerializeField]
 	private Button CuHealDecideButton = null;
 	public Button HealDecideButton => CuHealDecideButton;
 	

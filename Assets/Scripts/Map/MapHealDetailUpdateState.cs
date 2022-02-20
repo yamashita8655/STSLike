@@ -12,6 +12,39 @@ public class MapHealDetailUpdateState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
+		int index = MapDataCarrier.Instance.SelectHealIndex;
+		int difficult = MapDataCarrier.Instance.SelectDifficultNumber;
+		
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+
+
+		if (index == 0) {
+			// TODO とりあえず1決め打ち
+			MasterHealTable.Data data = MasterHealTable.Instance.GetData(1);
+
+			int healRatio = data.Values[difficult];
+			int healVal = player.GetMaxHp() * healRatio / 100;
+
+			scene.HealDetailText.text = string.Format(data.Detail, healVal.ToString());
+		
+			// 回復時のバフを持っていたら、表記を足す
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.RestUp1) == true) {
+				scene.HealDetailText.text += "\n回復量+8";
+			}
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.RestUp2) == true) {
+				scene.HealDetailText.text += "\n回復量+15";
+			}
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.RestUp3) == true) {
+				scene.HealDetailText.text += "\n回復量+21";
+			}
+		}
+
+		if (index == 1) {
+			MasterHealTable.Data data = MasterHealTable.Instance.GetData(2);
+			int addMaxHpVal = data.Values[difficult];
+			scene.HealDetailText.text = string.Format(data.Detail, addMaxHpVal.ToString());
+		}
+
 		return true;
 	}
 

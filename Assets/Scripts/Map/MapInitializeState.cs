@@ -32,7 +32,8 @@ public class MapInitializeState : StateBase {
 		PlayerStatus status = new PlayerStatus();
 		MapDataCarrier.Instance.CuPlayerStatus = status;
 		status.SetMaxHp(80);
-		status.SetNowHp(80);
+		//status.SetNowHp(80);
+		status.SetNowHp(10);
 		// TODO 初期装備は、テストの為色々変えている
 		//status.SetActionData(0, MasterAction2Table.Instance.GetData(1));
 		//status.SetActionData(1, MasterAction2Table.Instance.GetData(1));
@@ -54,17 +55,17 @@ public class MapInitializeState : StateBase {
 
 		// TODO アーティファクト効果テスト
 		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
-		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(7);
+		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1004);
 		scene.AddArtifactObject(data);
-		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(7);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1004);
 
-		//data = MasterArtifactTable.Instance.GetData(2);
-		//scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(2);
+		data = MasterArtifactTable.Instance.GetData(1005);
+		scene.AddArtifactObject(data);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1005);
 
-		//data = MasterArtifactTable.Instance.GetData(3);
-		//scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(3);
+		data = MasterArtifactTable.Instance.GetData(1006);
+		scene.AddArtifactObject(data);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1006);
 
 		//data = MasterArtifactTable.Instance.GetData(4);
 		//scene.AddArtifactObject(data);

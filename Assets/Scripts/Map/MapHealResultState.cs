@@ -12,15 +12,39 @@ public class MapHealResultState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		
-		int healIndex = MapDataCarrier.Instance.SelectHealIndex;
-		// TODO とりあえず、回復決め打ちになっているので、
-		// ちゃんと効果タイプを見た内容を反映させる
-		MasterHealTable.Data data = MapDataCarrier.Instance.HealList[healIndex];
+		int index = MapDataCarrier.Instance.SelectHealIndex;
+		int difficult = MapDataCarrier.Instance.SelectDifficultNumber;
 
-		int healValue = data.Value1;
-		PlayerStatus status = MapDataCarrier.Instance.CuPlayerStatus;
-		status.AddNowHp(healValue);
-		scene.PlayerNowHpText.text = status.GetNowHp().ToString();
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		
+		if (index == 0) {
+			MasterHealTable.Data data = MasterHealTable.Instance.GetData(1);
+			
+			int healRatio = data.Values[difficult];
+			int healVal = player.GetMaxHp() * healRatio / 100;
+
+			// 回復時のバフを持っていたら、表記を足す
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.RestUp1) == true) {
+				healVal += 8;
+			}
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.RestUp2) == true) {
+				healVal += 15;
+			}
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.RestUp3) == true) {
+				healVal += 21;
+			}
+			
+			player.AddNowHp(healVal);
+			scene.UpdateParameterText();
+		}
+
+		if (index == 1) {
+			MasterHealTable.Data data = MasterHealTable.Instance.GetData(2);
+			int addMaxHpVal = data.Values[difficult];
+			player.AddMaxHp(addMaxHpVal);
+			player.AddNowHp(addMaxHpVal);
+			scene.UpdateParameterText();
+		}
 
 		return true;
 	}

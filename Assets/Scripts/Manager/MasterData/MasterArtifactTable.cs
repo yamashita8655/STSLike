@@ -144,12 +144,12 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.UpgradeReward;
 		} else if (typeString == "DiceShield") {
 			type = EnumSelf.ParameterType.DiceShield;
-		} else if (typeString == "RestUp8") {
-			type = EnumSelf.ParameterType.RestUp8;
-		} else if (typeString == "RestUp15") {
-			type = EnumSelf.ParameterType.RestUp15;
-		} else if (typeString == "RestUp21") {
-			type = EnumSelf.ParameterType.RestUp21;
+		} else if (typeString == "RestUp1") {
+			type = EnumSelf.ParameterType.RestUp1;
+		} else if (typeString == "RestUp2") {
+			type = EnumSelf.ParameterType.RestUp2;
+		} else if (typeString == "RestUp3") {
+			type = EnumSelf.ParameterType.RestUp3;
 		} else if (typeString == "AntiCurse") {
 			type = EnumSelf.ParameterType.AntiCurse;
 		} else if (typeString == "ApprenticeKnight") {
