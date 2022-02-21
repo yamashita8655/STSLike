@@ -16,6 +16,7 @@ public class MapBattleInitializeState : StateBase {
 		scene.TurnEndButtonObject.SetActive(false);
 
 		MapDataCarrier.Instance.DiceValueList.Clear();
+		MapDataCarrier.Instance.BattleTurnCount = 0;
 
 		// プレイヤーのアクション設定
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;

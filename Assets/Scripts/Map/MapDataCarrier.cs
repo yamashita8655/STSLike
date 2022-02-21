@@ -68,6 +68,8 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	// レアリティ別の、トレジャーから手に入る、まだ未獲得のアーティファクトリスト
 	public List<List<int>> RarityNoAcquiredArtifactList { get; set; }
 
+	public int BattleTurnCount { get; set; }
+
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
 		MapTypeList = new List<EnumSelf.MapType>();

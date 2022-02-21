@@ -30,5 +30,8 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1018,1018,NORMAL,3,火力支援要請通信機,ターン開始時、相手に3ダメージを与える,Image/UI/Artifact/supportfire,AddParameter,0,SupportFire
 1019,1019,NORMAL,4,アームガード,与ダメ減少状態を防ぐ,Image/UI/Artifact/antiweakness,AddParameter,0,AntiWeakness
 1020,1020,NORMAL,4,シールドメッキ,シールド低下状態を防ぐ,Image/UI/Artifact/antishieldweakness,AddParameter,0,AntiShieldWeakness
+1021,1021,NORMAL,2,壱の盾,1ターン目開始時に、シールドを6付与する,Image/UI/Artifact/shieldone,AddParameter,0,ShieldOne
+1022,1022,NORMAL,3,弐の盾,2ターン目開始時に、シールドを8付与する,Image/UI/Artifact/shieldtwo,AddParameter,0,ShieldTwo
+1023,1023,NORMAL,3,参の盾,3ターン目開始時に、シールドを12付与する,Image/UI/Artifact/shieldthree,AddParameter,0,ShieldThree
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award

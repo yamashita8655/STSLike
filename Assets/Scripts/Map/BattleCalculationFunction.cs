@@ -120,6 +120,24 @@ public class BattleCalculationFunction {
 			PlayerCalcDamageNormalDamage(3);
 		}
 		
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.ShieldOne) == true) {
+			if (MapDataCarrier.Instance.BattleTurnCount == 1) {
+				PlayerCalcShield(6);
+			}
+		}
+		
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.ShieldTwo) == true) {
+			if (MapDataCarrier.Instance.BattleTurnCount == 2) {
+				PlayerCalcShield(8);
+			}
+		}
+		
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.ShieldThree) == true) {
+			if (MapDataCarrier.Instance.BattleTurnCount == 3) {
+				PlayerCalcShield(12);
+			}
+		}
+		
 		// 再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
 		if (val > 0) {
@@ -481,6 +499,12 @@ public class BattleCalculationFunction {
 			}
 			player.AddNowShield(shield);
 		}
+	}
+	
+	// こっちは、数値を単純に加算する時使用。アーティファクト効果とか。
+	public static void PlayerCalcShield(int val) {
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		player.AddNowShield(val);
 	}
 	
 	public static void PlayerDeath(ActionPack pack) {

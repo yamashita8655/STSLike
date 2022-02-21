@@ -15,6 +15,7 @@ public class MapBattlePlayerTurnStartState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		MapDataCarrier.Instance.SelectAttackIndex = -1;
+		MapDataCarrier.Instance.BattleTurnCount++;
 
 		BattleCalculationFunction.PlayerTurnStartValueChange();
 
