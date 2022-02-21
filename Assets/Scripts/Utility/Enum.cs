@@ -46,6 +46,7 @@ public partial class EnumSelf : MonoBehaviour {
         ReactiveShield,
         SubStrength,
         ShieldPreserve,
+        Invincible,
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -114,6 +115,7 @@ public partial class EnumSelf : MonoBehaviour {
 		Versak,
 		ReactiveShield,
 		SubStrength,
+		Invincible,
 
 		// ターン経過時に、1にリセットする物
         RotBody,

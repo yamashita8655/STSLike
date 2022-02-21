@@ -164,6 +164,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.SubStrength;
 		} else if (typeString == "ShieldPreserve") {
 			type = EnumSelf.EffectType.ShieldPreserve;
+		} else if (typeString == "Invincible") {
+			type = EnumSelf.EffectType.Invincible;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}

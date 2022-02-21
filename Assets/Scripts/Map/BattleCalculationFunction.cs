@@ -47,6 +47,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.ReactiveShield) ||
 			(pack.Effect == EnumSelf.EffectType.SubStrength) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldPreserve) ||
+			(pack.Effect == EnumSelf.EffectType.Invincible) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -99,6 +100,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.ReactiveShield) ||
 			(pack.Effect == EnumSelf.EffectType.SubStrength) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldPreserve) ||
+			(pack.Effect == EnumSelf.EffectType.Invincible) ||
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
 		) {
 			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
@@ -191,6 +193,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.Thorn) || 
 				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
 				(i == (int)EnumSelf.TurnPowerType.ShieldPreserve) ||
+				(i == (int)EnumSelf.TurnPowerType.Invincible) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -274,6 +277,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.Thorn) ||
 				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
 				(i == (int)EnumSelf.TurnPowerType.ShieldPreserve) ||
+				(i == (int)EnumSelf.TurnPowerType.Invincible) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -1026,6 +1030,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.SubStrength;
 		} else if (type == EnumSelf.EffectType.ShieldPreserve) {
 			pType = EnumSelf.TurnPowerType.ShieldPreserve;
+		} else if (type == EnumSelf.EffectType.Invincible) {
+			pType = EnumSelf.TurnPowerType.Invincible;
 		}
 
 		return pType;
@@ -1110,6 +1116,13 @@ public class BattleCalculationFunction {
 				val = val + 1;
 			}
 		}
+			
+		if (val < 0) {
+			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Invincible) > 0) {
+				val = 0;
+				PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Invincible, -1);
+			}
+		}
 
 		player.AddNowHp(val);
 
@@ -1127,6 +1140,14 @@ public class BattleCalculationFunction {
 	
 	static public void EnemyUpdateHp(int val) {
 		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
+
+		if (val < 0) {
+			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Invincible) > 0) {
+				val = 0;
+				EnemyUpdateTurnPower(EnumSelf.TurnPowerType.Invincible, -1);
+			}
+		}
+
 		enemy.AddNowHp(val);
 
 		if (val < 0) {

@@ -8,6 +8,7 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 5,5,NORMAL,2,僧侶の指輪,戦闘開始時、守を1得る。,Image/UI/Artifact/ring2,ExecuteAction,6004,NONE
 6,6,NORMAL,1,威嚇の仮面,戦闘開始時、相手に脱力を1付与する。,Image/UI/Artifact/menace,ExecuteAction,6005,NONE
 7,7,NORMAL,1,棘の鎧,戦闘開始時、棘を3得る。,Image/UI/Artifact/thornmail,ExecuteAction,6006,NONE
+8,8,NORMAL,5,パーフェクトスーツ,戦闘開始時、無効を1得る。,Image/UI/Artifact/perfectsuit,AddParameter,6007,NONE
 #,AddPlayerParameter、戦闘内外関わらず、プレイヤーに付与する物。つまり、デバフ解除などで無効化されない物,,,,,,,,
 1000,1000,NORMAL,5,フェニックスののう,ダンジョン攻略中に一度だけ、死亡時に完全復活する,Image/UI/Artifact/phoenixbrain,AddParameter,0,Revive
 1001,1000,SPECIAL,5,フェニックスののうの残骸,効果を使い終わった、フェニックスののう。,Image/UI/Artifact/usedphoenixbrain,AddParameter,0,UsedRevive
