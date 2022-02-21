@@ -21,9 +21,9 @@ public class MapBattleDiceRollState : StateBase {
 		}
 
 		// ダイスのデバフ処理
-		PlayerStatus status = MapDataCarrier.Instance.CuPlayerStatus;
-		int diceCount = status.GetMaxDiceCount();
-		if (status.GetTurnPowerValue(EnumSelf.TurnPowerType.DiceMinusOne) > 0) {
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		int diceCount = player.GetMaxDiceCount();
+		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.DiceMinusOne) > 0) {
 			diceCount--;
 			if (diceCount < 0) {
 				diceCount = 0;
@@ -51,6 +51,17 @@ public class MapBattleDiceRollState : StateBase {
 			scene.DiceImages[i].sprite = scene.DiceSprites[dice];
 
 			MapDataCarrier.Instance.DiceValueList.Add(dice);
+		}
+
+
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.DiceShield) == true) {
+			int shield = 0;
+			for (int i = 0; i < MapDataCarrier.Instance.DiceValueList.Count; i++) {
+				// ダイスの目は添え字扱いになっているので、数値として扱う為の+1
+				shield += (MapDataCarrier.Instance.DiceValueList[i]+1);
+			}
+			BattleCalculationFunction.PlayerCalcShield(shield);
+			scene.UpdateParameterText();
 		}
 			
 		return true;
