@@ -11,9 +11,20 @@ public class MapBattleEndState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
-		
-		Debug.Log("MapBattleEndState");
 
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.AntiCurse) == true) {
+			for (int i = 0; i < 6; i++) {
+				// 処理が終わったら、呪いのアクションだった場合は、基に戻す
+				MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(i);
+				bool IsCurse = BattleCalculationFunction.IsCurse(data.Id);
+				if (IsCurse == true) {
+					MapDataCarrier.Instance.CuPlayerStatus.ResetActionData(i);
+					scene.UpdatePlayerValueObject(i);
+				}
+			}
+		}
+		
 		return true;
 	}
 
