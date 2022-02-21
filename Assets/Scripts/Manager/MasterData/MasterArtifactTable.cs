@@ -192,6 +192,10 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.GodBless;
 		} else if (typeString == "SeekersAmulet") {
 			type = EnumSelf.ParameterType.SeekersAmulet;
+		} else if (typeString == "Momonga") {
+			type = EnumSelf.ParameterType.Momonga;
+		} else if (typeString == "UsedMomonga") {
+			type = EnumSelf.ParameterType.UsedMomonga;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}

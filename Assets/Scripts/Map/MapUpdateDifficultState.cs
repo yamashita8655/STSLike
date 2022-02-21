@@ -25,6 +25,7 @@ public class MapUpdateDifficultState : StateBase {
 		player.SetMaxShield(0);
 		player.SetNowShield(0);
 		scene.PlayerShieldText.text = "";
+
 		for (int i = 0; i < MapDataCarrier.Instance.HandDifficultList.Count; i++) {
 			if (MapDataCarrier.Instance.HandDifficultList[i] == -1) {
 				int difficult = LotteryDiffucult();
@@ -32,6 +33,25 @@ public class MapUpdateDifficultState : StateBase {
 				scene.DifficultImages[i].sprite = scene.LevelSprites[difficult];
 			}
 		}
+		
+		// モモンガの尻尾処理
+		// 本来なら、獲得した時に変えた方がいいんだけど、そうするとフローがごちゃごちゃになるので
+		// モモンガ取得→そのフロー中にここで、モモンガ処理→モモンガ使用済みと交換
+		// というフローで強引に解決
+		// データ保存、途中復帰する際に、データ保存タイミングを気を付ける事
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.Momonga) == true) {
+			scene.RemoveArtifactObject(EnumSelf.ParameterType.Momonga);
+			// TODO 使用済みモモンガの数値決め打ち
+			MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1029);
+			scene.AddArtifactObject(data);
+
+			// 全て5に上書き
+			for (int i = 0; i < MapDataCarrier.Instance.HandDifficultList.Count; i++) {
+				MapDataCarrier.Instance.HandDifficultList[i] = 4;
+				scene.DifficultImages[i].sprite = scene.LevelSprites[4];
+			}
+		}
+
 		return false;
     }
 	

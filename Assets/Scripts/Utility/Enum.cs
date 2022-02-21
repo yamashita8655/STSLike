@@ -168,6 +168,8 @@ public partial class EnumSelf : MonoBehaviour {
 		FirstAidKit,
 		GodBless,
 		SeekersAmulet,
+		Momonga,
+		UsedMomonga,
 		Award,
 		Max,
 	}
