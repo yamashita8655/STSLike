@@ -33,5 +33,6 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1021,1021,NORMAL,2,壱の盾,1ターン目開始時に、シールドを6付与する,Image/UI/Artifact/shieldone,AddParameter,0,ShieldOne
 1022,1022,NORMAL,3,弐の盾,2ターン目開始時に、シールドを8付与する,Image/UI/Artifact/shieldtwo,AddParameter,0,ShieldTwo
 1023,1023,NORMAL,3,参の盾,3ターン目開始時に、シールドを12付与する,Image/UI/Artifact/shieldthree,AddParameter,0,ShieldThree
+1024,1024,NORMAL,2,清めた十字架,呪い使用時、シールドを4得る,Image/UI/Artifact/usecurseshield,AddParameter,0,UseCurseShield
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award

@@ -180,6 +180,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.ShieldTwo;
 		} else if (typeString == "ShieldThree") {
 			type = EnumSelf.ParameterType.ShieldThree;
+		} else if (typeString == "UseCurseShield") {
+			type = EnumSelf.ParameterType.UseCurseShield;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}

@@ -160,6 +160,7 @@ public partial class EnumSelf : MonoBehaviour {
 		ShieldOne,
 		ShieldTwo,
 		ShieldThree,
+		UseCurseShield,
 		Award,
 		Max,
 	}
