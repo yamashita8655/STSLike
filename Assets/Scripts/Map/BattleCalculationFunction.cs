@@ -1024,6 +1024,14 @@ public class BattleCalculationFunction {
 
 	static public void PlayerUpdateHp(int val) {
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
+
+		if (val < 0) {
+			// 全ての減算値を、1減らす（＝つまり、1増やす）
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.GodBless) == true) {
+				val = val + 1;
+			}
+		}
+
 		player.AddNowHp(val);
 
 		if (val < 0) {
@@ -1035,6 +1043,7 @@ public class BattleCalculationFunction {
 		} else if (val > 0) {
 			// 0より大ければ、Hp増加という判断
 		}
+		
 	}
 	
 	static public void EnemyUpdateHp(int val) {

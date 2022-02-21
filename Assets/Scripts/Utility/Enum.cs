@@ -162,6 +162,7 @@ public partial class EnumSelf : MonoBehaviour {
 		ShieldThree,
 		UseCurseShield,
 		FirstAidKit,
+		GodBless,
 		Award,
 		Max,
 	}
