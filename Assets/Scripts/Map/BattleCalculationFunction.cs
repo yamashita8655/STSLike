@@ -1187,6 +1187,24 @@ public class BattleCalculationFunction {
 
 		return res;
 	}
+	
+	static public bool IsOnlyDamageAndShieldAll() {
+		bool res = true;
+		
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+
+		var cloneList = player.GetBackUpActionDataCloseList();
+
+		for (int i = 0; i < cloneList.Count; i++) {
+			bool check = IsOnlyDamageAndShield(cloneList[i]);
+			if (check == false) {
+				res = false;
+				break;
+			}
+		}
+
+		return res;
+	}
 
 	static public int CalcPlayerDamageValue(ActionPack pack) {
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
@@ -1202,6 +1220,12 @@ public class BattleCalculationFunction {
 				MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(pack.ExecuteActionId);
 				if (IsOnlyDamageAndShield(data) == true) {
 					val = pack.Value + 3;
+				} else {
+					val = pack.Value;
+				}
+			} else if (player.GetParameterListFlag(EnumSelf.ParameterType.KnightMaster) == true) {
+				if (IsOnlyDamageAndShieldAll() == true) {
+					val = pack.Value * 2;
 				} else {
 					val = pack.Value;
 				}
@@ -1246,6 +1270,12 @@ public class BattleCalculationFunction {
 			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(pack.ExecuteActionId);
 			if (IsOnlyDamageAndShield(data) == true) {
 				val = pack.Value + 3;
+			} else {
+				val = pack.Value;
+			}
+		} else if (player.GetParameterListFlag(EnumSelf.ParameterType.KnightMaster) == true) {
+			if (IsOnlyDamageAndShieldAll() == true) {
+				val = pack.Value * 2;
 			} else {
 				val = pack.Value;
 			}

@@ -87,6 +87,10 @@ public class PlayerStatus
 		List<MasterAction2Table.Data> list = new List<MasterAction2Table.Data>(ActionDataList);
 		return list;
 	}
+	public List<MasterAction2Table.Data> GetBackUpActionDataCloseList() {
+		List<MasterAction2Table.Data> list = new List<MasterAction2Table.Data>(BackupActionDataList);
+		return list;
+	}
 	
 	public MasterAction2Table.Data GetInitiativeFirstActionData() {
 		MasterAction2Table.Data data = null;

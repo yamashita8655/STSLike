@@ -147,6 +147,7 @@ public partial class EnumSelf : MonoBehaviour {
 		RestUp3,
 		AntiCurse,
 		ApprenticeKnight,
+		KnightMaster,
 		AddMaxHp1,
 		AddMaxHp2,
 		AddMaxHp3,

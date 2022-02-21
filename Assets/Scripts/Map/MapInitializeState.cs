@@ -40,10 +40,10 @@ public class MapInitializeState : StateBase {
 		//status.SetActionData(3, MasterAction2Table.Instance.GetData(20));
 		//status.SetActionData(4, MasterAction2Table.Instance.GetData(20));
 		//status.SetActionData(5, MasterAction2Table.Instance.GetData(21));
-		status.SetActionData(0, MasterAction2Table.Instance.GetData(2));
-		status.SetActionData(1, MasterAction2Table.Instance.GetData(2));
-		status.SetActionData(2, MasterAction2Table.Instance.GetData(22));
-		status.SetActionData(3, MasterAction2Table.Instance.GetData(22));
+		status.SetActionData(0, MasterAction2Table.Instance.GetData(61));
+		status.SetActionData(1, MasterAction2Table.Instance.GetData(61));
+		status.SetActionData(2, MasterAction2Table.Instance.GetData(63));
+		status.SetActionData(3, MasterAction2Table.Instance.GetData(63));
 		status.SetActionData(4, MasterAction2Table.Instance.GetData(62));
 		status.SetActionData(5, MasterAction2Table.Instance.GetData(62));
 
@@ -54,9 +54,9 @@ public class MapInitializeState : StateBase {
 
 		// TODO アーティファクト効果テスト
 		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
-		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1008);
+		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1009);
 		scene.AddArtifactObject(data);
-		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1008);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1009);
 
 		//data = MasterArtifactTable.Instance.GetData(1022);
 		//scene.AddArtifactObject(data);
