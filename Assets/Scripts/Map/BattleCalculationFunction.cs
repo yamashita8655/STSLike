@@ -30,6 +30,7 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.PlayerCurse(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.Strength) ||
+			(pack.Effect == EnumSelf.EffectType.FastStrength) ||
 			(pack.Effect == EnumSelf.EffectType.Toughness) ||
 			(pack.Effect == EnumSelf.EffectType.Poison) ||
 			(pack.Effect == EnumSelf.EffectType.Regenerate)
@@ -82,6 +83,7 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.Strength) ||
+			(pack.Effect == EnumSelf.EffectType.FastStrength) ||
 			(pack.Effect == EnumSelf.EffectType.Toughness) ||
 			(pack.Effect == EnumSelf.EffectType.Poison) ||
 			(pack.Effect == EnumSelf.EffectType.Regenerate)
@@ -395,6 +397,10 @@ public class BattleCalculationFunction {
 		int overDamage = 0;
 		int damage = CalcPlayerDamageValue(pack);
 
+		// ダメージ計算したら、空元気は解除する
+		player.ResetPower(EnumSelf.PowerType.FastStrength);
+		PlayerUpdatePower(EnumSelf.PowerType.FastStrength);
+
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			// 相手がリアクティブシールド状態か
 			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
@@ -466,10 +472,10 @@ public class BattleCalculationFunction {
 		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
 		
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			enemy.ResetPower();
+			enemy.ResetPowerAll();
 			enemy.ResetTurnPower();
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			player.ResetPower();
+			player.ResetPowerAll();
 			player.ResetTurnPower();
 		}
 		
@@ -772,6 +778,10 @@ public class BattleCalculationFunction {
 		int shield = 0;
 		int overDamage = 0;
 		int damage = CalcEnemyDamageValue(pack);
+		
+		// 空元気解除
+		enemy.ResetPower(EnumSelf.PowerType.FastStrength);
+		EnemyUpdatePower(EnumSelf.PowerType.FastStrength);
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			// 相手がリアクティブシールド状態か
@@ -826,10 +836,10 @@ public class BattleCalculationFunction {
 		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
 		
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			player.ResetPower();
+			player.ResetPowerAll();
 			player.ResetTurnPower();
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			enemy.ResetPower();
+			enemy.ResetPowerAll();
 			enemy.ResetTurnPower();
 		}
 		
@@ -1041,6 +1051,8 @@ public class BattleCalculationFunction {
 		EnumSelf.PowerType pType = EnumSelf.PowerType.None;
 		if (type == EnumSelf.EffectType.Strength) {
 			pType = EnumSelf.PowerType.Strength;
+		} else if (type == EnumSelf.EffectType.FastStrength) {
+			pType = EnumSelf.PowerType.FastStrength;
 		} else if (type == EnumSelf.EffectType.Toughness) {
 			pType = EnumSelf.PowerType.Toughness;
 		} else if (type == EnumSelf.EffectType.Regenerate) {
@@ -1321,6 +1333,10 @@ public class BattleCalculationFunction {
 		// 筋力があるかどうか
 		int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
 		val += strength;
+		
+		// 空元気があるかどうか
+		int faststrength = player.GetPower().GetValue(EnumSelf.PowerType.FastStrength);
+		val += faststrength;
 
 		// バーサク状態か
 		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
@@ -1389,6 +1405,11 @@ public class BattleCalculationFunction {
 		}
 		int strength = enemy.GetPower().GetValue(EnumSelf.PowerType.Strength);
 		val += strength;
+
+		// 空元気があるかどうか
+		int faststrength = enemy.GetPower().GetValue(EnumSelf.PowerType.FastStrength);
+		val += faststrength;
+
 		if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
 			val *= 2;
 		}

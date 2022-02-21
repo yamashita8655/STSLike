@@ -182,7 +182,12 @@ public class PlayerStatus
 		return CuTurnPower.GetTurnPowerValue(type);
 	}
 	
-	public void ResetPower() {
+	public void ResetPower(EnumSelf.PowerType type) {
+		BuffPower.SetValue(type, 0);
+		DebuffPower.SetValue(type, 0);
+	}
+	
+	public void ResetPowerAll() {
 		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
 			BuffPower.SetValue((EnumSelf.PowerType)i, 0);
 			DebuffPower.SetValue((EnumSelf.PowerType)i, 0);
@@ -419,8 +424,13 @@ public class EnemyStatus
 	public int GetTurnPowerValue(EnumSelf.TurnPowerType type) {
 		return CuTurnPower.GetTurnPowerValue(type);
 	}
+	
+	public void ResetPower(EnumSelf.PowerType type) {
+		BuffPower.SetValue(type, 0);
+		DebuffPower.SetValue(type, 0);
+	}
 
-	public void ResetPower() {
+	public void ResetPowerAll() {
 		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
 			BuffPower.SetValue((EnumSelf.PowerType)i, 0);
 			DebuffPower.SetValue((EnumSelf.PowerType)i, 0);

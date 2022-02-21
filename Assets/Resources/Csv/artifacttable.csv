@@ -8,7 +8,8 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 5,5,NORMAL,2,僧侶の指輪,戦闘開始時、守を1得る。,Image/UI/Artifact/ring2,ExecuteAction,6004,NONE
 6,6,NORMAL,1,威嚇の仮面,戦闘開始時、相手に脱力を1付与する。,Image/UI/Artifact/menace,ExecuteAction,6005,NONE
 7,7,NORMAL,1,棘の鎧,戦闘開始時、棘を3得る。,Image/UI/Artifact/thornmail,ExecuteAction,6006,NONE
-8,8,NORMAL,5,パーフェクトスーツ,戦闘開始時、無効を1得る。,Image/UI/Artifact/perfectsuit,AddParameter,6007,NONE
+8,8,NORMAL,5,パーフェクトスーツ,戦闘開始時、無効を1得る。,Image/UI/Artifact/perfectsuit,ExecuteAction,6007,NONE
+9,9,NORMAL,2,空元気玉,戦闘開始時、空元気を8得る。,Image/UI/Artifact/dummypower,ExecuteAction,6008,NONE
 #,AddPlayerParameter、戦闘内外関わらず、プレイヤーに付与する物。つまり、デバフ解除などで無効化されない物,,,,,,,,
 1000,1000,NORMAL,5,フェニックスののう,ダンジョン攻略中に一度だけ、死亡時に完全復活する,Image/UI/Artifact/phoenixbrain,AddParameter,0,Revive
 1001,1000,SPECIAL,5,フェニックスののうの残骸,効果を使い終わった、フェニックスののう。,Image/UI/Artifact/usedphoenixbrain,AddParameter,0,UsedRevive
@@ -39,6 +40,6 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1026,1026,NORMAL,4,神の加護,全てのHP減少時、減少値-1,Image/UI/Artifact/godbless,AddParameter,0,GodBless
 1027,1027,NORMAL,5,探求者のお守り,戦闘終了時、最大HP+1,Image/UI/Artifact/seekersamulet,AddParameter,0,SeekersAmulet
 1028,1028,NORMAL,3,モモンガの尻尾,獲得時、難易度カードが全て5に変更される。,Image/UI/Artifact/momonga,AddParameter,0,Momonga
-1029,1028,SPECIAL,3,モモンガの尻尾(使用済み),獲得時、難易度カードが全て5に変更される。,Image/UI/Artifact/momonga,AddParameter,0,UsedMomonga
+1029,1028,SPECIAL,3,モモンガの尻尾,獲得時、難易度カードが全て5に変更される。,Image/UI/Artifact/momonga,AddParameter,0,UsedMomonga
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award

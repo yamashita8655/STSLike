@@ -35,7 +35,7 @@ public class MapBattleInitializeState : StateBase {
 		}
 
 		// プレイヤーバフの初期化
-		player.ResetPower();
+		player.ResetPowerAll();
 		player.ResetTurnPower();
 		// バフ表示の初期化
 		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
@@ -64,7 +64,7 @@ public class MapBattleInitializeState : StateBase {
 		enemy.SetMaxShield(999999);
 		enemy.SetNowShield(0);
 		// 敵バフの初期化
-		enemy.ResetPower();
+		enemy.ResetPowerAll();
 		enemy.ResetTurnPower();
 		// バフ表示の初期化
 		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {

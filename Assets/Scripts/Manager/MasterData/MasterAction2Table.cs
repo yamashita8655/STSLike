@@ -132,6 +132,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Curse;
 		} else if (typeString == "Strength") {
 			type = EnumSelf.EffectType.Strength;
+		} else if (typeString == "FastStrength") {
+			type = EnumSelf.EffectType.FastStrength;
 		} else if (typeString == "Toughness") {
 			type = EnumSelf.EffectType.Toughness;
 		} else if (typeString == "DiceMinusOne") {

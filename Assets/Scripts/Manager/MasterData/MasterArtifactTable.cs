@@ -196,6 +196,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.Momonga;
 		} else if (typeString == "UsedMomonga") {
 			type = EnumSelf.ParameterType.UsedMomonga;
+		} else if (typeString == "DummyPower") {
+			type = EnumSelf.ParameterType.DummyPower;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}

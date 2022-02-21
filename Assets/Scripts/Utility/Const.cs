@@ -24,6 +24,7 @@ public partial class Const {
 	// こっちは、数値可変でターン永続
 	public static readonly string PowerControllerPath = "Prefab/UI/PowerController";
 	public static readonly string StrengthImagePath = "Image/UI/Map/strength";
+	public static readonly string FastStrengthImagePath = "Image/UI/Map/faststrength";
 	public static readonly string ToughnessImagePath = "Image/UI/Map/toughness";
 	public static readonly string RegenerateImagePath = "Image/UI/Map/regenerate";
 	public static readonly string PoisonImagePath = "Image/UI/Map/poison";

@@ -30,6 +30,7 @@ public partial class EnumSelf : MonoBehaviour {
 		Curse,// 呪いに関しては、呪われたままの箇所は継続するが、トレジャー取得時に上書きすれば消せる
 		// バフ、デバフ
         Strength,
+        FastStrength,
         Toughness,
         DiceMinusOne,
         Regenerate,
@@ -92,6 +93,7 @@ public partial class EnumSelf : MonoBehaviour {
 	public enum PowerType {
 		None = -1,
 		Strength = 0,
+		FastStrength,
 		Toughness,
 		Regenerate,// TODO これも、マイナス値が無いから、TurnPowerなのでは…
 		Poison,// TODO これも、マイナス値が無いから、TurnPowerなのでは…
@@ -170,6 +172,7 @@ public partial class EnumSelf : MonoBehaviour {
 		SeekersAmulet,
 		Momonga,
 		UsedMomonga,
+		DummyPower,
 		Award,
 		Max,
 	}
