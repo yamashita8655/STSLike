@@ -76,7 +76,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 				int value = int.Parse(paramList[index+2]);
 				EnumSelf.TimingType timing = GetTimingType(paramList[index+3]);
 
-				ActionPack pack = new ActionPack(effect, target, value, timing);
+				ActionPack pack = new ActionPack(int.Parse(paramList[0]), effect, target, value, timing);
 
 				list.Add(pack);
 
@@ -234,17 +234,20 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 }
 
 public class ActionPack {
+	public int ExecuteActionId { get; private set; }
 	public EnumSelf.EffectType Effect { get; private set; }
 	public EnumSelf.TargetType Target { get; private set; }
 	public int Value { get; private set; }
 	public EnumSelf.TimingType Timing { get; private set; }
 
 	public ActionPack(
+		int executeActionId,
 		EnumSelf.EffectType effect,
 		EnumSelf.TargetType target,
 		int value,
 		EnumSelf.TimingType timing
 	) {
+		ExecuteActionId = executeActionId;
 		Effect = effect;
 		Target = target;
 		Value = value;

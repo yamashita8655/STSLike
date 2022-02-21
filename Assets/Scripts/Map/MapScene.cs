@@ -550,36 +550,35 @@ public partial class MapScene : SceneBase
 				(list[index].Effect == EnumSelf.EffectType.DamageSuction) ||
 				(list[index].Effect == EnumSelf.EffectType.ShieldBash)
 			) {
-				if (list[index].Effect == EnumSelf.EffectType.ShieldBash) {
-					val = player.GetNowShield();
-				} else {
-					val = list[index].Value;
-				}
-				int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
-				val += strength;
-				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
-					val *= 2;
-				}
-
-				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
-					val = val - (val * 25 / 100);
-				}
 				
-				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
-					if (player.GetParameterListFlag(EnumSelf.ParameterType.VulnerableUp) == true) {
-						// 与ダメが75％上がる
-						val = val + (val * 75 / 100);
-					} else {
-						val = val + (val * 50 / 100);
-					}
-				}
+				val = BattleCalculationFunction.CalcPlayerDamageValue(list[index]);
+
+				//if (list[index].Effect == EnumSelf.EffectType.ShieldBash) {
+				//	val = player.GetNowShield();
+				//} else {
+				//	val = list[index].Value;
+				//}
+				//int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
+				//val += strength;
+				//if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
+				//	val *= 2;
+				//}
+
+				//if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
+				//	val = val - (val * 25 / 100);
+				//}
+				//
+				//if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
+				//	if (player.GetParameterListFlag(EnumSelf.ParameterType.VulnerableUp) == true) {
+				//		// 与ダメが75％上がる
+				//		val = val + (val * 75 / 100);
+				//	} else {
+				//		val = val + (val * 50 / 100);
+				//	}
+				//}
 				
 			} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
-				int toughness = player.GetPower().GetValue(EnumSelf.PowerType.Toughness);
-				val += toughness;
-				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
-					val = val - (val * 25 / 100);
-				}
+				val = BattleCalculationFunction.CalcPlayerShieldValue(list[index]);
 			}
 			MapDataCarrier.Instance.ValueObjects[diceIndex][index].GetComponent<ValueController>().UpdateDisplay(
 				list[index].Effect,
@@ -614,34 +613,31 @@ public partial class MapScene : SceneBase
 				(list[index].Effect == EnumSelf.EffectType.DamageSuction) ||
 				(list[index].Effect == EnumSelf.EffectType.ShieldBash)
 			) {
-				if (list[index].Effect == EnumSelf.EffectType.ShieldBash) {
-					val = enemy.GetNowShield();
-				} else {
-					val = list[index].Value;
-				}
-				int strength = enemy.GetPower().GetValue(EnumSelf.PowerType.Strength);
-				val += strength;
-				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
-					val *= 2;
-				}
+				val = BattleCalculationFunction.CalcEnemyDamageValue(list[index]);
+				//if (list[index].Effect == EnumSelf.EffectType.ShieldBash) {
+				//	val = enemy.GetNowShield();
+				//} else {
+				//	val = list[index].Value;
+				//}
+				//int strength = enemy.GetPower().GetValue(EnumSelf.PowerType.Strength);
+				//val += strength;
+				//if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
+				//	val *= 2;
+				//}
 
-				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
-					if (player.GetParameterListFlag(EnumSelf.ParameterType.WeaknessUp) == true) {
-						val = val - (val * 40 / 100);
-					} else {
-						val = val - (val * 25 / 100);
-					}
-				}
-				
-				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
-					val = val + (val * 50 / 100);
-				}
+				//if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
+				//	if (player.GetParameterListFlag(EnumSelf.ParameterType.WeaknessUp) == true) {
+				//		val = val - (val * 40 / 100);
+				//	} else {
+				//		val = val - (val * 25 / 100);
+				//	}
+				//}
+				//
+				//if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
+				//	val = val + (val * 50 / 100);
+				//}
 			} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
-				int toughness = enemy.GetPower().GetValue(EnumSelf.PowerType.Toughness);
-				val += toughness;
-				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
-					val = val - (val * 25 / 100);
-				}
+				val = BattleCalculationFunction.CalcEnemyShieldValue(list[index]);
 			}
 
 			GameObject obj = MapDataCarrier.Instance.EnemyValueObjects[index];
