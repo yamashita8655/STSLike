@@ -12,12 +12,20 @@ public class MapBattleWinState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
-		//if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleAttackResult) {
-		//	
-		//} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleAttackResult) {
-		//	
-		//}
-
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.FirstAidKit) == true) {
+			if (player.GetNowHp() <= (player.GetMaxHp()/2)) {
+				player.AddNowHp(12);
+				scene.UpdateParameterText();
+			}
+		}
+		
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.SeekersAmulet) == true) {
+			player.AddMaxHp(1);
+			player.AddNowHp(1);
+			scene.UpdateParameterText();
+		}
+		
 		return true;
 	}
 

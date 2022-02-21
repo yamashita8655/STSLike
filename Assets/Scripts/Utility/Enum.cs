@@ -163,6 +163,7 @@ public partial class EnumSelf : MonoBehaviour {
 		UseCurseShield,
 		FirstAidKit,
 		GodBless,
+		SeekersAmulet,
 		Award,
 		Max,
 	}

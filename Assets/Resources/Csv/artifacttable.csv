@@ -36,5 +36,6 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1024,1024,NORMAL,1,清めた十字架,呪い使用時、シールドを4得る,Image/UI/Artifact/usecurseshield,AddParameter,0,UseCurseShield
 1025,1025,NORMAL,2,救急キット,戦闘終了時、HPが半分以下なら、HP12回復,Image/UI/Artifact/firstaidkit,AddParameter,0,FirstAidKit
 1026,1026,NORMAL,4,神の加護,全てのHP減少時、減少値-1,Image/UI/Artifact/godbless,AddParameter,0,GodBless
+1027,1027,NORMAL,5,探求者のお守り,戦闘終了時、最大HP+1,Image/UI/Artifact/seekersamulet,AddParameter,0,SeekersAmulet
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award

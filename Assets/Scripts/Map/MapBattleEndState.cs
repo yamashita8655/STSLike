@@ -25,13 +25,6 @@ public class MapBattleEndState : StateBase {
 			}
 		}
 		
-		if (player.GetParameterListFlag(EnumSelf.ParameterType.FirstAidKit) == true) {
-			if (player.GetNowHp() <= (player.GetMaxHp()/2)) {
-				player.AddNowHp(12);
-				scene.UpdateParameterText();
-			}
-		}
-		
 		return true;
 	}
 

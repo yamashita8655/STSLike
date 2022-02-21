@@ -186,6 +186,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.FirstAidKit;
 		} else if (typeString == "GodBless") {
 			type = EnumSelf.ParameterType.GodBless;
+		} else if (typeString == "SeekersAmulet") {
+			type = EnumSelf.ParameterType.SeekersAmulet;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}
