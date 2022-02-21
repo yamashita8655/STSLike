@@ -156,6 +156,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.ApprenticeKnight;
 		} else if (typeString == "KnightMaster") {
 			type = EnumSelf.ParameterType.KnightMaster;
+		} else if (typeString == "AddVersak") {
+			type = EnumSelf.ParameterType.AddVersak;
 		} else if (typeString == "AddMaxHp1") {
 			type = EnumSelf.ParameterType.AddMaxHp1;
 		} else if (typeString == "AddMaxHp2") {

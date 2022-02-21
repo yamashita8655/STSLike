@@ -138,6 +138,14 @@ public class BattleCalculationFunction {
 			}
 		}
 		
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.AddVersak) == true) {
+			if (IsOnlyDamageAll() == true) {
+				player.AddTurnPower(EnumSelf.TurnPowerType.Versak, 1);
+				int turn = player.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak);
+				MapDataCarrier.Instance.TurnPowerObjects[(int)EnumSelf.TurnPowerType.Versak].GetComponent<TurnPowerController>().SetTurn(turn);
+			}
+		}
+
 		// 再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
 		if (val > 0) {
@@ -181,7 +189,6 @@ public class BattleCalculationFunction {
 			if (
 				(i == (int)EnumSelf.TurnPowerType.Patient) || 
 				(i == (int)EnumSelf.TurnPowerType.Thorn) || 
-				(i == (int)EnumSelf.TurnPowerType.Versak) || 
 				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
 				(i == (int)EnumSelf.TurnPowerType.ShieldPreserve) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
@@ -265,7 +272,6 @@ public class BattleCalculationFunction {
 			if (
 				(i == (int)EnumSelf.TurnPowerType.Patient) ||
 				(i == (int)EnumSelf.TurnPowerType.Thorn) ||
-				(i == (int)EnumSelf.TurnPowerType.Versak) ||
 				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
 				(i == (int)EnumSelf.TurnPowerType.ShieldPreserve) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
@@ -1167,6 +1173,7 @@ public class BattleCalculationFunction {
 
 		bool findOpponentDamage = false;
 		bool findSelfShield = false;
+		bool findOther = false;
 
 		for (int i = 0; i < list.Count; i++) {
 			ActionPack pack = list[i];
@@ -1178,11 +1185,18 @@ public class BattleCalculationFunction {
 				if (pack.Target == EnumSelf.TargetType.Self) {
 					findSelfShield = true;
 				}
+			} else {
+				findOther = true;
+				break;
 			}
 		}
 
 		if ((findOpponentDamage == true) && (findSelfShield == true)) {
 			res = true;
+		}
+
+		if (findOther == true) {
+			res = false;
 		}
 
 		return res;
@@ -1197,6 +1211,55 @@ public class BattleCalculationFunction {
 
 		for (int i = 0; i < cloneList.Count; i++) {
 			bool check = IsOnlyDamageAndShield(cloneList[i]);
+			if (check == false) {
+				res = false;
+				break;
+			}
+		}
+
+		return res;
+	}
+	
+	static public bool IsOnlyDamage(MasterAction2Table.Data data) {
+		bool res = false;
+
+		var list = data.ActionPackList;
+
+		bool findOpponentDamage = false;
+		bool findOther = false;
+
+		for (int i = 0; i < list.Count; i++) {
+			ActionPack pack = list[i];
+			if (pack.Effect == EnumSelf.EffectType.Damage) {
+				if (pack.Target == EnumSelf.TargetType.Opponent) {
+					findOpponentDamage = true;
+				}
+			} else {
+				findOther = true;
+				break;
+			}
+		}
+
+		if (findOpponentDamage == true) {
+			res = true;
+		}
+		
+		if (findOther == true) {
+			res = false;
+		}
+
+		return res;
+	}
+	
+	static public bool IsOnlyDamageAll() {
+		bool res = true;
+		
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+
+		var cloneList = player.GetBackUpActionDataCloseList();
+
+		for (int i = 0; i < cloneList.Count; i++) {
+			bool check = IsOnlyDamage(cloneList[i]);
 			if (check == false) {
 				res = false;
 				break;
