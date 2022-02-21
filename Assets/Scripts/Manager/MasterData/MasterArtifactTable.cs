@@ -170,6 +170,10 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.Minimalist;
 		} else if (typeString == "SupportFire") {
 			type = EnumSelf.ParameterType.SupportFire;
+		} else if (typeString == "AntiWeakness") {
+			type = EnumSelf.ParameterType.AntiWeakness;
+		} else if (typeString == "AntiShieldWeakness") {
+			type = EnumSelf.ParameterType.AntiShieldWeakness;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}

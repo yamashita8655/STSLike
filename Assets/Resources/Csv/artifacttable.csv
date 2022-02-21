@@ -16,7 +16,7 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1004,1004,NORMAL,2,寝袋,休憩所での回復量+8,Image/UI/Artifact/sleepingbag,AddParameter,0,RestUp1
 1005,1005,SPECIAL,3,テント,休憩所での回復量+15,Image/UI/Artifact/tent,AddParameter,0,RestUp2
 1006,1006,SPECIAL,4,コテージ,休憩所での回復量+21,Image/UI/Artifact/cottage,AddParameter,0,RestUp3
-1007,1007,NORMAL,2,清めたお札,戦闘終了後に、呪いを全て取り除く,Image/UI/Artifact/anticurse,AddParameter,0,AntiCurse
+1007,1007,NORMAL,3,清めたお札,戦闘終了後に、呪いを全て取り除く,Image/UI/Artifact/anticurse,AddParameter,0,AntiCurse
 1008,1008,NORMAL,4,見習い騎士の証,ダメージとシールドの組み合わせの効果しか持たないカードの効果量が、それぞれ+3。どちらか一つしか効果がないカードには無効。,Image/UI/Artifact/ring,AddParameter,0,ApprenticeKnight
 1009,1008,SPECIAL,5,騎士の宣誓,全てのサイコロにセットされたカードが、ダメージとシールドの組み合わせの効果しか持たないカードの場合、ダメージとシールドの組み合わせの効果しか持たないカードの効果量が、それぞれ倍になる。どちらか一つしか効果がないカードには無効。,Image/UI/Artifact/ring,AddParameter,0,ApprenticeKnight
 1010,4,SPECIAL,5,狂戦士の咆哮,全てのサイコロにセットされたカードが、ダメージの効果しか持たないカードの場合、ターン開始時、狂戦士を1得る。,Image/UI/Artifact/ring,AddParameter,0,AddVersak
@@ -28,5 +28,7 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1016,1016,NORMAL,4,虚弱の刻印,被ダメ上昇の効果が、50％→75％に増加する,Image/UI/Artifact/vulnerableup,AddParameter,0,VulnerableUp
 1017,1017,NORMAL,2,ミニマリスト入門書,戦闘終了後の報酬をスキップする度、最大HP+1,Image/UI/Artifact/minimalist,AddParameter,0,Minimalist
 1018,1018,NORMAL,3,火力支援要請通信機,ターン開始時、相手に3ダメージを与える,Image/UI/Artifact/supportfire,AddParameter,0,SupportFire
+1019,1019,NORMAL,4,アームガード,与ダメ減少状態を防ぐ,Image/UI/Artifact/antiweakness,AddParameter,0,AntiWeakness
+1020,1020,NORMAL,4,シールドメッキ,シールド低下状態を防ぐ,Image/UI/Artifact/antishieldweakness,AddParameter,0,AntiShieldWeakness
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award
