@@ -150,6 +150,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Vulnerable;
 		} else if (typeString == "ShieldWeakness") {
 			type = EnumSelf.EffectType.ShieldWeakness;
+		} else if (typeString == "TurnRegenerate") {
+			type = EnumSelf.EffectType.TurnRegenerate;
 		} else if (typeString == "Patient") {
 			type = EnumSelf.EffectType.Patient;
 		} else if (typeString == "AutoShield") {

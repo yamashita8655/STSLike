@@ -45,6 +45,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Versak) ||
 			(pack.Effect == EnumSelf.EffectType.DiceMinusOne) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldWeakness) ||
+			(pack.Effect == EnumSelf.EffectType.TurnRegenerate) ||
 			(pack.Effect == EnumSelf.EffectType.ReactiveShield) ||
 			(pack.Effect == EnumSelf.EffectType.SubStrength) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldPreserve) ||
@@ -93,6 +94,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DiceMinusOne) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldWeakness) ||
+			(pack.Effect == EnumSelf.EffectType.TurnRegenerate) ||
 			(pack.Effect == EnumSelf.EffectType.Vulnerable) ||
 			(pack.Effect == EnumSelf.EffectType.Patient) ||
 			(pack.Effect == EnumSelf.EffectType.AutoShield) ||
@@ -117,6 +119,12 @@ public class BattleCalculationFunction {
 				PlayerUpdatePower(EnumSelf.PowerType.Strength);
 				player.AddPower(EnumSelf.PowerType.Toughness, 3);
 				PlayerUpdatePower(EnumSelf.PowerType.Toughness);
+			}
+		}
+		
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.HeroShield) == true) {
+			if (player.GetNowHp() <= 20) {
+				PlayerUpdateTurnPower(EnumSelf.TurnPowerType.TurnRegenerate, 10);
 			}
 		}
 	}
@@ -160,11 +168,26 @@ public class BattleCalculationFunction {
 			}
 		}
 		
-		// 再生
+		// 超再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
 		if (val > 0) {
 			bool isReverse = false;
 			if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
+				isReverse = true;
+			}
+
+			if (isReverse == true) {
+				PlayerUpdateHp(-val);
+			} else {
+				PlayerUpdateHp(val);
+			}
+		}
+
+		// 再生
+		val = player.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnRegenerate);
+		if (val > 0) {
+			bool isReverse = false;
+			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
 				isReverse = true;
 			}
 
@@ -243,11 +266,26 @@ public class BattleCalculationFunction {
 			enemy.SetNowShield(0);
 		}
 
-		// 再生
+		// 超再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
 		if (val > 0) {
 			bool isReverse = false;
-			if (MapDataCarrier.Instance.CuEnemyStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
+			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
+				isReverse = true;
+			}
+
+			if (isReverse == true) {
+				EnemyUpdateHp(-val);
+			} else {
+				EnemyUpdateHp(val);
+			}
+		}
+		
+		// 再生
+		val = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnRegenerate);
+		if (val > 0) {
+			bool isReverse = false;
+			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReverseHeal) > 0) {
 				isReverse = true;
 			}
 
@@ -1037,6 +1075,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.Weakness;
 		} else if (type == EnumSelf.EffectType.ShieldWeakness) {
 			pType = EnumSelf.TurnPowerType.ShieldWeakness;
+		} else if (type == EnumSelf.EffectType.TurnRegenerate) {
+			pType = EnumSelf.TurnPowerType.TurnRegenerate;
 		} else if (type == EnumSelf.EffectType.Vulnerable) {
 			pType = EnumSelf.TurnPowerType.Vulnerable;
 		} else if (type == EnumSelf.EffectType.Patient) {

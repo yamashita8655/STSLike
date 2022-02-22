@@ -39,6 +39,7 @@ public partial class EnumSelf : MonoBehaviour {
         Weakness,
         Vulnerable,
         ShieldWeakness,
+        TurnRegenerate,
         Patient,
         AutoShield,
         Thorn,
@@ -109,6 +110,7 @@ public partial class EnumSelf : MonoBehaviour {
 		ShieldWeakness,
         Vulnerable,
 		ShieldPreserve,
+		TurnRegenerate,
 
 		// ターン経過時に変動しない物(他の条件で減少する物、もしくはしない物)
 		Patient,
@@ -175,6 +177,7 @@ public partial class EnumSelf : MonoBehaviour {
 		DummyPower,
 		AssassinRod,
 		HeroSword,
+		HeroShield,
 		Award,
 		Max,
 	}

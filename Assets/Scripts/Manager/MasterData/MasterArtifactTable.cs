@@ -202,6 +202,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.AssassinRod;
 		} else if (typeString == "HeroSword") {
 			type = EnumSelf.ParameterType.HeroSword;
+		} else if (typeString == "HeroShield") {
+			type = EnumSelf.ParameterType.HeroShield;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}
