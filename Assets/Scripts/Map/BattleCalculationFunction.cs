@@ -418,6 +418,11 @@ public class BattleCalculationFunction {
 			enemy.AddNowShield(-damage);
 			overDamage = shield - damage;
 			if (overDamage < 0) {
+				if (player.GetParameterListFlag(EnumSelf.ParameterType.AssassinRod) == true) {
+					if (overDamage >= -4) {
+						overDamage = -4;
+					}
+				}
 				EnemyUpdateHp(overDamage);
 				if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
 					PlayerUpdateHp(-overDamage);
