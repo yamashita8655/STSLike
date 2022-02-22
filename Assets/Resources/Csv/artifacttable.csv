@@ -42,5 +42,6 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1028,1028,NORMAL,3,モモンガの尻尾,獲得時、難易度カードが全て5に変更される。,Image/UI/Artifact/momonga,AddParameter,0,Momonga
 1029,1028,SPECIAL,3,モモンガの尻尾,獲得時、難易度カードが全て5に変更される。,Image/UI/Artifact/momonga,AddParameter,0,UsedMomonga
 1030,1030,NORMAL,2,仕込み杖,攻撃の4以下のダメージが、4になる,Image/UI/Artifact/assassinrod,AddParameter,0,AssassinRod
+1031,1031,NORMAL,5,勇者の剣,戦闘開始時HPが最大だった場合、力、守を3得る。,Image/UI/Artifact/herosword,AddParameter,0,HeroSword
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award

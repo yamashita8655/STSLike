@@ -11,6 +11,9 @@ public class MapBattlePlayerInitiativeState : StateBase {
     override public bool OnBeforeMain()
     {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
+
+		BattleCalculationFunction.PlayerInitiativeValueChange();
+
 		MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetInitiativeFirstActionData();
 		MapDataCarrier.Instance.InitiativeActionPackCount = 0;
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;

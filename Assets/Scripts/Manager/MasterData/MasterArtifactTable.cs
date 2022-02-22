@@ -200,6 +200,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.DummyPower;
 		} else if (typeString == "AssassinRod") {
 			type = EnumSelf.ParameterType.AssassinRod;
+		} else if (typeString == "HeroSword") {
+			type = EnumSelf.ParameterType.HeroSword;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}

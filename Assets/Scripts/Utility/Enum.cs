@@ -174,6 +174,7 @@ public partial class EnumSelf : MonoBehaviour {
 		UsedMomonga,
 		DummyPower,
 		AssassinRod,
+		HeroSword,
 		Award,
 		Max,
 	}

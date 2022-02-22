@@ -109,6 +109,18 @@ public class BattleCalculationFunction {
 		}
 	}
 	
+	public static void PlayerInitiativeValueChange() {
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.HeroSword) == true) {
+			if (player.GetNowHp() == player.GetMaxHp()) {
+				player.AddPower(EnumSelf.PowerType.Strength, 3);
+				PlayerUpdatePower(EnumSelf.PowerType.Strength);
+				player.AddPower(EnumSelf.PowerType.Toughness, 3);
+				PlayerUpdatePower(EnumSelf.PowerType.Toughness);
+			}
+		}
+	}
+	
 	public static void PlayerTurnStartValueChange() {
 		// 再生などのバフをチェック
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
@@ -144,12 +156,10 @@ public class BattleCalculationFunction {
 		
 		if (player.GetParameterListFlag(EnumSelf.ParameterType.AddVersak) == true) {
 			if (IsOnlyDamageAll() == true) {
-				player.AddTurnPower(EnumSelf.TurnPowerType.Versak, 1);
-				int turn = player.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak);
-				MapDataCarrier.Instance.TurnPowerObjects[(int)EnumSelf.TurnPowerType.Versak].GetComponent<TurnPowerController>().SetTurn(turn);
+				PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Versak, 1);
 			}
 		}
-
+		
 		// 再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
 		if (val > 0) {
