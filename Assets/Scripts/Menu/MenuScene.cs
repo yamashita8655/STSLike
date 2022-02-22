@@ -89,6 +89,19 @@ public partial class MenuScene : SceneBase
 	[SerializeField]
 	private GameObject SFRegularCardSettingRoot = null;
 	public GameObject RegularCardSettingRoot => SFRegularCardSettingRoot;
+	
+	[SerializeField]
+	private Text SFCarryPointText = null;
+	public Text CarryPointText => SFCarryPointText;
+	
+	[SerializeField]
+	private Text SFNowRegularCostText = null;
+	public Text NowRegularCostText => SFNowRegularCostText;
+	
+	[SerializeField]
+	private Text SFMaxRegularCostText = null;
+	public Text MaxRegularCostText => SFMaxRegularCostText;
+	
 	// ↑↑レギュラーカードメニュー↑↑
 
 	// Start is called before the first frame update
@@ -170,7 +183,7 @@ public partial class MenuScene : SceneBase
 		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
 			return;
 		}
-		RegularCardSettingRoot.SetActive(true);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingInitialize);
 	}
 	// ↑↑メニュー機能↑↑
 
@@ -302,10 +315,10 @@ public partial class MenuScene : SceneBase
 	public void OnClickRegularCardSettingCloseButton() {
         var stm = StateMachineManager.Instance;
 		// ユーザー入力待機状態でなければ、処理しない
-		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
 			return;
 		}
-		RegularCardSettingRoot.SetActive(false);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingEnd);
 	}
 	// ↑↑レギュラーカード↑↑
 }

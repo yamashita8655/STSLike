@@ -11,6 +11,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		SeVolume,
 		SeMute,
 		Point,
+		MaxRegularCost,
 		Max,
 		None
 	};
@@ -22,6 +23,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"SeVolume",
 		"SeMute",
 		"Point",
+		"MaxRegularCost",
 	};
 	
 	public void Initialize() {
@@ -45,6 +47,8 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 					saveString = "False";
 				} else if (i == (int)SaveType.Point) {
 					saveString = "0";
+				} else if (i == (int)SaveType.MaxRegularCost) {
+					saveString = "30";
 				}
 				PlayerPrefs.SetString(key, saveString);
 			}
@@ -103,6 +107,19 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	{
 		string saveString = val.ToString();
 		SaveParameter(SaveType.Point, saveString);
+	}
+	
+	public int GetMaxRegularCost()
+	{
+		string saveString = GetParameter(SaveType.MaxRegularCost);
+		int cost = int.Parse(saveString);
+		return cost;
+	}
+	
+	public void SaveGetMaxRegularCost(int val)
+	{
+		string saveString = val.ToString();
+		SaveParameter(SaveType.MaxRegularCost, saveString);
 	}
 }
 

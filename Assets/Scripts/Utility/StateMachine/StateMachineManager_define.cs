@@ -83,6 +83,9 @@ public enum MenuState : int
 {
 	Initialize = 0,
 	UserWait,
+	RegularCardSettingInitialize,
+	RegularCardSettingUserWait,
+	RegularCardSettingEnd,
 	End,
 }
 
