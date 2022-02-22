@@ -20,6 +20,7 @@ public class MenuInitializeState : StateBase {
 		scene.DungeonRoot.SetActive(false);
 		scene.CardUnlockRoot.SetActive(false);
 		scene.ArtifactUnlockRoot.SetActive(false);
+		scene.RegularCardSettingRoot.SetActive(false);
 
 		// BGMに関する設定
 		scene.MBgmSlider.value = PlayerPrefsManager.Instance.GetBgmVolume();
