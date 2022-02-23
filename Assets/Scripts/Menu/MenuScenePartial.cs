@@ -17,6 +17,7 @@ public partial class MenuScene : SceneBase
 		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularCardSettingInitialize, new MenuRegularCardSettingInitializeState());
 		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularCardSettingUserWait, new MenuRegularCardSettingUserWaitState());
 		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularCardSettingEnd, new MenuRegularCardSettingEndState());
+		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularCardSettingMaxCostUp, new MenuRegularCardSettingMaxCostUpState());
 		stm.AddState(StateMachineName.Menu, (int)MenuState.End, new MenuEndState());
 
 	}

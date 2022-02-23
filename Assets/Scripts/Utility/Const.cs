@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public partial class Const {
+	public static readonly int BaseRegularCardMaxCost = 30;
+	public static readonly int MaxPoint = 99999999;
+
 	public static readonly string RarityFrameImagePath = "Image/UI/Card/cardframe{0}";
 	public static readonly string AttackButtonImagePath = "Image/UI/Map/attackbuttonframe{0}";
 	public static readonly string ArtifactButtonPath = "Prefab/UI/ArtifactButtonItem";

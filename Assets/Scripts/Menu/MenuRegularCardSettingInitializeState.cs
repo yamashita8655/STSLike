@@ -13,13 +13,10 @@ public class MenuRegularCardSettingInitializeState : StateBase {
 		var scene = MenuDataCarrier.Instance.Scene as MenuScene;
 		scene.RegularCardSettingRoot.SetActive(true);
 
-		scene.CarryPointText.text = PlayerPrefsManager.Instance.GetPoint().ToString();
 
 		// TODO ここは、セットしているカードから計算する
 		scene.NowRegularCostText.text = "0";
 		
-		scene.MaxRegularCostText.text = PlayerPrefsManager.Instance.GetMaxRegularCost().ToString();
-
 		if (MenuDataCarrier.Instance.RegularSettingCardObjects.Count == 0) {
 			CasheObject();
 		} else {
@@ -28,6 +25,9 @@ public class MenuRegularCardSettingInitializeState : StateBase {
 			}
 			EndState();
 		}
+		
+		scene.UpdateMaxCostUpDisplay();
+
 		return false;
     }
 

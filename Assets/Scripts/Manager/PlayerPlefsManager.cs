@@ -11,9 +11,9 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		SeVolume,
 		SeMute,
 		Point,
-		MaxRegularCost,
 		FindCardIds,
 		UnlockCardIds,
+		UsedRegularCostPoint,
 		Max,
 		None
 	};
@@ -25,9 +25,9 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"SeVolume",
 		"SeMute",
 		"Point",
-		"MaxRegularCost",
 		"FindCardIds",
 		"UnlockCardIds",
+		"UsedRegularCostPoint",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -55,8 +55,8 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 					saveString = "False";
 				} else if (i == (int)SaveType.Point) {
 					saveString = "0";
-				} else if (i == (int)SaveType.MaxRegularCost) {
-					saveString = "30";
+				} else if (i == (int)SaveType.UsedRegularCostPoint) {
+					saveString = "0";
 				}
 				PlayerPrefs.SetString(key, saveString);
 			}
@@ -111,25 +111,24 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		return point;
 	}
 	
+	public void AddPoint(int addValue)
+	{
+		string saveString = GetParameter(SaveType.Point);
+		int val = int.Parse(saveString) + addValue;
+		if (val >= Const.MaxPoint) {
+			val = Const.MaxPoint;
+		} else if (val <= 0) {
+			val = 0;
+		}
+		SavePoint(val);
+	}
+	
 	public void SavePoint(int val)
 	{
 		string saveString = val.ToString();
 		SaveParameter(SaveType.Point, saveString);
 	}
 	
-	public int GetMaxRegularCost()
-	{
-		string saveString = GetParameter(SaveType.MaxRegularCost);
-		int cost = int.Parse(saveString);
-		return cost;
-	}
-	
-	public void SaveGetMaxRegularCost(int val)
-	{
-		string saveString = val.ToString();
-		SaveParameter(SaveType.MaxRegularCost, saveString);
-	}
-
 	public void InitializeCardStatusList() {
 		string saveString = GetParameter(SaveType.FindCardIds);
 		Debug.Log(saveString);
@@ -216,5 +215,24 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 
 		return res;
 	}
+	
+	public int GetUsedRegularCostPoint()
+	{
+		string saveString = GetParameter(SaveType.UsedRegularCostPoint);
+		int point = int.Parse(saveString);
+		return point;
+	}
+	
+	public void AddUsedRegularCostPoint(int addValue)
+	{
+		string saveString = GetParameter(SaveType.UsedRegularCostPoint);
+		int val = int.Parse(saveString) + addValue;
+		SaveUsedRegularCostPoint(val);
+	}
+	
+	public void SaveUsedRegularCostPoint(int val)
+	{
+		string saveString = val.ToString();
+		SaveParameter(SaveType.UsedRegularCostPoint, saveString);
+	}
 }
-

@@ -13,6 +13,9 @@ public class DebugController : MonoBehaviour
 	
 	[SerializeField]
 	private Dropdown FindCardDropDown = null;
+	
+	[SerializeField]
+	private InputField AddPointInputField = null;
 
 	private int LogIndex = 1;
 
@@ -77,7 +80,12 @@ public class DebugController : MonoBehaviour
 	public void OnClickCardFindIdButton()
 	{
 		int id = int.Parse(FindCardDropDown.options[FindCardDropDown.value].text);
-		Debug.Log(id);
 		PlayerPrefsManager.Instance.SaveFindCardId(id);
+	}
+	
+	public void OnClickAddPointButton()
+	{
+		int point = int.Parse(AddPointInputField.text);
+		PlayerPrefsManager.Instance.AddPoint(point);
 	}
 }

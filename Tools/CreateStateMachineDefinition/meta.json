@@ -17,6 +17,7 @@
 		"RegularCardSettingInitialize",
 		"RegularCardSettingUserWait",
 		"RegularCardSettingEnd",
+		"RegularCardSettingMaxCostUp",
 		"End"
 	],
 	

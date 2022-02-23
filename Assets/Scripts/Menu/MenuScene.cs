@@ -106,6 +106,14 @@ public partial class MenuScene : SceneBase
 	private GameObject SFCardContentRoot = null;
 	public GameObject CardContentRoot => SFCardContentRoot;
 	
+	[SerializeField]
+	private Text SFMaxCostUpNeedPointText = null;
+	public Text MaxCostUpNeedPointText => SFMaxCostUpNeedPointText;
+	
+	[SerializeField]
+	private Button SFMaxCostUpButton = null;
+	public Button MaxCostUpButton => SFMaxCostUpButton;
+	
 	// ↑↑レギュラーカードメニュー↑↑
 
 	// Start is called before the first frame update
@@ -323,6 +331,42 @@ public partial class MenuScene : SceneBase
 			return;
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingEnd);
+	}
+	
+	public void OnClickMaxCostUpButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingMaxCostUp);
+	}
+
+	public void UpdateMaxCostUpDisplay() {
+		int carryPoint = PlayerPrefsManager.Instance.GetPoint();
+		CarryPointText.text = carryPoint.ToString();
+
+		int usedPoint = PlayerPrefsManager.Instance.GetUsedRegularCostPoint();
+		Debug.Log("usedPoint:" + usedPoint.ToString());
+		int level = MasterRegularCardMaxCostTable.Instance.GetNowLevel(usedPoint);
+		
+		int maxCost = Const.BaseRegularCardMaxCost + level;
+		MaxRegularCostText.text = maxCost.ToString();
+
+		if (MasterRegularCardMaxCostTable.Instance.IsMaxLevel(level) == true) {
+			MaxCostUpButton.interactable = false;
+			MaxCostUpNeedPointText.text = "-";
+		} else {
+			int nextNeedPoint = MasterRegularCardMaxCostTable.Instance.GetNextLevelNeedPoint(usedPoint);
+			MaxCostUpButton.interactable = true;
+			MaxCostUpNeedPointText.text = nextNeedPoint.ToString();
+
+			if (carryPoint >= nextNeedPoint) {
+				MaxCostUpButton.interactable = true;
+			} else {
+				MaxCostUpButton.interactable = false;
+			}
+		}
 	}
 	// ↑↑レギュラーカード↑↑
 }
