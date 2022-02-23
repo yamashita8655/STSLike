@@ -132,6 +132,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 
 	public void InitializeCardStatusList() {
 		string saveString = GetParameter(SaveType.FindCardIds);
+		Debug.Log(saveString);
 		if (string.IsNullOrEmpty(saveString) == false) {
 			char[] split = {'-'};
 			List<string> lineList = Functions.SplitString(saveString, split);
@@ -143,6 +144,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		}
 		
 		saveString = GetParameter(SaveType.UnlockCardIds);
+		Debug.Log(saveString);
 		if (string.IsNullOrEmpty(saveString) == false) {
 			char[] split = {'-'};
 			List<string> lineList = Functions.SplitString(saveString, split);
@@ -154,7 +156,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	}
 	
 	public void SaveFindCardId(int id) {
-		string saveString = "";
+		string saveString = GetParameter(SaveType.FindCardIds);
 
 		if (FindCardIds.Count == 0) {
 			saveString = id.ToString();
@@ -165,7 +167,6 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 			} else {
 				saveString += "-" + id.ToString();
 			}
-			saveString += "-" + id.ToString();
 		}
 
 		FindCardIds.Add(id);
@@ -186,7 +187,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	}
 	
 	public void SaveUnclookCardId(int id) {
-		string saveString = "";
+		string saveString = GetParameter(SaveType.UnlockCardIds);
 
 		if (UnlockCardIds.Count == 0) {
 			saveString = id.ToString();

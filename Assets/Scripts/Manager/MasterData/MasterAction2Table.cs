@@ -8,14 +8,15 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 		public int Id { get; private set; }
 		public int Rarity { get; private set; }
 		public string Name { get; private set; }
+		public int Cost { get; private set; }
 		public string Detail { get; private set; }
 		public string ImagePath { get; private set; }
 		public List<ActionPack> ActionPackList { get; private set; }
-
         public Data(
 			int id,
 			int rarity,
 			string name,
+			int cost,
 			string detail,
 			string imagePath,
 			List<ActionPack> actionPackList
@@ -24,6 +25,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			Id				= id;
 			Rarity			= rarity;
 			Name			= name;
+			Cost			= cost;
 			Detail			= detail;
 			ImagePath		= imagePath;
 			ActionPackList	= actionPackList;
@@ -87,6 +89,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 				int.Parse(paramList[0]),
 				int.Parse(paramList[1]),
 				paramList[2],
+				int.Parse(paramList[3]),
 				paramList[4],
 				paramList[5],
 				list

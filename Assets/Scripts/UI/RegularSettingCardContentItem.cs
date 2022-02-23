@@ -24,6 +24,9 @@ public class RegularSettingCardContentItem : MonoBehaviour
 	[SerializeField]
 	private Button RootButton = null;
 	
+	[SerializeField]
+	private Text CostText = null;
+	
 	private Action<MasterAction2Table.Data> Callback = null;
 
 	private MasterAction2Table.Data Data = null;
@@ -55,6 +58,7 @@ public class RegularSettingCardContentItem : MonoBehaviour
 			);
 			CardName.text = "?";
 			CardDetail.text = "未発見のカード";
+			CostText.text = "";
 			LockImage.gameObject.SetActive(false);
 			RootButton.interactable = false;
 		} else {
@@ -68,6 +72,7 @@ public class RegularSettingCardContentItem : MonoBehaviour
 				}
 			);
 			CardName.text = Data.Name;
+			CostText.text = Data.Cost.ToString();
 
 			System.Object[] arguments = new System.Object[Data.ActionPackList.Count];
 			for (int i = 0; i < Data.ActionPackList.Count; i++) {
