@@ -23,6 +23,9 @@ public class MenuRegularCardSettingInitializeState : StateBase {
 		if (MenuDataCarrier.Instance.RegularSettingCardObjects.Count == 0) {
 			CasheObject();
 		} else {
+			for (int i = 0; i < MenuDataCarrier.Instance.RegularSettingCardObjects.Count; i++) {
+				MenuDataCarrier.Instance.RegularSettingCardObjects[i].GetComponent<RegularSettingCardContentItem>().UpdateDisplay();
+			}
 			EndState();
 		}
 		return false;

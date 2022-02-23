@@ -40,11 +40,11 @@ public class EntryPoint : MonoBehaviour {
 		yield return null;
 		//SerializeFieldResourceManager.Instance.Initialize();
 
-        yield return null;
+		yield return null;
 
-        yield return SoundManager.Instance.CoInitialize();
+		yield return SoundManager.Instance.CoInitialize();
 
-        LocalSceneManager.Instance.Initialize();
+		LocalSceneManager.Instance.Initialize();
 		yield return null;
 
 		NetworkManager.Instance.Initialize();
@@ -52,7 +52,6 @@ public class EntryPoint : MonoBehaviour {
 		PlayerPrefsManager.Instance.Initialize();
 		FadeManager.Instance.Initialize();
 		SystemDialogManager.Instance.Initialize();
-		DebugManager.Instance.Initialize();
 
 		// マスターデータ読み込み
 		MasterTextTable.Instance.Initialize();
@@ -67,6 +66,9 @@ public class EntryPoint : MonoBehaviour {
 		MasterCardLotTable.Instance.Initialize();
 		MasterArtifactLotTable.Instance.Initialize();
 		MasterStringTable.Instance.Initialize();
+
+		// マスターデータ読み込んでないと出来ない初期化があるので、これはマスターデータ読み終わった後に対応
+		DebugManager.Instance.Initialize();
 
 		// 色々
 		LocalServerManager.Instance.Initialize();
@@ -91,22 +93,22 @@ public class EntryPoint : MonoBehaviour {
 		// TODO Bootで行う処理が無くなったので、破棄してみる
 		SceneManager.UnloadSceneAsync("Boot");
 
-        EntryPoint.IsInitialized = true;
+		EntryPoint.IsInitialized = true;
 	}
 
 	private void HandleLog(string condition, string stackTrace, LogType type)
 	{
-        // 全てのログやExeptionを検知しているときりがないので、
-        // Exeptionのみを検知するようにし、一度検知したら、それ以後は正常に動かない物として、検知をやめる
-        if (type == LogType.Exception) {
-            if (EntryPoint.IsInitialized == true) {
-                DebugManager.Instance.UpdateDebugLog(condition);
-                DebugManager.Instance.UpdateDebugLog(stackTrace);
-                DebugManager.Instance.UpdateDebugLog(type.ToString());
-                Application.logMessageReceived -= HandleLog;
-            }
-        }
-    }
+		// 全てのログやExeptionを検知しているときりがないので、
+		// Exeptionのみを検知するようにし、一度検知したら、それ以後は正常に動かない物として、検知をやめる
+		if (type == LogType.Exception) {
+			if (EntryPoint.IsInitialized == true) {
+				DebugManager.Instance.UpdateDebugLog(condition);
+				DebugManager.Instance.UpdateDebugLog(stackTrace);
+				DebugManager.Instance.UpdateDebugLog(type.ToString());
+				Application.logMessageReceived -= HandleLog;
+			}
+		}
+	}
 
 	//// Use this for initialization
 	//void Awake () {

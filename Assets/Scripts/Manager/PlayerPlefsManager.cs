@@ -35,6 +35,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	
 	public void Initialize() {
 		CreateFirstData();
+		InitializeCardStatusList();
 	}
 
 	// 初回のセーブデータ作成
@@ -136,6 +137,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 			List<string> lineList = Functions.SplitString(saveString, split);
 
 			for (int i = 0; i < lineList.Count; i++) {
+				Debug.Log(lineList[i]);
 				FindCardIds.Add(int.Parse(lineList[i]));
 			}
 		}
@@ -157,8 +159,16 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		if (FindCardIds.Count == 0) {
 			saveString = id.ToString();
 		} else {
+			if (FindCardIds.Contains(id) == true) {
+				LogManager.Instance.LogWarning("PlayerPrefsManager:SaveFindCardId already find:" + id);
+				return;
+			} else {
+				saveString += "-" + id.ToString();
+			}
 			saveString += "-" + id.ToString();
 		}
+
+		FindCardIds.Add(id);
 		
 		SaveParameter(SaveType.FindCardIds, saveString);
 	}
@@ -181,8 +191,15 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		if (UnlockCardIds.Count == 0) {
 			saveString = id.ToString();
 		} else {
-			saveString += "-" + id.ToString();
+			if (UnlockCardIds.Contains(id) == true) {
+				LogManager.Instance.LogWarning("PlayerPrefsManager:SaveUnclookCardId already unlock:" + id);
+				return;
+			} else {
+				saveString += "-" + id.ToString();
+			}
 		}
+		
+		UnlockCardIds.Add(id);
 		
 		SaveParameter(SaveType.UnlockCardIds, saveString);
 	}

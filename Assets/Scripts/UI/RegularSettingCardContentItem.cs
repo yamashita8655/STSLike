@@ -30,7 +30,6 @@ public class RegularSettingCardContentItem : MonoBehaviour
 
 	public void Initialize(MasterAction2Table.Data data, Action<MasterAction2Table.Data> callback) {
 		Data = data;
-
 		ResourceManager.Instance.RequestExecuteOrder(
 			string.Format(Const.RarityFrameImagePath, data.Rarity.ToString()),
 			ExecuteOrder.Type.Sprite,
@@ -39,8 +38,13 @@ public class RegularSettingCardContentItem : MonoBehaviour
 				RarityFrameImage.sprite = rawSprite as Sprite;
 			}
 		);
-		
-		if (PlayerPrefsManager.Instance.IsFindCard(data.Id) == false) {
+		Callback = callback;
+
+		UpdateDisplay();
+	}
+
+	public void UpdateDisplay() {
+		if (PlayerPrefsManager.Instance.IsFindCard(Data.Id) == false) {
 			ResourceManager.Instance.RequestExecuteOrder(
 				Const.NotFoundImagePath,
 				ExecuteOrder.Type.Sprite,
@@ -56,23 +60,23 @@ public class RegularSettingCardContentItem : MonoBehaviour
 		} else {
 
 			ResourceManager.Instance.RequestExecuteOrder(
-				data.ImagePath,
+				Data.ImagePath,
 				ExecuteOrder.Type.Sprite,
 				this.gameObject,
 				(rawSprite) => {
 					CardImage.sprite = rawSprite as Sprite;
 				}
 			);
-			CardName.text = data.Name;
+			CardName.text = Data.Name;
 
-			System.Object[] arguments = new System.Object[data.ActionPackList.Count];
-			for (int i = 0; i < data.ActionPackList.Count; i++) {
-				arguments[i] = data.ActionPackList[i].Value;
+			System.Object[] arguments = new System.Object[Data.ActionPackList.Count];
+			for (int i = 0; i < Data.ActionPackList.Count; i++) {
+				arguments[i] = Data.ActionPackList[i].Value;
 			}
-			CardDetail.text = string.Format(data.Detail, arguments);
+			CardDetail.text = string.Format(Data.Detail, arguments);
 
 
-			if (PlayerPrefsManager.Instance.IsUnlockCard(data.Id) == false) {
+			if (PlayerPrefsManager.Instance.IsUnlockCard(Data.Id) == false) {
 				// TODO ここで、アンロックしていない時のボタンとか表示を行う
 				LockImage.gameObject.SetActive(true);
 			} else {
@@ -80,8 +84,6 @@ public class RegularSettingCardContentItem : MonoBehaviour
 			}
 			RootButton.interactable = true;
 		}
-
-		Callback = callback;
 	}
 	
 	public void OnClick() {
