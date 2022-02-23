@@ -11115,6 +11115,7 @@ MonoBehaviour:
   SFCarryPointText: {fileID: 405890391}
   SFNowRegularCostText: {fileID: 1818656401}
   SFMaxRegularCostText: {fileID: 199977150}
+  SFCardContentRoot: {fileID: 194082494}
 --- !u!1 &1953599051
 GameObject:
   m_ObjectHideFlags: 0

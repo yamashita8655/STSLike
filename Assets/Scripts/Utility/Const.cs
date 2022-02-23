@@ -6,7 +6,8 @@ public partial class Const {
 	public static readonly string RarityFrameImagePath = "Image/UI/Card/cardframe{0}";
 	public static readonly string AttackButtonImagePath = "Image/UI/Map/attackbuttonframe{0}";
 	public static readonly string ArtifactButtonPath = "Prefab/UI/ArtifactButtonItem";
-
+	public static readonly string NotFoundImagePath = "Image/UI/Menu/notfound";
+	public static readonly string RegularSettingCardContentItemPath = "Prefab/UI/RegularSettingCardContentItem";
 
 	public static readonly string ValueItemPath = "Prefab/UI/ValueItem";
 

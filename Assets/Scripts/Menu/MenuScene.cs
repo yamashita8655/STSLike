@@ -102,6 +102,10 @@ public partial class MenuScene : SceneBase
 	private Text SFMaxRegularCostText = null;
 	public Text MaxRegularCostText => SFMaxRegularCostText;
 	
+	[SerializeField]
+	private GameObject SFCardContentRoot = null;
+	public GameObject CardContentRoot => SFCardContentRoot;
+	
 	// ↑↑レギュラーカードメニュー↑↑
 
 	// Start is called before the first frame update

@@ -54,51 +54,51 @@ public class MenuInitializeState : StateBase {
 
 		// TODO この辺、ちゃんとコルーチンで非同期読み込み待ちする事
 		// カードアンロックの初期化
-		ResourceManager.Instance.RequestExecuteOrder(
-			CardContentItemPath,
-			ExecuteOrder.Type.GameObject,
-			scene.gameObject,
-			(rawobj) => {
-				var cardDict = MasterAction2Table.Instance.GetCloneDict();
-				foreach (var data in cardDict) {
-					GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
-					obj.transform.SetParent(scene.CardContent.transform);
-					obj.transform.localPosition = Vector3.zero;
-					obj.transform.localScale = Vector3.one;
+		//ResourceManager.Instance.RequestExecuteOrder(
+		//	CardContentItemPath,
+		//	ExecuteOrder.Type.GameObject,
+		//	scene.gameObject,
+		//	(rawobj) => {
+		//		var cardDict = MasterAction2Table.Instance.GetCloneDict();
+		//		foreach (var data in cardDict) {
+		//			GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
+		//			obj.transform.SetParent(scene.CardContent.transform);
+		//			obj.transform.localPosition = Vector3.zero;
+		//			obj.transform.localScale = Vector3.one;
 
-					obj.GetComponent<CardContentItem>().Initialize(
-						data.Value,
-						(data) => {
-							
-						}
-					);
-				}
-			}
-		);
+		//			obj.GetComponent<CardContentItem>().Initialize(
+		//				data.Value,
+		//				(data) => {
+		//					
+		//				}
+		//			);
+		//		}
+		//	}
+		//);
 		
-		// TODO この辺、ちゃんとコルーチンで非同期読み込み待ちする事
-		// アーティファクトアンロックの初期化
-		ResourceManager.Instance.RequestExecuteOrder(
-			ArtifactContentItemPath,
-			ExecuteOrder.Type.GameObject,
-			scene.gameObject,
-			(rawobj) => {
-				var artifactDict = MasterArtifactTable.Instance.GetCloneDict();
-				foreach (var data in artifactDict) {
-					GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
-					obj.transform.SetParent(scene.ArtifactContent.transform);
-					obj.transform.localPosition = Vector3.zero;
-					obj.transform.localScale = Vector3.one;
+		//// TODO この辺、ちゃんとコルーチンで非同期読み込み待ちする事
+		//// アーティファクトアンロックの初期化
+		//ResourceManager.Instance.RequestExecuteOrder(
+		//	ArtifactContentItemPath,
+		//	ExecuteOrder.Type.GameObject,
+		//	scene.gameObject,
+		//	(rawobj) => {
+		//		var artifactDict = MasterArtifactTable.Instance.GetCloneDict();
+		//		foreach (var data in artifactDict) {
+		//			GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
+		//			obj.transform.SetParent(scene.ArtifactContent.transform);
+		//			obj.transform.localPosition = Vector3.zero;
+		//			obj.transform.localScale = Vector3.one;
 
-					obj.GetComponent<ArtifactContentItem>().Initialize(
-						data.Value,
-						(data) => {
-							
-						}
-					);
-				}
-			}
-		);
+		//			obj.GetComponent<ArtifactContentItem>().Initialize(
+		//				data.Value,
+		//				(data) => {
+		//					
+		//				}
+		//			);
+		//		}
+		//	}
+		//);
 
 		scene.DungeonName.text = "";
 		scene.DungeonDetail.text = "";

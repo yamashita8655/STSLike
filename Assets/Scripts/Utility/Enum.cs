@@ -140,6 +140,7 @@ public partial class EnumSelf : MonoBehaviour {
 		AddParameter,
 	}
 	
+	
 	// これは、ユニークにする。同じ効果タイプを持つものは複数設定しない
 	// 同じ効果を実装したければ、別の定義で同じ効果として合算なり、別々で処理をするなりで対処する
 	public enum ParameterType {
@@ -180,5 +181,11 @@ public partial class EnumSelf : MonoBehaviour {
 		HeroShield,
 		Award,
 		Max,
+	}
+	
+	public enum ContentStatusType {
+		NotFound = 0,	// 未発見
+		Lock,			// 未解放
+		Unlock,			// 解放済み
 	}
 }
