@@ -114,6 +114,38 @@ public partial class MenuScene : SceneBase
 	private Button SFMaxCostUpButton = null;
 	public Button MaxCostUpButton => SFMaxCostUpButton;
 	
+	// カード詳細系
+	[SerializeField]
+	private GameObject SFCardDetailRoot = null;
+	public GameObject CardDetailRoot => SFCardDetailRoot;
+	
+	[SerializeField]
+	private Text SFCardDetailNameText = null;
+	public Text CardDetailNameText => SFCardDetailNameText;
+	
+	[SerializeField]
+	private Text SFCardDetailDetailText = null;
+	public Text CardDetailDetailText => SFCardDetailDetailText;
+	
+	[SerializeField]
+	private Text SFCardDetailCostText = null;
+	public Text CardDetailCostText => SFCardDetailCostText;
+	
+	[SerializeField]
+	private Image SFCardDetailImage = null;
+	public Image CardDetailImage => SFCardDetailImage;
+	
+	[SerializeField]
+	private Image SFCardDetailRarityFrameImage = null;
+	public Image CardDetailRarityFrameImage => SFCardDetailRarityFrameImage;
+	
+	[SerializeField]
+	private Button SFCardDetailUnlockButton = null;
+	public Button CardDetailUnlockButton => SFCardDetailUnlockButton;
+	
+	[SerializeField]
+	private Button SFCardDetailEquipButton = null;
+	public Button CardDetailEquipButton => SFCardDetailEquipButton;
 	// ↑↑レギュラーカードメニュー↑↑
 
 	// Start is called before the first frame update
@@ -367,6 +399,25 @@ public partial class MenuScene : SceneBase
 				MaxCostUpButton.interactable = false;
 			}
 		}
+	}
+
+	public void OnClickCardDetailButton(MasterAction2Table.Data data) {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
+			return;
+		}
+		MenuDataCarrier.Instance.DetailCardData = data;
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailOpen);
+	}
+	
+	public void OnClickCardDetailCloseButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailClose);
 	}
 	// ↑↑レギュラーカード↑↑
 }

@@ -87,6 +87,10 @@ public enum MenuState : int
 	RegularCardSettingUserWait,
 	RegularCardSettingEnd,
 	RegularCardSettingMaxCostUp,
+	RegularCardSettingCardDetailOpen,
+	RegularCardSettingCardDetailUnlock,
+	RegularCardSettingCardDetailEquip,
+	RegularCardSettingCardDetailClose,
 	End,
 }
 

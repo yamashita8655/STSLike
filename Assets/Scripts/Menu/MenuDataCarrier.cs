@@ -15,10 +15,13 @@ public class MenuDataCarrier : SimpleMonoBehaviourSingleton<MenuDataCarrier> {
 	
 	public List<GameObject> RegularSettingCardObjects { get; set; }
 	
+	public MasterAction2Table.Data DetailCardData { get; set; }
+	
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
 		DungeonData = null;
 		RegularSettingCardObjects = new List<GameObject>();
+		DetailCardData = null;
 	}
 
 	public void Release() {

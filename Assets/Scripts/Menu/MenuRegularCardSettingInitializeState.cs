@@ -12,7 +12,7 @@ public class MenuRegularCardSettingInitializeState : StateBase {
     {
 		var scene = MenuDataCarrier.Instance.Scene as MenuScene;
 		scene.RegularCardSettingRoot.SetActive(true);
-
+		scene.CardDetailRoot.SetActive(false);
 
 		// TODO ここは、セットしているカードから計算する
 		scene.NowRegularCostText.text = "0";
@@ -71,7 +71,7 @@ public class MenuRegularCardSettingInitializeState : StateBase {
 						obj.GetComponent<RegularSettingCardContentItem>().Initialize(
 							data,
 							(d) => {
-								Debug.Log("OnClick");
+								scene.OnClickCardDetailButton(d);
 							}
 						);
 

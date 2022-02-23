@@ -72,7 +72,6 @@ public class RegularSettingCardContentItem : MonoBehaviour
 				}
 			);
 			CardName.text = Data.Name;
-			CostText.text = Data.Cost.ToString();
 
 			System.Object[] arguments = new System.Object[Data.ActionPackList.Count];
 			for (int i = 0; i < Data.ActionPackList.Count; i++) {
@@ -84,8 +83,10 @@ public class RegularSettingCardContentItem : MonoBehaviour
 			if (PlayerPrefsManager.Instance.IsUnlockCard(Data.Id) == false) {
 				// TODO ここで、アンロックしていない時のボタンとか表示を行う
 				LockImage.gameObject.SetActive(true);
+				CostText.text = Data.UnlockCost.ToString();
 			} else {
 				LockImage.gameObject.SetActive(false);
+				CostText.text = Data.EquipCost.ToString();
 			}
 			RootButton.interactable = true;
 		}

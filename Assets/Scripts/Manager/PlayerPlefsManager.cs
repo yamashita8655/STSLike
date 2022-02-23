@@ -55,6 +55,12 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 					saveString = "False";
 				} else if (i == (int)SaveType.Point) {
 					saveString = "0";
+				} else if (i == (int)SaveType.FindCardIds) {
+					// 初期装備カードは、見つけた状態にしておく
+					saveString = "1-2-20";
+				} else if (i == (int)SaveType.UnlockCardIds) {
+					// ストロングパンチ1は、アンロックにはしておかない
+					saveString = "1-20";
 				} else if (i == (int)SaveType.UsedRegularCostPoint) {
 					saveString = "0";
 				}
