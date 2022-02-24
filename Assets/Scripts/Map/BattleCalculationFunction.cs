@@ -217,6 +217,10 @@ public class BattleCalculationFunction {
 			int turn = player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve);
 			MapDataCarrier.Instance.TurnPowerObjects[(int)EnumSelf.TurnPowerType.ShieldPreserve].GetComponent<TurnPowerController>().SetTurn(turn);
 		}
+
+		PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Weakness, -1);
+		PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Vulnerable, -1);
+		PlayerUpdateTurnPower(EnumSelf.TurnPowerType.ShieldWeakness, -1);
 	}
 	
 	public static void PlayerTurnEndValueChange() {
@@ -228,6 +232,9 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.Thorn) || 
 				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
 				(i == (int)EnumSelf.TurnPowerType.ShieldPreserve) ||
+				(i == (int)EnumSelf.TurnPowerType.Weakness) ||
+				(i == (int)EnumSelf.TurnPowerType.Vulnerable) ||
+				(i == (int)EnumSelf.TurnPowerType.ShieldWeakness) ||
 				(i == (int)EnumSelf.TurnPowerType.Invincible) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
@@ -316,6 +323,10 @@ public class BattleCalculationFunction {
 			int turn = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve);
 			MapDataCarrier.Instance.EnemyTurnPowerObjects[(int)EnumSelf.TurnPowerType.ShieldPreserve].GetComponent<TurnPowerController>().SetTurn(turn);
 		}
+		
+		//EnemyUpdateTurnPower(EnumSelf.TurnPowerType.Weakness, -1);
+		//EnemyUpdateTurnPower(EnumSelf.TurnPowerType.Vulnerable, -1);
+		//EnemyUpdateTurnPower(EnumSelf.TurnPowerType.ShieldWeakness, -1);
 	}
 
 	public static void EnemyTurnEndValueChange() {
@@ -327,6 +338,9 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.Thorn) ||
 				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
 				(i == (int)EnumSelf.TurnPowerType.ShieldPreserve) ||
+				//(i == (int)EnumSelf.TurnPowerType.Weakness) ||
+				//(i == (int)EnumSelf.TurnPowerType.Vulnerable) ||
+				//(i == (int)EnumSelf.TurnPowerType.ShieldWeakness) ||
 				(i == (int)EnumSelf.TurnPowerType.Invincible) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
