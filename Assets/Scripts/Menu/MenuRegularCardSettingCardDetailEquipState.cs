@@ -10,6 +10,25 @@ public class MenuRegularCardSettingCardDetailEquipState : StateBase {
     /// </summary>
     override public bool OnBeforeMain()
     {
+		var scene = MenuDataCarrier.Instance.Scene as MenuScene;
+		scene.CardEquipSelectRoot.SetActive(true);
+
+		var item = MenuDataCarrier.Instance.SelectCardContentItem;
+		var data = item.GetData();
+
+		int nowCost = scene.GetNowEquipCost();
+		int maxCost = scene.GetMaxCost();
+		int selectCardCost = data.EquipCost;
+
+		for (int i = 0; i < 6; i++) {
+			var equipCardId = PlayerPrefsManager.Instance.GetRegularSettingCardId(i);
+			var equipData = MasterAction2Table.Instance.GetData(equipCardId);
+			if ((nowCost-equipData.EquipCost+selectCardCost) <= maxCost) {
+				scene.CardEquipSelectButtons[i].interactable = true;
+			} else {
+				scene.CardEquipSelectButtons[i].interactable = false;
+			}
+		}
 		return false;
     }
 
@@ -19,6 +38,7 @@ public class MenuRegularCardSettingCardDetailEquipState : StateBase {
     /// <param name="delta">経過時間</param>
     override public void OnUpdateMain(float delta)
     {
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailEquipUserWait);
     }
 
     /// <summary>

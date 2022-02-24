@@ -114,6 +114,12 @@ public partial class MenuScene : SceneBase
 	private Button SFMaxCostUpButton = null;
 	public Button MaxCostUpButton => SFMaxCostUpButton;
 	
+	// TODO ボタンをコンポーネント化は、とりあえずあと
+	// ひとまず、何が装備されているかだけ見れるようにしておく
+	[SerializeField]
+	private Text[] SFEquipCardTexts = null;
+	public Text[] EquipCardTexts => SFEquipCardTexts;
+	
 	// カード詳細系
 	[SerializeField]
 	private GameObject SFCardDetailRoot = null;
@@ -146,6 +152,14 @@ public partial class MenuScene : SceneBase
 	[SerializeField]
 	private Button SFCardDetailEquipButton = null;
 	public Button CardDetailEquipButton => SFCardDetailEquipButton;
+	
+	[SerializeField]
+	private GameObject SFCardEquipSelectRoot = null;
+	public GameObject CardEquipSelectRoot => SFCardEquipSelectRoot;
+	
+	[SerializeField]
+	private Button[] SFCardEquipSelectButtons = null;
+	public Button[] CardEquipSelectButtons => SFCardEquipSelectButtons;
 	// ↑↑レギュラーカードメニュー↑↑
 
 	// Start is called before the first frame update
@@ -228,6 +242,27 @@ public partial class MenuScene : SceneBase
 			return;
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingInitialize);
+	}
+
+	public void UpdateEquipCardDisplay(int index) {
+		int id = PlayerPrefsManager.Instance.GetRegularSettingCardId(index);
+		MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(id);
+		SFEquipCardTexts[index].text = data.Name;
+	}
+	
+	public void UpdateEquipCardCostText() {
+		NowRegularCostText.text = GetNowEquipCost().ToString();
+	}
+	
+	public int GetNowEquipCost() {
+		int cost = 0;
+		for (int i = 0; i < 6; i++) {
+			int id = PlayerPrefsManager.Instance.GetRegularSettingCardId(i);
+			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(id);
+			cost += data.EquipCost;
+		}
+
+		return cost;
 	}
 	// ↑↑メニュー機能↑↑
 
@@ -379,10 +414,9 @@ public partial class MenuScene : SceneBase
 		CarryPointText.text = carryPoint.ToString();
 
 		int usedPoint = PlayerPrefsManager.Instance.GetUsedRegularCostPoint();
-		Debug.Log("usedPoint:" + usedPoint.ToString());
 		int level = MasterRegularCardMaxCostTable.Instance.GetNowLevel(usedPoint);
 		
-		int maxCost = Const.BaseRegularCardMaxCost + level;
+		int maxCost = GetMaxCost();
 		MaxRegularCostText.text = maxCost.ToString();
 
 		if (MasterRegularCardMaxCostTable.Instance.IsMaxLevel(level) == true) {
@@ -399,6 +433,15 @@ public partial class MenuScene : SceneBase
 				MaxCostUpButton.interactable = false;
 			}
 		}
+	}
+
+	public int GetMaxCost() {
+		int usedPoint = PlayerPrefsManager.Instance.GetUsedRegularCostPoint();
+		int level = MasterRegularCardMaxCostTable.Instance.GetNowLevel(usedPoint);
+		
+		int maxCost = Const.BaseRegularCardMaxCost + level;
+
+		return maxCost;
 	}
 
 	public void OnClickCardDetailButton(RegularSettingCardContentItem item) {
@@ -427,6 +470,50 @@ public partial class MenuScene : SceneBase
 			return;
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailUnlock);
+	}
+	
+	public void OnClickCardDetailEquipButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailEquip);
+	}
+	
+	public void OnClickCardDetailEquipSelectButton(int index) {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingCardDetailEquipUserWait) {
+			return;
+		}
+
+		var item = MenuDataCarrier.Instance.SelectCardContentItem;
+		var data = item.GetData();
+
+		// 装備している情報保存
+		PlayerPrefsManager.Instance.SaveRegularSettingCardId(data.Id, index);
+		
+		// 現在コスト更新
+		UpdateEquipCardCostText();
+
+		// ボタンの表示修正
+		for (int i = 0; i < 6; i++) {
+			UpdateEquipCardDisplay(i);
+		}
+		
+		SFCardEquipSelectRoot.SetActive(false);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingUserWait);
+	}
+	
+	public void OnClickCardDetailEquipSelectBackButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingCardDetailEquipUserWait) {
+			return;
+		}
+		SFCardEquipSelectRoot.SetActive(false);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingUserWait);
 	}
 	// ↑↑レギュラーカード↑↑
 }

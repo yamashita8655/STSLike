@@ -90,6 +90,7 @@ public enum MenuState : int
 	RegularCardSettingCardDetailOpen,
 	RegularCardSettingCardDetailUnlock,
 	RegularCardSettingCardDetailEquip,
+	RegularCardSettingCardDetailEquipUserWait,
 	RegularCardSettingCardDetailClose,
 	End,
 }

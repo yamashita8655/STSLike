@@ -14,6 +14,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		FindCardIds,
 		UnlockCardIds,
 		UsedRegularCostPoint,
+		RegularSettingCardIds,
 		Max,
 		None
 	};
@@ -28,10 +29,12 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"FindCardIds",
 		"UnlockCardIds",
 		"UsedRegularCostPoint",
+		"RegularSettingCardIds",
 	};
 
 	private List<int> FindCardIds = new List<int>();
 	private List<int> UnlockCardIds = new List<int>();
+	private List<int> RegularSettingCardIds = new List<int>();
 	
 	public void Initialize() {
 		CreateFirstData();
@@ -63,6 +66,9 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 					saveString = "1-2-20";
 				} else if (i == (int)SaveType.UsedRegularCostPoint) {
 					saveString = "0";
+				} else if (i == (int)SaveType.RegularSettingCardIds) {
+					//
+					saveString = "1-1-1-2-20-20";
 				}
 				PlayerPrefs.SetString(key, saveString);
 			}
@@ -137,7 +143,6 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	
 	public void InitializeCardStatusList() {
 		string saveString = GetParameter(SaveType.FindCardIds);
-		Debug.Log(saveString);
 		if (string.IsNullOrEmpty(saveString) == false) {
 			char[] split = {'-'};
 			List<string> lineList = Functions.SplitString(saveString, split);
@@ -149,13 +154,24 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		}
 		
 		saveString = GetParameter(SaveType.UnlockCardIds);
-		Debug.Log(saveString);
 		if (string.IsNullOrEmpty(saveString) == false) {
 			char[] split = {'-'};
 			List<string> lineList = Functions.SplitString(saveString, split);
 
 			for (int i = 0; i < lineList.Count; i++) {
 				UnlockCardIds.Add(int.Parse(lineList[i]));
+			}
+		}
+		
+		saveString = GetParameter(SaveType.RegularSettingCardIds);
+		if (string.IsNullOrEmpty(saveString) == false) {
+			char[] split = {'-'};
+			List<string> lineList = Functions.SplitString(saveString, split);
+
+			// 必ず6個設定されている状態にするようにする
+			// 現状は、RegularSettingCardIdsの初期値で必ず6個設定されている
+			for (int i = 0; i < lineList.Count; i++) {
+				RegularSettingCardIds.Add(int.Parse(lineList[i]));
 			}
 		}
 	}
@@ -240,5 +256,25 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	{
 		string saveString = val.ToString();
 		SaveParameter(SaveType.UsedRegularCostPoint, saveString);
+	}
+	
+	public int GetRegularSettingCardId(int index)
+	{
+		return RegularSettingCardIds[index];
+	}
+	
+	public void SaveRegularSettingCardId(int val, int index)
+	{
+		RegularSettingCardIds[index] = val;
+		string saveString = string.Format(
+				"{0}-{1}-{2}-{3}-{4}-{5}",
+				RegularSettingCardIds[0].ToString(),
+				RegularSettingCardIds[1].ToString(),
+				RegularSettingCardIds[2].ToString(),
+				RegularSettingCardIds[3].ToString(),
+				RegularSettingCardIds[4].ToString(),
+				RegularSettingCardIds[5].ToString()
+			);
+		SaveParameter(SaveType.RegularSettingCardIds, saveString);
 	}
 }

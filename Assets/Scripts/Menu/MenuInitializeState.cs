@@ -21,6 +21,7 @@ public class MenuInitializeState : StateBase {
 		scene.CardUnlockRoot.SetActive(false);
 		scene.ArtifactUnlockRoot.SetActive(false);
 		scene.RegularCardSettingRoot.SetActive(false);
+		scene.CardEquipSelectRoot.SetActive(false);
 
 		// BGMに関する設定
 		scene.MBgmSlider.value = PlayerPrefsManager.Instance.GetBgmVolume();

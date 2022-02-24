@@ -21,6 +21,7 @@
 		"RegularCardSettingCardDetailOpen",
 		"RegularCardSettingCardDetailUnlock",
 		"RegularCardSettingCardDetailEquip",
+		"RegularCardSettingCardDetailEquipUserWait",
 		"RegularCardSettingCardDetailClose",
 		"End"
 	],

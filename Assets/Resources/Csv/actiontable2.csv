@@ -1,7 +1,7 @@
 id,rarity,name,equipcost,unlockcost,detail,imagepath,effect,target,value,timing,,,,,,,,,,,,,
 #,脳筋向け攻撃偏重カード,,,,,,,,,,,,,,,,,,,,,,
 1,1,パンチ,0,0,{0}ダメージを与える,Image/UI/Card/punch,Damage,Opponent,5,Add,NONE,,,,,,,,,,,,
-2,1,ストロングパンチ1,1,0,{0}ダメージを与える,Image/UI/Card/punch,Damage,Opponent,8,Add,NONE,,,,,,,,,,,,
+2,1,ストロングパンチ1,1,10,{0}ダメージを与える,Image/UI/Card/punch,Damage,Opponent,8,Add,NONE,,,,,,,,,,,,
 3,2,ストロングパンチ2,2,10,{0}ダメージを与える,Image/UI/Card/punch,Damage,Opponent,11,Add,NONE,,,,,,,,,,,,
 4,3,ストロングパンチ3,3,10,{0}ダメージを与える,Image/UI/Card/punch,Damage,Opponent,15,Add,NONE,,,,,,,,,,,,
 5,4,ゴールデンフィスト,4,10,{0}ダメージを与える,Image/UI/Card/punch,Damage,Opponent,20,Add,NONE,,,,,,,,,,,,
