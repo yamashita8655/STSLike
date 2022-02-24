@@ -5,8 +5,8 @@ using UnityEngine;
 public class MenuInitializeState : StateBase {
 
 	private readonly string DungeonButtonPath = "Prefab/UI/DungeonButton";
-	private readonly string CardContentItemPath = "Prefab/UI/CardContentItem";
-	private readonly string ArtifactContentItemPath = "Prefab/UI/ArtifactContentItem";
+//	private readonly string CardContentItemPath = "Prefab/UI/CardContentItem";
+//	private readonly string ArtifactContentItemPath = "Prefab/UI/ArtifactContentItem";
 
     /// <summary>
     /// メイン前処理.

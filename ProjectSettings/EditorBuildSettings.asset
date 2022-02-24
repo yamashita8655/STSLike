@@ -9,14 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Boot/Boot.unity
     guid: 919bf3bd26997714a981669c6c1fd35a
   - enabled: 1
-    path: Assets/Scenes/Splash/Splash.unity
-    guid: 062b005c5f1bb964f82687bdd997e04d
-  - enabled: 1
     path: Assets/Scenes/Home/Home.unity
     guid: d5c2b6ec4bbf0cf43859b4875a3752e8
-  - enabled: 1
-    path: Assets/Test/EffectCheck/EffectCheck.unity
-    guid: 7e2938fc6ef83b54da480710d240454f
   - enabled: 1
     path: Assets/Scenes/Fade/Fade.unity
     guid: c9bf74fa3d07bfa45aba99e5539734b4

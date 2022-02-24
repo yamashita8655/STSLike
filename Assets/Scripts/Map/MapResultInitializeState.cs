@@ -57,6 +57,9 @@ public class MapResultInitializeState : StateBase {
 			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(id);
 			MapDataCarrier.Instance.TreasureList.Add(data);
 			scene.TreasureNameTexts[i].text = data.Name;
+
+			// 見つけたIDリストに加える
+			PlayerPrefsManager.Instance.SaveFindCardId(id);
 		}
 
 		return true;
