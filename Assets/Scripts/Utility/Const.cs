@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public partial class Const {
-	public static readonly int BaseRegularCardMaxCost = 30;
+	public static readonly int BaseRegularCardMaxCost = 1;
 	public static readonly int MaxPoint = 99999999;
 
 	public static readonly string RarityFrameImagePath = "Image/UI/Card/cardframe{0}";

@@ -443,7 +443,18 @@ public partial class MenuScene : SceneBase
 
 		return maxCost;
 	}
+	
+	public void OnClickEquipCardDetailButton(int index) {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
+			return;
+		}
 
+		MenuDataCarrier.Instance.EquipSelectIndex = index;
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingEquipCardDetailOpen);
+	}
+	
 	public void OnClickCardDetailButton(RegularSettingCardContentItem item) {
         var stm = StateMachineManager.Instance;
 		// ユーザー入力待機状態でなければ、処理しない

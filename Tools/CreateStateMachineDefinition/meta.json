@@ -18,6 +18,7 @@
 		"RegularCardSettingUserWait",
 		"RegularCardSettingEnd",
 		"RegularCardSettingMaxCostUp",
+		"RegularCardSettingEquipCardDetailOpen",
 		"RegularCardSettingCardDetailOpen",
 		"RegularCardSettingCardDetailUnlock",
 		"RegularCardSettingCardDetailEquip",

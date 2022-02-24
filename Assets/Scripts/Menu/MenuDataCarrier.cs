@@ -17,6 +17,8 @@ public class MenuDataCarrier : SimpleMonoBehaviourSingleton<MenuDataCarrier> {
 	
 	public RegularSettingCardContentItem SelectCardContentItem { get; set; }
 	
+	public int EquipSelectIndex { get; set; }
+	
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
 		DungeonData = null;
