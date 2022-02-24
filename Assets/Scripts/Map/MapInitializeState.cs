@@ -33,19 +33,18 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.CuPlayerStatus = status;
 		status.SetMaxHp(80);
 		status.SetNowHp(80);
+
+		for (int i = 0; i < 6; i++) {
+			int id = PlayerPrefsManager.Instance.GetRegularSettingCardId(i);
+			status.SetActionData(i, MasterAction2Table.Instance.GetData(id));
+		}
 		// TODO 初期装備は、テストの為色々変えている
-		//status.SetActionData(0, MasterAction2Table.Instance.GetData(1));
-		//status.SetActionData(1, MasterAction2Table.Instance.GetData(1));
-		//status.SetActionData(2, MasterAction2Table.Instance.GetData(2));
-		//status.SetActionData(3, MasterAction2Table.Instance.GetData(20));
-		//status.SetActionData(4, MasterAction2Table.Instance.GetData(20));
-		//status.SetActionData(5, MasterAction2Table.Instance.GetData(21));
-		status.SetActionData(0, MasterAction2Table.Instance.GetData(101));
-		status.SetActionData(1, MasterAction2Table.Instance.GetData(101));
-		status.SetActionData(2, MasterAction2Table.Instance.GetData(101));
-		status.SetActionData(3, MasterAction2Table.Instance.GetData(101));
-		status.SetActionData(4, MasterAction2Table.Instance.GetData(9989));
-		status.SetActionData(5, MasterAction2Table.Instance.GetData(9989));
+		//status.SetActionData(0, MasterAction2Table.Instance.GetData(101));
+		//status.SetActionData(1, MasterAction2Table.Instance.GetData(101));
+		//status.SetActionData(2, MasterAction2Table.Instance.GetData(101));
+		//status.SetActionData(3, MasterAction2Table.Instance.GetData(101));
+		//status.SetActionData(4, MasterAction2Table.Instance.GetData(9989));
+		//status.SetActionData(5, MasterAction2Table.Instance.GetData(9989));
 
 		// 未獲得アーティファクトリストを取得しておく
 		for (int i = 1; i < 6; i++) {
