@@ -13,7 +13,8 @@ public class MenuRegularCardSettingCardDetailOpenState : StateBase {
 		var scene = MenuDataCarrier.Instance.Scene as MenuScene;
 		scene.CardDetailRoot.SetActive(true);
 
-		var data = MenuDataCarrier.Instance.DetailCardData;
+		var item = MenuDataCarrier.Instance.SelectCardContentItem;
+		var data = item.GetData();
 
 		scene.CardDetailNameText.text = data.Name;
 
@@ -48,6 +49,14 @@ public class MenuRegularCardSettingCardDetailOpenState : StateBase {
 			scene.CardDetailUnlockButton.gameObject.SetActive(true);
 			scene.CardDetailEquipButton.gameObject.SetActive(false);
 			scene.CardDetailCostText.text = data.UnlockCost.ToString();
+
+			int carryPoint = PlayerPrefsManager.Instance.GetPoint();
+
+			if (carryPoint >= data.UnlockCost) {
+				scene.CardDetailUnlockButton.interactable = true;
+			} else {
+				scene.CardDetailUnlockButton.interactable = false;
+			}
 		} else {
 			scene.CardDetailUnlockButton.gameObject.SetActive(false);
 			scene.CardDetailEquipButton.gameObject.SetActive(true);

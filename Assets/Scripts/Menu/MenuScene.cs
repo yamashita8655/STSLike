@@ -401,13 +401,13 @@ public partial class MenuScene : SceneBase
 		}
 	}
 
-	public void OnClickCardDetailButton(MasterAction2Table.Data data) {
+	public void OnClickCardDetailButton(RegularSettingCardContentItem item) {
         var stm = StateMachineManager.Instance;
 		// ユーザー入力待機状態でなければ、処理しない
 		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
 			return;
 		}
-		MenuDataCarrier.Instance.DetailCardData = data;
+		MenuDataCarrier.Instance.SelectCardContentItem = item;
 		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailOpen);
 	}
 	
@@ -418,6 +418,15 @@ public partial class MenuScene : SceneBase
 			return;
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailClose);
+	}
+	
+	public void OnClickCardDetailUnlockButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailUnlock);
 	}
 	// ↑↑レギュラーカード↑↑
 }

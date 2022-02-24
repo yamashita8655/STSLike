@@ -27,11 +27,11 @@ public class RegularSettingCardContentItem : MonoBehaviour
 	[SerializeField]
 	private Text CostText = null;
 	
-	private Action<MasterAction2Table.Data> Callback = null;
+	private Action<RegularSettingCardContentItem> Callback = null;
 
 	private MasterAction2Table.Data Data = null;
 
-	public void Initialize(MasterAction2Table.Data data, Action<MasterAction2Table.Data> callback) {
+	public void Initialize(MasterAction2Table.Data data, Action<RegularSettingCardContentItem> callback) {
 		Data = data;
 		ResourceManager.Instance.RequestExecuteOrder(
 			string.Format(Const.RarityFrameImagePath, data.Rarity.ToString()),
@@ -94,7 +94,11 @@ public class RegularSettingCardContentItem : MonoBehaviour
 	
 	public void OnClick() {
 		if (Callback != null) {
-			Callback(Data);
+			Callback(this);
 		}
+	}
+	
+	public MasterAction2Table.Data GetData() {
+		return Data;
 	}
 }

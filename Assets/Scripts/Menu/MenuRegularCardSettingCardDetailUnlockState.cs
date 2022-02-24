@@ -10,6 +10,20 @@ public class MenuRegularCardSettingCardDetailUnlockState : StateBase {
     /// </summary>
     override public bool OnBeforeMain()
     {
+		var scene = MenuDataCarrier.Instance.Scene as MenuScene;
+		var item = MenuDataCarrier.Instance.SelectCardContentItem;
+		var data = item.GetData();
+
+		int usedPoint = data.UnlockCost;
+		int carryPoint = PlayerPrefsManager.Instance.GetPoint();
+
+		PlayerPrefsManager.Instance.AddPoint(-usedPoint);
+		PlayerPrefsManager.Instance.SaveUnclookCardId(data.Id);
+
+		item.UpdateDisplay();
+		
+		scene.UpdateMaxCostUpDisplay();
+
 		return false;
     }
 
@@ -19,6 +33,7 @@ public class MenuRegularCardSettingCardDetailUnlockState : StateBase {
     /// <param name="delta">経過時間</param>
     override public void OnUpdateMain(float delta)
     {
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailOpen);
     }
 
     /// <summary>

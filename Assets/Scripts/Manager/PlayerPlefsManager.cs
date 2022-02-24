@@ -59,8 +59,8 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 					// 初期装備カードは、見つけた状態にしておく
 					saveString = "1-2-20";
 				} else if (i == (int)SaveType.UnlockCardIds) {
-					// ストロングパンチ1は、アンロックにはしておかない
-					saveString = "1-20";
+					// 初期装備カードは、アンロック状態にしておく
+					saveString = "1-2-20";
 				} else if (i == (int)SaveType.UsedRegularCostPoint) {
 					saveString = "0";
 				}
