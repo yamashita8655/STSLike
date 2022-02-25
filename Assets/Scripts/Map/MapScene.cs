@@ -55,6 +55,14 @@ public partial class MapScene : SceneBase
 	public Text TrashCountText => CuTrashCountText;
 	
 	[SerializeField]
+	private GameObject CuHandRoot = null;
+	public GameObject HandRoot => CuHandRoot;
+	
+	[SerializeField]
+	private Text CuOriginalDeckCountText = null;
+	public Text OriginalDeckCountText => CuOriginalDeckCountText;
+	
+	[SerializeField]
 	private GameObject CuMapRoot = null;
 	public GameObject MapRoot => CuMapRoot;
 	
@@ -256,6 +264,14 @@ public partial class MapScene : SceneBase
 	private CardDetailController CuCarryCardDetailController = null;
 	public CardDetailController CarryCardDetailController => CuCarryCardDetailController;
 	
+	[SerializeField]
+	private GameObject CuCardListRoot = null;
+	public GameObject CardListRoot => CuCardListRoot;
+	
+	[SerializeField]
+	private GameObject CuCardListContentRoot = null;
+	public GameObject CardListContentRoot => CuCardListContentRoot;
+	
 	// Start is called before the first frame update
 	IEnumerator Start() {
 		while (EntryPoint.IsInitialized == false) {
@@ -334,6 +350,39 @@ public partial class MapScene : SceneBase
 				break;
 			}
 		}
+
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
+	}
+	
+	//public void OnClickAttackButton(int index)
+	//{
+	//	// ユーザー入力待機状態でなければ、処理しない
+	//	var stm = StateMachineManager.Instance;
+	//	if (stm.GetState(StateMachineName.Map) != (int)MapState.BattleAttackSelectUserWait) {
+	//		return;
+	//	}
+	//	MapDataCarrier.Instance.SelectAttackIndex = index;
+
+	//	// 押されたダイスデータを消す
+	//	for (int i = 0; i < MapDataCarrier.Instance.DiceValueList.Count; i++) {
+	//		if (MapDataCarrier.Instance.DiceValueList[i] == index) {
+	//			MapDataCarrier.Instance.DiceValueList.RemoveAt(i);
+	//			break;
+	//		}
+	//	}
+
+	//	StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
+	//}
+	
+	public void OnClickAttackButton(BattleCardButtonController ctrl)
+	{
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.BattleAttackSelectUserWait) {
+			return;
+		}
+
+		MapDataCarrier.Instance.SelectBattleCardButtonController = ctrl;
 
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
 	}
@@ -494,14 +543,35 @@ public partial class MapScene : SceneBase
 		CarryArtifactDetailController.Open(data);
 	}
 	
-	public void OnClickCarryCardDetailButton(int index) {
+	//public void OnClickCarryCardDetailButton(int index) {
+	//	// ユーザー入力待機状態でなければ、処理しない
+	//	//var stm = StateMachineManager.Instance;
+	//	//if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
+	//	//	return;
+	//	//}
+
+	//	MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(index);
+	//	CarryCardDetailController.Open(data);
+	//}
+	
+	//public void OnClickCarryCardDetailButton(BattleCardButtonController ctrl) {
+	//	// ユーザー入力待機状態でなければ、処理しない
+	//	//var stm = StateMachineManager.Instance;
+	//	//if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
+	//	//	return;
+	//	//}
+
+	//	MasterAction2Table.Data data = ctrl.GetData();
+	//	CarryCardDetailController.Open(data);
+	//}
+	
+	public void OnClickCarryCardDetailButton(MasterAction2Table.Data data) {
 		// ユーザー入力待機状態でなければ、処理しない
 		//var stm = StateMachineManager.Instance;
 		//if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
 		//	return;
 		//}
 
-		MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(index);
 		CarryCardDetailController.Open(data);
 	}
 	
@@ -533,75 +603,75 @@ public partial class MapScene : SceneBase
 	}
 	
 	public void UpdatePlayerValueObject(int diceIndex) {
-		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
-		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		//PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		//EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
 
-		MasterAction2Table.Data pdata = player.GetActionData(diceIndex);
-		CuPlayerActionNameStrings[diceIndex].text = pdata.Name;
+		//MasterAction2Table.Data pdata = player.GetActionData(diceIndex);
+		//CuPlayerActionNameStrings[diceIndex].text = pdata.Name;
 
-		// TODO これ、MapInitializeStateで先読みしといた方がいいかも
-		int attackIndex = diceIndex;
-		ResourceManager.Instance.RequestExecuteOrder(
-			string.Format(Const.AttackButtonImagePath, pdata.Rarity),
-			ExecuteOrder.Type.Sprite,
-			gameObject,
-			(rawSprite) => {
-				CuAttackButtonImages[attackIndex].sprite = rawSprite as Sprite;
-			}
-		);
+		//// TODO これ、MapInitializeStateで先読みしといた方がいいかも
+		//int attackIndex = diceIndex;
+		//ResourceManager.Instance.RequestExecuteOrder(
+		//	string.Format(Const.AttackButtonImagePath, pdata.Rarity),
+		//	ExecuteOrder.Type.Sprite,
+		//	gameObject,
+		//	(rawSprite) => {
+		//		CuAttackButtonImages[attackIndex].sprite = rawSprite as Sprite;
+		//	}
+		//);
 
-		var list = pdata.ActionPackList;
-		int index = 0;
-		for (index = 0; index < list.Count; index++) {
-			if (index >= 10) {
-				LogManager.Instance.LogError("MapScene:UpdatePlayerValueObject:添え字10以上になってる");
-			}
-			int val = list[index].Value;
-			if (
-				(list[index].Effect == EnumSelf.EffectType.Damage) ||
-				(list[index].Effect == EnumSelf.EffectType.DamageSuction) ||
-				(list[index].Effect == EnumSelf.EffectType.ShieldBash)
-			) {
-				
-				val = BattleCalculationFunction.CalcPlayerDamageValue(list[index]);
+		//var list = pdata.ActionPackList;
+		//int index = 0;
+		//for (index = 0; index < list.Count; index++) {
+		//	if (index >= 10) {
+		//		LogManager.Instance.LogError("MapScene:UpdatePlayerValueObject:添え字10以上になってる");
+		//	}
+		//	int val = list[index].Value;
+		//	if (
+		//		(list[index].Effect == EnumSelf.EffectType.Damage) ||
+		//		(list[index].Effect == EnumSelf.EffectType.DamageSuction) ||
+		//		(list[index].Effect == EnumSelf.EffectType.ShieldBash)
+		//	) {
+		//		
+		//		val = BattleCalculationFunction.CalcPlayerDamageValue(list[index]);
 
-				//if (list[index].Effect == EnumSelf.EffectType.ShieldBash) {
-				//	val = player.GetNowShield();
-				//} else {
-				//	val = list[index].Value;
-				//}
-				//int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
-				//val += strength;
-				//if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
-				//	val *= 2;
-				//}
+		//		//if (list[index].Effect == EnumSelf.EffectType.ShieldBash) {
+		//		//	val = player.GetNowShield();
+		//		//} else {
+		//		//	val = list[index].Value;
+		//		//}
+		//		//int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
+		//		//val += strength;
+		//		//if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
+		//		//	val *= 2;
+		//		//}
 
-				//if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
-				//	val = val - (val * 25 / 100);
-				//}
-				//
-				//if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
-				//	if (player.GetParameterListFlag(EnumSelf.ParameterType.VulnerableUp) == true) {
-				//		// 与ダメが75％上がる
-				//		val = val + (val * 75 / 100);
-				//	} else {
-				//		val = val + (val * 50 / 100);
-				//	}
-				//}
-				
-			} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
-				val = BattleCalculationFunction.CalcPlayerShieldValue(list[index]);
-			}
-			MapDataCarrier.Instance.ValueObjects[diceIndex][index].GetComponent<ValueController>().UpdateDisplay(
-				list[index].Effect,
-				list[index].Value,
-				val
-			);
-		}
+		//		//if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
+		//		//	val = val - (val * 25 / 100);
+		//		//}
+		//		//
+		//		//if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
+		//		//	if (player.GetParameterListFlag(EnumSelf.ParameterType.VulnerableUp) == true) {
+		//		//		// 与ダメが75％上がる
+		//		//		val = val + (val * 75 / 100);
+		//		//	} else {
+		//		//		val = val + (val * 50 / 100);
+		//		//	}
+		//		//}
+		//		
+		//	} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
+		//		val = BattleCalculationFunction.CalcPlayerShieldValue(list[index]);
+		//	}
+		//	MapDataCarrier.Instance.ValueObjects[diceIndex][index].GetComponent<ValueController>().UpdateDisplay(
+		//		list[index].Effect,
+		//		list[index].Value,
+		//		val
+		//	);
+		//}
 
-		for (; index < 10; index++) {
-			MapDataCarrier.Instance.ValueObjects[diceIndex][index].GetComponent<ValueController>().Hide();
-		}
+		//for (; index < 10; index++) {
+		//	MapDataCarrier.Instance.ValueObjects[diceIndex][index].GetComponent<ValueController>().Hide();
+		//}
 	}
 	
 	public void UpdateEnemyValueObject() {
@@ -724,5 +794,57 @@ public partial class MapScene : SceneBase
 	
 	public void UpdateCurrentTotalDiceCostText() {
 		CurrentTotalDiceCostText.text = MapDataCarrier.Instance.CurrentTotalDiceCost.ToString();
+	}
+	
+	public void OnClickOriginalDeckButton() {
+		// TODO これは、正直いつ押されてもいいので、そう作っておく
+		UpdateCardList(MapDataCarrier.Instance.OriginalDeckList);
+		CuCardListRoot.SetActive(true);
+	}
+	
+	public void OnClickDeckListCloseButton() {
+		CuCardListRoot.SetActive(false);
+	}
+
+	public void UpdateCardList(List<MasterAction2Table.Data> dataList) {
+		var contentItemList = MapDataCarrier.Instance.CardContentItemList;
+		int i = 0;
+		for (; i < dataList.Count; i++) {
+			var data = dataList[i];
+
+			if (i < contentItemList.Count) {
+				contentItemList[i].gameObject.SetActive(true);
+				contentItemList[i].Initialize(
+					data,
+					OnClickCarryCardDetailButton
+				);
+			} else {
+				ResourceManager.Instance.RequestExecuteOrder(
+					Const.CardContentItemPath,
+					ExecuteOrder.Type.GameObject,
+					gameObject,
+					(rawObject) => {
+						GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+						obj.transform.SetParent(CardListContentRoot.transform);
+						obj.transform.localPosition = Vector3.zero;
+						obj.transform.localScale = Vector3.one;
+						var ctrl = obj.GetComponent<CardContentItem>();
+						ctrl.Initialize(
+							data,
+							OnClickCarryCardDetailButton
+						);
+						MapDataCarrier.Instance.CardContentItemList.Add(ctrl);
+					}
+				);
+			}
+		}
+		
+		for (; i < contentItemList.Count; i++) {
+			contentItemList[i].gameObject.SetActive(false);
+		}
+	}
+
+	public void UpdateOriginalDeckCountText() {
+		OriginalDeckCountText.text = MapDataCarrier.Instance.OriginalDeckList.Count.ToString();
 	}
 }

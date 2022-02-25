@@ -71,6 +71,16 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public int BattleTurnCount { get; set; }
 
 	public int CurrentTotalDiceCost { get; set; }
+	
+	public List<BattleCardButtonController> BattleCardButtonControllers { get; set; }
+	public BattleCardButtonController SelectBattleCardButtonController { get; set; }
+	
+	public List<MasterAction2Table.Data> OriginalDeckList { get; set; }
+	public List<MasterAction2Table.Data> BattleDeckList { get; set; }
+	public List<MasterAction2Table.Data> TrashList { get; set; }
+	public List<MasterAction2Table.Data> HandList { get; set; }
+	
+	public List<CardContentItem> CardContentItemList { get; set; }
 
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
@@ -112,6 +122,16 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		RarityNoAcquiredArtifactList.Add(new List<int>());
 
 		DungeonData = null;
+	
+		BattleCardButtonControllers = new List<BattleCardButtonController>();
+		SelectBattleCardButtonController = null;
+	
+		OriginalDeckList = new List<MasterAction2Table.Data>();
+		BattleDeckList = new List<MasterAction2Table.Data>();
+		TrashList = new List<MasterAction2Table.Data>();
+		HandList = new List<MasterAction2Table.Data>();
+
+		CardContentItemList = new List<CardContentItem>();
 	}
 
 	public void RemoveRarityNoAcquiredArtifactList(int id) {

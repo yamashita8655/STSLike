@@ -5,26 +5,27 @@ using UnityEngine;
 
 public class MapInitializeState : StateBase {
 
+	private MapScene Scene = null;
 	/// <summary>
 	/// 初期化前処理.
 	/// </summary>
 	override public bool OnBeforeInit()
 	{
-		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		Scene = MapDataCarrier.Instance.Scene as MapScene;
 		
-		scene.BattleRoot.SetActive(false);
-		scene.ResultRoot.SetActive(false);
-		scene.ChangeRoot.SetActive(false);
-		scene.HealRoot.SetActive(false);
-		scene.MapRoot.SetActive(true);
-		scene.DungeonResultRoot.SetActive(false);
-		scene.ArtifactRoot.SetActive(false);
+		Scene.BattleRoot.SetActive(false);
+		Scene.ResultRoot.SetActive(false);
+		Scene.ChangeRoot.SetActive(false);
+		Scene.HealRoot.SetActive(false);
+		Scene.MapRoot.SetActive(true);
+		Scene.DungeonResultRoot.SetActive(false);
+		Scene.ArtifactRoot.SetActive(false);
 
-		scene.CarryArtifactDetailController.Close();
-		scene.CarryCardDetailController.Close();
+		Scene.CarryArtifactDetailController.Close();
+		Scene.CarryCardDetailController.Close();
 
 		MapDataCarrier.Instance.HandDifficultList.Clear();
-		for (int i = 0; i < scene.DifficultImages.Length; i++) {
+		for (int i = 0; i < Scene.DifficultImages.Length; i++) {
 			MapDataCarrier.Instance.HandDifficultList.Add(-1);
 		}
 
@@ -33,7 +34,21 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.CuPlayerStatus = status;
 		status.SetMaxHp(80);
 		status.SetNowHp(80);
+		
+		// 初期デッキ構築
+		// TODO regularカードの扱いについては、後ほど考える
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(2));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
 
+
+		// 初期装備
 		for (int i = 0; i < 6; i++) {
 			int id = PlayerPrefsManager.Instance.GetRegularSettingCardId(i);
 			status.SetActionData(i, MasterAction2Table.Instance.GetData(id));
@@ -54,48 +69,63 @@ public class MapInitializeState : StateBase {
 		// TODO アーティファクト効果テスト
 		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
 		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1032);
-		scene.AddArtifactObject(data);
+		Scene.AddArtifactObject(data);
 		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1032);
 
 		//data = MasterArtifactTable.Instance.GetData(1022);
-		//scene.AddArtifactObject(data);
+		//Scene.AddArtifactObject(data);
 		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1022);
 
 		//data = MasterArtifactTable.Instance.GetData(1023);
-		//scene.AddArtifactObject(data);
+		//Scene.AddArtifactObject(data);
 		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1023);
 
 		//data = MasterArtifactTable.Instance.GetData(4);
-		//scene.AddArtifactObject(data);
+		//Scene.AddArtifactObject(data);
 		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(4);
 
 		//data = MasterArtifactTable.Instance.GetData(1000);
-		//scene.AddArtifactObject(data);
+		//Scene.AddArtifactObject(data);
 		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1000);
 
 		status.SetMaxDiceCount(3);
 
-		scene.PlayerNowHpText.text = status.GetNowHp().ToString();
-		scene.PlayerMaxHpText.text = status.GetMaxHp().ToString();
+		Scene.PlayerNowHpText.text = status.GetNowHp().ToString();
+		Scene.PlayerMaxHpText.text = status.GetMaxHp().ToString();
 
 		// TODO フロア設定
 		MapDataCarrier.Instance.MaxFloor = MapDataCarrier.Instance.DungeonData.FloorCount;
 		MapDataCarrier.Instance.NowFloor = 1;
 
-		scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();
-		scene.MaxFloorText.text = MapDataCarrier.Instance.MaxFloor.ToString();
+		Scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();
+		Scene.MaxFloorText.text = MapDataCarrier.Instance.MaxFloor.ToString();
 
 		MapDataCarrier.Instance.IsClear = false;
 
 		// バトルで使用する状態異常オブジェクトの初期化をしてしまう
 		// なぜなら、バトル毎に生成する物ではない為
-		LoadPlayerPowerObjects();
+		//LoadPlayerPowerObjects();
+
+		Scene.StartCoroutine(CoObjectLoad());
 		
 		return true;
 	}
 
-	private void LoadPlayerPowerObjects() {
-		var scene = MapDataCarrier.Instance.Scene as MapScene;
+	private IEnumerator CoObjectLoad() {
+		yield return LoadPlayerPowerObjects();
+		yield return LoadPlayerTurnPowerObjects();
+		yield return LoadEnemyPowerObjects();
+		yield return LoadEnemyTurnPowerObjects();
+		yield return LoadBattleCardObjects();
+		yield return LoadEnemyValueObjects();
+		yield return LoadBgImage();
+
+		FadeManager.Instance.FadeIn(0.5f, null);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
+	}
+
+	
+	private IEnumerator LoadPlayerPowerObjects() {
 		int loadCount = (int)EnumSelf.PowerType.Max;
 		int loadedCount = 0;
 
@@ -104,22 +134,22 @@ public class MapInitializeState : StateBase {
 			ResourceManager.Instance.RequestExecuteOrder(
 				Const.PowerControllerPath,
 				ExecuteOrder.Type.GameObject,
-				scene.gameObject,
+				Scene.gameObject,
 				(rawObject) => {
 					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-					obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, 0, scene.PowerRoot);
+					obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, 0, Scene.PowerRoot);
 					MapDataCarrier.Instance.PowerObjects.Add(obj);
 					loadedCount++;
-					if (loadCount == loadedCount) {
-						LoadPlayerTurnPowerObjects();
-					}
 				}
 			);
 		}
+
+		while (loadCount < loadedCount) {
+			yield return null;
+		}
 	}
 	
-	private void LoadPlayerTurnPowerObjects() {
-		var scene = MapDataCarrier.Instance.Scene as MapScene;
+	private IEnumerator LoadPlayerTurnPowerObjects() {
 		int loadCount = (int)EnumSelf.TurnPowerType.Max;
 		int loadedCount = 0;
 
@@ -128,22 +158,22 @@ public class MapInitializeState : StateBase {
 			ResourceManager.Instance.RequestExecuteOrder(
 				Const.TurnPowerControllerPath,
 				ExecuteOrder.Type.GameObject,
-				scene.gameObject,
+				Scene.gameObject,
 				(rawObject) => {
 					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-					obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, 0, scene.TurnPowerRoot);
+					obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, 0, Scene.TurnPowerRoot);
 					MapDataCarrier.Instance.TurnPowerObjects.Add(obj);
 					loadedCount++;
-					if (loadCount == loadedCount) {
-						LoadEnemyPowerObjects();
-					}
 				}
 			);
 		}
+		
+		while (loadCount < loadedCount) {
+			yield return null;
+		}
 	}
 
-	private void LoadEnemyPowerObjects() {
-		var scene = MapDataCarrier.Instance.Scene as MapScene;
+	private IEnumerator LoadEnemyPowerObjects() {
 		int loadCount = (int)EnumSelf.PowerType.Max;
 		int loadedCount = 0;
 
@@ -152,22 +182,22 @@ public class MapInitializeState : StateBase {
 			ResourceManager.Instance.RequestExecuteOrder(
 				Const.PowerControllerPath,
 				ExecuteOrder.Type.GameObject,
-				scene.gameObject,
+				Scene.gameObject,
 				(rawObject) => {
 					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-					obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, 0, scene.EnemyPowerRoot);
+					obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, 0, Scene.EnemyPowerRoot);
 					MapDataCarrier.Instance.EnemyPowerObjects.Add(obj);
 					loadedCount++;
-					if (loadCount == loadedCount) {
-						LoadEnemyTurnPowerObjects();
-					}
 				}
 			);
 		}
+		
+		while (loadCount < loadedCount) {
+			yield return null;
+		}
 	}
 	
-	private void LoadEnemyTurnPowerObjects() {
-		var scene = MapDataCarrier.Instance.Scene as MapScene;
+	private IEnumerator LoadEnemyTurnPowerObjects() {
 		int loadCount = (int)EnumSelf.TurnPowerType.Max;
 		int loadedCount = 0;
 
@@ -176,58 +206,91 @@ public class MapInitializeState : StateBase {
 			ResourceManager.Instance.RequestExecuteOrder(
 				Const.TurnPowerControllerPath,
 				ExecuteOrder.Type.GameObject,
-				scene.gameObject,
+				Scene.gameObject,
 				(rawObject) => {
 					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-					obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, 0, scene.EnemyTurnPowerRoot);
+					obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, 0, Scene.EnemyTurnPowerRoot);
 					MapDataCarrier.Instance.EnemyTurnPowerObjects.Add(obj);
 					loadedCount++;
-					if (loadCount == loadedCount) {
-						LoadPlayerValueObjects();
-					}
 				}
 			);
 		}
-	}
-
-	private void LoadPlayerValueObjects() {
-		var scene = MapDataCarrier.Instance.Scene as MapScene;
-
-		int diceCount = 6;
-		int objectCount = 10;
 		
-		int loadCount = diceCount * objectCount;
-		int loadedCount = 0;
-
-		// プレイヤーのValueObjectの初期生成
-		for (int i = 0; i < diceCount; i++) {
-			int index1 = i;
-			// TODO こちらもとりあえず10個決め打ちで作っておく
-			for (int i2 = 0; i2 < objectCount; i2++) {
-				ResourceManager.Instance.RequestExecuteOrder(
-					Const.ValueItemPath,
-					ExecuteOrder.Type.GameObject,
-					scene.gameObject,
-					(rawObject) => {
-						GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-						obj.GetComponent<ValueController>().Initialize(scene.PlayerActionValueRoots[index1]);
-						MapDataCarrier.Instance.ValueObjects[index1].Add(obj);
-						loadedCount++;
-						if (loadedCount == loadCount) {
-							// どうせ戦闘開始に更新するから、ここで呼び出す必要ないかもしれない
-							//for (int i3 = 0; i3 < diceCount; i3++) {
-							//	scene.UpdatePlayerValueObject(i3);
-							//}
-							LoadEnemyValueObjects();
-						}
-					}
-				);
-			}
+		while (loadCount < loadedCount) {
+			yield return null;
 		}
 	}
+
+	//private IEnumerator LoadPlayerValueObjects() {
+
+	//	int diceCount = 6;
+	//	int objectCount = 10;
+	//	
+	//	int loadCount = diceCount * objectCount;
+	//	int loadedCount = 0;
+
+	//	// プレイヤーのValueObjectの初期生成
+	//	for (int i = 0; i < diceCount; i++) {
+	//		int index1 = i;
+	//		// TODO こちらもとりあえず10個決め打ちで作っておく
+	//		for (int i2 = 0; i2 < objectCount; i2++) {
+	//			ResourceManager.Instance.RequestExecuteOrder(
+	//				Const.ValueItemPath,
+	//				ExecuteOrder.Type.GameObject,
+	//				Scene.gameObject,
+	//				(rawObject) => {
+	//					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+	//					obj.GetComponent<ValueController>().Initialize(Scene.PlayerActionValueRoots[index1]);
+	//					MapDataCarrier.Instance.ValueObjects[index1].Add(obj);
+	//					loadedCount++;
+	//				}
+	//			);
+	//		}
+	//	}
+	//	
+	//	while (loadCount != loadedCount) {
+	//		yield return null;
+	//	}
+	//}
 	
-	private void LoadEnemyValueObjects() {
-		var scene = MapDataCarrier.Instance.Scene as MapScene;
+	private IEnumerator LoadBattleCardObjects() {
+
+		int cardCount = Const.MaxHand;
+
+		// プレイヤーのバトルカード初期生成
+		// 20個作っておいて、表示非表示、表示物更新をして使いまわす
+		for (int i = 0; i < cardCount; i++) {
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.BattleCardButtonItemPath,
+				ExecuteOrder.Type.GameObject,
+				Scene.gameObject,
+				InitializeBattleCardButtonController
+			);
+		}
+		
+		while (MapDataCarrier.Instance.BattleCardButtonControllers.Count < cardCount) {
+			yield return null;
+		}
+	}
+
+	private void InitializeBattleCardButtonController(UnityEngine.Object rawObject) {
+		Scene.StartCoroutine(CoInitializeBattleCardButtonController(rawObject));
+	}
+	
+	private IEnumerator CoInitializeBattleCardButtonController(UnityEngine.Object rawObject) {
+		GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+		obj.transform.SetParent(Scene.HandRoot.transform);
+		obj.transform.localPosition = Vector3.zero;
+		obj.transform.localScale = Vector3.one;
+		BattleCardButtonController ctrl = obj.GetComponent<BattleCardButtonController>();
+		yield return ctrl.Initialize(
+			Scene.OnClickAttackButton,
+			Scene.OnClickCarryCardDetailButton
+		);
+		MapDataCarrier.Instance.BattleCardButtonControllers.Add(ctrl);
+	}
+	
+	private IEnumerator LoadEnemyValueObjects() {
 		int objectCount = 10;
 		
 		int loadCount = objectCount;
@@ -240,37 +303,39 @@ public class MapInitializeState : StateBase {
 			ResourceManager.Instance.RequestExecuteOrder(
 				Const.ValueItemPath,
 				ExecuteOrder.Type.GameObject,
-				scene.gameObject,
+				Scene.gameObject,
 				(rawObject) => {
 					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-					obj.GetComponent<ValueController>().Initialize(scene.EnemyActionValueRoot);
+					obj.GetComponent<ValueController>().Initialize(Scene.EnemyActionValueRoot);
 					MapDataCarrier.Instance.EnemyValueObjects.Add(obj);
 					loadedCount++;
-					if (loadedCount == loadCount) {
-						//FadeManager.Instance.FadeIn(0.5f, null);
-						//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
-						LoadBgImage();
-					}
 				}
 			);
 		}
+		
+		while (loadCount < loadedCount) {
+			yield return null;
+		}
 	}
 	
-	private void LoadBgImage() {
-		var scene = MapDataCarrier.Instance.Scene as MapScene;
+	private IEnumerator LoadBgImage() {
+		int loadCount = 1;
+		int loadedCount = 0;
 
 		ResourceManager.Instance.RequestExecuteOrder(
 			MapDataCarrier.Instance.DungeonData.ImagePath,
 			ExecuteOrder.Type.Sprite,
-			scene.gameObject,
+			Scene.gameObject,
 			(rawSprite) => {
-				scene.BgImage.sprite = rawSprite as Sprite;
-				FadeManager.Instance.FadeIn(0.5f, null);
-				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
+				Scene.BgImage.sprite = rawSprite as Sprite;
+				loadedCount++;
 			}
 		);
+		
+		while (loadCount < loadedCount) {
+			yield return null;
+		}
 	}
-
 
 	/// <summary>
 	/// メイン更新処理.

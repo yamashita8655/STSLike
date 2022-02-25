@@ -17,7 +17,9 @@ public class CardDetailController : MonoBehaviour
 	
 	[SerializeField]
 	private Text CardDetail = null;
-	
+
+	[SerializeField]
+	private Text Cost = null;
 
 	public void Open(MasterAction2Table.Data data) {
 		gameObject.SetActive(true);
@@ -41,6 +43,7 @@ public class CardDetailController : MonoBehaviour
 		);
 
 		CardName.text = data.Name;
+		Cost.text = data.DiceCost.ToString();
 		System.Object[] arguments = new System.Object[data.ActionPackList.Count];
 		for (int i = 0; i < data.ActionPackList.Count; i++) {
 			arguments[i] = data.ActionPackList[i].Value;

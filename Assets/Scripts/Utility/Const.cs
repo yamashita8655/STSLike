@@ -5,14 +5,17 @@ using UnityEngine;
 public partial class Const {
 	public static readonly int BaseRegularCardMaxCost = 1;
 	public static readonly int MaxPoint = 99999999;
+	public static readonly int MaxHand = 20;
 
 	public static readonly string RarityFrameImagePath = "Image/UI/Card/cardframe{0}";
 	public static readonly string AttackButtonImagePath = "Image/UI/Map/attackbuttonframe{0}";
 	public static readonly string ArtifactButtonPath = "Prefab/UI/ArtifactButtonItem";
 	public static readonly string NotFoundImagePath = "Image/UI/Menu/notfound";
 	public static readonly string RegularSettingCardContentItemPath = "Prefab/UI/RegularSettingCardContentItem";
+	public static readonly string CardContentItemPath = "Prefab/UI/CardContentItem";
 
 	public static readonly string ValueItemPath = "Prefab/UI/ValueItem";
+	public static readonly string BattleCardButtonItemPath = "Prefab/UI/BattleCardButtonItem";
 
 	public static readonly string DamageImagePath = "Image/UI/Card/damage";
 	public static readonly string TrueDamageImagePath = "Image/UI/Card/truedamage";

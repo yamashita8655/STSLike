@@ -10,6 +10,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 		public string Name { get; private set; }
 		public int EquipCost { get; private set; }
 		public int UnlockCost { get; private set; }
+		public int DiceCost { get; private set; }
 		public string Detail { get; private set; }
 		public string ImagePath { get; private set; }
 		public List<ActionPack> ActionPackList { get; private set; }
@@ -19,6 +20,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			string name,
 			int equipCost,
 			int unlockCost,
+			int diceCost,
 			string detail,
 			string imagePath,
 			List<ActionPack> actionPackList
@@ -29,6 +31,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			Name			= name;
 			EquipCost		= equipCost;
 			UnlockCost		= unlockCost;
+			DiceCost		= diceCost;
 			Detail			= detail;
 			ImagePath		= imagePath;
 			ActionPackList	= actionPackList;
@@ -71,7 +74,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 
 			// アクションパックを先に作っておく
 			List<ActionPack> list = new List<ActionPack>();
-			int index = 7;
+			int index = 8;
 			while (true) {
 				if (paramList[index] == "NONE") {
 					break;
@@ -94,8 +97,9 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 				paramList[2],
 				int.Parse(paramList[3]),
 				int.Parse(paramList[4]),
-				paramList[5],
+				int.Parse(paramList[5]),
 				paramList[6],
+				paramList[7],
 				list
 			);
 

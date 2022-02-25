@@ -18,6 +18,9 @@ public class CardContentItem : MonoBehaviour
 	[SerializeField]
 	private Text CardDetail = null;
 
+	[SerializeField]
+	private Text CardCost = null;
+
 	private Action<MasterAction2Table.Data> Callback = null;
 
 	private MasterAction2Table.Data Data = null;
@@ -45,6 +48,7 @@ public class CardContentItem : MonoBehaviour
 		);
 
 		CardName.text = data.Name;
+		CardCost.text = data.DiceCost.ToString();
 
 		System.Object[] arguments = new System.Object[data.ActionPackList.Count];
 		for (int i = 0; i < data.ActionPackList.Count; i++) {
@@ -54,7 +58,7 @@ public class CardContentItem : MonoBehaviour
 
 		Callback = callback;
 	}
-	
+
 	public void OnClick() {
 		if (Callback != null) {
 			Callback(Data);
