@@ -19,6 +19,9 @@ public class MapBattlePlayerTurnStartState : StateBase {
 
 		BattleCalculationFunction.PlayerTurnStartValueChange();
 
+		MapDataCarrier.Instance.CurrentTotalDiceCost = 0;
+		scene.UpdateCurrentTotalDiceCostText();
+
 		scene.UpdateParameterText();
 		
 		// TODO もう少し呼び出す回数最適化できそうな気がする

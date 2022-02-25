@@ -53,14 +53,17 @@ public class MapBattleDiceRollState : StateBase {
 			MapDataCarrier.Instance.DiceValueList.Add(dice);
 		}
 
+		int total = 0;
+		for (int i = 0; i < MapDataCarrier.Instance.DiceValueList.Count; i++) {
+			// ダイスの目は添え字扱いになっているので、数値として扱う為の+1
+			total += (MapDataCarrier.Instance.DiceValueList[i]+1);
+		}
+		
+		MapDataCarrier.Instance.CurrentTotalDiceCost = total;
+		scene.UpdateCurrentTotalDiceCostText();
 
 		if (player.GetParameterListFlag(EnumSelf.ParameterType.DiceShield) == true) {
-			int shield = 0;
-			for (int i = 0; i < MapDataCarrier.Instance.DiceValueList.Count; i++) {
-				// ダイスの目は添え字扱いになっているので、数値として扱う為の+1
-				shield += (MapDataCarrier.Instance.DiceValueList[i]+1);
-			}
-			BattleCalculationFunction.PlayerCalcShield(shield);
+			BattleCalculationFunction.PlayerCalcShield(total);
 			scene.UpdateParameterText();
 		}
 			

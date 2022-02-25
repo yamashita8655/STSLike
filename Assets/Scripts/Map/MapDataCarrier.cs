@@ -70,6 +70,8 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 
 	public int BattleTurnCount { get; set; }
 
+	public int CurrentTotalDiceCost { get; set; }
+
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
 		MapTypeList = new List<EnumSelf.MapType>();

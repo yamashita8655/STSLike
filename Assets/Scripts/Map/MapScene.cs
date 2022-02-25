@@ -43,6 +43,18 @@ public partial class MapScene : SceneBase
 	public GameObject TurnEndButtonObject => CuTurnEndButtonObject;
 	
 	[SerializeField]
+	private Text CuCurrentTotalDiceCostText = null;
+	public Text CurrentTotalDiceCostText => CuCurrentTotalDiceCostText;
+	
+	[SerializeField]
+	private Text CuDeckCountText = null;
+	public Text DeckCountText => CuDeckCountText;
+	
+	[SerializeField]
+	private Text CuTrashCountText = null;
+	public Text TrashCountText => CuTrashCountText;
+	
+	[SerializeField]
 	private GameObject CuMapRoot = null;
 	public GameObject MapRoot => CuMapRoot;
 	
@@ -708,5 +720,9 @@ public partial class MapScene : SceneBase
 			}
 		}
 		player.SetParameterListFlag(type, false);
+	}
+	
+	public void UpdateCurrentTotalDiceCostText() {
+		CurrentTotalDiceCostText.text = MapDataCarrier.Instance.CurrentTotalDiceCost.ToString();
 	}
 }
