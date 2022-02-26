@@ -997,21 +997,10 @@ public class BattleCalculationFunction {
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			int actionId = pack.Value;
 			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(actionId);
-			List<MasterAction2Table.Data> list = player.GetActionDataCloseList();
-			List<int> notCurseIndexs = new List<int>();
-			for (int i = 0; i < list.Count; i++) {
-				if (IsCurse(list[i].Id) == true) {
-					continue;
-				}
-				notCurseIndexs.Add(i);
-			}
 
-			if (notCurseIndexs.Count == 0) {
-				// 全部呪い状態だったら、上書きしない
-			} else {
-				int index = UnityEngine.Random.Range(0, notCurseIndexs.Count);
-				player.SetCurseActionData(notCurseIndexs[index], data);
-			}
+			// 呪いは山札に加える
+			var deckList = MapDataCarrier.Instance.BattleDeckList;
+			deckList.Add(data);
 		} else {
 			LogManager.Instance.LogError("EnemyCurse:Target:Self は、サポートしていない");
 		}
