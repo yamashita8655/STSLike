@@ -47,6 +47,7 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
 
+		Scene.UpdateOriginalDeckCountText();
 
 		// 初期装備
 		for (int i = 0; i < 6; i++) {

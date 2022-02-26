@@ -796,6 +796,24 @@ public partial class MapScene : SceneBase
 		CurrentTotalDiceCostText.text = MapDataCarrier.Instance.CurrentTotalDiceCost.ToString();
 	}
 	
+	public void OnClickBattleDeckButton() {
+		// TODO これは、正直いつ押されてもいいので、そう作っておく
+		UpdateCardList(MapDataCarrier.Instance.BattleDeckList);
+		CuCardListRoot.SetActive(true);
+	}
+
+	public void OnClickTrashButton() {
+		// TODO これは、正直いつ押されてもいいので、そう作っておく
+		UpdateCardList(MapDataCarrier.Instance.TrashList);
+		CuCardListRoot.SetActive(true);
+	}
+
+	public void OnClickDiscardButton() {
+		// TODO これは、正直いつ押されてもいいので、そう作っておく
+		UpdateCardList(MapDataCarrier.Instance.DiscardList);
+		CuCardListRoot.SetActive(true);
+	}
+	
 	public void OnClickOriginalDeckButton() {
 		// TODO これは、正直いつ押されてもいいので、そう作っておく
 		UpdateCardList(MapDataCarrier.Instance.OriginalDeckList);

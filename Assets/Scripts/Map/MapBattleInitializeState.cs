@@ -17,12 +17,25 @@ public class MapBattleInitializeState : StateBase {
 
 		MapDataCarrier.Instance.DiceValueList.Clear();
 		MapDataCarrier.Instance.BattleTurnCount = 0;
+		
+		// 手札の非表示
+		var handList = MapDataCarrier.Instance.BattleCardButtonControllers;
+		for (int i = 0; i < handList.Count; i++) {
+			handList[i].gameObject.SetActive(false);
+		}
+
+		// オリジナルデッキを、戦闘用デッキにコピー
+		MapDataCarrier.Instance.CopyDeck();
+		
+		// デッキをシャッフル
+		MapDataCarrier.Instance.DeckShuffle();
 
 		// プレイヤーのアクション設定
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
 		player.SetMaxShield(999999);
 		player.SetNowShield(0);
 		scene.PlayerShieldText.text = "";
+
 
 		// プレイヤーのイニシアチブ設定
 		// 主に、アーティファクトによる、ターン開始時に掛かるバフ系

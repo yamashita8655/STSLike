@@ -16,11 +16,68 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		MapDataCarrier.Instance.SelectAttackIndex = -1;
 		MapDataCarrier.Instance.BattleTurnCount++;
+		
+		MapDataCarrier.Instance.CurrentTotalDiceCost = 0;
+		scene.UpdateCurrentTotalDiceCostText();
 
 		BattleCalculationFunction.PlayerTurnStartValueChange();
 
-		MapDataCarrier.Instance.CurrentTotalDiceCost = 0;
-		scene.UpdateCurrentTotalDiceCostText();
+		// カードを引く
+		//デッキドロー数 = 6+n;
+		//デッキドローカウント = 0;
+		//while (デッキドローカウント < デッキドロー数) {
+		//	if (デッキが0じゃなければ) {
+		//		if (手札が20以上ではない) {
+		//			デッキの先頭を取り出して、ハンドに追加
+		//		} else {
+		//			デッキの先頭を取り出して、トラッシュに追加
+		//		}
+		//		デッキドローカウント++;
+		//	} else {
+		//		if (トラッシュが0枚じゃない) {
+		//			トラッシュを山札に入れて、シャッフルして、もう一度この処理を行う
+		//		} else {
+		//			引けるものが無いので、ここで処理終わりにしてもいいけど、
+		//			フローをちゃんとする為に、デッキドローカウント++;
+		//		}
+		//	}
+		//}
+
+		int drawCount = Const.DrawCount;// 何か補正で引く枚数が増えたら、ここ調整する
+		int drewCount = 0;
+
+		var deckList = MapDataCarrier.Instance.BattleDeckList;
+		var trashList = MapDataCarrier.Instance.TrashList;
+		var handList = MapDataCarrier.Instance.HandList;
+
+		while (drewCount < drawCount) {
+			MasterAction2Table.Data drawCard = null;
+			if (deckList.Count > 0) {
+				drawCard = deckList[0];
+				deckList.RemoveAt(0);
+				if (handList.Count < Const.MaxHand) {
+					handList.Add(drawCard);
+				} else {
+					trashList.Add(drawCard);
+				}
+				drewCount++;
+			} else {
+				if (trashList.Count > 0) {
+					MapDataCarrier.Instance.DeckShuffle();
+				} else {
+					drewCount++;
+				}
+			}
+		}
+
+		var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
+		for (int i = 0; i < handList.Count; i++) {
+			ctrls[i].gameObject.SetActive(true);
+			ctrls[i].UpdateDisplay(handList[i], MapDataCarrier.Instance.CurrentTotalDiceCost);
+		}
+
+		scene.TrashCountText.text = trashList.Count.ToString();
+		scene.DeckCountText.text = deckList.Count.ToString();
 
 		scene.UpdateParameterText();
 		

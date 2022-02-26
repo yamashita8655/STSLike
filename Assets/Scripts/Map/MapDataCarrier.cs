@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -79,9 +80,10 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public List<MasterAction2Table.Data> BattleDeckList { get; set; }
 	public List<MasterAction2Table.Data> TrashList { get; set; }
 	public List<MasterAction2Table.Data> HandList { get; set; }
+	public List<MasterAction2Table.Data> DiscardList { get; set; }
 	
 	public List<CardContentItem> CardContentItemList { get; set; }
-
+	
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
 		MapTypeList = new List<EnumSelf.MapType>();
@@ -130,6 +132,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		BattleDeckList = new List<MasterAction2Table.Data>();
 		TrashList = new List<MasterAction2Table.Data>();
 		HandList = new List<MasterAction2Table.Data>();
+		DiscardList = new List<MasterAction2Table.Data>();
 
 		CardContentItemList = new List<CardContentItem>();
 	}
@@ -144,6 +147,16 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 				break;
 			}
 		}
+	}
+	
+	public void CopyDeck() {
+		BattleDeckList = new List<MasterAction2Table.Data>(OriginalDeckList);
+	}
+	
+	public void DeckShuffle() {
+		BattleDeckList.AddRange(TrashList);
+		TrashList.Clear();
+		BattleDeckList = BattleDeckList.OrderBy(a => Guid.NewGuid()).ToList();
 	}
 
 	public void Release() {

@@ -12,24 +12,34 @@ public class MapBattleUpdateAttackButtonDisplayState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
-		for (int i = 0; i < scene.PlayerActionButtons.Length; i++) {
-			scene.PlayerActionButtons[i].interactable = false;
-		}
+		//for (int i = 0; i < scene.PlayerActionButtons.Length; i++) {
+		//	scene.PlayerActionButtons[i].interactable = false;
+		//}
 
-		for (int i = 0; i < MapDataCarrier.Instance.DiceValueList.Count; i++) {
-			int val = MapDataCarrier.Instance.DiceValueList[i];
-			scene.PlayerActionButtons[val].interactable = true;
-		}
-		
-		// ダイスイメージの更新
-		for (int i = 0; i < scene.DiceImages.Length; i++) {
-			scene.DiceImages[i].gameObject.SetActive(false);
-		}
+		//for (int i = 0; i < MapDataCarrier.Instance.DiceValueList.Count; i++) {
+		//	int val = MapDataCarrier.Instance.DiceValueList[i];
+		//	scene.PlayerActionButtons[val].interactable = true;
+		//}
+		//
+		//// ダイスイメージの更新
+		//for (int i = 0; i < scene.DiceImages.Length; i++) {
+		//	scene.DiceImages[i].gameObject.SetActive(false);
+		//}
 
-		for (int i = 0; i < MapDataCarrier.Instance.DiceValueList.Count; i++) {
-			scene.DiceImages[i].gameObject.SetActive(true);
-			int val = MapDataCarrier.Instance.DiceValueList[i];
-			scene.DiceImages[i].sprite = scene.DiceSprites[val];
+		//for (int i = 0; i < MapDataCarrier.Instance.DiceValueList.Count; i++) {
+		//	scene.DiceImages[i].gameObject.SetActive(true);
+		//	int val = MapDataCarrier.Instance.DiceValueList[i];
+		//	scene.DiceImages[i].sprite = scene.DiceSprites[val];
+		//}
+
+
+		// 使用できるコストから、手札で使えるカードをアクティブにする
+		int diceCost = MapDataCarrier.Instance.CurrentTotalDiceCost;
+		var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
+		for (int i = 0; i < ctrls.Count; i++) {
+			if (ctrls[i].gameObject.active == true) {
+				ctrls[i].UpdateInteractable(diceCost);
+			}
 		}
 
 		return true;

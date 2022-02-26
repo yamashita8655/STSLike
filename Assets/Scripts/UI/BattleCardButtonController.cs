@@ -17,6 +17,9 @@ public class BattleCardButtonController : MonoBehaviour
 	
 	[SerializeField]
 	private GameObject ValueObjectRoot = null;
+	
+	[SerializeField]
+	private Button AttackButton = null;
 
 	private MasterAction2Table.Data Data = null;
 
@@ -58,7 +61,8 @@ public class BattleCardButtonController : MonoBehaviour
 	}
 
 	public void UpdateDisplay(
-		MasterAction2Table.Data data
+		MasterAction2Table.Data data,
+		int totalCost
 	) {
 		Data = data;
 
@@ -96,6 +100,16 @@ public class BattleCardButtonController : MonoBehaviour
 				list[index].Value,
 				val
 			);
+		}
+
+		UpdateInteractable(totalCost);
+	}
+
+	public void UpdateInteractable(int totalCost) {
+		if (Data.DiceCost <= totalCost) {
+			AttackButton.interactable = true;
+		} else {
+			AttackButton.interactable = false;
 		}
 	}
 	

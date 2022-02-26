@@ -10,6 +10,10 @@ public class MapResultChangeResultState : StateBase {
 	/// </summary>
 	override public bool OnBeforeInit()
 	{
+		// TODO ここは、入れ替えじゃなくて、デッキに追加するロジックに切り替える
+		// デッキ総数更新処理のメモ
+		//scene.UpdateOriginalDeckCountText();
+
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		
 		int treasureIndex = MapDataCarrier.Instance.SelectTreasureIndex;
@@ -30,7 +34,9 @@ public class MapResultChangeResultState : StateBase {
 
 			//scene.PlayerActionNameStrings[changeIndex].text = data.Name;
 			scene.UpdatePlayerValueObject(changeIndex);
+
 		}
+
 
 		return true;
 	}
