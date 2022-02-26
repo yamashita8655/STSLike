@@ -11,6 +11,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 		public int EquipCost { get; private set; }
 		public int UnlockCost { get; private set; }
 		public int DiceCost { get; private set; }
+		public EnumSelf.UseType UseType { get; private set; }
 		public string Detail { get; private set; }
 		public string ImagePath { get; private set; }
 		public List<ActionPack> ActionPackList { get; private set; }
@@ -21,6 +22,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			int equipCost,
 			int unlockCost,
 			int diceCost,
+			EnumSelf.UseType useType,
 			string detail,
 			string imagePath,
 			List<ActionPack> actionPackList
@@ -32,6 +34,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			EquipCost		= equipCost;
 			UnlockCost		= unlockCost;
 			DiceCost		= diceCost;
+			UseType			= useType;
 			Detail			= detail;
 			ImagePath		= imagePath;
 			ActionPackList	= actionPackList;
@@ -74,7 +77,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 
 			// アクションパックを先に作っておく
 			List<ActionPack> list = new List<ActionPack>();
-			int index = 8;
+			int index = 9;
 			while (true) {
 				if (paramList[index] == "NONE") {
 					break;
@@ -98,8 +101,9 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 				int.Parse(paramList[3]),
 				int.Parse(paramList[4]),
 				int.Parse(paramList[5]),
-				paramList[6],
+				GetUseType(paramList[6]),
 				paramList[7],
+				paramList[8],
 				list
 			);
 
@@ -221,6 +225,20 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.TimingType.OpponentDeath;
 		} else if (typeString == "BattleEnd") {
 			type = EnumSelf.TimingType.BattleEnd;
+		}
+
+		return type;
+	}
+	
+	private EnumSelf.UseType GetUseType(string typeString) {
+		EnumSelf.UseType type = EnumSelf.UseType.Repeat;
+		
+		if (typeString == "Repeat") {
+			type = EnumSelf.UseType.Repeat;
+		} else if (typeString == "Discard") {
+			type = EnumSelf.UseType.Discard;
+		} else if (typeString == "Erase") {
+			type = EnumSelf.UseType.Erase;
 		}
 
 		return type;

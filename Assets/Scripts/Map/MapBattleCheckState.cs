@@ -96,9 +96,20 @@ public class MapBattleCheckState : StateBase {
                     //}
 
                     // 捨て札に使ったカードを登録させる
-                    var trashList = MapDataCarrier.Instance.TrashList;
-                    trashList.Add(MapDataCarrier.Instance.SelectBattleCardButtonController.GetData());
-					scene.TrashCountText.text = trashList.Count.ToString();
+					var data = MapDataCarrier.Instance.SelectBattleCardButtonController.GetData();
+					if (data.UseType == EnumSelf.UseType.Erase) {
+						// Eraseなら、捨て札にも破棄札にもならず、その戦闘中は2度と使えないカード
+					} else if (data.UseType == EnumSelf.UseType.Discard) {
+						var discardList = MapDataCarrier.Instance.DiscardList;
+                    	discardList.Add(data);
+						scene.DiscardCountText.text = discardList.Count.ToString();
+					} else if (data.UseType == EnumSelf.UseType.Repeat) {
+						var trashList = MapDataCarrier.Instance.TrashList;
+                    	trashList.Add(data);
+						scene.TrashCountText.text = trashList.Count.ToString();
+					}
+						
+					MapDataCarrier.Instance.SelectBattleCardButtonController = null;
 					
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
 				}

@@ -26,7 +26,7 @@ public class MapBattlePlayerTurnEndState : StateBase {
             }
             ctrls[i].gameObject.SetActive(false);
 		}
-		scene.TrashCountText.text = trashList.ToString();
+		scene.TrashCountText.text = trashList.Count.ToString();
 		
 		//for (int i = 0; i < 6; i++) {
 		//	scene.UpdatePlayerValueObject(i);

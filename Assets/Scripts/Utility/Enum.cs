@@ -188,4 +188,10 @@ public partial class EnumSelf : MonoBehaviour {
 		Lock,			// 未解放
 		Unlock,			// 解放済み
 	}
+	
+	public enum UseType {
+		Repeat = 0,	// 繰り返し使える
+		Discard,	// 破棄される
+		Erase,		// 破棄にも登録されない
+	}
 }

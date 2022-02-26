@@ -55,6 +55,10 @@ public partial class MapScene : SceneBase
 	public Text TrashCountText => CuTrashCountText;
 	
 	[SerializeField]
+	private Text CuDiscardCountText = null;
+	public Text DiscardCountText => CuDiscardCountText;
+	
+	[SerializeField]
 	private GameObject CuHandRoot = null;
 	public GameObject HandRoot => CuHandRoot;
 	
