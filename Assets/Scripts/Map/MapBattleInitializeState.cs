@@ -123,9 +123,9 @@ public class MapBattleInitializeState : StateBase {
 		// 表示の初期化は、内部で敵のバフの状況も見る場合があるので、
 		// 敵の情報が出来てから行う
 		// TODO 初期化用と、行動後用と、処理分離する必要が出てくるかもしれないね。
-		for (int i = 0; i < 6; i++) {
-			scene.UpdatePlayerValueObject(i);
-		}
+		//for (int i = 0; i < 6; i++) {
+		//	scene.UpdatePlayerValueObject(i);
+		//}
 
 		return true;
 	}

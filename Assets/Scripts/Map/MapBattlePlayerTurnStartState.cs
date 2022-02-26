@@ -48,15 +48,18 @@ public class MapBattlePlayerTurnStartState : StateBase {
 
 		var deckList = MapDataCarrier.Instance.BattleDeckList;
 		var trashList = MapDataCarrier.Instance.TrashList;
-		var handList = MapDataCarrier.Instance.HandList;
 
 		while (drewCount < drawCount) {
 			MasterAction2Table.Data drawCard = null;
 			if (deckList.Count > 0) {
 				drawCard = deckList[0];
 				deckList.RemoveAt(0);
-				if (handList.Count < Const.MaxHand) {
-					handList.Add(drawCard);
+                var ctrl = MapDataCarrier.Instance.GetNonActiveBattleCardController();
+                if (ctrl != null) {
+					ctrl.gameObject.SetActive(true);
+					ctrl.SetData(drawCard);
+					ctrl.UpdateDisplay();
+					ctrl.UpdateInteractable(MapDataCarrier.Instance.CurrentTotalDiceCost);
 				} else {
 					trashList.Add(drawCard);
 				}
@@ -68,14 +71,6 @@ public class MapBattlePlayerTurnStartState : StateBase {
 					drewCount++;
 				}
 			}
-		}
-
-		var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
-		for (int i = 0; i < handList.Count; i++) {
-			ctrls[i].gameObject.SetActive(true);
-			ctrls[i].SetData(handList[i]);
-			ctrls[i].UpdateDisplay();
-			ctrls[i].UpdateInteractable(MapDataCarrier.Instance.CurrentTotalDiceCost);
 		}
 
 		scene.TrashCountText.text = trashList.Count.ToString();

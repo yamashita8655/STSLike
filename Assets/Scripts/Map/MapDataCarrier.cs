@@ -79,7 +79,6 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public List<MasterAction2Table.Data> OriginalDeckList { get; set; }
 	public List<MasterAction2Table.Data> BattleDeckList { get; set; }
 	public List<MasterAction2Table.Data> TrashList { get; set; }
-	public List<MasterAction2Table.Data> HandList { get; set; }
 	public List<MasterAction2Table.Data> DiscardList { get; set; }
 	
 	public List<CardContentItem> CardContentItemList { get; set; }
@@ -131,7 +130,6 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		OriginalDeckList = new List<MasterAction2Table.Data>();
 		BattleDeckList = new List<MasterAction2Table.Data>();
 		TrashList = new List<MasterAction2Table.Data>();
-		HandList = new List<MasterAction2Table.Data>();
 		DiscardList = new List<MasterAction2Table.Data>();
 
 		CardContentItemList = new List<CardContentItem>();
@@ -154,9 +152,25 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	}
 	
 	public void DeckShuffle() {
-		BattleDeckList.AddRange(TrashList);
+		// 直接BattleDeckListにシャッフルをかけると、新しい参照先に変更されてしまうので、それは問題の為。
+		var workList = new List<MasterAction2Table.Data>(BattleDeckList);
+		workList.AddRange(TrashList);
 		TrashList.Clear();
-		BattleDeckList = BattleDeckList.OrderBy(a => Guid.NewGuid()).ToList();
+		workList = workList.OrderBy(a => Guid.NewGuid()).ToList();
+		BattleDeckList.Clear();
+		BattleDeckList.AddRange(workList);
+	}
+	
+	public BattleCardButtonController GetNonActiveBattleCardController() {
+		BattleCardButtonController ctrl = null;
+		for (int i = 0; i < BattleCardButtonControllers.Count; i++) {
+			if (BattleCardButtonControllers[i].gameObject.activeSelf == false) {
+				ctrl = BattleCardButtonControllers[i];
+				break;
+			}
+		}
+
+		return ctrl;
 	}
 
 	public void Release() {

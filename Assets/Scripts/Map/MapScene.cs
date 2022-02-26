@@ -372,9 +372,6 @@ public partial class MapScene : SceneBase
 		}
 		UpdateCurrentTotalDiceCostText();
 
-		// 使った瞬間に手札からは抹消する
-		MapDataCarrier.Instance.HandList.Remove(ctrl.GetData());
-
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
 	}
 	

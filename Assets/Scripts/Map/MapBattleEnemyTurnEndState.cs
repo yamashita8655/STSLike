@@ -19,8 +19,14 @@ public class MapBattleEnemyTurnEndState : StateBase {
 		MapDataCarrier.Instance.CuEnemyStatus.CheckAIForTurnProgress();
 
 		scene.UpdateParameterText();
-		for (int i = 0; i < 6; i++) {
-			scene.UpdatePlayerValueObject(i);
+		//for (int i = 0; i < 6; i++) {
+		//	scene.UpdatePlayerValueObject(i);
+		//}
+		var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
+		for (int i = 0; i < ctrls.Count; i++) {
+			if (ctrls[i].gameObject.activeSelf == true) {
+				ctrls[i].UpdateDisplay();
+			}
 		}
 		scene.UpdateEnemyValueObject();
 		return true;

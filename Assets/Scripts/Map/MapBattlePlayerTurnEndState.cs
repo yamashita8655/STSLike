@@ -15,10 +15,22 @@ public class MapBattlePlayerTurnEndState : StateBase {
 		BattleCalculationFunction.PlayerTurnEndValueChange();
 
 		scene.UpdateParameterText();
-		
-		for (int i = 0; i < 6; i++) {
-			scene.UpdatePlayerValueObject(i);
+
+		// 手札を捨て札に捨てる
+		var trashList = MapDataCarrier.Instance.TrashList;
+
+		var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
+		for (int i = 0; i < ctrls.Count; i++) {
+            if (ctrls[i].gameObject.activeSelf == true) {
+                trashList.Add(ctrls[i].GetData());
+            }
+            ctrls[i].gameObject.SetActive(false);
 		}
+		scene.TrashCountText.text = trashList.ToString();
+		
+		//for (int i = 0; i < 6; i++) {
+		//	scene.UpdatePlayerValueObject(i);
+		//}
 		scene.UpdateEnemyValueObject();
 		return true;
 	}
