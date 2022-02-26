@@ -21,7 +21,10 @@ public class BattleCardButtonController : MonoBehaviour
 	[SerializeField]
 	private Button AttackButton = null;
 
-	private MasterAction2Table.Data Data = null;
+    [SerializeField]
+    private Image UseTypeImage = null;
+
+    private MasterAction2Table.Data Data = null;
 
 	private Action<BattleCardButtonController> ClickCallback = null;
 	private Action<MasterAction2Table.Data> DetailClickCallback = null;
@@ -73,6 +76,28 @@ public class BattleCardButtonController : MonoBehaviour
 				RarityFrameImage.sprite = rawSprite as Sprite;
 			}
 		);
+
+		if (Data.UseType == EnumSelf.UseType.Erase) {
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.UseTypeEraseImagePath,
+				ExecuteOrder.Type.Sprite,
+				this.gameObject,
+				(rawSprite) => {
+					UseTypeImage.sprite = rawSprite as Sprite;
+				}
+			);
+		} else if (Data.UseType == EnumSelf.UseType.Discard) {
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.UseTypeDiscardImagePath,
+				ExecuteOrder.Type.Sprite,
+				this.gameObject,
+				(rawSprite) => {
+					UseTypeImage.sprite = rawSprite as Sprite;
+				}
+			);
+		} else {
+			UseTypeImage.sprite = null;
+		}
 		
 		Name.text = Data.Name;
 		Cost.text = Data.DiceCost.ToString();

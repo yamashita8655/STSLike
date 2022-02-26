@@ -14,6 +14,9 @@ public partial class Const {
 	public static readonly string NotFoundImagePath = "Image/UI/Menu/notfound";
 	public static readonly string RegularSettingCardContentItemPath = "Prefab/UI/RegularSettingCardContentItem";
 	public static readonly string CardContentItemPath = "Prefab/UI/CardContentItem";
+	
+	public static readonly string UseTypeDiscardImagePath = "Image/UI/Map/discardcard";
+	public static readonly string UseTypeEraseImagePath = "Image/UI/Map/erasecard";
 
 	public static readonly string ValueItemPath = "Prefab/UI/ValueItem";
 	public static readonly string BattleCardButtonItemPath = "Prefab/UI/BattleCardButtonItem";

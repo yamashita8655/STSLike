@@ -13,6 +13,9 @@ public class CardContentItem : MonoBehaviour
 	private Image CardImage = null;
 	
 	[SerializeField]
+	private Image UseTypeImage = null;
+	
+	[SerializeField]
 	private Text CardName = null;
 	
 	[SerializeField]
@@ -46,6 +49,28 @@ public class CardContentItem : MonoBehaviour
 				CardImage.sprite = rawSprite as Sprite;
 			}
 		);
+		
+		if (data.UseType == EnumSelf.UseType.Erase) {
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.UseTypeEraseImagePath,
+				ExecuteOrder.Type.Sprite,
+				this.gameObject,
+				(rawSprite) => {
+					UseTypeImage.sprite = rawSprite as Sprite;
+				}
+			);
+		} else if (data.UseType == EnumSelf.UseType.Discard) {
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.UseTypeDiscardImagePath,
+				ExecuteOrder.Type.Sprite,
+				this.gameObject,
+				(rawSprite) => {
+					UseTypeImage.sprite = rawSprite as Sprite;
+				}
+			);
+		} else {
+			UseTypeImage.sprite = null;
+		}
 
 		CardName.text = data.Name;
 		CardCost.text = data.DiceCost.ToString();
