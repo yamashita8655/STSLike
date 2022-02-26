@@ -858,4 +858,13 @@ public partial class MapScene : SceneBase
 	public void UpdateOriginalDeckCountText() {
 		OriginalDeckCountText.text = MapDataCarrier.Instance.OriginalDeckList.Count.ToString();
 	}
+	
+	public void UpdateCardListCountText() {
+		var discardList = MapDataCarrier.Instance.DiscardList;
+		var trashList = MapDataCarrier.Instance.TrashList;
+		var deckList = MapDataCarrier.Instance.BattleDeckList;
+		DiscardCountText.text = discardList.Count.ToString();
+		TrashCountText.text = trashList.Count.ToString();
+		DeckCountText.text = deckList.Count.ToString();
+	}
 }

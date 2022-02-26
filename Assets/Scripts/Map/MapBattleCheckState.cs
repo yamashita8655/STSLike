@@ -102,12 +102,11 @@ public class MapBattleCheckState : StateBase {
 					} else if (data.UseType == EnumSelf.UseType.Discard) {
 						var discardList = MapDataCarrier.Instance.DiscardList;
                     	discardList.Add(data);
-						scene.DiscardCountText.text = discardList.Count.ToString();
 					} else if (data.UseType == EnumSelf.UseType.Repeat) {
 						var trashList = MapDataCarrier.Instance.TrashList;
                     	trashList.Add(data);
-						scene.TrashCountText.text = trashList.Count.ToString();
 					}
+					scene.UpdateCardListCountText();
 						
 					MapDataCarrier.Instance.SelectBattleCardButtonController = null;
 					
@@ -132,6 +131,7 @@ public class MapBattleCheckState : StateBase {
 				if (MapDataCarrier.Instance.EnemyActionPackCount < MapDataCarrier.Instance.EnemyMaxActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange);
 				} else {
+					scene.UpdateCardListCountText();
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyTurnEnd);
 				}
 				
