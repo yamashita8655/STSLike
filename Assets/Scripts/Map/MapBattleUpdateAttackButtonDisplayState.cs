@@ -37,7 +37,7 @@ public class MapBattleUpdateAttackButtonDisplayState : StateBase {
 		int diceCost = MapDataCarrier.Instance.CurrentTotalDiceCost;
 		var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
 		for (int i = 0; i < ctrls.Count; i++) {
-			if (ctrls[i].gameObject.active == true) {
+			if (ctrls[i].gameObject.activeSelf == true) {
 				ctrls[i].UpdateInteractable(diceCost);
 			}
 		}

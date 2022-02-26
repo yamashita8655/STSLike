@@ -79,26 +79,41 @@ public class MapBattleCheckState : StateBase {
 				if (MapDataCarrier.Instance.ActionPackCount < MapDataCarrier.Instance.MaxActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleValueChange);
 				} else {
-					int select = MapDataCarrier.Instance.SelectAttackIndex;
-					if (select != -1) {
-						// 処理が終わったら、呪いのアクションだった場合は、基に戻す
-						MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
-						bool IsCurse = BattleCalculationFunction.IsCurse(data.Id);
-						if (IsCurse == true) {
-							MapDataCarrier.Instance.CuPlayerStatus.ResetActionData(select);
-						}
-					}
+                    //int select = MapDataCarrier.Instance.SelectAttackIndex;
+                    //if (select != -1) {
+                    //	// 処理が終わったら、呪いのアクションだった場合は、基に戻す
+                    //	MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
+                    //	bool IsCurse = BattleCalculationFunction.IsCurse(data.Id);
+                    //	if (IsCurse == true) {
+                    //		MapDataCarrier.Instance.CuPlayerStatus.ResetActionData(select);
+                    //	}
+                    //}
 
-					if (MapDataCarrier.Instance.DiceValueList.Count == 0) {
-						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnEnd);
-					} else {
-						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
-					}
+                    //if (MapDataCarrier.Instance.DiceValueList.Count == 0) {
+                    //	StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnEnd);
+                    //} else {
+                    //	StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
+                    //}
+
+                    // 捨て札に使ったカードを登録させる
+                    var trashList = MapDataCarrier.Instance.TrashList;
+                    trashList.Add(MapDataCarrier.Instance.SelectBattleCardButtonController.GetData());
+					scene.TrashCountText.text = trashList.Count.ToString();
+					
+					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
 				}
 				
-				for (int i = 0; i < 6; i++) {
-					scene.UpdatePlayerValueObject(i);
+				//for (int i = 0; i < 6; i++) {
+				//	scene.UpdatePlayerValueObject(i);
+				//}
+
+				var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
+				for (int i = 0; i < ctrls.Count; i++) {
+					if (ctrls[i].gameObject.activeSelf == true) {
+						ctrls[i].UpdateDisplay();
+					}
 				}
+
 				scene.UpdateEnemyValueObject();
 
 			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleEnemyValueChange) {
@@ -109,9 +124,16 @@ public class MapBattleCheckState : StateBase {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyTurnEnd);
 				}
 				
-				for (int i = 0; i < 6; i++) {
-					scene.UpdatePlayerValueObject(i);
+				var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
+				for (int i = 0; i < ctrls.Count; i++) {
+					if (ctrls[i].gameObject.activeSelf == true) {
+						ctrls[i].UpdateDisplay();
+					}
 				}
+
+				//for (int i = 0; i < 6; i++) {
+				//	scene.UpdatePlayerValueObject(i);
+				//}
 				scene.UpdateEnemyValueObject();
 
 			}

@@ -12,9 +12,11 @@ public class MapBattleAttackResultState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
-		int select = MapDataCarrier.Instance.SelectAttackIndex;
+		//int select = MapDataCarrier.Instance.SelectAttackIndex;
 
-		MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
+		//MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
+	
+		MasterAction2Table.Data data = MapDataCarrier.Instance.SelectBattleCardButtonController.GetData();
 
 		MapDataCarrier.Instance.ActionPackCount = 0;
 		MapDataCarrier.Instance.MaxActionPackCount = data.ActionPackList.Count;

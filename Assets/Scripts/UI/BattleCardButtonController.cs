@@ -60,14 +60,13 @@ public class BattleCardButtonController : MonoBehaviour
 		}
 	}
 
-	public void UpdateDisplay(
-		MasterAction2Table.Data data,
-		int totalCost
-	) {
+	public void SetData(MasterAction2Table.Data data) {
 		Data = data;
+	}
 
+	public void UpdateDisplay() {
 		ResourceManager.Instance.RequestExecuteOrder(
-			string.Format(Const.RarityFrameImagePath, data.Rarity.ToString()),
+			string.Format(Const.RarityFrameImagePath, Data.Rarity.ToString()),
 			ExecuteOrder.Type.Sprite,
 			this.gameObject,
 			(rawSprite) => {
@@ -75,8 +74,8 @@ public class BattleCardButtonController : MonoBehaviour
 			}
 		);
 		
-		Name.text = data.Name;
-		Cost.text = data.DiceCost.ToString();
+		Name.text = Data.Name;
+		Cost.text = Data.DiceCost.ToString();
 
 		var list = Data.ActionPackList;
 		int index = 0;
@@ -101,8 +100,6 @@ public class BattleCardButtonController : MonoBehaviour
 				val
 			);
 		}
-
-		UpdateInteractable(totalCost);
 	}
 
 	public void UpdateInteractable(int totalCost) {

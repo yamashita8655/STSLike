@@ -354,26 +354,6 @@ public partial class MapScene : SceneBase
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
 	}
 	
-	//public void OnClickAttackButton(int index)
-	//{
-	//	// ユーザー入力待機状態でなければ、処理しない
-	//	var stm = StateMachineManager.Instance;
-	//	if (stm.GetState(StateMachineName.Map) != (int)MapState.BattleAttackSelectUserWait) {
-	//		return;
-	//	}
-	//	MapDataCarrier.Instance.SelectAttackIndex = index;
-
-	//	// 押されたダイスデータを消す
-	//	for (int i = 0; i < MapDataCarrier.Instance.DiceValueList.Count; i++) {
-	//		if (MapDataCarrier.Instance.DiceValueList[i] == index) {
-	//			MapDataCarrier.Instance.DiceValueList.RemoveAt(i);
-	//			break;
-	//		}
-	//	}
-
-	//	StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
-	//}
-	
 	public void OnClickAttackButton(BattleCardButtonController ctrl)
 	{
 		// ユーザー入力待機状態でなければ、処理しない
@@ -383,6 +363,17 @@ public partial class MapScene : SceneBase
 		}
 
 		MapDataCarrier.Instance.SelectBattleCardButtonController = ctrl;
+
+		// 押されたボタンは、非表示にして、コストを減らす
+		ctrl.gameObject.SetActive(false);
+		MapDataCarrier.Instance.CurrentTotalDiceCost -= ctrl.GetData().DiceCost;
+		if (MapDataCarrier.Instance.CurrentTotalDiceCost < 0) {
+			MapDataCarrier.Instance.CurrentTotalDiceCost = 0;
+		}
+		UpdateCurrentTotalDiceCostText();
+
+		// 使った瞬間に手札からは抹消する
+		MapDataCarrier.Instance.HandList.Remove(ctrl.GetData());
 
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
 	}

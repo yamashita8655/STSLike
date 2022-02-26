@@ -73,7 +73,9 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
 		for (int i = 0; i < handList.Count; i++) {
 			ctrls[i].gameObject.SetActive(true);
-			ctrls[i].UpdateDisplay(handList[i], MapDataCarrier.Instance.CurrentTotalDiceCost);
+			ctrls[i].SetData(handList[i]);
+			ctrls[i].UpdateDisplay();
+			ctrls[i].UpdateInteractable(MapDataCarrier.Instance.CurrentTotalDiceCost);
 		}
 
 		scene.TrashCountText.text = trashList.Count.ToString();
@@ -81,10 +83,10 @@ public class MapBattlePlayerTurnStartState : StateBase {
 
 		scene.UpdateParameterText();
 		
-		// TODO もう少し呼び出す回数最適化できそうな気がする
-		for (int i = 0; i < 6; i++) {
-			scene.UpdatePlayerValueObject(i);
-		}
+		//// TODO もう少し呼び出す回数最適化できそうな気がする
+		//for (int i = 0; i < 6; i++) {
+		//	scene.UpdatePlayerValueObject(i);
+		//}
 		// 自分の弱体が終わると、敵の表示も変える必要があるので、ここでも更新する
 		scene.UpdateEnemyValueObject();
 		return true;
