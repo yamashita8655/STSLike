@@ -26,6 +26,10 @@ public class MapBattleInitializeState : StateBase {
 
 		// オリジナルデッキを、戦闘用デッキにコピー
 		MapDataCarrier.Instance.CopyDeck();
+
+		// 前回のトラッシュと破棄をクリア
+		MapDataCarrier.Instance.TrashList.Clear();
+		MapDataCarrier.Instance.DiscardList.Clear();
 		
 		// デッキをシャッフル
 		MapDataCarrier.Instance.DeckShuffle();

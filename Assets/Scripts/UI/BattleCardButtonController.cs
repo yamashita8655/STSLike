@@ -77,6 +77,11 @@ public class BattleCardButtonController : MonoBehaviour
 		Name.text = Data.Name;
 		Cost.text = Data.DiceCost.ToString();
 
+		// 一回全て非表示
+		for (int i = 0; i < ValueControllers.Count; i++) {
+			ValueControllers[i].Hide();
+		}
+
 		var list = Data.ActionPackList;
 		int index = 0;
 		for (index = 0; index < list.Count; index++) {

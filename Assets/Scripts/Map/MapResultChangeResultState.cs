@@ -10,11 +10,8 @@ public class MapResultChangeResultState : StateBase {
 	/// </summary>
 	override public bool OnBeforeInit()
 	{
-		// TODO ここは、入れ替えじゃなくて、デッキに追加するロジックに切り替える
-		// デッキ総数更新処理のメモ
-		//scene.UpdateOriginalDeckCountText();
-
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		scene.ResultRoot.SetActive(false);
 		
 		int treasureIndex = MapDataCarrier.Instance.SelectTreasureIndex;
 
@@ -29,12 +26,14 @@ public class MapResultChangeResultState : StateBase {
 		} else {
 			MasterAction2Table.Data data = MapDataCarrier.Instance.TreasureList[treasureIndex];
 
-			int changeIndex = MapDataCarrier.Instance.SelectChangeIndex;
-			MapDataCarrier.Instance.CuPlayerStatus.SetActionData(changeIndex, data);
+			MapDataCarrier.Instance.OriginalDeckList.Add(data);
+			scene.UpdateOriginalDeckCountText();
+
+			//int changeIndex = MapDataCarrier.Instance.SelectChangeIndex;
+			//MapDataCarrier.Instance.CuPlayerStatus.SetActionData(changeIndex, data);
 
 			//scene.PlayerActionNameStrings[changeIndex].text = data.Name;
-			scene.UpdatePlayerValueObject(changeIndex);
-
+			//scene.UpdatePlayerValueObject(changeIndex);
 		}
 
 

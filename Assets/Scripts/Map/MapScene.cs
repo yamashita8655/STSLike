@@ -417,7 +417,8 @@ public partial class MapScene : SceneBase
 		if (stm.GetState(StateMachineName.Map) != (int)MapState.ResultTreasureUserWait) {
 			return;
 		}
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultChangeDisplay);
+		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultChangeDisplay);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultChangeResult);
 	}
 	
 	public void OnClickBackButton() {
