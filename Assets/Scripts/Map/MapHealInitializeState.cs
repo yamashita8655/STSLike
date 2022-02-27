@@ -23,7 +23,13 @@ public class MapHealInitializeState : StateBase {
 		scene.HealTexts[0].text = data.Name;
 		data = MasterHealTable.Instance.GetData(2);
 		scene.HealTexts[1].text = data.Name;
-		scene.HealTexts[2].text = "未定";
+		data = MasterHealTable.Instance.GetData(3);
+		scene.HealTexts[2].text = data.Name;
+		if (MapDataCarrier.Instance.OriginalDeckList.Count == 1) {
+			scene.HealButtons[2].interactable = false;
+		} else {
+			scene.HealButtons[2].interactable = true;
+		}
 
 		scene.HealDetailText.text = "";
 

@@ -179,6 +179,10 @@ public partial class MapScene : SceneBase
 	public Text[] HealTexts => CuHealTexts;
 	
 	[SerializeField]
+	private Button[] CuHealButtons = null;
+	public Button[] HealButtons => CuHealButtons;
+	
+	[SerializeField]
 	private Text CuHealDetailText = null;
 	public Text HealDetailText => CuHealDetailText;
 	
@@ -276,6 +280,10 @@ public partial class MapScene : SceneBase
 	private GameObject CuCardListContentRoot = null;
 	public GameObject CardListContentRoot => CuCardListContentRoot;
 	
+	[SerializeField]
+	private EraseCardDetailController CuEraseCardDetailController = null;
+	public EraseCardDetailController EraseCardDetailController => CuEraseCardDetailController;
+	
 	// Start is called before the first frame update
 	IEnumerator Start() {
 		while (EntryPoint.IsInitialized == false) {
@@ -370,7 +378,17 @@ public partial class MapScene : SceneBase
 
 		// 押されたボタンは、非表示にして、コストを減らす
 		ctrl.gameObject.SetActive(false);
-		MapDataCarrier.Instance.CurrentTotalDiceCost -= ctrl.GetData().DiceCost;
+
+		var data = ctrl.GetData();
+		int cost = data.DiceCost;
+
+		if (BattleCalculationFunction.IsCurse(data.Id) == true) {
+			if (MapDataCarrier.Instance.CuPlayerStatus.GetParameterListFlag(EnumSelf.ParameterType.AntiCurse) == true) {
+				cost = 0;
+			}
+		}
+
+		MapDataCarrier.Instance.CurrentTotalDiceCost -= cost;
 		if (MapDataCarrier.Instance.CurrentTotalDiceCost < 0) {
 			MapDataCarrier.Instance.CurrentTotalDiceCost = 0;
 		}
@@ -471,7 +489,13 @@ public partial class MapScene : SceneBase
 		if (stm.GetState(StateMachineName.Map) != (int)MapState.HealUserWait) {
 			return;
 		}
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealResult);
+
+		int index = MapDataCarrier.Instance.SelectHealIndex;
+		if ((index == 0) || (index == 1)) {
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealResult);
+		} else {
+			OnClickEraseCardButton();
+		}
 	}
 
 	// 以下アーティファクト系
@@ -566,6 +590,22 @@ public partial class MapScene : SceneBase
 		//}
 
 		CarryCardDetailController.Open(data);
+	}
+	
+	public void OnClickEraseCardDetailButton(MasterAction2Table.Data data) {
+		// ユーザー入力待機状態でなければ、処理しない
+		//var stm = StateMachineManager.Instance;
+		//if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
+		//	return;
+		//}
+
+		EraseCardDetailController.Open(
+			data,
+			(d) => {
+				MapDataCarrier.Instance.SelectEraseData = d;
+				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealResult);
+			}
+		);
 	}
 	
 	public void UpdateParameterText() {
@@ -791,25 +831,30 @@ public partial class MapScene : SceneBase
 	
 	public void OnClickBattleDeckButton() {
 		// TODO これは、正直いつ押されてもいいので、そう作っておく
-		UpdateCardList(MapDataCarrier.Instance.BattleDeckList);
+		UpdateCardList(MapDataCarrier.Instance.BattleDeckList, OnClickCarryCardDetailButton);
 		CuCardListRoot.SetActive(true);
 	}
 
 	public void OnClickTrashButton() {
 		// TODO これは、正直いつ押されてもいいので、そう作っておく
-		UpdateCardList(MapDataCarrier.Instance.TrashList);
+		UpdateCardList(MapDataCarrier.Instance.TrashList, OnClickCarryCardDetailButton);
 		CuCardListRoot.SetActive(true);
 	}
 
 	public void OnClickDiscardButton() {
 		// TODO これは、正直いつ押されてもいいので、そう作っておく
-		UpdateCardList(MapDataCarrier.Instance.DiscardList);
+		UpdateCardList(MapDataCarrier.Instance.DiscardList, OnClickCarryCardDetailButton);
 		CuCardListRoot.SetActive(true);
 	}
 	
 	public void OnClickOriginalDeckButton() {
 		// TODO これは、正直いつ押されてもいいので、そう作っておく
-		UpdateCardList(MapDataCarrier.Instance.OriginalDeckList);
+		UpdateCardList(MapDataCarrier.Instance.OriginalDeckList, OnClickCarryCardDetailButton);
+		CuCardListRoot.SetActive(true);
+	}
+	
+	public void OnClickEraseCardButton() {
+		UpdateCardList(MapDataCarrier.Instance.OriginalDeckList, OnClickEraseCardDetailButton);
 		CuCardListRoot.SetActive(true);
 	}
 	
@@ -817,7 +862,10 @@ public partial class MapScene : SceneBase
 		CuCardListRoot.SetActive(false);
 	}
 
-	public void UpdateCardList(List<MasterAction2Table.Data> dataList) {
+	public void UpdateCardList(
+		List<MasterAction2Table.Data> dataList,
+		Action<MasterAction2Table.Data> callback
+	) {
 		var contentItemList = MapDataCarrier.Instance.CardContentItemList;
 		int i = 0;
 		for (; i < dataList.Count; i++) {
@@ -827,7 +875,7 @@ public partial class MapScene : SceneBase
 				contentItemList[i].gameObject.SetActive(true);
 				contentItemList[i].Initialize(
 					data,
-					OnClickCarryCardDetailButton
+					callback
 				);
 			} else {
 				ResourceManager.Instance.RequestExecuteOrder(
@@ -842,7 +890,7 @@ public partial class MapScene : SceneBase
 						var ctrl = obj.GetComponent<CardContentItem>();
 						ctrl.Initialize(
 							data,
-							OnClickCarryCardDetailButton
+							callback
 						);
 						MapDataCarrier.Instance.CardContentItemList.Add(ctrl);
 					}

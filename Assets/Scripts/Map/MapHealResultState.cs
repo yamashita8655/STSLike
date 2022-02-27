@@ -36,6 +36,7 @@ public class MapHealResultState : StateBase {
 			
 			player.AddNowHp(healVal);
 			scene.UpdateParameterText();
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealEnd);
 		}
 
 		if (index == 1) {
@@ -44,6 +45,15 @@ public class MapHealResultState : StateBase {
 			player.AddMaxHp(addMaxHpVal);
 			player.AddNowHp(addMaxHpVal);
 			scene.UpdateParameterText();
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealEnd);
+		}
+		
+		if (index == 2) {
+		  	MapDataCarrier.Instance.OriginalDeckList.Remove(MapDataCarrier.Instance.SelectEraseData);
+		  	scene.UpdateOriginalDeckCountText();
+			scene.CardListRoot.SetActive(false);
+			MapDataCarrier.Instance.SelectEraseData = null;
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealEnd);
 		}
 
 		return true;
@@ -55,7 +65,6 @@ public class MapHealResultState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealEnd);
 	}
 
 	/// <summary>

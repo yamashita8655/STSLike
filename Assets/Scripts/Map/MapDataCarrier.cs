@@ -33,6 +33,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	
 	public int SelectHealIndex = 0;
 	public List<MasterHealTable.Data> HealList = null;
+	public MasterAction2Table.Data SelectEraseData = null;
 	
 	public int SelectArtifactIndex = 0;
 	public List<MasterArtifactTable.Data> ArtifactList = null;

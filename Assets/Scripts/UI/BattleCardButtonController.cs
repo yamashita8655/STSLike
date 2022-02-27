@@ -100,7 +100,14 @@ public class BattleCardButtonController : MonoBehaviour
 		}
 		
 		Name.text = Data.Name;
-		Cost.text = Data.DiceCost.ToString();
+
+		int cost = Data.DiceCost;
+		if (BattleCalculationFunction.IsCurse(Data.Id) == true) {
+			if (MapDataCarrier.Instance.CuPlayerStatus.GetParameterListFlag(EnumSelf.ParameterType.AntiCurse) == true) {
+				cost = 0;
+			}
+		}
+		Cost.text = cost.ToString();
 
 		// 一回全て非表示
 		for (int i = 0; i < ValueControllers.Count; i++) {

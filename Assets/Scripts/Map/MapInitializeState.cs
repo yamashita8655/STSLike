@@ -23,6 +23,7 @@ public class MapInitializeState : StateBase {
 
 		Scene.CarryArtifactDetailController.Close();
 		Scene.CarryCardDetailController.Close();
+		Scene.EraseCardDetailController.Close();
 
 		MapDataCarrier.Instance.HandDifficultList.Clear();
 		for (int i = 0; i < Scene.DifficultImages.Length; i++) {
@@ -45,8 +46,8 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(9988));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(8));
 
 		Scene.UpdateOriginalDeckCountText();
 
@@ -70,9 +71,9 @@ public class MapInitializeState : StateBase {
 
 		// TODO アーティファクト効果テスト
 		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
-		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1032);
+		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1007);
 		Scene.AddArtifactObject(data);
-		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1032);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1007);
 
 		//data = MasterArtifactTable.Instance.GetData(1022);
 		//Scene.AddArtifactObject(data);

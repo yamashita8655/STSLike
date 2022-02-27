@@ -44,6 +44,10 @@ public class MapHealDetailUpdateState : StateBase {
 			int addMaxHpVal = data.Values[difficult];
 			scene.HealDetailText.text = string.Format(data.Detail, addMaxHpVal.ToString());
 		}
+		
+		if (index == 2) {
+			scene.HealDetailText.text = "デッキからカードを1枚削除する。";
+		}
 
 		return true;
 	}
