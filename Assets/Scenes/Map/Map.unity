@@ -20476,6 +20476,10 @@ MonoBehaviour:
   - {fileID: 1200699964}
   - {fileID: 906575578}
   - {fileID: 1094875030}
+  CuHealButtons:
+  - {fileID: 1344602980}
+  - {fileID: 1977625908}
+  - {fileID: 318113860}
   CuHealDetailText: {fileID: 799417806}
   CuHealDecideButton: {fileID: 926687067}
   CuPlayerShieldText: {fileID: 9308782}
