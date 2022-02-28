@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuRegularCardSettingInitializeState : StateBase {
+		
+	private MenuScene Scene = null;
 
     /// <summary>
     /// メイン前処理.
@@ -10,18 +12,15 @@ public class MenuRegularCardSettingInitializeState : StateBase {
     /// </summary>
     override public bool OnBeforeMain()
     {
-		var scene = MenuDataCarrier.Instance.Scene as MenuScene;
-		scene.RegularCardSettingRoot.SetActive(true);
-		scene.CardDetailRoot.SetActive(false);
-
-		// 装備カードの反映
-		for (int i = 0; i < 6; i++) {
-			scene.UpdateEquipCardDisplay(i);
-		}
+		Scene = MenuDataCarrier.Instance.Scene as MenuScene;
+		Scene.RegularCardSettingRoot.SetActive(true);
+		Scene.CardDetailRoot.SetActive(false);
 
 		// 装備カードコスト反映
-		scene.UpdateEquipCardCostText();
+		Scene.UpdateEquipCardCostText();
+		Scene.UpdateMaxCostUpDisplay();
 		
+		// カードリスト反映
 		if (MenuDataCarrier.Instance.RegularSettingCardObjects.Count == 0) {
 			CasheObject();
 		} else {
@@ -31,11 +30,38 @@ public class MenuRegularCardSettingInitializeState : StateBase {
 			EndState();
 		}
 		
-		scene.UpdateMaxCostUpDisplay();
+		// 既に設定されているカードリスト設定
+		LoadRegularCardObjects();
 
 		return false;
     }
+	
+	private void LoadRegularCardObjects() {
+		List<int> regularIds = PlayerPrefsManager.Instance.GetRegularSettingCardIds();
 
+		for (int i = 0; i < regularIds.Count; i++) {
+			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(regularIds[i]);
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.RegularCardButtonItemPath,
+				ExecuteOrder.Type.GameObject,
+				Scene.gameObject,
+				(rawObject) => {
+					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+					obj.transform.SetParent(Scene.CarryEquipCardContentRoot.transform);
+					obj.transform.localPosition = Vector3.zero;
+					obj.transform.localScale = Vector3.one;
+					RegularCardButtonController ctrl = obj.GetComponent<RegularCardButtonController>();
+					ctrl.Initialize(
+						data,
+						Scene.OnClickCarryCardButton,
+						Scene.OnClickCarryCardDetailButton
+					);
+					MenuDataCarrier.Instance.RegularCardButtonControllers.Add(ctrl);
+				}
+			);
+		}
+	}
+	
 	private void CasheObject() {
 		var scene = MenuDataCarrier.Instance.Scene as MenuScene;
 		// とりあえず、先に読んでキャッシュ
@@ -53,8 +79,6 @@ public class MenuRegularCardSettingInitializeState : StateBase {
 		yield return null;
 		
 		var scene = MenuDataCarrier.Instance.Scene as MenuScene;
-
-		Debug.Log(Time.realtimeSinceStartup);
 
 		// 初めて開くので、オブジェクト生成する
 		for (int i = 1; i < 6; i++) {
@@ -87,8 +111,6 @@ public class MenuRegularCardSettingInitializeState : StateBase {
 			}
 		}
 		
-		Debug.Log(Time.realtimeSinceStartup);
-
 		// TODO 待つ必要があったら、対応する事
 		EndState();
 	}

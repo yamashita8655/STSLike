@@ -18,12 +18,16 @@ public class MenuDataCarrier : SimpleMonoBehaviourSingleton<MenuDataCarrier> {
 	public RegularSettingCardContentItem SelectCardContentItem { get; set; }
 	
 	public int EquipSelectIndex { get; set; }
+	public List<RegularCardButtonController> RegularCardButtonControllers { get; set; }
+	public MasterAction2Table.Data EquipCardSelectData { get; set; }
 	
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
 		DungeonData = null;
 		RegularSettingCardObjects = new List<GameObject>();
 		SelectCardContentItem = null;
+		RegularCardButtonControllers = new List<RegularCardButtonController>();
+		EquipCardSelectData = null;
 	}
 
 	public void Release() {

@@ -20,6 +20,7 @@ public partial class Const {
 
 	public static readonly string ValueItemPath = "Prefab/UI/ValueItem";
 	public static readonly string BattleCardButtonItemPath = "Prefab/UI/BattleCardButtonItem";
+	public static readonly string RegularCardButtonItemPath = "Prefab/UI/RegularCardButtonItem";
 
 	public static readonly string DamageImagePath = "Image/UI/Card/damage";
 	public static readonly string TrueDamageImagePath = "Image/UI/Card/truedamage";

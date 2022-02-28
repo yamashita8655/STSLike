@@ -61,6 +61,15 @@ public class MenuRegularCardSettingCardDetailOpenState : StateBase {
 			scene.CardDetailUnlockButton.gameObject.SetActive(false);
 			scene.CardDetailEquipButton.gameObject.SetActive(true);
 			scene.CardDetailCostText.text = data.EquipCost.ToString();
+			
+			int nowCost = scene.GetNowEquipCost();
+			int maxCost = scene.GetMaxCost();
+
+			if ((nowCost+data.EquipCost) <= maxCost) {
+				scene.CardDetailEquipButton.interactable = true;
+			} else {
+				scene.CardDetailEquipButton.interactable = false;
+			}
 		}
 
 		return false;

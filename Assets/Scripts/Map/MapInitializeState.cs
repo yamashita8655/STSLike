@@ -52,10 +52,10 @@ public class MapInitializeState : StateBase {
 		Scene.UpdateOriginalDeckCountText();
 
 		// 初期装備
-		for (int i = 0; i < 6; i++) {
+/*		for (int i = 0; i < 6; i++) {
 			int id = PlayerPrefsManager.Instance.GetRegularSettingCardId(i);
 			status.SetActionData(i, MasterAction2Table.Instance.GetData(id));
-		}
+		}*/
 		// TODO 初期装備は、テストの為色々変えている
 		//status.SetActionData(0, MasterAction2Table.Instance.GetData(101));
 		//status.SetActionData(1, MasterAction2Table.Instance.GetData(101));

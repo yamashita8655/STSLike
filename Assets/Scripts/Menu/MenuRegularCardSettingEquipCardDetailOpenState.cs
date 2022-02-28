@@ -13,8 +13,7 @@ public class MenuRegularCardSettingEquipCardDetailOpenState : StateBase {
 		var scene = MenuDataCarrier.Instance.Scene as MenuScene;
 		scene.CardDetailRoot.SetActive(true);
 
-		int cardId = PlayerPrefsManager.Instance.GetRegularSettingCardId(MenuDataCarrier.Instance.EquipSelectIndex);
-		var data = MasterAction2Table.Instance.GetData(cardId);
+		var data = MenuDataCarrier.Instance.EquipCardSelectData;
 		
 		scene.CardDetailNameText.text = data.Name;
 

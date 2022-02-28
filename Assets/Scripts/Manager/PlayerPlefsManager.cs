@@ -68,7 +68,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 					saveString = "0";
 				} else if (i == (int)SaveType.RegularSettingCardIds) {
 					//
-					saveString = "1-1-1-2-20-20";
+					saveString = "2";
 				}
 				PlayerPrefs.SetString(key, saveString);
 			}
@@ -168,8 +168,6 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 			char[] split = {'-'};
 			List<string> lineList = Functions.SplitString(saveString, split);
 
-			// 必ず6個設定されている状態にするようにする
-			// 現状は、RegularSettingCardIdsの初期値で必ず6個設定されている
 			for (int i = 0; i < lineList.Count; i++) {
 				RegularSettingCardIds.Add(int.Parse(lineList[i]));
 			}
@@ -258,23 +256,31 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		SaveParameter(SaveType.UsedRegularCostPoint, saveString);
 	}
 	
-	public int GetRegularSettingCardId(int index)
+	public List<int> GetRegularSettingCardIds()
 	{
-		return RegularSettingCardIds[index];
+		return RegularSettingCardIds;
+	}
+
+	public void AddRegularSettingCardId(int id) {
+		RegularSettingCardIds.Add(id);
+		SaveRegularSettingCardId();
 	}
 	
-	public void SaveRegularSettingCardId(int val, int index)
+	public void RemoveRegularSettingCardId(int id) {
+		RegularSettingCardIds.Remove(id);
+		SaveRegularSettingCardId();
+	}
+	
+	public void SaveRegularSettingCardId()
 	{
-		RegularSettingCardIds[index] = val;
-		string saveString = string.Format(
-				"{0}-{1}-{2}-{3}-{4}-{5}",
-				RegularSettingCardIds[0].ToString(),
-				RegularSettingCardIds[1].ToString(),
-				RegularSettingCardIds[2].ToString(),
-				RegularSettingCardIds[3].ToString(),
-				RegularSettingCardIds[4].ToString(),
-				RegularSettingCardIds[5].ToString()
-			);
+		string saveString = "";
+		for (int i = 0; i < RegularSettingCardIds.Count; i++) {
+			if (i == 0) {
+				saveString += RegularSettingCardIds[i].ToString();
+			} else {
+				saveString += "-" + RegularSettingCardIds[i].ToString();
+			}
+		}
 		SaveParameter(SaveType.RegularSettingCardIds, saveString);
 	}
 }

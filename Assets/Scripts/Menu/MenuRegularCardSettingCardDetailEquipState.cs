@@ -11,24 +11,35 @@ public class MenuRegularCardSettingCardDetailEquipState : StateBase {
     override public bool OnBeforeMain()
     {
 		var scene = MenuDataCarrier.Instance.Scene as MenuScene;
-		scene.CardEquipSelectRoot.SetActive(true);
+		//scene.CardEquipSelectRoot.SetActive(true);
 
 		var item = MenuDataCarrier.Instance.SelectCardContentItem;
 		var data = item.GetData();
 
-		int nowCost = scene.GetNowEquipCost();
-		int maxCost = scene.GetMaxCost();
-		int selectCardCost = data.EquipCost;
-
-		for (int i = 0; i < 6; i++) {
-			var equipCardId = PlayerPrefsManager.Instance.GetRegularSettingCardId(i);
-			var equipData = MasterAction2Table.Instance.GetData(equipCardId);
-			if ((nowCost-equipData.EquipCost+selectCardCost) <= maxCost) {
-				scene.CardEquipSelectButtons[i].interactable = true;
-			} else {
-				scene.CardEquipSelectButtons[i].interactable = false;
+		// TODO この辺、処理負荷高かったら、都度作り直しじゃなくて、オブジェクト再利用ロジックに変えてもいいかもね。
+		ResourceManager.Instance.RequestExecuteOrder(
+			Const.RegularCardButtonItemPath,
+			ExecuteOrder.Type.GameObject,
+			scene.gameObject,
+			(rawObject) => {
+				GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+				obj.transform.SetParent(scene.CarryEquipCardContentRoot.transform);
+				obj.transform.localPosition = Vector3.zero;
+				obj.transform.localScale = Vector3.one;
+				RegularCardButtonController ctrl = obj.GetComponent<RegularCardButtonController>();
+				ctrl.Initialize(
+					data,
+					scene.OnClickCarryCardButton,
+					scene.OnClickCarryCardDetailButton
+				);
+				MenuDataCarrier.Instance.RegularCardButtonControllers.Add(ctrl);
 			}
-		}
+		);
+
+		PlayerPrefsManager.Instance.AddRegularSettingCardId(data.Id);
+
+		scene.UpdateEquipCardCostText();
+
 		return false;
     }
 
@@ -38,7 +49,7 @@ public class MenuRegularCardSettingCardDetailEquipState : StateBase {
     /// <param name="delta">経過時間</param>
     override public void OnUpdateMain(float delta)
     {
-		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailEquipUserWait);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailClose);
     }
 
     /// <summary>

@@ -160,6 +160,11 @@ public partial class MenuScene : SceneBase
 	[SerializeField]
 	private Button[] SFCardEquipSelectButtons = null;
 	public Button[] CardEquipSelectButtons => SFCardEquipSelectButtons;
+	
+	[SerializeField]
+	private GameObject SFCarryEquipCardContentRoot = null;
+	public GameObject CarryEquipCardContentRoot => SFCarryEquipCardContentRoot;
+	
 	// ↑↑レギュラーカードメニュー↑↑
 
 	// Start is called before the first frame update
@@ -245,9 +250,9 @@ public partial class MenuScene : SceneBase
 	}
 
 	public void UpdateEquipCardDisplay(int index) {
-		int id = PlayerPrefsManager.Instance.GetRegularSettingCardId(index);
+/*		int id = PlayerPrefsManager.Instance.GetRegularSettingCardId(index);
 		MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(id);
-		SFEquipCardTexts[index].text = data.Name;
+		SFEquipCardTexts[index].text = data.Name;*/
 	}
 	
 	public void UpdateEquipCardCostText() {
@@ -256,9 +261,10 @@ public partial class MenuScene : SceneBase
 	
 	public int GetNowEquipCost() {
 		int cost = 0;
-		for (int i = 0; i < 6; i++) {
-			int id = PlayerPrefsManager.Instance.GetRegularSettingCardId(i);
-			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(id);
+        List<int> ids = PlayerPrefsManager.Instance.GetRegularSettingCardIds();
+
+        for (int i = 0; i < ids.Count; i++) {
+			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(ids[i]);
 			cost += data.EquipCost;
 		}
 
@@ -493,7 +499,7 @@ public partial class MenuScene : SceneBase
 	}
 	
 	public void OnClickCardDetailEquipSelectButton(int index) {
-        var stm = StateMachineManager.Instance;
+/*        var stm = StateMachineManager.Instance;
 		// ユーザー入力待機状態でなければ、処理しない
 		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingCardDetailEquipUserWait) {
 			return;
@@ -514,7 +520,7 @@ public partial class MenuScene : SceneBase
 		}
 		
 		SFCardEquipSelectRoot.SetActive(false);
-		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingUserWait);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingUserWait);*/
 	}
 	
 	public void OnClickCardDetailEquipSelectBackButton() {
@@ -525,6 +531,34 @@ public partial class MenuScene : SceneBase
 		}
 		SFCardEquipSelectRoot.SetActive(false);
 		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingUserWait);
+	}
+	
+	public void OnClickCarryCardButton(MasterAction2Table.Data data) {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
+			return;
+		}
+
+		MenuDataCarrier.Instance.EquipCardSelectData = data;
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingEquipCardDetailOpen);
+	}
+	
+	public void OnClickCarryCardDetailButton(RegularCardButtonController ctrl) {
+		// TODO 選択された装備カードを取り外す処理
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
+			return;
+		}
+
+		var data = ctrl.GetData();
+		MenuDataCarrier.Instance.RegularCardButtonControllers.Remove(ctrl);
+		//ctrl.gameObject.SetActive(false);
+		GameObject.Destroy(ctrl.gameObject);
+		PlayerPrefsManager.Instance.RemoveRegularSettingCardId(data.Id);
+
+		UpdateEquipCardCostText();
 	}
 	// ↑↑レギュラーカード↑↑
 }
