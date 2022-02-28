@@ -16,7 +16,7 @@ public class MapBattleAttackResultState : StateBase {
 
 		//MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
 	
-		MasterAction2Table.Data data = MapDataCarrier.Instance.SelectBattleCardButtonController.GetData();
+		MasterAction2Table.Data data = MapDataCarrier.Instance.SelectBattleCardData;
 
 		MapDataCarrier.Instance.ActionPackCount = 0;
 		MapDataCarrier.Instance.MaxActionPackCount = data.ActionPackList.Count;

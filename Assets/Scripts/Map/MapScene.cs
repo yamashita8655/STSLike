@@ -374,12 +374,11 @@ public partial class MapScene : SceneBase
 			return;
 		}
 
-		MapDataCarrier.Instance.SelectBattleCardButtonController = ctrl;
-
 		// 押されたボタンは、非表示にして、コストを減らす
 		ctrl.gameObject.SetActive(false);
 
 		var data = ctrl.GetData();
+		MapDataCarrier.Instance.SelectBattleCardData = data;
 		int cost = data.DiceCost;
 
 		if (BattleCalculationFunction.IsCurse(data.Id) == true) {
@@ -912,6 +911,40 @@ public partial class MapScene : SceneBase
 		var trashList = MapDataCarrier.Instance.TrashList;
 		var deckList = MapDataCarrier.Instance.BattleDeckList;
 		DiscardCountText.text = discardList.Count.ToString();
+		TrashCountText.text = trashList.Count.ToString();
+		DeckCountText.text = deckList.Count.ToString();
+	}
+
+	public void DrawCard(int drawCount) {
+		int drewCount = 0;
+
+		var deckList = MapDataCarrier.Instance.BattleDeckList;
+		var trashList = MapDataCarrier.Instance.TrashList;
+
+		while (drewCount < drawCount) {
+			MasterAction2Table.Data drawCard = null;
+			if (deckList.Count > 0) {
+				drawCard = deckList[0];
+				deckList.RemoveAt(0);
+                var ctrl = MapDataCarrier.Instance.GetNonActiveBattleCardController();
+                if (ctrl != null) {
+					ctrl.gameObject.SetActive(true);
+					ctrl.SetData(drawCard);
+					ctrl.UpdateDisplay();
+					ctrl.UpdateInteractable(MapDataCarrier.Instance.CurrentTotalDiceCost);
+				} else {
+					trashList.Add(drawCard);
+				}
+				drewCount++;
+			} else {
+				if (trashList.Count > 0) {
+					MapDataCarrier.Instance.DeckShuffle();
+				} else {
+					drewCount++;
+				}
+			}
+		}
+
 		TrashCountText.text = trashList.Count.ToString();
 		DeckCountText.text = deckList.Count.ToString();
 	}

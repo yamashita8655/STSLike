@@ -75,7 +75,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public int CurrentTotalDiceCost { get; set; }
 	
 	public List<BattleCardButtonController> BattleCardButtonControllers { get; set; }
-	public BattleCardButtonController SelectBattleCardButtonController { get; set; }
+	public MasterAction2Table.Data SelectBattleCardData { get; set; }
 	
 	public List<MasterAction2Table.Data> OriginalDeckList { get; set; }
 	public List<MasterAction2Table.Data> BattleDeckList { get; set; }
@@ -126,7 +126,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		DungeonData = null;
 	
 		BattleCardButtonControllers = new List<BattleCardButtonController>();
-		SelectBattleCardButtonController = null;
+		SelectBattleCardData = null;
 	
 		OriginalDeckList = new List<MasterAction2Table.Data>();
 		BattleDeckList = new List<MasterAction2Table.Data>();

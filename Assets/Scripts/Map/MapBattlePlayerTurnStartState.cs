@@ -44,37 +44,38 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		//}
 
 		int drawCount = Const.DrawCount;// 何か補正で引く枚数が増えたら、ここ調整する
-		int drewCount = 0;
+		scene.DrawCard(drawCount);
+		//int drewCount = 0;
 
-		var deckList = MapDataCarrier.Instance.BattleDeckList;
-		var trashList = MapDataCarrier.Instance.TrashList;
+		//var deckList = MapDataCarrier.Instance.BattleDeckList;
+		//var trashList = MapDataCarrier.Instance.TrashList;
 
-		while (drewCount < drawCount) {
-			MasterAction2Table.Data drawCard = null;
-			if (deckList.Count > 0) {
-				drawCard = deckList[0];
-				deckList.RemoveAt(0);
-                var ctrl = MapDataCarrier.Instance.GetNonActiveBattleCardController();
-                if (ctrl != null) {
-					ctrl.gameObject.SetActive(true);
-					ctrl.SetData(drawCard);
-					ctrl.UpdateDisplay();
-					ctrl.UpdateInteractable(MapDataCarrier.Instance.CurrentTotalDiceCost);
-				} else {
-					trashList.Add(drawCard);
-				}
-				drewCount++;
-			} else {
-				if (trashList.Count > 0) {
-					MapDataCarrier.Instance.DeckShuffle();
-				} else {
-					drewCount++;
-				}
-			}
-		}
+		//while (drewCount < drawCount) {
+		//	MasterAction2Table.Data drawCard = null;
+		//	if (deckList.Count > 0) {
+		//		drawCard = deckList[0];
+		//		deckList.RemoveAt(0);
+        //        var ctrl = MapDataCarrier.Instance.GetNonActiveBattleCardController();
+        //        if (ctrl != null) {
+		//			ctrl.gameObject.SetActive(true);
+		//			ctrl.SetData(drawCard);
+		//			ctrl.UpdateDisplay();
+		//			ctrl.UpdateInteractable(MapDataCarrier.Instance.CurrentTotalDiceCost);
+		//		} else {
+		//			trashList.Add(drawCard);
+		//		}
+		//		drewCount++;
+		//	} else {
+		//		if (trashList.Count > 0) {
+		//			MapDataCarrier.Instance.DeckShuffle();
+		//		} else {
+		//			drewCount++;
+		//		}
+		//	}
+		//}
 
-		scene.TrashCountText.text = trashList.Count.ToString();
-		scene.DeckCountText.text = deckList.Count.ToString();
+		//scene.TrashCountText.text = trashList.Count.ToString();
+		//scene.DeckCountText.text = deckList.Count.ToString();
 
 		scene.UpdateParameterText();
 		

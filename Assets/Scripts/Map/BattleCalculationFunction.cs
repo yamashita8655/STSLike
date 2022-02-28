@@ -80,6 +80,8 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.EnemyCalcShieldDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Death) {
 			BattleCalculationFunction.EnemyDeath(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.Draw) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Draw 敵にDrawは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
 			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (

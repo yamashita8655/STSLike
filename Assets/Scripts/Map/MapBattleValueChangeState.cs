@@ -10,33 +10,10 @@ public class MapBattleValueChangeState : StateBase {
 	/// </summary>
 	override public bool OnBeforeInit()
 	{
-		//var scene = MapDataCarrier.Instance.Scene as MapScene;
-		//var player = MapDataCarrier.Instance.CuPlayerStatus;
-
-		//int select = MapDataCarrier.Instance.SelectAttackIndex;
-
-		//MasterAction2Table.Data data = player.GetActionData(select);
-
-		//int count = MapDataCarrier.Instance.ActionPackCount;
-		//ActionPack pack = data.ActionPackList[count]; 
-		//
-		//BattleCalculationFunction.PlayerValueChange(pack);
-
-		//// TODO もしかしたら、こういう副次的な効果も、全てアクションパックに含めた方がいいのかもしれない
-		//if (player.GetParameterListFlag(EnumSelf.ParameterType.UseCurseShield) == true) {
-		//	if (BattleCalculationFunction.IsCurse(data.Id) == true) {
-		//		BattleCalculationFunction.PlayerCalcShield(4);
-		//	}
-		//}
-
-		//MapDataCarrier.Instance.ActionPackCount++;
-
-		//scene.UpdateParameterText();
-		
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 
-		MasterAction2Table.Data data = MapDataCarrier.Instance.SelectBattleCardButtonController.GetData();
+		MasterAction2Table.Data data = MapDataCarrier.Instance.SelectBattleCardData;
 
 		int count = MapDataCarrier.Instance.ActionPackCount;
 		ActionPack pack = data.ActionPackList[count]; 
@@ -48,6 +25,11 @@ public class MapBattleValueChangeState : StateBase {
 			if (BattleCalculationFunction.IsCurse(data.Id) == true) {
 				BattleCalculationFunction.PlayerCalcShield(4);
 			}
+		}
+
+		// TODO 戦闘のパラメータに関係しない効果は、こっちで処理する
+		if (pack.Effect == EnumSelf.EffectType.Draw) {
+			scene.DrawCard(pack.Value);
 		}
 
 		MapDataCarrier.Instance.ActionPackCount++;

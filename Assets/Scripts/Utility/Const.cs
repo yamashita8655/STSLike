@@ -32,6 +32,7 @@ public partial class Const {
 	public static readonly string DeathImagePath = "Image/UI/Card/death";
 	public static readonly string PowerImagePath = "Image/UI/Card/power";
 	public static readonly string DebuffImagePath = "Image/UI/Card/debuff";
+	public static readonly string DrawImagePath = "Image/UI/Card/draw";
 	
 	// こっちは、数値可変でターン永続
 	public static readonly string PowerControllerPath = "Prefab/UI/PowerController";

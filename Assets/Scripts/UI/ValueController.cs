@@ -87,6 +87,8 @@ public class ValueController : MonoBehaviour
 			ret = Const.StunImagePath;
 		} else if (type == EnumSelf.EffectType.Death) {
 			ret = Const.DeathImagePath;
+		} else if (type == EnumSelf.EffectType.Draw) {
+			ret = Const.DrawImagePath;
 		} else if (
 			(type == EnumSelf.EffectType.Strength) ||
 			(type == EnumSelf.EffectType.FastStrength) ||

@@ -54,6 +54,7 @@ id,rarity,name,equipcost,unlockcost,dicecost,usetype,detail,imagepath,effect,tar
 600,3,ゾンビの呪い,3,10,3,Repeat,{0}ターンの間、相手に「回復ダメージ」を付与する,Image/UI/Card/punch,ReverseHeal,Opponent,1,Add,NONE,,,,,,,,,,,,
 601,3,シールドブレイク,3,10,3,Repeat,シールドに{0}ダメージを与える,Image/UI/Card/punch,ShieldDamage,Opponent,999,Add,NONE,,,,,,,,,,,,
 #,汎用系,,,,,,,,,,,,,,,,,,,,,,,,
+700,2,回し蹴り,2,10,3,Repeat,{0}ダメージを与え、カードを{1}枚引く,Image/UI/Card/punch,Damage,Opponent,6,Add,Draw,Self,1,Add,NONE,,,,,,,,
 #,ボス系カード,,,,,,,,,,,,,,,,,,,,,,,,
 800,5,光合成,5,10,5,Discard,HPを{0}回復し、力を{1}獲得する,Image/UI/Card/punch,Heal,Self,20,Add,Strength,Self,1,Add,NONE,,,,,,,,
 801,5,死神の鎌,5,10,5,Repeat,シールドに{0}ダメージを与え、{0}ダメージを与える,Image/UI/Card/punch,ShieldDamage,Opponent,100,Add,Damage,Opponent,15,Add,NONE,,,,,,,,
