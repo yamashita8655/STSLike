@@ -37,17 +37,20 @@ public class MapInitializeState : StateBase {
 		status.SetNowHp(80);
 		
 		// 初期デッキ構築
-		// TODO regularカードの扱いについては、後ほど考える
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(2));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(9988));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(8));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
+
+		// レギュラーカード設定
+		var regularIds = PlayerPrefsManager.Instance.GetRegularSettingCardIds();
+		for (int i = 0; i < regularIds.Count; i++) {
+			MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(regularIds[i]));
+		}
 
 		Scene.UpdateOriginalDeckCountText();
 
