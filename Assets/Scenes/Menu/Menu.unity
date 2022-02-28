@@ -12845,7 +12845,7 @@ MonoBehaviour:
   - {fileID: 934845073}
   - {fileID: 2082393716}
   - {fileID: 1143588172}
-  SFCarryEquipCardContentRoot: {fileID: 194082494}
+  SFCarryEquipCardContentRoot: {fileID: 773649936}
 --- !u!1 &1929527764
 GameObject:
   m_ObjectHideFlags: 0
