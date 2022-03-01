@@ -1219,7 +1219,7 @@ public class BattleCalculationFunction {
 				
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Patient) <= 0) {
 					// Patientは今後ユニークで増えていくので、それに該当するIDを決め打ちで指定する
-					MasterEnemyAITable.Data data = MasterEnemyAITable.Instance.GetData(91);
+					MasterEnemyAITable.Data data = MasterEnemyAITable.Instance.GetData(2991);
 					enemy.UpdateAIData(data);
 					// 敵の行動開始前なので、行動を抽選しなおす
 					enemy.LotActionData();

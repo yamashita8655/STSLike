@@ -15,41 +15,41 @@ public partial class EnumSelf : MonoBehaviour {
 	
 	public enum EffectType {
         None,
-        Damage,
-        DamageSuction,
-        ShieldBash,
-        TrueDamage,
-        RemovePower,
-        Shield,
-        ShieldDouble,
-        ShieldDamage,
-        Heal,
-        Warning,
-        Stun,
-        Death,
-		Curse,
-        Draw,
+        Damage,			// 通常ダメージ
+        DamageSuction,	// 与ダメ回復
+        ShieldBash,		// シールド値ダメージ
+        TrueDamage,		// 全てを無視した固定ダメージ
+        RemovePower,	// 状態変化全て解除
+        Shield,			// シールド
+        ShieldDouble,	// シールド倍化
+        ShieldDamage,	// シールドのみに作用するダメージ
+        Heal,			// 回復
+        Warning,		// 警告（未行動）
+        Stun,			// スタン（未行動）
+        Death,			// 即死
+		Curse,			// 呪い付与
+        Draw,			// 山札を引く
 		// バフ、デバフ
-        Strength,
-        FastStrength,
-        Toughness,
-        DiceMinusOne,
-        Regenerate,
-        ReverseHeal,
-        Poison,
-        Weakness,
-        Vulnerable,
-        ShieldWeakness,
-        TurnRegenerate,
-        Patient,
-        AutoShield,
-        Thorn,
-        RotBody,
-        Versak,
-        ReactiveShield,
-        SubStrength,
-        ShieldPreserve,
-        Invincible,
+        Strength,		// 力上昇
+        FastStrength,	// ターン終了後に下がる力上昇
+        Toughness,		// 守り上昇
+        DiceMinusOne,	// サイコロ1減少
+        Regenerate,		// ターン終了時に減少しない回復
+        ReverseHeal,	// 回復効果反転
+        Poison,			// 毒
+        Weakness,		// 与ダメ低下
+        Vulnerable,		// 被ダメ上昇
+        ShieldWeakness,	// シールド獲得減少
+        TurnRegenerate,	// ターン終了時に減少する回復
+        Patient,		// 一定ダメージ受けたら、AI変更（やせ我慢）
+        AutoShield,		// 自動盾
+        Thorn,			// 反射ダメージ
+        RotBody,		// 朽ちた体（与ダメが数値ずつ上がる）
+        Versak,			// 与ダメ2倍
+        ReactiveShield,	// 被ダメ時、シールド獲得
+        SubStrength,	// FastStrengthによる筋力減少
+        ShieldPreserve,	// ターン終了時に、シールドが無くならない
+        Invincible,		// 一度だけ、被ダメ0
 
 		// デバッグ用状態変化
         DebugDisaster,

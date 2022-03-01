@@ -51,6 +51,11 @@ public class MasterEnemyAITable : SimpleSingleton<MasterEnemyAITable>
 		// 1行目はメタデータなので、読み飛ばす
 		for (int i = 1; i < lineList.Count; i++) {
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
+			
+			// 最初に#が付いてる物は、コメント行なので飛ばす
+			if (paramList[0] == "#") {
+				continue;
+			}
 
 			List<string> actionIdString = Functions.SplitString(paramList[2], split3);
 			List<int> actionIds = new List<int>();
