@@ -67,13 +67,21 @@ public class MapBattleInitializeState : StateBase {
 		MasterEnemyTable.Data data = MasterEnemyTable.Instance.GetData(enemyId);
 		EnemyStatus enemy = new EnemyStatus(data);
 		int difficultHpRate = 0;
-		if (MapDataCarrier.Instance.SelectDifficultNumber == 0) {
-			difficultHpRate = 20;
-		} else if (MapDataCarrier.Instance.SelectDifficultNumber == 1) {
-			difficultHpRate = 10;
-		} else if (MapDataCarrier.Instance.SelectDifficultNumber == 3) {
-			difficultHpRate = -33;
+
+		int nowFloor = MapDataCarrier.Instance.NowFloor;
+		int maxFloor = MapDataCarrier.Instance.MaxFloor;
+
+		// ボス部屋じゃなければ、難易度によるHP補正をかける
+		if (nowFloor != maxFloor) {
+			if (MapDataCarrier.Instance.SelectDifficultNumber == 0) {
+				difficultHpRate = 20;
+			} else if (MapDataCarrier.Instance.SelectDifficultNumber == 1) {
+				difficultHpRate = 10;
+			} else if (MapDataCarrier.Instance.SelectDifficultNumber == 3) {
+				difficultHpRate = -33;
+			}
 		}
+
 		int mHp = data.MHp - (data.MHp * difficultHpRate / 100);
 		int hp = data.Hp - (data.Hp * difficultHpRate / 100);
 		enemy.SetMaxHp(mHp);
