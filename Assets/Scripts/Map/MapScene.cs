@@ -151,6 +151,10 @@ public partial class MapScene : SceneBase
 	public Text TreasureDetailCardName => CuTreasureDetailCardName;
 	
 	[SerializeField]
+	private Image[] CuTreasureButtonRarityFrameImages = null;
+	public Image[] TreasureButtonRarityFrameImages => CuTreasureButtonRarityFrameImages;
+	
+	[SerializeField]
 	private Text CuTreasureDetailCardDetail = null;
 	public Text TreasureDetailCardDetail => CuTreasureDetailCardDetail;
 	
@@ -161,6 +165,10 @@ public partial class MapScene : SceneBase
 	[SerializeField]
 	private Image CuTreasureRarityFrameImage = null;
 	public Image TreasureRarityFrameImage => CuTreasureRarityFrameImage;
+	
+	[SerializeField]
+	private Text CuTreasureDiceCostText = null;
+	public Text TreasureDiceCostText => CuTreasureDiceCostText;
 	
 	[SerializeField]
 	private Text CuNowFloorText = null;
@@ -243,6 +251,14 @@ public partial class MapScene : SceneBase
 	[SerializeField]
 	private Text[] CuArtifactTexts = null;
 	public Text[] ArtifactTexts => CuArtifactTexts;
+	
+	[SerializeField]
+	private Image[] CuArtifactRarityImages = null;
+	public Image[] ArtifactRarityImages => CuArtifactRarityImages;
+	
+	[SerializeField]
+	private Image CuArtifactDetailRarityImage = null;
+	public Image ArtifactDetailRarityImage => CuArtifactDetailRarityImage;
 	
 	[SerializeField]
 	private Button CuArtifactDecideButton = null;

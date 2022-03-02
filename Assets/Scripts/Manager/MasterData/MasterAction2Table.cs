@@ -191,6 +191,10 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.DebugDisaster;
 		}
 
+		if (type == EnumSelf.EffectType.None) {
+			LogManager.Instance.LogError("MasterAction2Table:GetEffectType:" + typeString + " is None");
+		}
+
 		return type;
 	}
 	

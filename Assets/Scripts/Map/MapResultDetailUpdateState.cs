@@ -20,6 +20,7 @@ public class MapResultDetailUpdateState : StateBase {
 		scene.TreasureDetailCardDetail.gameObject.SetActive(true);
 
 		scene.TreasureDetailCardName.text = data.Name;
+		scene.TreasureDiceCostText.text = data.DiceCost.ToString();
 		ResourceManager.Instance.RequestExecuteOrder(
 			data.ImagePath,
 			ExecuteOrder.Type.Sprite,

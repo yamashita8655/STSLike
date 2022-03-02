@@ -28,6 +28,16 @@ public class MapArtifactDetailUpdateState : StateBase {
 				scene.ArtifactImage.sprite = rawSprite as Sprite;
 			}
 		);
+		
+		ResourceManager.Instance.RequestExecuteOrder(
+			string.Format(Const.RarityFrameImagePath, data.Rarity),
+			ExecuteOrder.Type.Sprite,
+			scene.gameObject,
+			(rawSprite) => {
+				scene.ArtifactDetailRarityImage.sprite = rawSprite as Sprite;
+			}
+		);
+
 		scene.ArtifactDetailText.text = data.Detail;
 		return true;
     }

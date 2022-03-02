@@ -58,6 +58,17 @@ public class MapResultInitializeState : StateBase {
 			MapDataCarrier.Instance.TreasureList.Add(data);
 			scene.TreasureNameTexts[i].text = data.Name;
 
+			int index2 = i;
+		
+			ResourceManager.Instance.RequestExecuteOrder(
+				string.Format(Const.RarityFrameImagePath, data.Rarity),
+				ExecuteOrder.Type.Sprite,
+				scene.gameObject,
+				(rawSprite) => {
+					scene.TreasureButtonRarityFrameImages[index2].sprite = rawSprite as Sprite;
+				}
+			);
+
 			// 見つけたIDリストに加える
 			PlayerPrefsManager.Instance.SaveFindCardId(id);
 		}

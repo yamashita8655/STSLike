@@ -72,6 +72,15 @@ public class MapArtifactInitializeState : StateBase {
 			MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(id);
 			MapDataCarrier.Instance.ArtifactList.Add(data);
 			scene.ArtifactTexts[i].text = data.Name;
+			int index2 = i;
+			ResourceManager.Instance.RequestExecuteOrder(
+				string.Format(Const.RarityFrameImagePath, data.Rarity),
+				ExecuteOrder.Type.Sprite,
+				scene.gameObject,
+				(rawSprite) => {
+					scene.ArtifactRarityImages[index2].sprite = rawSprite as Sprite;
+				}
+			);
 		}
 
 		return true;
