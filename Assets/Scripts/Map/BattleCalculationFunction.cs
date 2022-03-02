@@ -643,7 +643,9 @@ public class BattleCalculationFunction {
 
 			// 呪いは山札に加える
 			var deckList = MapDataCarrier.Instance.BattleDeckList;
-			deckList.Add(data);
+			//deckList.Add(data);
+			int random = UnityEngine.Random.Range(0, deckList.Count+1);
+			deckList.Insert(random, data);
 		} else {
 			LogManager.Instance.LogError("PlayerCurse:Target:Opponent は、サポートしていない");
 		}
@@ -1002,7 +1004,9 @@ public class BattleCalculationFunction {
 
 			// 呪いは山札に加える
 			var deckList = MapDataCarrier.Instance.BattleDeckList;
-			deckList.Add(data);
+			int random = UnityEngine.Random.Range(0, deckList.Count+1);
+			deckList.Insert(random, data);
+			//deckList.Add(data);
 		} else {
 			LogManager.Instance.LogError("EnemyCurse:Target:Self は、サポートしていない");
 		}
