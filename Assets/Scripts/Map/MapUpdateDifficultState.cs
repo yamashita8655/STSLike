@@ -13,7 +13,7 @@ public class MapUpdateDifficultState : StateBase {
 	//private readonly int Level2Ratio = 0;
 	//private readonly int Level3Ratio = 0;
 	//private readonly int Level4Ratio = 0;
-	//private readonly int Level5Ratio = 200;
+	//private readonly int Level5Ratio = 5;
 
     /// <summary>
     /// メイン前処理.

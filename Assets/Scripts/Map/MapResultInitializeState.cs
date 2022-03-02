@@ -31,13 +31,30 @@ public class MapResultInitializeState : StateBase {
 
 		// TODO とりあえず1番目のレシオセットを固定で使う
 		MasterCardLotTable.Data lotData = MasterCardLotTable.Instance.GetData("1");
+		//MasterCardLotTable.Data lotData = MasterCardLotTable.Instance.GetData("999");
 		List<int> weightList = lotData.LotList[difficult];
 			
 		// TODO treasureカウント3決め打ち
 		MapDataCarrier.Instance.TreasureList.Clear();
+
+		var enemyData = MapDataCarrier.Instance.CuEnemyStatus.GetEnemyData();
+		List<int> addDropActionIds = enemyData.AddDropActionIds;
+
 		for (int i = 0; i < 3; i++) {
 			int rarity = BattleCalculationFunction.LotRarity(weightList);
-			var cardList = MasterAction2Table.Instance.GetRarityCardCloneList(rarity);
+
+			List<int> cardList = null;
+			cardList = MasterAction2Table.Instance.GetBattleRarityCardCloneList(rarity);
+
+			// 難易度5（添え字だと4）の場合は、該当するレアリティの追加カードをロットテーブルに追加する
+			if (difficult == 4) {
+				for (int i2 = 0; i2 < addDropActionIds.Count; i2++) {
+					var cardData = MasterAction2Table.Instance.GetData(addDropActionIds[i2]);
+					if (cardData.Rarity == rarity) {
+						cardList.Add(cardData.Id);
+					}
+				}
+			}
 			
 			int id = 0;
 			while (true) {

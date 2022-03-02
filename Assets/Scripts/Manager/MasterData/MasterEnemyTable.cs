@@ -12,6 +12,7 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 		public string ImagePath { get; private set; }
 		public string InitiativeActionId { get; private set; }
 		public int AIID { get; private set; }
+		public List<int> AddDropActionIds { get; private set; }
 
         public Data(
 			int id,
@@ -20,7 +21,8 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 			int mHp,
 			string imagePath,
 			string initiativeActionId,
-			int aiId
+			int aiId,
+			List<int> addDropActionIds
 		)
 		{
 			Id			= id;
@@ -30,6 +32,7 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 			ImagePath	= imagePath;
 			InitiativeActionId = initiativeActionId;
 			AIID	= aiId;
+			AddDropActionIds = addDropActionIds;
 		}
 	};
 
@@ -50,9 +53,19 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 		List<string> lineList = Functions.SplitString(text, split);
 
 		char[] split2 = { ',' };
+		char[] split3 = { '-' };
 		// 1行目はメタデータなので、読み飛ばす
 		for (int i = 1; i < lineList.Count; i++) {
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
+			
+			List<int> addDropActionIds = new List<int>();
+
+			if (paramList[7] != "NONE") {
+				List<string> addDropActionIdsString = Functions.SplitString(paramList[7], split3);
+				for (int i2 = 0; i2 < addDropActionIdsString.Count; i2++) {
+					addDropActionIds.Add(int.Parse(addDropActionIdsString[i2]));
+				}
+			}
 
 			Data data = new Data(
 				int.Parse(paramList[0]),
@@ -61,7 +74,8 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 				int.Parse(paramList[3]),
 				paramList[4],
 				paramList[5],
-				int.Parse(paramList[6])
+				int.Parse(paramList[6]),
+				addDropActionIds
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);

@@ -45,7 +45,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 
 	private Dictionary<int, Data> DataDict = new Dictionary<int, Data>();
 	
-	private List<List<int>> RarityCardList = new List<List<int>>();
+	private List<List<int>> BattleRarityCardList = new List<List<int>>();
+	private List<List<int>> AllRarityCardList = new List<List<int>>();
 
 	public void Initialize()
 	{
@@ -59,11 +60,17 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 		char[] split = {'\n'};
 		List<string> lineList = Functions.SplitString(text, split);
 
-		RarityCardList.Add(new List<int>());
-		RarityCardList.Add(new List<int>());
-		RarityCardList.Add(new List<int>());
-		RarityCardList.Add(new List<int>());
-		RarityCardList.Add(new List<int>());
+		BattleRarityCardList.Add(new List<int>());
+		BattleRarityCardList.Add(new List<int>());
+		BattleRarityCardList.Add(new List<int>());
+		BattleRarityCardList.Add(new List<int>());
+		BattleRarityCardList.Add(new List<int>());
+		
+		AllRarityCardList.Add(new List<int>());
+		AllRarityCardList.Add(new List<int>());
+		AllRarityCardList.Add(new List<int>());
+		AllRarityCardList.Add(new List<int>());
+		AllRarityCardList.Add(new List<int>());
 
 		char[] split2 = { ',' };
 		// 1行目はメタデータなので、読み飛ばす
@@ -74,6 +81,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			if (paramList[0] == "#") {
 				continue;
 			}
+
+			int id = int.Parse(paramList[0]);
 
 			// アクションパックを先に作っておく
 			List<ActionPack> list = new List<ActionPack>();
@@ -95,7 +104,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			}
 
 			Data data = new Data(
-				int.Parse(paramList[0]),
+				id,
 				int.Parse(paramList[1]),
 				paramList[2],
 				int.Parse(paramList[3]),
@@ -107,11 +116,16 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 				list
 			);
 
-			DataDict.Add(int.Parse(paramList[0]), data);
+			DataDict.Add(id, data);
 
 			// TODO とりあえず、1000以下がプレイヤーのカードという扱い
-			if (int.Parse(paramList[0]) < 1000) {
-				RarityCardList[int.Parse(paramList[1])-1].Add(int.Parse(paramList[0]));
+			if (id < 1000) {
+				AllRarityCardList[int.Parse(paramList[1])-1].Add(id);
+				
+				// ボスカードは、通常ロットテーブルには加えない
+				if (id < 900) {
+					BattleRarityCardList[int.Parse(paramList[1])-1].Add(id);
+				}
 			}
 		}
 	}
@@ -267,9 +281,16 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
     }
 	
 	// リストは外で操作されると困るので、クローンを返す
-	public List<int> GetRarityCardCloneList(int rarity)
+	public List<int> GetBattleRarityCardCloneList(int rarity)
 	{
-		List<int> list = new List<int>(RarityCardList[rarity-1]);
+		List<int> list = new List<int>(BattleRarityCardList[rarity-1]);
+		return list;
+	}
+	
+	// リストは外で操作されると困るので、クローンを返す
+	public List<int> GetAllRarityCardCloneList(int rarity)
+	{
+		List<int> list = new List<int>(AllRarityCardList[rarity-1]);
 		return list;
 	}
 }

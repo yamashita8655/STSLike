@@ -249,6 +249,10 @@ public class EnemyStatus
 		Data = data;
 		CuTurnPower = new TurnPower();
 	}
+
+	public MasterEnemyTable.Data GetEnemyData() {
+		return Data;
+	}
 	
 	public void SetNowHp(int val) {
 		NowHp = val;

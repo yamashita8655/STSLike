@@ -27,7 +27,7 @@ public class DebugController : MonoBehaviour
 		FindCardDropDown.ClearOptions();
 		List<string> options = new List<string>();
 		for (int i = 1; i < 6; i++) {
-			var list = MasterAction2Table.Instance.GetRarityCardCloneList(i);
+			var list = MasterAction2Table.Instance.GetAllRarityCardCloneList(i);
 			for (int i2 = 0; i2 < list.Count; i2++) {
 				options.Add(list[i2].ToString());
 			}
@@ -70,7 +70,7 @@ public class DebugController : MonoBehaviour
 	public void OnClickCardFindAllButton()
 	{
 		for (int i = 1; i < 6; i++) {
-			var list = MasterAction2Table.Instance.GetRarityCardCloneList(i);
+			var list = MasterAction2Table.Instance.GetAllRarityCardCloneList(i);
 			for (int i2 = 0; i2 < list.Count; i2++) {
 				PlayerPrefsManager.Instance.SaveFindCardId(list[i2]);
 			}

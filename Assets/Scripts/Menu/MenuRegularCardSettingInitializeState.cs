@@ -82,7 +82,7 @@ public class MenuRegularCardSettingInitializeState : StateBase {
 
 		// 初めて開くので、オブジェクト生成する
 		for (int i = 1; i < 6; i++) {
-			var list = MasterAction2Table.Instance.GetRarityCardCloneList(i);
+			var list = MasterAction2Table.Instance.GetAllRarityCardCloneList(i);
 			for (int i2 = 0; i2 < list.Count; i2++) {
 				int id = list[i2];
 				ResourceManager.Instance.RequestExecuteOrder(
