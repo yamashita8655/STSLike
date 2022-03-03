@@ -51,6 +51,7 @@ public partial class EnumSelf : MonoBehaviour {
         ShieldPreserve,	// ターン終了時に、シールドが無くならない
         Invincible,		// 一度だけ、被ダメ0
         DoubleAttack,	// 選択Damage効果が含まれるカードを、追加で一度発動させる
+        Critical,		// 1度だけ、次に使用するカードのDamage、DamageSuction、ShieldBashの基本効果値のみ倍になる
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -123,6 +124,7 @@ public partial class EnumSelf : MonoBehaviour {
 		SubStrength,
 		Invincible,
 		DoubleAttack,
+        Critical,
 
 		// ターン経過時に、1にリセットする物
         RotBody,

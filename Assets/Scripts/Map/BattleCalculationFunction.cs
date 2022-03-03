@@ -51,6 +51,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.ShieldPreserve) ||
 			(pack.Effect == EnumSelf.EffectType.Invincible) ||
 			(pack.Effect == EnumSelf.EffectType.DoubleAttack) ||
+			(pack.Effect == EnumSelf.EffectType.Critical) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -239,6 +240,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.Vulnerable) ||
 				(i == (int)EnumSelf.TurnPowerType.ShieldWeakness) ||
 				(i == (int)EnumSelf.TurnPowerType.Invincible) ||
+				(i == (int)EnumSelf.TurnPowerType.Critical) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -377,88 +379,6 @@ public class BattleCalculationFunction {
 
 	// Player用
 	public static void PlayerCalcDamageNormalDamage(ActionPack pack) {
-		//var player = MapDataCarrier.Instance.CuPlayerStatus;
-		//var enemy = MapDataCarrier.Instance.CuEnemyStatus;
-		//int shield = 0;
-		//int powerStrength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
-		//int overDamage = 0;
-		//int damage = 0;
-
-		//if (pack.Effect == EnumSelf.EffectType.ShieldBash) {
-		//	damage = player.GetNowShield();
-		//} else {
-		//	damage = pack.Value;
-		//}
-		//	
-		//damage = damage+powerStrength;
-		//
-		//// 脱力しているかどうか
-		//if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
-		//	// 与ダメが25％下がる
-		//	damage = damage - (damage * 25 / 100);
-		//}
-
-		//if (pack.Target == EnumSelf.TargetType.Opponent) {
-		//	// 相手がリアクティブシールド状態か
-		//	if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
-		//		player.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
-		//	}
-
-		//	// 狂戦士状態か
-		//	if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
-		//		// 与ダメが倍になる
-		//		damage *= 2;
-		//		PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Versak, -1);
-		//	}
-
-		//	// 相手弱体しているか
-		//	if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
-		//		if (player.GetParameterListFlag(EnumSelf.ParameterType.VulnerableUp) == true) {
-		//			// 与ダメが75％上がる
-		//			damage = damage + (damage * 75 / 100);
-		//		} else {
-		//			// 与ダメが50％上がる
-		//			damage = damage + (damage * 50 / 100);
-		//		}
-		//	}
-
-		//	// 朽ちた体状態だったら、その数値分ダメージを加算して、数値を1増やす
-		//	if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody) > 0) {
-		//		int rotbodyVal = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody);
-		//		damage += rotbodyVal;
-		//		EnemyUpdateTurnPower(EnumSelf.TurnPowerType.RotBody, 1);
-		//	}
-
-		//	shield = enemy.GetNowShield();
-		//	enemy.AddNowShield(-damage);
-		//	overDamage = shield - damage;
-		//	if (overDamage < 0) {
-		//		EnemyUpdateHp(overDamage);
-		//		if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
-		//			PlayerUpdateHp(-overDamage);
-		//		}
-		//	}
-
-		//	// 相手が棘状態か
-		//	if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Thorn) > 0) {
-		//		int thornDamage = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Thorn);
-		//		shield = player.GetNowShield();
-		//		player.AddNowShield(-thornDamage);
-		//		overDamage = shield - thornDamage;
-		//		if (overDamage < 0) {
-		//			PlayerUpdateHp(overDamage);
-		//		}
-		//	}
-
-		//} else if (pack.Target == EnumSelf.TargetType.Self) {
-		//	LogManager.Instance.LogError("PlayerCalcDamageNormalDamage:Effect:Damage,Target:Self,自分を対象にしたDamageは未実装予定");
-		//	//shield = player.GetNowShield();
-		//	//player.AddNowShield(-damage);
-		//	//overDamage = shield - damage;
-		//	//if (overDamage < 0) {
-		//	//	PlayerUpdateHp(overDamage);
-		//	//}
-		//}
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
 		
@@ -469,6 +389,14 @@ public class BattleCalculationFunction {
 		// ダメージ計算したら、空元気は解除する
 		player.ResetPower(EnumSelf.PowerType.FastStrength);
 		PlayerUpdatePower(EnumSelf.PowerType.FastStrength);
+		
+		// 必殺も解除する
+		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Critical) > 0) {
+			// 最初の攻撃だったら、解除する
+			if (pack.DamageNumberCount == 0) {
+				PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Critical, -1);
+			}
+		}
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			// 相手がリアクティブシールド状態か
@@ -1102,6 +1030,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.Invincible;
 		} else if (type == EnumSelf.EffectType.DoubleAttack) {
 			pType = EnumSelf.TurnPowerType.DoubleAttack;
+		} else if (type == EnumSelf.EffectType.Critical) {
+			pType = EnumSelf.TurnPowerType.Critical;
 		}
 
 		return pType;
@@ -1387,6 +1317,14 @@ public class BattleCalculationFunction {
 				}
 			} else {
 				val = pack.Value;
+			}
+		}
+
+		// 必殺があるかどうか
+		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Critical) > 0) {
+			// 最初の攻撃だったら、加算する
+			if (pack.DamageNumberCount == 0) {
+				val += pack.Value;
 			}
 		}
 

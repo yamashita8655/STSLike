@@ -87,6 +87,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			// アクションパックを先に作っておく
 			List<ActionPack> list = new List<ActionPack>();
 			int index = 9;
+			int damageNumberCount = 0;
 			while (true) {
 				if (paramList[index] == "NONE") {
 					break;
@@ -96,7 +97,15 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 				int value = int.Parse(paramList[index+2]);
 				EnumSelf.TimingType timing = GetTimingType(paramList[index+3]);
 
-				ActionPack pack = new ActionPack(int.Parse(paramList[0]), effect, target, value, timing);
+				ActionPack pack = new ActionPack(int.Parse(paramList[0]), effect, target, value, timing, damageNumberCount);
+				
+				if (
+					(effect == EnumSelf.EffectType.Damage) ||
+					(effect == EnumSelf.EffectType.DamageSuction) ||
+					(effect == EnumSelf.EffectType.ShieldBash)
+				) {
+					damageNumberCount++;
+				}
 
 				list.Add(pack);
 
@@ -203,6 +212,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Invincible;
 		} else if (typeString == "DoubleAttack") {
 			type = EnumSelf.EffectType.DoubleAttack;
+		} else if (typeString == "Critical") {
+			type = EnumSelf.EffectType.Critical;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}
@@ -303,18 +314,21 @@ public class ActionPack {
 	public EnumSelf.TargetType Target { get; private set; }
 	public int Value { get; private set; }
 	public EnumSelf.TimingType Timing { get; private set; }
+	public int DamageNumberCount { get; private set; }// そのアクションのDamage、DamageSuction、ShieldBashが何個目か
 
 	public ActionPack(
 		int executeActionId,
 		EnumSelf.EffectType effect,
 		EnumSelf.TargetType target,
 		int value,
-		EnumSelf.TimingType timing
+		EnumSelf.TimingType timing,
+		int damageNumberCount
 	) {
 		ExecuteActionId = executeActionId;
 		Effect = effect;
 		Target = target;
 		Value = value;
 		Timing = timing;
+		DamageNumberCount = damageNumberCount;
 	}
 }
