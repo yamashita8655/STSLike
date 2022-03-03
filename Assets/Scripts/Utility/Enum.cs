@@ -29,6 +29,7 @@ public partial class EnumSelf : MonoBehaviour {
         Death,			// 即死
 		Curse,			// 呪い付与
         Draw,			// 山札を引く
+        GainDiceCost,	// ダイスコスト増加（減は、元々のダイスコスト下げればいいだけなので、システムとして使わないから実装しない
 		// バフ、デバフ
         Strength,		// 力上昇
         FastStrength,	// ターン終了後に下がる力上昇

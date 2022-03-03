@@ -31,6 +31,11 @@ public class MapBattleValueChangeState : StateBase {
 		if (pack.Effect == EnumSelf.EffectType.Draw) {
 			scene.DrawCard(pack.Value);
 		}
+		
+		if (pack.Effect == EnumSelf.EffectType.GainDiceCost) {
+			MapDataCarrier.Instance.CurrentTotalDiceCost += pack.Value;
+			scene.UpdateCurrentTotalDiceCostText();
+		}
 
 		MapDataCarrier.Instance.ActionPackCount++;
 

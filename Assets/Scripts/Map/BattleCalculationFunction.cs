@@ -84,6 +84,12 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.EnemyDeath(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Draw) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Draw 敵にDrawは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.Critical) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Critical 敵にCriticalは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.DoubleAttack) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DoubleAttack 敵にDoubleAttackは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.GainDiceCost) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is GainDiceCost 敵にGainDiceCostは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
 			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (
