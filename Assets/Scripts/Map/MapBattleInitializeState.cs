@@ -17,6 +17,8 @@ public class MapBattleInitializeState : StateBase {
 
 		MapDataCarrier.Instance.DiceValueList.Clear();
 		MapDataCarrier.Instance.BattleTurnCount = 0;
+		MapDataCarrier.Instance.SelectBattleCardData = null;
+		MapDataCarrier.Instance.DoubleAttackBattleCardData = null;
 		
 		// 手札の非表示
 		var handList = MapDataCarrier.Instance.BattleCardButtonControllers;

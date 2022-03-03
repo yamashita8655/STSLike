@@ -50,6 +50,7 @@ public partial class EnumSelf : MonoBehaviour {
         SubStrength,	// FastStrengthによる筋力減少
         ShieldPreserve,	// ターン終了時に、シールドが無くならない
         Invincible,		// 一度だけ、被ダメ0
+        DoubleAttack,	// 選択Damage効果が含まれるカードを、追加で一度発動させる
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -121,6 +122,7 @@ public partial class EnumSelf : MonoBehaviour {
 		ReactiveShield,
 		SubStrength,
 		Invincible,
+		DoubleAttack,
 
 		// ターン経過時に、1にリセットする物
         RotBody,

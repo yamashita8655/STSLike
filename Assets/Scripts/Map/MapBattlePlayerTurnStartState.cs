@@ -19,6 +19,10 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		
 		MapDataCarrier.Instance.CurrentTotalDiceCost = 0;
 		scene.UpdateCurrentTotalDiceCostText();
+		
+		MapDataCarrier.Instance.SelectBattleCardData = null;
+		MapDataCarrier.Instance.DoubleAttackBattleCardData = null;
+		MapDataCarrier.Instance.IsDoubleAttackCard = false;
 
 		BattleCalculationFunction.PlayerTurnStartValueChange();
 

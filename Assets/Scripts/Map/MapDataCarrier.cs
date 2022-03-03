@@ -76,6 +76,8 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	
 	public List<BattleCardButtonController> BattleCardButtonControllers { get; set; }
 	public MasterAction2Table.Data SelectBattleCardData { get; set; }
+	public MasterAction2Table.Data DoubleAttackBattleCardData { get; set; }
+	public bool IsDoubleAttackCard { get; set; }
 	
 	public List<MasterAction2Table.Data> OriginalDeckList { get; set; }
 	public List<MasterAction2Table.Data> BattleDeckList { get; set; }
@@ -127,6 +129,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	
 		BattleCardButtonControllers = new List<BattleCardButtonController>();
 		SelectBattleCardData = null;
+		DoubleAttackBattleCardData = null;
 	
 		OriginalDeckList = new List<MasterAction2Table.Data>();
 		BattleDeckList = new List<MasterAction2Table.Data>();

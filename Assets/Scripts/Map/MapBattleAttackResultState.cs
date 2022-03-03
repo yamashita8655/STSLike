@@ -18,6 +18,19 @@ public class MapBattleAttackResultState : StateBase {
 	
 		MasterAction2Table.Data data = MapDataCarrier.Instance.SelectBattleCardData;
 
+		if (MapDataCarrier.Instance.DoubleAttackBattleCardData != null) {
+			data = MapDataCarrier.Instance.DoubleAttackBattleCardData;
+			MapDataCarrier.Instance.IsDoubleAttackCard = true;
+		} else {
+			data = MapDataCarrier.Instance.SelectBattleCardData;
+			if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.DoubleAttack) > 0) {
+				if (BattleCalculationFunction.IsOpponentDamage(data) == true) {
+					MapDataCarrier.Instance.DoubleAttackBattleCardData = data;
+					BattleCalculationFunction.PlayerUpdateTurnPower(EnumSelf.TurnPowerType.DoubleAttack, -1);
+				}
+			}
+		}
+
 		MapDataCarrier.Instance.ActionPackCount = 0;
 		MapDataCarrier.Instance.MaxActionPackCount = data.ActionPackList.Count;
 		

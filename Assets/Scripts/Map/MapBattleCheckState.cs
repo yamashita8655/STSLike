@@ -95,22 +95,31 @@ public class MapBattleCheckState : StateBase {
                     //	StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
                     //}
 
-                    // 捨て札に使ったカードを登録させる
-					var data = MapDataCarrier.Instance.SelectBattleCardData;
-					if (data.UseType == EnumSelf.UseType.Erase) {
-						// Eraseなら、捨て札にも破棄札にもならず、その戦闘中は2度と使えないカード
-					} else if (data.UseType == EnumSelf.UseType.Discard) {
-						var discardList = MapDataCarrier.Instance.DiscardList;
-                    	discardList.Add(data);
-					} else if (data.UseType == EnumSelf.UseType.Repeat) {
-						var trashList = MapDataCarrier.Instance.TrashList;
-                    	trashList.Add(data);
+					// 何らかの効果で、ダブル発動時のカードの場合はカードは削除するので、捨て札やデッキに登録しない
+					if (MapDataCarrier.Instance.IsDoubleAttackCard == true) {
+						MapDataCarrier.Instance.DoubleAttackBattleCardData = null;
+						MapDataCarrier.Instance.IsDoubleAttackCard = false;
+					} else {
+						// 捨て札に使ったカードを登録させる
+						var data = MapDataCarrier.Instance.SelectBattleCardData;
+						if (data.UseType == EnumSelf.UseType.Erase) {
+							// Eraseなら、捨て札にも破棄札にもならず、その戦闘中は2度と使えないカード
+						} else if (data.UseType == EnumSelf.UseType.Discard) {
+							var discardList = MapDataCarrier.Instance.DiscardList;
+                    		discardList.Add(data);
+						} else if (data.UseType == EnumSelf.UseType.Repeat) {
+							var trashList = MapDataCarrier.Instance.TrashList;
+                    		trashList.Add(data);
+						}
 					}
 					scene.UpdateCardListCountText();
 						
-					MapDataCarrier.Instance.SelectBattleCardData = null;
-					
-					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
+					if (MapDataCarrier.Instance.DoubleAttackBattleCardData == null) {
+						MapDataCarrier.Instance.SelectBattleCardData = null;
+						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
+					} else {
+						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackResult);
+					}
 				}
 				
 				//for (int i = 0; i < 6; i++) {

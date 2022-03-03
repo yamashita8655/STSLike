@@ -98,6 +98,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.Versak) ||
 			(type == EnumSelf.EffectType.ShieldPreserve) ||
 			(type == EnumSelf.EffectType.Invincible) ||
+			(type == EnumSelf.EffectType.DoubleAttack) ||
 			(type == EnumSelf.EffectType.TurnRegenerate) ||
 			(type == EnumSelf.EffectType.Regenerate)
 		) {

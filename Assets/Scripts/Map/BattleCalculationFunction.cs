@@ -50,6 +50,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.SubStrength) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldPreserve) ||
 			(pack.Effect == EnumSelf.EffectType.Invincible) ||
+			(pack.Effect == EnumSelf.EffectType.DoubleAttack) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -247,6 +248,10 @@ public class BattleCalculationFunction {
 				if (status.GetTurnPowerValue((EnumSelf.TurnPowerType)i) > 0) {
 					status.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 1);
 				}
+			} else if (
+				(i == (int)EnumSelf.TurnPowerType.DoubleAttack)
+			) {
+					status.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 0);
 			} else if (
 				(i == (int)EnumSelf.TurnPowerType.SubStrength)
 			) {
@@ -1095,6 +1100,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.ShieldPreserve;
 		} else if (type == EnumSelf.EffectType.Invincible) {
 			pType = EnumSelf.TurnPowerType.Invincible;
+		} else if (type == EnumSelf.EffectType.DoubleAttack) {
+			pType = EnumSelf.TurnPowerType.DoubleAttack;
 		}
 
 		return pType;
@@ -1490,5 +1497,24 @@ public class BattleCalculationFunction {
 		}
 				
 		return val;
+	}
+	
+	// 選択した効果に相手へのDamage効果が含まれているか
+	static public bool IsOpponentDamage(MasterAction2Table.Data data) {
+		var list = data.ActionPackList;
+
+		bool findOpponentDamage = false;
+
+		for (int i = 0; i < list.Count; i++) {
+			ActionPack pack = list[i];
+			if (pack.Effect == EnumSelf.EffectType.Damage) {
+				if (pack.Target == EnumSelf.TargetType.Opponent) {
+					findOpponentDamage = true;
+					break;
+				}
+			}
+		}
+
+		return findOpponentDamage;
 	}
 }

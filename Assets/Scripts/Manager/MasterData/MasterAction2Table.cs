@@ -201,6 +201,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.ShieldPreserve;
 		} else if (typeString == "Invincible") {
 			type = EnumSelf.EffectType.Invincible;
+		} else if (typeString == "DoubleAttack") {
+			type = EnumSelf.EffectType.DoubleAttack;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}
