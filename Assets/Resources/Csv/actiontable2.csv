@@ -17,6 +17,7 @@ id,rarity,name,equipcost,unlockcost,dicecost,usetype,detail,imagepath,effect,tar
 15,3,分身拳,1,10,2,Repeat,ターン終了時まで、連撃を{0}得る。,Image/UI/Card/punch,DoubleAttack,Self,2,Add,NONE,,,,,,,,,,,,,,,,
 16,2,必殺拳,1,10,2,Discard,ターン終了時まで、必殺を{0}得る。,Image/UI/Card/punch,Critical,Self,1,Add,NONE,,,,,,,,,,,,,,,,
 17,2,体力変換,1,10,0,Repeat,自分に{0}確定ダメージ、ダイスコスト{0}増加。,Image/UI/Card/punch,TrueDamage,Self,3,Add,GainDiceCost,Self,4,Add,NONE,,,,,,,,,,,,
+18,4,シールド変換,1,10,8,Repeat,自分に{0}確定ダメージ、ダイスコスト{0}増加。,Image/UI/Card/punch,DamageShieldSuction,Opponent,28,Add,GainDiceCost,Self,4,Add,NONE,,,,,,,,,,,,
 #,耐久向けシールド偏重カード,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 20,1,シールド,0,0,3,Repeat,{0}シールドを得る,Image/UI/Card/punch,Shield,Self,3,Add,NONE,,,,,,,,,,,,,,,,
 21,1,ストロングシールド1,1,10,3,Repeat,{0}シールドを得る,Image/UI/Card/punch,Shield,Self,6,Add,NONE,,,,,,,,,,,,,,,,

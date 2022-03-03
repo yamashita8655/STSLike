@@ -17,6 +17,7 @@ public partial class EnumSelf : MonoBehaviour {
         None,
         Damage,			// 通常ダメージ
         DamageSuction,	// 与ダメ回復
+        DamageShieldSuction,	// 与ダメシールド獲得
         ShieldBash,		// シールド値ダメージ
         TrueDamage,		// 全てを無視した固定ダメージ
         RemovePower,	// 状態変化全て解除

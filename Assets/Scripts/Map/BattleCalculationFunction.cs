@@ -8,6 +8,7 @@ public class BattleCalculationFunction {
 		if (
 			(pack.Effect == EnumSelf.EffectType.Damage) ||
 			(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
+			(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldBash)
 		) {
 			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
@@ -84,6 +85,8 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.EnemyDeath(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Draw) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Draw 敵にDrawは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.DamageShieldSuction) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DamageShieldSuction 敵にDamageShieldSuctionは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Critical) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Critical 敵にCriticalは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.DoubleAttack) {
@@ -429,6 +432,10 @@ public class BattleCalculationFunction {
 				EnemyUpdateHp(overDamage);
 				if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
 					PlayerUpdateHp(-overDamage);
+				}
+				
+				if (pack.Effect == EnumSelf.EffectType.DamageShieldSuction) {
+					player.AddNowShield(-overDamage);
 				}
 			}
 

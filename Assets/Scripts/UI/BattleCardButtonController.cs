@@ -125,6 +125,7 @@ public class BattleCardButtonController : MonoBehaviour
 			if (
 				(list[index].Effect == EnumSelf.EffectType.Damage) ||
 				(list[index].Effect == EnumSelf.EffectType.DamageSuction) ||
+				(list[index].Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 				(list[index].Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				val = BattleCalculationFunction.CalcPlayerDamageValue(list[index]);

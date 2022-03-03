@@ -102,6 +102,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 				if (
 					(effect == EnumSelf.EffectType.Damage) ||
 					(effect == EnumSelf.EffectType.DamageSuction) ||
+					(effect == EnumSelf.EffectType.DamageShieldSuction) ||
 					(effect == EnumSelf.EffectType.ShieldBash)
 				) {
 					damageNumberCount++;
@@ -146,6 +147,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Damage;
 		} else if (typeString == "DamageSuction") {
 			type = EnumSelf.EffectType.DamageSuction;
+		} else if (typeString == "DamageShieldSuction") {
+			type = EnumSelf.EffectType.DamageShieldSuction;
 		} else if (typeString == "ShieldBash") {
 			type = EnumSelf.EffectType.ShieldBash;
 		} else if (typeString == "TrueDamage") {
@@ -316,7 +319,7 @@ public class ActionPack {
 	public EnumSelf.TargetType Target { get; private set; }
 	public int Value { get; private set; }
 	public EnumSelf.TimingType Timing { get; private set; }
-	public int DamageNumberCount { get; private set; }// そのアクションのDamage、DamageSuction、ShieldBashが何個目か
+	public int DamageNumberCount { get; private set; }// そのアクションのDamage、DamageSuction、DamageShieldSuction、ShieldBashが何個目か
 
 	public ActionPack(
 		int executeActionId,
