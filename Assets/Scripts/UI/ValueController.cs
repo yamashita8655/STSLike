@@ -97,6 +97,8 @@ public class ValueController : MonoBehaviour
 			ret = Const.Hand2DiscardImagePath;
 		} else if (type == EnumSelf.EffectType.Hand2Trash) {
 			ret = Const.Hand2TrashImagePath;
+		} else if (type == EnumSelf.EffectType.Hand2Erase) {
+			ret = Const.Hand2EraseImagePath;
 		} else if (
 			(type == EnumSelf.EffectType.Strength) ||
 			(type == EnumSelf.EffectType.FastStrength) ||

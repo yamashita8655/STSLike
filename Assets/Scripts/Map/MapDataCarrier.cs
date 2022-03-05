@@ -176,6 +176,17 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 
 		return ctrl;
 	}
+	
+	public int GetHandCount() {
+		int count = 0;
+		for (int i = 0; i < BattleCardButtonControllers.Count; i++) {
+			if (BattleCardButtonControllers[i].gameObject.activeSelf == true) {
+				count++;
+			}
+		}
+
+		return count;
+	}
 
 	public void Release() {
 		Scene = null;

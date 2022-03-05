@@ -177,10 +177,14 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.GainDiceCost;
 		} else if (typeString == "Hand2DeckTop") {
 			type = EnumSelf.EffectType.Hand2DeckTop;
-		} else if (typeString == "Hand2Trash") {
-			type = EnumSelf.EffectType.Hand2Trash;
+		} else if (typeString == "Hand2Erase") {
+			type = EnumSelf.EffectType.Hand2Erase;
 		} else if (typeString == "Hand2Discard") {
 			type = EnumSelf.EffectType.Hand2Discard;
+		} else if (typeString == "Hand2Trash") {
+			type = EnumSelf.EffectType.Hand2Trash;
+		} else if (typeString == "Hand2Erase") {
+			type = EnumSelf.EffectType.Hand2Erase;
 		} else if (typeString == "Strength") {
 			type = EnumSelf.EffectType.Strength;
 		} else if (typeString == "FastStrength") {

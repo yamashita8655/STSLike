@@ -991,7 +991,7 @@ public partial class MapScene : SceneBase
 		MasterAction2Table.Data data = MapDataCarrier.Instance.SelectBattleCardData;
 		int nowActionPackCount = MapDataCarrier.Instance.ActionPackCount;
 		ActionPack pack = data.ActionPackList[nowActionPackCount]; 
-		int selectValue = pack.Value;
+		int maxValue = pack.Value;
 
 		var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
 		int count = 0;
@@ -1000,13 +1000,28 @@ public partial class MapScene : SceneBase
 				count++;
 			}
 		}
-		
-		HandCardSelectText.text = string.Format("説明文\n{0}/{1}", count.ToString(), pack.Value.ToString());
 
-		if (count >= selectValue) {
+		int handCount = MapDataCarrier.Instance.GetHandCount();
+		if (maxValue >= handCount) {
+			maxValue = handCount;
+		}
+		
+		HandCardSelectText.text = string.Format("説明文\n{0}/{1}", count.ToString(), maxValue.ToString());
+
+		if (count >= maxValue) {
 			HandCardSelectDecideButton.interactable = true;
+			for (int i = 0; i < ctrls.Count; i++) {
+				if (ctrls[i].IsSelect() == false) {
+					ctrls[i].UpdateToggleActive(false);
+				}
+			}
 		} else {
 			HandCardSelectDecideButton.interactable = false;
+			for (int i = 0; i < ctrls.Count; i++) {
+				if (ctrls[i].ToggleActiveSelf() == false) {
+					ctrls[i].UpdateToggleActive(true);
+				}
+			}
 		}
 	}
 	

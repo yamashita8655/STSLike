@@ -37,6 +37,7 @@ public partial class Const {
 	public static readonly string Hand2DeckTopImagePath = "Image/UI/Card/hand2decktop";
 	public static readonly string Hand2TrashImagePath = "Image/UI/Card/hand2trash";
 	public static readonly string Hand2DiscardImagePath = "Image/UI/Card/hand2discard";
+	public static readonly string Hand2EraseImagePath = "Image/UI/Card/hand2erase";
 	
 	// こっちは、数値可変でターン永続
 	public static readonly string PowerControllerPath = "Prefab/UI/PowerController";

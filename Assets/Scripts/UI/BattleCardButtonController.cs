@@ -161,6 +161,10 @@ public class BattleCardButtonController : MonoBehaviour
 		SelectToggle.gameObject.SetActive(isActive);
 	}
 	
+	public bool ToggleActiveSelf() {
+		return SelectToggle.gameObject.activeSelf;
+	}
+	
 	public bool IsSelect() {
 		return SelectToggle.isOn;
 	}

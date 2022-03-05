@@ -99,6 +99,8 @@ public class BattleCalculationFunction {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2Discard 敵にHand2Discardは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Hand2Trash) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2Trash 敵にHand2Trashは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.Hand2Erase) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2Erase 敵にHand2Eraseは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
 			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (

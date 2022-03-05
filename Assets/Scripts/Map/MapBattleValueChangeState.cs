@@ -41,9 +41,13 @@ public class MapBattleValueChangeState : StateBase {
 		if (
 			(pack.Effect == EnumSelf.EffectType.Hand2DeckTop) ||
 			(pack.Effect == EnumSelf.EffectType.Hand2Discard) ||
+			(pack.Effect == EnumSelf.EffectType.Hand2Erase) ||
 			(pack.Effect == EnumSelf.EffectType.Hand2Trash)
 		) {
-			showHandCardSelect = true;
+
+			if (MapDataCarrier.Instance.GetHandCount() > 0) {
+				showHandCardSelect = true;
+			}
 		}
 
 		scene.UpdateParameterText();

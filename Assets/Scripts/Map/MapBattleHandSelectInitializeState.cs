@@ -22,7 +22,13 @@ public class MapBattleHandSelectInitializeState : StateBase {
 
 		int count = MapDataCarrier.Instance.ActionPackCount;
 		ActionPack pack = data.ActionPackList[count]; 
-		scene.HandCardSelectText.text = string.Format("説明文\n0/{0}", pack.Value.ToString());
+
+		int maxCount = pack.Value;
+		int handCount = MapDataCarrier.Instance.GetHandCount();
+		if (maxCount >= handCount) {
+			maxCount = handCount;
+		}
+		scene.HandCardSelectText.text = string.Format("説明文\n0/{0}", maxCount.ToString());
 
 		scene.HandCardSelectDecideButton.interactable = false;
 
