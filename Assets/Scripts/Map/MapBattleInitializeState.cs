@@ -14,6 +14,8 @@ public class MapBattleInitializeState : StateBase {
 		scene.BattleRoot.SetActive(true);
 		scene.MapRoot.SetActive(false);
 		scene.TurnEndButtonObject.SetActive(false);
+		
+		scene.HandCardRoot.SetActive(true);
 
 		MapDataCarrier.Instance.DiceValueList.Clear();
 		MapDataCarrier.Instance.BattleTurnCount = 0;

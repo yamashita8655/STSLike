@@ -93,6 +93,12 @@ public class BattleCalculationFunction {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DoubleAttack 敵にDoubleAttackは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.GainDiceCost) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is GainDiceCost 敵にGainDiceCostは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.Hand2DeckTop) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2DeckTop 敵にHand2DeckTopは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.Hand2Discard) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2Discard 敵にHand2Discardは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.Hand2Trash) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2Trash 敵にHand2Trashは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
 			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (

@@ -35,6 +35,9 @@ public partial class MapScene : SceneBase
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleInitiativeValueChange, new MapBattleInitiativeValueChangeState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleValueChange, new MapBattleValueChangeState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleWin, new MapBattleWinState());
+		stm.AddState(StateMachineName.Map, (int)MapState.BattleHandSelectInitialize, new MapBattleHandSelectInitializeState());
+		stm.AddState(StateMachineName.Map, (int)MapState.BattleHandSelectUserWait, new MapBattleHandSelectUserWaitState());
+		stm.AddState(StateMachineName.Map, (int)MapState.BattleHandSelectEnd, new MapBattleHandSelectEndState());
 		stm.AddState(StateMachineName.Map, (int)MapState.FloorEndCheck, new MapFloorEndCheckState());
 		stm.AddState(StateMachineName.Map, (int)MapState.HealDetailUpdate, new MapHealDetailUpdateState());
 		stm.AddState(StateMachineName.Map, (int)MapState.HealDisplay, new MapHealDisplayState());

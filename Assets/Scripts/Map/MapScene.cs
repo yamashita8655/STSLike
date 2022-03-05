@@ -300,6 +300,22 @@ public partial class MapScene : SceneBase
 	private EraseCardDetailController CuEraseCardDetailController = null;
 	public EraseCardDetailController EraseCardDetailController => CuEraseCardDetailController;
 	
+	[SerializeField]
+	private GameObject CuHandCardRoot = null;
+	public GameObject HandCardRoot => CuHandCardRoot;
+	
+	[SerializeField]
+	private GameObject CuHandCardSelectRoot = null;
+	public GameObject HandCardSelectRoot => CuHandCardSelectRoot;
+	
+	[SerializeField]
+	private Button CuHandCardSelectDecideButton = null;
+	public Button HandCardSelectDecideButton => CuHandCardSelectDecideButton;
+	
+	[SerializeField]
+	private Text CuHandCardSelectText = null;
+	public Text HandCardSelectText => CuHandCardSelectText;
+	
 	// Start is called before the first frame update
 	IEnumerator Start() {
 		while (EntryPoint.IsInitialized == false) {
@@ -963,5 +979,43 @@ public partial class MapScene : SceneBase
 
 		TrashCountText.text = trashList.Count.ToString();
 		DeckCountText.text = deckList.Count.ToString();
+	}
+
+	public void UpdateHandSelectToggle(bool isOn) {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.BattleHandSelectUserWait) {
+			return;
+		}
+
+		MasterAction2Table.Data data = MapDataCarrier.Instance.SelectBattleCardData;
+		int nowActionPackCount = MapDataCarrier.Instance.ActionPackCount;
+		ActionPack pack = data.ActionPackList[nowActionPackCount]; 
+		int selectValue = pack.Value;
+
+		var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
+		int count = 0;
+		for (int i = 0; i < ctrls.Count; i++) {
+			if (ctrls[i].IsSelect() == true) {
+				count++;
+			}
+		}
+		
+		HandCardSelectText.text = string.Format("説明文\n{0}/{1}", count.ToString(), pack.Value.ToString());
+
+		if (count >= selectValue) {
+			HandCardSelectDecideButton.interactable = true;
+		} else {
+			HandCardSelectDecideButton.interactable = false;
+		}
+	}
+	
+	public void OnClickHandCardSelectDecideButton() {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.BattleHandSelectUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleHandSelectEnd);
 	}
 }

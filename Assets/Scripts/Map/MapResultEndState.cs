@@ -16,6 +16,7 @@ public class MapResultEndState : StateBase {
 		scene.ChangeRoot.SetActive(false);
 		scene.ResultRoot.SetActive(false);
 		scene.BattleRoot.SetActive(false);
+		scene.HandCardRoot.SetActive(false);
 
 		return true;
 	}

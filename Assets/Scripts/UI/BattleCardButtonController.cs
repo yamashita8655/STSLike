@@ -23,6 +23,9 @@ public class BattleCardButtonController : MonoBehaviour
 
     [SerializeField]
     private Image UseTypeImage = null;
+    
+	[SerializeField]
+    private Toggle SelectToggle = null;
 
     private MasterAction2Table.Data Data = null;
 
@@ -33,7 +36,8 @@ public class BattleCardButtonController : MonoBehaviour
 
 	public IEnumerator Initialize(
 		Action<BattleCardButtonController> clickCallback,
-		Action<MasterAction2Table.Data> detailClickCallback
+		Action<MasterAction2Table.Data> detailClickCallback,
+		UnityEngine.Events.UnityAction<bool> toggleUpdateCallback
 	) {
 
 		ClickCallback = clickCallback;
@@ -57,6 +61,11 @@ public class BattleCardButtonController : MonoBehaviour
 				}
 			);
 		}
+
+		SelectToggle.isOn = false;
+		SelectToggle.gameObject.SetActive(false);
+		
+		SelectToggle.onValueChanged.AddListener(toggleUpdateCallback);
 		
 		while (loadCount != loadedCount) {
 			yield return null;
@@ -146,6 +155,18 @@ public class BattleCardButtonController : MonoBehaviour
 		} else {
 			AttackButton.interactable = false;
 		}
+	}
+
+	public void UpdateToggleActive(bool isActive) {
+		SelectToggle.gameObject.SetActive(isActive);
+	}
+	
+	public bool IsSelect() {
+		return SelectToggle.isOn;
+	}
+	
+	public void ResetToggle() {
+		SelectToggle.isOn = false;
 	}
 	
 	public void OnClick() {

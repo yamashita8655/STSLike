@@ -31,6 +31,9 @@ public partial class EnumSelf : MonoBehaviour {
 		Curse,			// 呪い付与
         Draw,			// 山札を引く
         GainDiceCost,	// ダイスコスト増加（減は、元々のダイスコスト下げればいいだけなので、システムとして使わないから実装しない
+        Hand2DeckTop,	// 手札をデッキトップに戻す
+        Hand2Trash,		// 手札を捨て札に送る
+        Hand2Discard,	// 手札を破棄する
 		// バフ、デバフ
         Strength,		// 力上昇
         FastStrength,	// ターン終了後に下がる力上昇

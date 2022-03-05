@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapBattleInitiativeValueChangeState : StateBase {
+public class MapBattleHandSelectUserWaitState : StateBase {
 
     /// <summary>
     /// メイン前処理.
@@ -10,16 +10,6 @@ public class MapBattleInitiativeValueChangeState : StateBase {
     /// </summary>
     override public bool OnBeforeMain()
     {
-		var scene = MapDataCarrier.Instance.Scene as MapScene;
-
-		MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetInitiativeFirstActionData();
-
-		int count = MapDataCarrier.Instance.InitiativeActionPackCount;
-		ActionPack pack = data.ActionPackList[count]; 
-
-		BattleCalculationFunction.PlayerValueChange(pack);
-
-		scene.UpdateParameterText();
 		return false;
     }
 
@@ -29,7 +19,6 @@ public class MapBattleInitiativeValueChangeState : StateBase {
     /// <param name="delta">経過時間</param>
     override public void OnUpdateMain(float delta)
     {
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
     }
 
     /// <summary>

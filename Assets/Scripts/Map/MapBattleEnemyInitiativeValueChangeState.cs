@@ -20,8 +20,6 @@ public class MapBattleEnemyInitiativeValueChangeState : StateBase {
 		
 		BattleCalculationFunction.EnemyValueChange(pack);
 
-		MapDataCarrier.Instance.EnemyInitiativeActionPackCount++;
-
 		scene.UpdateParameterText();
 		return false;
     }

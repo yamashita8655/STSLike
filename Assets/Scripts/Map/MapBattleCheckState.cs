@@ -56,6 +56,7 @@ public class MapBattleCheckState : StateBase {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleWin);
 		} else {
             if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleInitiativeValueChange) {// プレイヤーのイニシアチブ
+				MapDataCarrier.Instance.InitiativeActionPackCount++;
 				if (MapDataCarrier.Instance.InitiativeActionPackCount < MapDataCarrier.Instance.MaxInitiativeActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleInitiativeValueChange);
 				} else {
@@ -65,6 +66,8 @@ public class MapBattleCheckState : StateBase {
             } else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattlePlayerTurnStart) {// プレイヤーのターンスタート時のHP変動
 				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleUpdateAttackButtonDisplay);
             } else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleEnemyInitiativeValueChange) {// 敵のイニシアチブ
+				MapDataCarrier.Instance.EnemyInitiativeActionPackCount++;
+
 				if (MapDataCarrier.Instance.EnemyInitiativeActionPackCount < MapDataCarrier.Instance.EnemyMaxInitiativeActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyInitiativeValueChange);
 				} else {
@@ -73,9 +76,13 @@ public class MapBattleCheckState : StateBase {
 				}
             } else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleEnemyTurnStart) {// 敵のターンスタート時のHP変動
 				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyAttackResult);
-			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleValueChange) {// プレイヤーのターンの場合
+			} else if (
+				(StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleValueChange) ||
+				(StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleHandSelectEnd)
+			) {// プレイヤーのターンの場合
 
 				// アクションパックの処理が全て終わっていなかったら、次のアクションパックの処理を行う
+				MapDataCarrier.Instance.ActionPackCount++;
 				if (MapDataCarrier.Instance.ActionPackCount < MapDataCarrier.Instance.MaxActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleValueChange);
 				} else {
@@ -136,6 +143,8 @@ public class MapBattleCheckState : StateBase {
 				scene.UpdateEnemyValueObject();
 
 			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleEnemyValueChange) {
+				MapDataCarrier.Instance.EnemyActionPackCount++;
+
 				// アクションパックの処理が全て終わっていなかったら、次のアクションパックの処理を行う
 				if (MapDataCarrier.Instance.EnemyActionPackCount < MapDataCarrier.Instance.EnemyMaxActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyValueChange);

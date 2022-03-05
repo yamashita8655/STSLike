@@ -28,6 +28,7 @@ public class MapBattleValueChangeState : StateBase {
 		}
 
 		// TODO 戦闘のパラメータに関係しない効果は、こっちで処理する
+		bool showHandCardSelect = false;
 		if (pack.Effect == EnumSelf.EffectType.Draw) {
 			scene.DrawCard(pack.Value);
 		}
@@ -36,10 +37,22 @@ public class MapBattleValueChangeState : StateBase {
 			MapDataCarrier.Instance.CurrentTotalDiceCost += pack.Value;
 			scene.UpdateCurrentTotalDiceCostText();
 		}
-
-		MapDataCarrier.Instance.ActionPackCount++;
+		
+		if (
+			(pack.Effect == EnumSelf.EffectType.Hand2DeckTop) ||
+			(pack.Effect == EnumSelf.EffectType.Hand2Discard) ||
+			(pack.Effect == EnumSelf.EffectType.Hand2Trash)
+		) {
+			showHandCardSelect = true;
+		}
 
 		scene.UpdateParameterText();
+
+		if (showHandCardSelect == true) {
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleHandSelectInitialize);
+		} else {
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
+		}
 
 		return true;
 	}
@@ -50,7 +63,6 @@ public class MapBattleValueChangeState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
 	}
 
 	/// <summary>

@@ -34,6 +34,9 @@ public partial class Const {
 	public static readonly string DebuffImagePath = "Image/UI/Card/debuff";
 	public static readonly string DrawImagePath = "Image/UI/Card/draw";
 	public static readonly string GainDiceCostImagePath = "Image/UI/Card/gaindicecost";
+	public static readonly string Hand2DeckTopImagePath = "Image/UI/Card/hand2decktop";
+	public static readonly string Hand2TrashImagePath = "Image/UI/Card/hand2trash";
+	public static readonly string Hand2DiscardImagePath = "Image/UI/Card/hand2discard";
 	
 	// こっちは、数値可変でターン永続
 	public static readonly string PowerControllerPath = "Prefab/UI/PowerController";

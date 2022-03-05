@@ -60,10 +60,10 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 					saveString = "0";
 				} else if (i == (int)SaveType.FindCardIds) {
 					// 初期装備カードは、見つけた状態にしておく
-					saveString = "1-2-20";
+					saveString = "1-2-101";
 				} else if (i == (int)SaveType.UnlockCardIds) {
 					// 初期装備カードは、アンロック状態にしておく
-					saveString = "1-2-20";
+					saveString = "1-2-101";
 				} else if (i == (int)SaveType.UsedRegularCostPoint) {
 					saveString = "0";
 				} else if (i == (int)SaveType.RegularSettingCardIds) {

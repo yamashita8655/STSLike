@@ -91,6 +91,12 @@ public class ValueController : MonoBehaviour
 			ret = Const.DrawImagePath;
 		} else if (type == EnumSelf.EffectType.GainDiceCost) {
 			ret = Const.GainDiceCostImagePath;
+		} else if (type == EnumSelf.EffectType.Hand2DeckTop) {
+			ret = Const.Hand2DeckTopImagePath;
+		} else if (type == EnumSelf.EffectType.Hand2Discard) {
+			ret = Const.Hand2DiscardImagePath;
+		} else if (type == EnumSelf.EffectType.Hand2Trash) {
+			ret = Const.Hand2TrashImagePath;
 		} else if (
 			(type == EnumSelf.EffectType.Strength) ||
 			(type == EnumSelf.EffectType.FastStrength) ||

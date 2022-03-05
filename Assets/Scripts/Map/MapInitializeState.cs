@@ -24,6 +24,11 @@ public class MapInitializeState : StateBase {
 		Scene.CarryArtifactDetailController.Close();
 		Scene.CarryCardDetailController.Close();
 		Scene.EraseCardDetailController.Close();
+		
+		Scene.HandCardRoot.SetActive(false);
+		Scene.HandCardSelectRoot.SetActive(false);
+		Scene.HandCardSelectDecideButton.gameObject.SetActive(false);
+		Scene.HandCardSelectDecideButton.interactable = false;
 
 		MapDataCarrier.Instance.HandDifficultList.Clear();
 		for (int i = 0; i < Scene.DifficultImages.Length; i++) {
@@ -42,15 +47,17 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
 		
 		// TODO デバッグ用カード追加
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(18));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(18));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(20));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(21));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(22));
 
 		// レギュラーカード設定
 		var regularIds = PlayerPrefsManager.Instance.GetRegularSettingCardIds();
@@ -297,7 +304,8 @@ public class MapInitializeState : StateBase {
 		BattleCardButtonController ctrl = obj.GetComponent<BattleCardButtonController>();
 		yield return ctrl.Initialize(
 			Scene.OnClickAttackButton,
-			Scene.OnClickCarryCardDetailButton
+			Scene.OnClickCarryCardDetailButton,
+			Scene.UpdateHandSelectToggle
 		);
 		MapDataCarrier.Instance.BattleCardButtonControllers.Add(ctrl);
 	}
