@@ -16,17 +16,31 @@ public class MapBattleAttackResultState : StateBase {
 
 		//MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
 	
-		MasterAction2Table.Data data = MapDataCarrier.Instance.SelectBattleCardData;
-
-		if (MapDataCarrier.Instance.DoubleAttackBattleCardData != null) {
+		MasterAction2Table.Data data = null;
+		
+		if (MapDataCarrier.Instance.Cost6DoubleAttackBattleCardData != null) {
+			data = MapDataCarrier.Instance.Cost6DoubleAttackBattleCardData;
+			MapDataCarrier.Instance.IsCost6DoubleAttackCard = true;
+		} else if (MapDataCarrier.Instance.DoubleAttackBattleCardData != null) {
 			data = MapDataCarrier.Instance.DoubleAttackBattleCardData;
 			MapDataCarrier.Instance.IsDoubleAttackCard = true;
-		} else {
+		}
+		
+		if (data == null) {
 			data = MapDataCarrier.Instance.SelectBattleCardData;
 			if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.DoubleAttack) > 0) {
 				if (BattleCalculationFunction.IsOpponentDamage(data) == true) {
 					MapDataCarrier.Instance.DoubleAttackBattleCardData = data;
 					BattleCalculationFunction.PlayerUpdateTurnPower(EnumSelf.TurnPowerType.DoubleAttack, -1);
+				}
+			}
+			
+			if (MapDataCarrier.Instance.CuPlayerStatus.GetTurnPowerValue(EnumSelf.TurnPowerType.Cost6DoubleAttack) > 0) {
+				if (BattleCalculationFunction.IsOpponentDamage(data) == true) {
+					if (data.DiceCost >= 6) {
+						MapDataCarrier.Instance.Cost6DoubleAttackBattleCardData = data;
+						BattleCalculationFunction.PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Cost6DoubleAttack, -1);
+					}
 				}
 			}
 		}

@@ -23,6 +23,7 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		MapDataCarrier.Instance.SelectBattleCardData = null;
 		MapDataCarrier.Instance.DoubleAttackBattleCardData = null;
 		MapDataCarrier.Instance.IsDoubleAttackCard = false;
+		MapDataCarrier.Instance.IsCost6DoubleAttackCard = false;
 
 		BattleCalculationFunction.PlayerTurnStartValueChange();
 

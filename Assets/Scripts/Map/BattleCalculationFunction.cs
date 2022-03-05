@@ -52,6 +52,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.ShieldPreserve) ||
 			(pack.Effect == EnumSelf.EffectType.Invincible) ||
 			(pack.Effect == EnumSelf.EffectType.DoubleAttack) ||
+			(pack.Effect == EnumSelf.EffectType.Cost6DoubleAttack) ||
 			(pack.Effect == EnumSelf.EffectType.Critical) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
@@ -101,6 +102,8 @@ public class BattleCalculationFunction {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2Trash 敵にHand2Trashは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Hand2Erase) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2Erase 敵にHand2Eraseは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.Cost6DoubleAttack) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Cost6DoubleAttack 敵にCost6DoubleAttackは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
 			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (
@@ -189,6 +192,10 @@ public class BattleCalculationFunction {
 			}
 		}
 		
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.AddDoubleAttack6) == true) {
+			PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Cost6DoubleAttack, 1);
+		}
+		
 		// 超再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
 		if (val > 0) {
@@ -268,7 +275,8 @@ public class BattleCalculationFunction {
 					status.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 1);
 				}
 			} else if (
-				(i == (int)EnumSelf.TurnPowerType.DoubleAttack)
+				(i == (int)EnumSelf.TurnPowerType.DoubleAttack) ||
+				(i == (int)EnumSelf.TurnPowerType.Cost6DoubleAttack)
 			) {
 					status.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 0);
 			} else if (
@@ -1051,6 +1059,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.Invincible;
 		} else if (type == EnumSelf.EffectType.DoubleAttack) {
 			pType = EnumSelf.TurnPowerType.DoubleAttack;
+		} else if (type == EnumSelf.EffectType.Cost6DoubleAttack) {
+			pType = EnumSelf.TurnPowerType.Cost6DoubleAttack;
 		} else if (type == EnumSelf.EffectType.Critical) {
 			pType = EnumSelf.TurnPowerType.Critical;
 		}

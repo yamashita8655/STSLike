@@ -18,7 +18,7 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1004,1004,NORMAL,2,寝袋,休憩所での回復量+8,Image/UI/Artifact/sleepingbag,AddParameter,0,RestUp1
 1005,1005,NORMAL,3,テント,休憩所での回復量+15,Image/UI/Artifact/tent,AddParameter,0,RestUp2
 1006,1006,NORMAL,4,コテージ,休憩所での回復量+21,Image/UI/Artifact/cottage,AddParameter,0,RestUp3
-1007,1007,NORMAL,3,清めたお札,戦闘終了後に、呪いを全て取り除く,Image/UI/Artifact/anticurse,AddParameter,0,AntiCurse
+1007,1007,NORMAL,3,清めたお札,呪いのコストが0になる。,Image/UI/Artifact/anticurse,AddParameter,0,AntiCurse
 1008,1008,NORMAL,4,見習い騎士の証,ダメージとシールドの組み合わせの効果しか持たないカードの効果量が、それぞれ+3。どちらか一つしか効果がないカードには無効。,Image/UI/Artifact/apprenticeknight,AddParameter,0,ApprenticeKnight
 1009,1008,SPECIAL,5,騎士の宣誓,全てのサイコロにセットされたカードが、ダメージとシールドの組み合わせの効果しか持たないカードの場合、ダメージとシールドの組み合わせの効果しか持たないカードの効果量が、それぞれ倍になる。どちらか一つしか効果がないカードには無効。,Image/UI/Artifact/knightmaster,AddParameter,0,KnightMaster
 1010,4,SPECIAL,5,狂戦士の咆哮,全てのサイコロにセットされたカードが、ダメージの効果しか持たないカードの場合、ターン開始時、狂戦士を1得る。,Image/UI/Artifact/addversak,AddParameter,0,AddVersak
@@ -44,5 +44,6 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1030,1030,NORMAL,2,仕込み杖,攻撃の4以下のダメージが、4になる,Image/UI/Artifact/assassinrod,AddParameter,0,AssassinRod
 1031,1031,NORMAL,5,勇者の剣,戦闘開始時HPが最大だった場合、力、守を3得る。,Image/UI/Artifact/herosword,AddParameter,0,HeroSword
 1032,1032,NORMAL,5,勇者の盾,戦闘開始時HPが20以下だった場合、再生を10得る。,Image/UI/Artifact/heroshield,AddParameter,0,HeroShield
+1033,1033,NORMAL,4,鬼人の斧,ターン開始時、ダブルアタック6を1得て、ターン終了時にダブルアタック6を1失う。,Image/UI/Artifact/demonaxe,AddParameter,0,AddDoubleAttack6
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award

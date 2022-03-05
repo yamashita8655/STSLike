@@ -64,6 +64,7 @@ public partial class Const {
 	public static readonly string ShieldPreserveImagePath = "Image/UI/Map/shieldpreserve";
 	public static readonly string InvincibleImagePath = "Image/UI/Map/invincible";
 	public static readonly string DoubleAttackImagePath = "Image/UI/Map/doubleattack";
+	public static readonly string Cost6DoubleAttackImagePath = "Image/UI/Map/cost6doubleattack";
 	public static readonly string TurnRegenerateImagePath = "Image/UI/Map/turnregenerate";
 	public static readonly string CriticalImagePath = "Image/UI/Map/critical";
 }

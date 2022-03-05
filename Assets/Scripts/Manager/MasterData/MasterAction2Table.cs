@@ -227,6 +227,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Invincible;
 		} else if (typeString == "DoubleAttack") {
 			type = EnumSelf.EffectType.DoubleAttack;
+		} else if (typeString == "Cost6DoubleAttack") {
+			type = EnumSelf.EffectType.Cost6DoubleAttack;
 		} else if (typeString == "Critical") {
 			type = EnumSelf.EffectType.Critical;
 		} else if (typeString == "DebugDisaster") {

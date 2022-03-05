@@ -106,6 +106,9 @@ public class MapBattleCheckState : StateBase {
 					if (MapDataCarrier.Instance.IsDoubleAttackCard == true) {
 						MapDataCarrier.Instance.DoubleAttackBattleCardData = null;
 						MapDataCarrier.Instance.IsDoubleAttackCard = false;
+					} else if (MapDataCarrier.Instance.IsCost6DoubleAttackCard == true) {
+						MapDataCarrier.Instance.Cost6DoubleAttackBattleCardData = null;
+						MapDataCarrier.Instance.IsCost6DoubleAttackCard = false;
 					} else {
 						// 捨て札に使ったカードを登録させる
 						var data = MapDataCarrier.Instance.SelectBattleCardData;
@@ -121,7 +124,10 @@ public class MapBattleCheckState : StateBase {
 					}
 					scene.UpdateCardListCountText();
 						
-					if (MapDataCarrier.Instance.DoubleAttackBattleCardData == null) {
+					if (
+						(MapDataCarrier.Instance.DoubleAttackBattleCardData == null) &&
+						(MapDataCarrier.Instance.Cost6DoubleAttackBattleCardData == null)
+					) {
 						MapDataCarrier.Instance.SelectBattleCardData = null;
 						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
 					} else {

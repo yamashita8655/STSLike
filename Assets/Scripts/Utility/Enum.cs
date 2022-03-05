@@ -57,6 +57,7 @@ public partial class EnumSelf : MonoBehaviour {
         ShieldPreserve,	// ターン終了時に、シールドが無くならない
         Invincible,		// 一度だけ、被ダメ0
         DoubleAttack,	// 選択Damage効果が含まれるカードを、追加で一度発動させる
+        Cost6DoubleAttack,	// アーティファクト、コスト6以上のカードを一度だけ2回発動する
         Critical,		// 1度だけ、次に使用するカードのDamage、DamageSuction、ShieldBashの基本効果値のみ倍になる
 
 		// デバッグ用状態変化
@@ -129,11 +130,14 @@ public partial class EnumSelf : MonoBehaviour {
 		ReactiveShield,
 		SubStrength,
 		Invincible,
-		DoubleAttack,
         Critical,
 
 		// ターン経過時に、1にリセットする物
         RotBody,
+		
+		// ターン終了時に0にするもの
+		DoubleAttack,
+		Cost6DoubleAttack,
 		Max
 	}
 	
@@ -190,6 +194,7 @@ public partial class EnumSelf : MonoBehaviour {
 		AssassinRod,
 		HeroSword,
 		HeroShield,
+		AddDoubleAttack6,
 		Award,
 		Max,
 	}
