@@ -10,6 +10,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
 			(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 			(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
+			(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldBash)
 		) {
 			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
@@ -71,6 +72,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Damage) ||
 			(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
 			(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
+			(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldBash)
 		) {
 			BattleCalculationFunction.EnemyCalcDamageNormalDamage(pack);
@@ -1181,6 +1183,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
 				(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
+				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
@@ -1240,6 +1243,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
 				(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
+				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
@@ -1286,6 +1290,7 @@ public class BattleCalculationFunction {
 		
 		int val = 0;
 				
+		bool isNormalDamage = true;// Valの値をそのまま使う状態かどうか
 		// シールドバッシュかどうか
 		if (pack.Effect == EnumSelf.EffectType.ShieldBash) {
 			val = player.GetNowShield();
@@ -1293,17 +1298,23 @@ public class BattleCalculationFunction {
 			if (player.GetParameterListFlag(EnumSelf.ParameterType.ApprenticeKnight) == true) {
 				MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(pack.ExecuteActionId);
 				if (IsOnlyDamageAndShield(data) == true) {
-					val = pack.Value + 3;
-				} else {
-					val = pack.Value;
+					val += (pack.Value + 3);
+					isNormalDamage = false;
 				}
-			} else if (player.GetParameterListFlag(EnumSelf.ParameterType.KnightMaster) == true) {
+			}
+			
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.KnightMaster) == true) {
 				if (IsOnlyDamageAndShieldAll() == true) {
-					val = pack.Value * 2;
-				} else {
-					val = pack.Value;
+					val += (pack.Value * 2);
+					isNormalDamage = false;
 				}
-			} else {
+			}
+
+			if (pack.Effect == EnumSelf.EffectType.DamageMultiStrength) {
+				isNormalDamage = false;
+			}
+
+			if (isNormalDamage == true) {
 				val = pack.Value;
 			}
 		}
@@ -1318,7 +1329,12 @@ public class BattleCalculationFunction {
 
 		// 筋力があるかどうか
 		int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
-		val += strength;
+
+		if (pack.Effect == EnumSelf.EffectType.DamageMultiStrength) {
+			val += (strength * pack.Value);
+		} else {
+			val += strength;
+		}
 		
 		// 空元気があるかどうか
 		int faststrength = player.GetPower().GetValue(EnumSelf.PowerType.FastStrength);
@@ -1390,7 +1406,11 @@ public class BattleCalculationFunction {
 			val = pack.Value;
 		}
 		int strength = enemy.GetPower().GetValue(EnumSelf.PowerType.Strength);
-		val += strength;
+		if (pack.Effect == EnumSelf.EffectType.DamageMultiStrength) {
+			val += (strength * pack.Value);
+		} else {
+			val += strength;
+		}
 
 		// 空元気があるかどうか
 		int faststrength = enemy.GetPower().GetValue(EnumSelf.PowerType.FastStrength);
@@ -1438,6 +1458,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
 				(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
+				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {

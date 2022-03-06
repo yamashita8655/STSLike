@@ -131,19 +131,24 @@ public class BattleCardButtonController : MonoBehaviour
 			}
 			
 			int val = list[index].Value;
+			int originalVal = list[index].Value;
 			if (
 				(list[index].Effect == EnumSelf.EffectType.Damage) ||
 				(list[index].Effect == EnumSelf.EffectType.DamageSuction) ||
 				(list[index].Effect == EnumSelf.EffectType.DamageShieldSuction) ||
+				(list[index].Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 				(list[index].Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				val = BattleCalculationFunction.CalcPlayerDamageValue(list[index]);
+			} else if (list[index].Effect == EnumSelf.EffectType.DamageMultiStrength) {
+				val = BattleCalculationFunction.CalcPlayerDamageValue(list[index]);
+				originalVal = 0;
 			} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
 				val = BattleCalculationFunction.CalcPlayerShieldValue(list[index]);
 			}
 			ValueControllers[index].UpdateDisplay(
 				list[index].Effect,
-				list[index].Value,
+				originalVal,
 				val
 			);
 		}

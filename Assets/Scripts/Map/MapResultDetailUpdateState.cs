@@ -18,6 +18,7 @@ public class MapResultDetailUpdateState : StateBase {
 		scene.TreasureDetailCardName.gameObject.SetActive(true);
 		scene.TreasureDetailCardImage.gameObject.SetActive(true);
 		scene.TreasureDetailCardDetail.gameObject.SetActive(true);
+		scene.TreasureDiceCostText.gameObject.SetActive(true);
 
 		scene.TreasureDetailCardName.text = data.Name;
 		scene.TreasureDiceCostText.text = data.DiceCost.ToString();

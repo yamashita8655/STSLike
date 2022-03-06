@@ -16,6 +16,7 @@ public class MapResultInitializeState : StateBase {
 		scene.TreasureDetailCardName.gameObject.SetActive(false);
 		scene.TreasureDetailCardImage.gameObject.SetActive(false);
 		scene.TreasureDetailCardDetail.gameObject.SetActive(false);
+		scene.TreasureDiceCostText.gameObject.SetActive(false);
 				
 		scene.TreasureRarityFrameImage.sprite = null;
 
