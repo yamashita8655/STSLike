@@ -210,6 +210,11 @@ public class BattleCalculationFunction {
 			PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Cost6DoubleAttack, 1);
 		}
 		
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.DyingAddVersak) == true) {
+			if (player.GetNowHp() <= 20) {
+				PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Versak, 1);
+			}
+		}
 		
 		// 超再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);

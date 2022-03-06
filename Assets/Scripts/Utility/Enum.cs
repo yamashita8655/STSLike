@@ -203,6 +203,7 @@ public partial class EnumSelf : MonoBehaviour {
 		HeroShield,// 戦闘開始時HPが20以下だった場合、再生を10得る。
 		AddDoubleAttack6,// ターン開始時、ダブルアタック6を1得て、ターン終了時にダブルアタック6を1失う。
 		ZeroTurnEndShield,// ターン終了時にシールドがなければ、6シールド得る
+		DyingAddVersak,// ターン開始時に、HP20以下なら、狂戦士1付与
 		Award,
 		Max,
 	}

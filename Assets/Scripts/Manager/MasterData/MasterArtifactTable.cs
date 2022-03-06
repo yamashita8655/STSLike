@@ -206,6 +206,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.AddDoubleAttack6;
 		} else if (typeString == "ZeroTurnEndShield") {
 			type = EnumSelf.ParameterType.ZeroTurnEndShield;
+		} else if (typeString == "DyingAddVersak") {
+			type = EnumSelf.ParameterType.DyingAddVersak;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}
