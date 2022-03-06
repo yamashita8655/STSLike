@@ -164,6 +164,7 @@ public class BattleCalculationFunction {
 				PlayerUpdateTurnPower(EnumSelf.TurnPowerType.TurnRegenerate, 10);
 			}
 		}
+		
 	}
 	
 	public static void PlayerTurnStartValueChange() {

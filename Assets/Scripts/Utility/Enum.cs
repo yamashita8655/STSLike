@@ -204,6 +204,7 @@ public partial class EnumSelf : MonoBehaviour {
 		AddDoubleAttack6,// ターン開始時、ダブルアタック6を1得て、ターン終了時にダブルアタック6を1失う。
 		ZeroTurnEndShield,// ターン終了時にシールドがなければ、6シールド得る
 		DyingAddVersak,// ターン開始時に、HP20以下なら、狂戦士1付与
+		GameStart3Draw,// 戦闘開始時に、追加3ドロー
 		Award,
 		Max,
 	}

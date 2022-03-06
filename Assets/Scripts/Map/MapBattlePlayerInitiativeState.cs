@@ -14,6 +14,11 @@ public class MapBattlePlayerInitiativeState : StateBase {
 
 		BattleCalculationFunction.PlayerInitiativeValueChange();
 
+		
+		if (MapDataCarrier.Instance.CuPlayerStatus.GetParameterListFlag(EnumSelf.ParameterType.GameStart3Draw) == true) {
+			scene.DrawCard(3);
+		}
+
 		MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetInitiativeFirstActionData();
 		MapDataCarrier.Instance.InitiativeActionPackCount = 0;
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;

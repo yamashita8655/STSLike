@@ -208,6 +208,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.ZeroTurnEndShield;
 		} else if (typeString == "DyingAddVersak") {
 			type = EnumSelf.ParameterType.DyingAddVersak;
+		} else if (typeString == "GameStart3Draw") {
+			type = EnumSelf.ParameterType.GameStart3Draw;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}
