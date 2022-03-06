@@ -55,6 +55,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DoubleAttack) ||
 			(pack.Effect == EnumSelf.EffectType.Cost6DoubleAttack) ||
 			(pack.Effect == EnumSelf.EffectType.Critical) ||
+			(pack.Effect == EnumSelf.EffectType.NonDraw) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -107,6 +108,8 @@ public class BattleCalculationFunction {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2Erase 敵にHand2Eraseは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Cost6DoubleAttack) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Cost6DoubleAttack 敵にCost6DoubleAttackは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.NonDraw) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is NonDraw 敵にNonDrawは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
 			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (
@@ -281,6 +284,7 @@ public class BattleCalculationFunction {
 				}
 			} else if (
 				(i == (int)EnumSelf.TurnPowerType.DoubleAttack) ||
+				(i == (int)EnumSelf.TurnPowerType.NonDraw) ||
 				(i == (int)EnumSelf.TurnPowerType.Cost6DoubleAttack)
 			) {
 					status.SetTurnPowerValue((EnumSelf.TurnPowerType)i, 0);
@@ -362,10 +366,6 @@ public class BattleCalculationFunction {
 			int turn = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve);
 			MapDataCarrier.Instance.EnemyTurnPowerObjects[(int)EnumSelf.TurnPowerType.ShieldPreserve].GetComponent<TurnPowerController>().SetTurn(turn);
 		}
-		
-		//EnemyUpdateTurnPower(EnumSelf.TurnPowerType.Weakness, -1);
-		//EnemyUpdateTurnPower(EnumSelf.TurnPowerType.Vulnerable, -1);
-		//EnemyUpdateTurnPower(EnumSelf.TurnPowerType.ShieldWeakness, -1);
 	}
 
 	public static void EnemyTurnEndValueChange() {
@@ -377,9 +377,6 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.Thorn) ||
 				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
 				(i == (int)EnumSelf.TurnPowerType.ShieldPreserve) ||
-				//(i == (int)EnumSelf.TurnPowerType.Weakness) ||
-				//(i == (int)EnumSelf.TurnPowerType.Vulnerable) ||
-				//(i == (int)EnumSelf.TurnPowerType.ShieldWeakness) ||
 				(i == (int)EnumSelf.TurnPowerType.Invincible) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
@@ -716,89 +713,6 @@ public class BattleCalculationFunction {
 	
 	// Enemy用
 	public static void EnemyCalcDamageNormalDamage(ActionPack pack) {
-		//var player = MapDataCarrier.Instance.CuPlayerStatus;
-		//var enemy = MapDataCarrier.Instance.CuEnemyStatus;
-
-		//int shield = 0;
-		//int powerStrength = enemy.GetPower().GetValue(EnumSelf.PowerType.Strength);
-		//int overDamage = 0;
-		//int damage = 0;
-
-		//if (pack.Effect == EnumSelf.EffectType.ShieldBash) {
-		//	damage = enemy.GetNowShield();
-		//} else {
-		//	damage = pack.Value;
-		//}
-		//	
-		//damage = damage+powerStrength;
-
-		//// 脱力しているかどうか
-		//if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Weakness) > 0) {
-		//	if (player.GetParameterListFlag(EnumSelf.ParameterType.WeaknessUp) == true) {
-		//		// 与ダメが40％下がる
-		//		damage = damage - (damage * 40 / 100);
-		//	} else {
-		//		// 与ダメが25％下がる
-		//		damage = damage - (damage * 25 / 100);
-		//	}
-		//}
-		//
-
-		//if (pack.Target == EnumSelf.TargetType.Opponent) {
-		//	// 相手がリアクティブシールド状態か
-		//	if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
-		//		enemy.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
-		//	}
-
-		//	// 狂戦士状態か
-		//	if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Versak) > 0) {
-		//		// 与ダメが倍になる
-		//		damage *= 2;
-		//		EnemyUpdateTurnPower(EnumSelf.TurnPowerType.Versak, -1);
-		//	}
-
-		//	// 弱体しているかどうか
-		//	if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Vulnerable) > 0) {
-		//		// 与ダメが50％上がる
-		//		damage = damage + (damage * 50 / 100);
-		//	}
-		//	
-		//	// 朽ちた体状態だったら、その数値分ダメージを加算して、数値を1増やす
-		//	if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody) > 0) {
-		//		int rotbodyVal = player.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody);
-		//		damage += rotbodyVal;
-		//		PlayerUpdateTurnPower(EnumSelf.TurnPowerType.RotBody, 1);
-		//	}
-
-		//	shield = player.GetNowShield();
-		//	player.AddNowShield(-damage);
-		//	overDamage = shield - damage;
-		//	if (overDamage < 0) {
-		//		PlayerUpdateHp(overDamage);
-		//		if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
-		//			EnemyUpdateHp(-overDamage);
-		//		}
-		//	}
-		//	
-		//	// 相手が棘状態か
-		//	if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Thorn) > 0) {
-		//		int thornDamage = player.GetTurnPowerValue(EnumSelf.TurnPowerType.Thorn);
-		//		shield = enemy.GetNowShield();
-		//		enemy.AddNowShield(-thornDamage);
-		//		overDamage = shield - thornDamage;
-		//		if (overDamage < 0) {
-		//			EnemyUpdateHp(overDamage);
-		//		}
-		//	}
-		//} else if (pack.Target == EnumSelf.TargetType.Self) {
-		//	LogManager.Instance.LogError("EnemyCalcDamageNormalDamage:Effect:Damage,Target:Self,自分を対象にしたDamageは未実装予定");
-		//	//shield = enemy.GetNowShield();
-		//	//enemy.AddNowShield(-damage);
-		//	//overDamage = shield - damage;
-		//	//if (overDamage < 0) {
-		//	//	EnemyUpdateHp(overDamage);
-		//	//}
-		//}
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
 
@@ -1068,6 +982,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.Cost6DoubleAttack;
 		} else if (type == EnumSelf.EffectType.Critical) {
 			pType = EnumSelf.TurnPowerType.Critical;
+		} else if (type == EnumSelf.EffectType.NonDraw) {
+			pType = EnumSelf.TurnPowerType.NonDraw;
 		}
 
 		return pType;

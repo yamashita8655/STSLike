@@ -233,6 +233,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Critical;
 		} else if (typeString == "AddMaxDiceCost") {
 			type = EnumSelf.EffectType.AddMaxDiceCost;
+		} else if (typeString == "NonDraw") {
+			type = EnumSelf.EffectType.NonDraw;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}

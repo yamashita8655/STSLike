@@ -60,6 +60,7 @@ public partial class EnumSelf : MonoBehaviour {
         Cost6DoubleAttack,	// アーティファクト、コスト6以上のカードを一度だけ2回発動する
         Critical,		// 1度だけ、次に使用するカードのDamage、DamageSuction、ShieldBashの基本効果値のみ倍になる
         AddMaxDiceCost,	// その戦闘中のダイスコスト増減のバフ
+        NonDraw,		// ドロー不可（ドローが不可なだけで、もし山札や破棄札から加える効果が実装されたら、それは可能）
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -123,6 +124,7 @@ public partial class EnumSelf : MonoBehaviour {
         Vulnerable,
 		ShieldPreserve,
 		TurnRegenerate,
+        NonDraw,
 
 		// ターン経過時に変動しない物(他の条件で減少する物、もしくはしない物)
 		Patient,
@@ -140,6 +142,7 @@ public partial class EnumSelf : MonoBehaviour {
 		// ターン終了時に0にするもの
 		DoubleAttack,
 		Cost6DoubleAttack,
+
 		Max
 	}
 	

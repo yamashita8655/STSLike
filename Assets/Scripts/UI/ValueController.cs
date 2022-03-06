@@ -128,6 +128,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.Curse) ||
 			(type == EnumSelf.EffectType.ReactiveShield) ||
 			(type == EnumSelf.EffectType.SubStrength) ||
+			(type == EnumSelf.EffectType.NonDraw) ||
 			(type == EnumSelf.EffectType.ReverseHeal)
 		) {
 			ret = Const.DebuffImagePath;

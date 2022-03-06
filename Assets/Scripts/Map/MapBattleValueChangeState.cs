@@ -30,7 +30,10 @@ public class MapBattleValueChangeState : StateBase {
 		// TODO 戦闘のパラメータに関係しない効果は、こっちで処理する
 		bool showHandCardSelect = false;
 		if (pack.Effect == EnumSelf.EffectType.Draw) {
-			scene.DrawCard(pack.Value);
+			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.NonDraw) == 0) {
+				// ドロー不可デバフがついてなければ、処理できる。
+				scene.DrawCard(pack.Value);
+			}
 		}
 		
 		if (pack.Effect == EnumSelf.EffectType.GainDiceCost) {
