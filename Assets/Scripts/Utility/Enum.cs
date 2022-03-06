@@ -30,7 +30,7 @@ public partial class EnumSelf : MonoBehaviour {
         Death,			// 即死
 		Curse,			// 呪い付与
         Draw,			// 山札を引く
-        GainDiceCost,	// ダイスコスト増加（減は、元々のダイスコスト下げればいいだけなので、システムとして使わないから実装しない
+        GainDiceCost,	// 一時的なダイスコスト増加（減は、元々のダイスコスト下げればいいだけなので、システムとして使わないから実装しない
         Hand2DeckTop,	// 手札をデッキトップに戻す
         Hand2Trash,		// 手札を捨て札に送る
         Hand2Discard,	// 手札を破棄する
@@ -59,6 +59,7 @@ public partial class EnumSelf : MonoBehaviour {
         DoubleAttack,	// 選択Damage効果が含まれるカードを、追加で一度発動させる
         Cost6DoubleAttack,	// アーティファクト、コスト6以上のカードを一度だけ2回発動する
         Critical,		// 1度だけ、次に使用するカードのDamage、DamageSuction、ShieldBashの基本効果値のみ倍になる
+        AddMaxDiceCost,	// その戦闘中のダイスコスト増減のバフ
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -108,6 +109,7 @@ public partial class EnumSelf : MonoBehaviour {
 		Toughness,
 		Regenerate,// TODO これも、マイナス値が無いから、TurnPowerなのでは…
 		Poison,// TODO これも、マイナス値が無いから、TurnPowerなのでは…
+        AddMaxDiceCost,	// その戦闘中のダイスコスト増減のバフ
 		Max
 	}
 	

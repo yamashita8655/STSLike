@@ -34,6 +34,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.FastStrength) ||
 			(pack.Effect == EnumSelf.EffectType.Toughness) ||
 			(pack.Effect == EnumSelf.EffectType.Poison) ||
+			(pack.Effect == EnumSelf.EffectType.AddMaxDiceCost) ||
 			(pack.Effect == EnumSelf.EffectType.Regenerate)
 		) {
 			BattleCalculationFunction.PlayerUpdatePower(pack);
@@ -94,6 +95,8 @@ public class BattleCalculationFunction {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DoubleAttack 敵にDoubleAttackは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.GainDiceCost) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is GainDiceCost 敵にGainDiceCostは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.AddMaxDiceCost) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is AddMaxDiceCost 敵にAddMaxDiceCostは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Hand2DeckTop) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2DeckTop 敵にHand2DeckTopは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Hand2Discard) {
@@ -162,7 +165,8 @@ public class BattleCalculationFunction {
 		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) == 0) {
 			player.SetNowShield(0);
 		}
-
+		
+		// アーティファクト系
 		if (player.GetParameterListFlag(EnumSelf.ParameterType.SupportFire) == true) {
 			// シールドにも影響する3ダメージを与える
 			PlayerCalcDamageNormalDamage(3);
@@ -195,6 +199,7 @@ public class BattleCalculationFunction {
 		if (player.GetParameterListFlag(EnumSelf.ParameterType.AddDoubleAttack6) == true) {
 			PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Cost6DoubleAttack, 1);
 		}
+		
 		
 		// 超再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
@@ -1080,6 +1085,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.PowerType.Regenerate;
 		} else if (type == EnumSelf.EffectType.Poison) {
 			pType = EnumSelf.PowerType.Poison;
+		} else if (type == EnumSelf.EffectType.AddMaxDiceCost) {
+			pType = EnumSelf.PowerType.AddMaxDiceCost;
 		}
 
 		return pType;

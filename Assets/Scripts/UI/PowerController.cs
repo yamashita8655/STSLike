@@ -62,6 +62,8 @@ public class PowerController : MonoBehaviour
 			ret = Const.RegenerateImagePath;
 		} else if (type == EnumSelf.PowerType.Poison) {
 			ret = Const.PoisonImagePath;
+		} else if (type == EnumSelf.PowerType.AddMaxDiceCost) {
+			ret = Const.AddMaxDiceCostImagePath;
 		}
 
 		return ret;

@@ -59,6 +59,14 @@ public class MapBattleDiceRollState : StateBase {
 			total += (MapDataCarrier.Instance.DiceValueList[i]+1);
 		}
 		
+		if (player.GetPower().GetValue(EnumSelf.PowerType.AddMaxDiceCost) != 0) {
+			total += player.GetPower().GetValue(EnumSelf.PowerType.AddMaxDiceCost);
+			// 一応、減少の可能性もあるので、下限チェック
+			if (total < 0) {
+				total = 0;
+			}
+		}
+		
 		MapDataCarrier.Instance.CurrentTotalDiceCost = total;
 		scene.UpdateCurrentTotalDiceCostText();
 

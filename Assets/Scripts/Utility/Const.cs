@@ -50,6 +50,7 @@ public partial class Const {
 	public static readonly string RotBodyImagePath = "Image/UI/Map/rotbody";
 	public static readonly string VersakImagePath = "Image/UI/Map/versak";
 	public static readonly string ReactiveShieldImagePath = "Image/UI/Map/reactiveshield";
+	public static readonly string AddMaxDiceCostImagePath = "Image/UI/Map/addmaxdicecost";
 
 	// こっちは、数値固定でターン可変
 	public static readonly string TurnPowerControllerPath = "Prefab/UI/TurnPowerController";
