@@ -60,6 +60,8 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(501));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(202));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(202));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(203));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(203));
 
 		// レギュラーカード設定
 		var regularIds = PlayerPrefsManager.Instance.GetRegularSettingCardIds();

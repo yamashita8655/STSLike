@@ -59,6 +59,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Cost6DoubleAttack) ||
 			(pack.Effect == EnumSelf.EffectType.Critical) ||
 			(pack.Effect == EnumSelf.EffectType.NonDraw) ||
+			(pack.Effect == EnumSelf.EffectType.DemonPower) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -148,6 +149,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.SubStrength) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldPreserve) ||
 			(pack.Effect == EnumSelf.EffectType.Invincible) ||
+			(pack.Effect == EnumSelf.EffectType.DemonPower) ||
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
 		) {
 			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
@@ -266,6 +268,12 @@ public class BattleCalculationFunction {
 			enemy.AddNowShield(val);
 		}
 		
+		val = player.GetTurnPowerValue(EnumSelf.TurnPowerType.DemonPower);
+		if (val > 0) {
+			player.AddPower(EnumSelf.PowerType.Strength, val);
+			PlayerUpdatePower(EnumSelf.PowerType.Strength);
+		}
+		
 		// ターンスタート時に数値を減らす物
 		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) > 0) {
 			player.AddTurnPower(EnumSelf.TurnPowerType.ShieldPreserve, -1);
@@ -292,6 +300,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.ShieldWeakness) ||
 				(i == (int)EnumSelf.TurnPowerType.Invincible) ||
 				(i == (int)EnumSelf.TurnPowerType.Critical) ||
+				(i == (int)EnumSelf.TurnPowerType.DemonPower) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -379,10 +388,18 @@ public class BattleCalculationFunction {
 		}
 		
 		// プレイヤーのバフチェック
+		// タイミング的に、敵のターンでもプレイヤーにシールドを付けたりする
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
 		val = player.GetTurnPowerValue(EnumSelf.TurnPowerType.AutoShield);
 		if (val > 0) {
 			player.AddNowShield(val);
+		}
+		
+		// 敵の効果
+		val = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.DemonPower);
+		if (val > 0) {
+			enemy.AddPower(EnumSelf.PowerType.Strength, val);
+			EnemyUpdatePower(EnumSelf.PowerType.Strength);
 		}
 		
 		// ターンスタート時に数値を減らす物
@@ -403,6 +420,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
 				(i == (int)EnumSelf.TurnPowerType.ShieldPreserve) ||
 				(i == (int)EnumSelf.TurnPowerType.Invincible) ||
+				(i == (int)EnumSelf.TurnPowerType.DemonPower) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -1009,6 +1027,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.Critical;
 		} else if (type == EnumSelf.EffectType.NonDraw) {
 			pType = EnumSelf.TurnPowerType.NonDraw;
+		} else if (type == EnumSelf.EffectType.DemonPower) {
+			pType = EnumSelf.TurnPowerType.DemonPower;
 		}
 
 		return pType;
