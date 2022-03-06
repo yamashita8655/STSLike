@@ -168,41 +168,41 @@ public partial class EnumSelf : MonoBehaviour {
 	// 同じ効果を実装したければ、別の定義で同じ効果として合算なり、別々で処理をするなりで対処する
 	public enum ParameterType {
 		None = -1,
-		Revive = 0,
-		UsedRevive,
-		UpgradeReward,
-		DiceShield,
-		RestUp1,
-		RestUp2,
-		RestUp3,
-		AntiCurse,
-		ApprenticeKnight,
-		KnightMaster,
-		AddVersak,
-		AddMaxHp1,
-		AddMaxHp2,
-		AddMaxHp3,
-		AddMaxHp4,
-		WeaknessUp,
-		VulnerableUp,
-		Minimalist,
-		SupportFire,
-		AntiWeakness,
-		AntiShieldWeakness,
-		ShieldOne,
-		ShieldTwo,
-		ShieldThree,
-		UseCurseShield,
-		FirstAidKit,
-		GodBless,
-		SeekersAmulet,
-		Momonga,
-		UsedMomonga,
-		DummyPower,
-		AssassinRod,
-		HeroSword,
-		HeroShield,
-		AddDoubleAttack6,
+		Revive = 0,	// 復活
+		UsedRevive,// 復活使用済み
+		UpgradeReward,// TODO 戦闘報酬グレードアップだけど、効果変える予定
+		DiceShield,// サイコロの出ためだけシールド獲得
+		RestUp1,// 休憩回復量上昇
+		RestUp2,// 休憩回復量上昇
+		RestUp3,// 休憩回復量上昇
+		AntiCurse,// TODO 呪いにかからないだったけど、修正（今どーなってんだろ
+		ApprenticeKnight,// 攻撃と防御のみの効果のカードの、効果量+3
+		KnightMaster,// TODO 修正予定
+		AddVersak,// 毎ターン開始時、狂戦士1付与
+		AddMaxHp1,// 最大HP上昇
+		AddMaxHp2,// 最大HP上昇
+		AddMaxHp3,// 最大HP上昇
+		AddMaxHp4,// 最大HP上昇
+		WeaknessUp,// 相手の与ダメ低下の効果量上昇
+		VulnerableUp,// 相手に被ダメ上昇の効果量上昇
+		Minimalist,// 報酬スキップ時、最大HP+1
+		SupportFire,// ターン終了時、相手にダメージ
+		AntiWeakness,// 自分の与ダメ低下の効果量減少
+		AntiShieldWeakness,// 自分のシールド減少の効果量減少
+		ShieldOne,// 1ターン目開始時、シールド
+		ShieldTwo,// 2ターン目開始時、シールド
+		ShieldThree,// 3ターン目開始時、シールド
+		UseCurseShield,// 呪いカード使用時、シールド獲得
+		FirstAidKit,// 戦闘終了時、最大HPの半分以下なら、HP回復
+		GodBless,// 全てのダメージを受ける時に、1減少
+		SeekersAmulet,// 戦闘終了時、最大HP+1
+		Momonga,// 獲得時、全ての難易度カードが5変わる
+		UsedMomonga,// 使用済みモモンガ
+		AssassinRod,// 4以下のダメージが4になる
+		HeroSword,// 戦闘開始時HPが最大だった場合、力、守を3得る。
+		HeroShield,// 戦闘開始時HPが20以下だった場合、再生を10得る。
+		AddDoubleAttack6,// ターン開始時、ダブルアタック6を1得て、ターン終了時にダブルアタック6を1失う。
+		ZeroTurnEndShield,// ターン終了時にシールドがなければ、6シールド得る
 		Award,
 		Max,
 	}

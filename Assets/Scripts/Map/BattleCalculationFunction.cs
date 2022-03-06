@@ -311,6 +311,12 @@ public class BattleCalculationFunction {
 			MapDataCarrier.Instance.TurnPowerObjects[(int)i].GetComponent<TurnPowerController>().SetTurn(turn);
 		}
 		
+		// ターン終了時、シールドがなければ、シールド6獲得
+		if (status.GetParameterListFlag(EnumSelf.ParameterType.ZeroTurnEndShield) == true) {
+			if (status.GetNowShield() <= 0) {
+				status.AddNowShield(6);
+			}
+		}
 	}
 
 	public static void EnemyTurnStartValueChange() {

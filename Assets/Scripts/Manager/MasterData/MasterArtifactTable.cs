@@ -196,8 +196,6 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.Momonga;
 		} else if (typeString == "UsedMomonga") {
 			type = EnumSelf.ParameterType.UsedMomonga;
-		} else if (typeString == "DummyPower") {
-			type = EnumSelf.ParameterType.DummyPower;
 		} else if (typeString == "AssassinRod") {
 			type = EnumSelf.ParameterType.AssassinRod;
 		} else if (typeString == "HeroSword") {
@@ -206,6 +204,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.HeroShield;
 		} else if (typeString == "AddDoubleAttack6") {
 			type = EnumSelf.ParameterType.AddDoubleAttack6;
+		} else if (typeString == "ZeroTurnEndShield") {
+			type = EnumSelf.ParameterType.ZeroTurnEndShield;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}
