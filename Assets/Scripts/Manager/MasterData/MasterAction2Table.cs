@@ -238,6 +238,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.AddMaxDiceCost;
 		} else if (typeString == "NonDraw") {
 			type = EnumSelf.EffectType.NonDraw;
+		} else if (typeString == "HealCharge") {
+			type = EnumSelf.EffectType.HealCharge;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}

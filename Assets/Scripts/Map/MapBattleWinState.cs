@@ -26,6 +26,12 @@ public class MapBattleWinState : StateBase {
 			scene.UpdateParameterText();
 		}
 		
+		if (player.GetPower().GetValue(EnumSelf.PowerType.HealCharge) > 0) {
+			player.AddNowHp(player.GetPower().GetValue(EnumSelf.PowerType.HealCharge));
+			scene.UpdateParameterText();
+		}
+		
+		
 		return true;
 	}
 

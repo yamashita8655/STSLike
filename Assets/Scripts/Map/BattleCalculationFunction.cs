@@ -36,6 +36,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Toughness) ||
 			(pack.Effect == EnumSelf.EffectType.Poison) ||
 			(pack.Effect == EnumSelf.EffectType.AddMaxDiceCost) ||
+			(pack.Effect == EnumSelf.EffectType.HealCharge) ||
 			(pack.Effect == EnumSelf.EffectType.Regenerate)
 		) {
 			BattleCalculationFunction.PlayerUpdatePower(pack);
@@ -114,6 +115,8 @@ public class BattleCalculationFunction {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is NonDraw 敵にNonDrawは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DamageGainMaxHp 敵にDamageGainMaxHpは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.HealCharge) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is HealCharge 敵にHealChargeは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
 			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (
@@ -1007,6 +1010,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.PowerType.Poison;
 		} else if (type == EnumSelf.EffectType.AddMaxDiceCost) {
 			pType = EnumSelf.PowerType.AddMaxDiceCost;
+		} else if (type == EnumSelf.EffectType.HealCharge) {
+			pType = EnumSelf.PowerType.HealCharge;
 		}
 
 		return pType;

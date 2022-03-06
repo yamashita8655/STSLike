@@ -76,6 +76,7 @@ id,rarity,name,equipcost,unlockcost,dicecost,usetype,detail,imagepath,effect,tar
 808,3,諸刃の作戦,2,10,3,Erase,自身に被ダメ増加を{1}与え、ダイスダイスコスト増加を{0}得る。,Image/UI/Card/punch,Vulnerable,Self,2,Add,AddMaxDiceCost,Self,3,Add,NONE,,,,,,,,,,,,
 809,2,前払いの報酬,2,10,0,Repeat,{0}ドロー、自身にドロー不可を{1}付与する。,Image/UI/Card/punch,Draw,Self,2,Add,NonDraw,Self,1,Add,NONE,,,,,,,,,,,,
 810,4,捕食攻撃,2,10,3,Discard,{0}ダメージを与え、このカードでトドメをさした場合に最大HP+3,Image/UI/Card/punch,DamageGainMaxHp,Opponent,10,Add,NONE,,,,,,,,,,,,,,,,
+811,3,生命保険,2,10,3,Erase,回復チャージを{0}得る,Image/UI/Card/punch,HealCharge,Self,7,Add,NONE,,,,,,,,,,,,,,,,
 #,ボス系カード,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 900,5,光合成,5,10,2,Discard,HPを{0}回復し、力を{1}獲得する,Image/UI/Card/punch,Heal,Self,15,Add,Strength,Self,1,Add,NONE,,,,,,,,,,,,
 901,5,大樹の呪い,5,10,5,Discard,相手に「与ダメ低下」を{0}ターン、「被ダメ増加」を{1}ターン付与する。,Image/UI/Card/punch,Weakness,Opponent,99,Add,Vulnerable,Opponent,99,Add,NONE,,,,,,,,,,,,

@@ -62,6 +62,7 @@ public partial class EnumSelf : MonoBehaviour {
         Critical,		// 1度だけ、次に使用するPlayerCalcDamageNormalDamageの処理を行うカードの基本効果値のみ倍になる
         AddMaxDiceCost,	// その戦闘中のダイスコスト増減のバフ
         NonDraw,		// そのターンドロー不可（ドローが不可なだけで、もし山札や破棄札から加える効果が実装されたら、それは可能）
+        HealCharge,		// この数値分、戦闘終了後にHP回復
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -112,6 +113,7 @@ public partial class EnumSelf : MonoBehaviour {
 		Regenerate,// TODO これも、マイナス値が無いから、TurnPowerなのでは…
 		Poison,// TODO これも、マイナス値が無いから、TurnPowerなのでは…
         AddMaxDiceCost,	// その戦闘中のダイスコスト増減のバフ
+        HealCharge,	// その戦闘終了後に数値分回復
 		Max
 	}
 	
