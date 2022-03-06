@@ -62,6 +62,8 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.DoubleStrength) {
+			BattleCalculationFunction.PlayerDoubleStrength(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.DebugDisaster) {
 			BattleCalculationFunction.PlayerDebugDisaster(pack);
 		}
@@ -119,6 +121,8 @@ public class BattleCalculationFunction {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DamageGainMaxHp 敵にDamageGainMaxHpは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.HealCharge) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is HealCharge 敵にHealChargeは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.DoubleStrength) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DoubleStrength 敵にDoubleStrengthは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
 			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (
@@ -1469,5 +1473,21 @@ public class BattleCalculationFunction {
 		}
 
 		return findOpponentDamage;
+	}
+	
+	public static void PlayerDoubleStrength(ActionPack pack) {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+
+		if (pack.Target == EnumSelf.TargetType.Opponent) {
+			LogManager.Instance.LogError("PlayerDoubleStrength:Effect:DoubleStrength,Target:Opponent,相手を対象にしたDoubleStrengthは未実装予定");
+		} else if (pack.Target == EnumSelf.TargetType.Self) {
+			int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
+			int addValue = strength;
+
+			player.AddPower(EnumSelf.PowerType.Strength, addValue);
+			PlayerUpdatePower(EnumSelf.PowerType.Strength);
+
+			PlayerUpdateTurnPower(EnumSelf.TurnPowerType.SubStrength, addValue);
+		}
 	}
 }

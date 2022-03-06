@@ -64,6 +64,7 @@ public partial class EnumSelf : MonoBehaviour {
         AddMaxDiceCost,	// その戦闘中のダイスコスト増減のバフ
         NonDraw,		// そのターンドロー不可（ドローが不可なだけで、もし山札や破棄札から加える効果が実装されたら、それは可能）
         HealCharge,		// この数値分、戦闘終了後にHP回復
+        DoubleStrength,	// 現在の数値分力を倍化させ、増加した数値分力減少(ターン終了時減少するデバフ)を付与する
 
 		// デバッグ用状態変化
         DebugDisaster,

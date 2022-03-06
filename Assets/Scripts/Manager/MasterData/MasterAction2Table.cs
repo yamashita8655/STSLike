@@ -243,6 +243,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.NonDraw;
 		} else if (typeString == "HealCharge") {
 			type = EnumSelf.EffectType.HealCharge;
+		} else if (typeString == "DoubleStrength") {
+			type = EnumSelf.EffectType.DoubleStrength;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}

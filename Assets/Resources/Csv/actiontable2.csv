@@ -33,6 +33,7 @@ id,rarity,name,equipcost,unlockcost,dicecost,usetype,detail,imagepath,effect,tar
 111,1,反撃準備,4,10,3,Repeat,{0}シールドを得て、{1}ドロー,Image/UI/Card/punch,Shield,Self,8,Add,Draw,Self,1,Add,NONE,,,,,,,,,,,,
 #,脳筋,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 201,1,トロールの一撃,4,10,5,Repeat,{0}ダメージと与え、力の{1}倍の追加ダメージを与える。,Image/UI/Card/punch,Damage,Opponent,10,Add,DamageMultiStrength,Opponent,3,Add,NONE,,,,,,,,,,,,
+202,4,マキシマムドープ,4,10,2,Discard,付与されている筋力を倍化させ、その数値分筋力減少を得る。,Image/UI/Card/punch,DoubleStrength,Self,0,Add,NONE,,,,,,,,,,,,,,,,
 #,バランス,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 301,1,アイアンプレス1,1,10,4,Repeat,{0}ダメージを与え、{1}シールドを得る,Image/UI/Card/punch,Damage,Opponent,3,Add,Shield,Self,2,Add,NONE,,,,,,,,,,,,
 302,2,アイアンプレス2,2,10,4,Repeat,{0}ダメージを与え、{1}シールドを得る,Image/UI/Card/punch,Damage,Opponent,4,Add,Shield,Self,4,Add,NONE,,,,,,,,,,,,
