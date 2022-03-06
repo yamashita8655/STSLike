@@ -9,6 +9,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Damage) ||
 			(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
 			(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
+			(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldBash)
 		) {
 			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
@@ -68,6 +69,7 @@ public class BattleCalculationFunction {
 		if (
 			(pack.Effect == EnumSelf.EffectType.Damage) ||
 			(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
+			(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldBash)
 		) {
 			BattleCalculationFunction.EnemyCalcDamageNormalDamage(pack);
@@ -110,6 +112,8 @@ public class BattleCalculationFunction {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Cost6DoubleAttack 敵にCost6DoubleAttackは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.NonDraw) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is NonDraw 敵にNonDrawは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DamageGainMaxHp 敵にDamageGainMaxHpは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
 			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (
@@ -1154,7 +1158,14 @@ public class BattleCalculationFunction {
 
 		for (int i = 0; i < list.Count; i++) {
 			ActionPack pack = list[i];
-			if (pack.Effect == EnumSelf.EffectType.Damage) {
+			// ここのダメージ判定は、PlayerValueChangeのPlayerCalcDamageNormalDamageの判定と合わせておく
+			if (
+				(pack.Effect == EnumSelf.EffectType.Damage) ||
+				(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
+				(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
+				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
+				(pack.Effect == EnumSelf.EffectType.ShieldBash)
+			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
 					findOpponentDamage = true;
 				}
@@ -1207,7 +1218,13 @@ public class BattleCalculationFunction {
 
 		for (int i = 0; i < list.Count; i++) {
 			ActionPack pack = list[i];
-			if (pack.Effect == EnumSelf.EffectType.Damage) {
+			if (
+				(pack.Effect == EnumSelf.EffectType.Damage) ||
+				(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
+				(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
+				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
+				(pack.Effect == EnumSelf.EffectType.ShieldBash)
+			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
 					findOpponentDamage = true;
 				}
@@ -1399,7 +1416,13 @@ public class BattleCalculationFunction {
 
 		for (int i = 0; i < list.Count; i++) {
 			ActionPack pack = list[i];
-			if (pack.Effect == EnumSelf.EffectType.Damage) {
+			if (
+				(pack.Effect == EnumSelf.EffectType.Damage) ||
+				(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
+				(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
+				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
+				(pack.Effect == EnumSelf.EffectType.ShieldBash)
+			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
 					findOpponentDamage = true;
 					break;

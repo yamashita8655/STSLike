@@ -54,9 +54,9 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
 		
 		// TODO デバッグ用カード追加
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(803));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(809));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(809));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(810));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(810));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(810));
 
 		// レギュラーカード設定
 		var regularIds = PlayerPrefsManager.Instance.GetRegularSettingCardIds();

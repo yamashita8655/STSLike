@@ -53,6 +53,16 @@ public class MapBattleCheckState : StateBase {
 		if (IsDead) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleLose);
 		} else if (IsWin) {
+			MasterAction2Table.Data data = MapDataCarrier.Instance.SelectBattleCardData;
+			int count = MapDataCarrier.Instance.ActionPackCount;
+			ActionPack pack = data.ActionPackList[count]; 
+			if (pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) {
+				// TODO 固定値決めうち、シートにはダメージ値しか設定できない為。
+				// TODO 効果量の所も配列設定にして、場合によっては追加情報を見るのもいいかも…
+				MapDataCarrier.Instance.CuPlayerStatus.AddMaxHp(3);
+				MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(3);
+				scene.UpdateParameterText();
+			}
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleWin);
 		} else {
             if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleInitiativeValueChange) {// プレイヤーのイニシアチブ

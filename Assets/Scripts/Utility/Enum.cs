@@ -19,6 +19,7 @@ public partial class EnumSelf : MonoBehaviour {
         DamageSuction,	// 与ダメ回復
         DamageShieldSuction,	// 与ダメシールド獲得
         ShieldBash,		// シールド値ダメージ
+        DamageGainMaxHp,// 通常ダメージと同じだが、トドメをさした場合に最大HPが上昇する
         TrueDamage,		// 全てを無視した固定ダメージ
         RemovePower,	// 状態変化全て解除
         Shield,			// シールド
@@ -56,11 +57,11 @@ public partial class EnumSelf : MonoBehaviour {
         SubStrength,	// FastStrengthによる筋力減少
         ShieldPreserve,	// ターン終了時に、シールドが無くならない
         Invincible,		// 一度だけ、被ダメ0
-        DoubleAttack,	// 選択Damage効果が含まれるカードを、追加で一度発動させる
-        Cost6DoubleAttack,	// アーティファクト、コスト6以上のカードを一度だけ2回発動する
-        Critical,		// 1度だけ、次に使用するカードのDamage、DamageSuction、ShieldBashの基本効果値のみ倍になる
+        DoubleAttack,	// PlayerCalcDamageNormalDamageの処理を行う効果が含まれるカードを、追加で一度発動させる
+        Cost6DoubleAttack,	// アーティファクト、コスト6以上のPlayerCalcDamageNormalDamageの処理を行うカードを一度だけ2回発動する
+        Critical,		// 1度だけ、次に使用するPlayerCalcDamageNormalDamageの処理を行うカードの基本効果値のみ倍になる
         AddMaxDiceCost,	// その戦闘中のダイスコスト増減のバフ
-        NonDraw,		// ドロー不可（ドローが不可なだけで、もし山札や破棄札から加える効果が実装されたら、それは可能）
+        NonDraw,		// そのターンドロー不可（ドローが不可なだけで、もし山札や破棄札から加える効果が実装されたら、それは可能）
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -124,7 +125,6 @@ public partial class EnumSelf : MonoBehaviour {
         Vulnerable,
 		ShieldPreserve,
 		TurnRegenerate,
-        NonDraw,
 
 		// ターン経過時に変動しない物(他の条件で減少する物、もしくはしない物)
 		Patient,
@@ -142,6 +142,7 @@ public partial class EnumSelf : MonoBehaviour {
 		// ターン終了時に0にするもの
 		DoubleAttack,
 		Cost6DoubleAttack,
+        NonDraw,
 
 		Max
 	}
