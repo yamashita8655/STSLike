@@ -486,6 +486,13 @@ public class BattleCalculationFunction {
 						overDamage = -4;
 					}
 				}
+				
+				// 攻撃のみで反応させたいので、EnemyUpdateHp内ではなく、こちらで判定
+				if (player.GetParameterListFlag(EnumSelf.ParameterType.DamageAddStrength1) == true) {
+					PlayerUpdatePower(EnumSelf.PowerType.Strength, 1);
+					PlayerUpdateTurnPower(EnumSelf.TurnPowerType.SubStrength, 1);
+				}
+
 				EnemyUpdateHp(overDamage);
 				if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
 					PlayerUpdateHp(-overDamage);

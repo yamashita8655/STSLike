@@ -212,6 +212,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.GameStart3Draw;
 		} else if (typeString == "AddAnotherStrength1") {
 			type = EnumSelf.ParameterType.AddAnotherStrength1;
+		} else if (typeString == "DamageAddStrength1") {
+			type = EnumSelf.ParameterType.DamageAddStrength1;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}

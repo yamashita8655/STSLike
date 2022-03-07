@@ -211,6 +211,7 @@ public partial class EnumSelf : MonoBehaviour {
 		DyingAddVersak,// ターン開始時に、HP20以下なら、狂戦士1付与
 		GameStart3Draw,// 戦闘開始時に、追加3ドロー
 		AddAnotherStrength1,// 力獲得時、追加で力を1獲得
+		DamageAddStrength1,// ダメージを与える度、力と力減少を1得る。
 		Award,
 		Max,
 	}
