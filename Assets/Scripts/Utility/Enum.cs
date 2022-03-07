@@ -67,6 +67,7 @@ public partial class EnumSelf : MonoBehaviour {
         HealCharge,		// この数値分、戦闘終了後にHP回復
         DoubleStrength,	// 現在の数値分力を倍化させ、増加した数値分力減少(ターン終了時減少するデバフ)を付与する
         DemonPower,	// 数値分、ターン開始時に力を得る。
+		AddShieldTrueDamage, // シールド獲得時、相手に数値分の確定ダメージを与える
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -142,6 +143,8 @@ public partial class EnumSelf : MonoBehaviour {
 		Invincible,
         Critical,
         DemonPower,
+		AddShieldTrueDamage,
+
 
 		// ターン経過時に、1にリセットする物
         RotBody,

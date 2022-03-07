@@ -61,6 +61,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Critical) ||
 			(pack.Effect == EnumSelf.EffectType.NonDraw) ||
 			(pack.Effect == EnumSelf.EffectType.DemonPower) ||
+			(pack.Effect == EnumSelf.EffectType.AddShieldTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -126,6 +127,8 @@ public class BattleCalculationFunction {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is HealCharge 敵にHealChargeは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.DoubleStrength) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DoubleStrength 敵にDoubleStrengthは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.AddShieldTrueDamage) {
+			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is AddShieldTrueDamage 敵にAddShieldTrueDamageは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
 			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (
@@ -300,6 +303,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.Invincible) ||
 				(i == (int)EnumSelf.TurnPowerType.Critical) ||
 				(i == (int)EnumSelf.TurnPowerType.DemonPower) ||
+				(i == (int)EnumSelf.TurnPowerType.AddShieldTrueDamage) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -540,10 +544,16 @@ public class BattleCalculationFunction {
 		int damage = pack.Value;
 		
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			EnemyUpdateHp(-damage);
+			//EnemyUpdateHp(-damage);
+			EnemyCalcTrueDamage(-damage);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			PlayerUpdateHp(-damage);
+			//PlayerUpdateHp(-damage);
+			PlayerCalcTrueDamage(-damage);
 		}
+	}
+	
+	public static void PlayerCalcTrueDamage(int val) {
+		PlayerUpdateHp(val);
 	}
 	
 	public static void PlayerRemovePower(ActionPack pack) {
@@ -617,18 +627,26 @@ public class BattleCalculationFunction {
 			if (pack.Effect == EnumSelf.EffectType.ShieldDouble) {
 				shield = enemy.GetNowShield();
 			}
-			enemy.AddNowShield(shield);
+			EnemyCalcShield(shield);
+			//enemy.AddNowShield(shield);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			if (pack.Effect == EnumSelf.EffectType.ShieldDouble) {
 				shield = player.GetNowShield();
 			}
-			player.AddNowShield(shield);
+			PlayerCalcShield(shield);
+			//player.AddNowShield(shield);
 		}
 	}
 	
 	// こっちは、数値を単純に加算する時使用。アーティファクト効果とか。
 	public static void PlayerCalcShield(int val) {
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.AddShieldTrueDamage) > 0) {
+			if (val > 0) {
+				int addShieldTrueDamage = player.GetTurnPowerValue(EnumSelf.TurnPowerType.AddShieldTrueDamage);
+				EnemyCalcTrueDamage(-addShieldTrueDamage);
+			}
+		}
 		player.AddNowShield(val);
 	}
 	
@@ -825,10 +843,16 @@ public class BattleCalculationFunction {
 		int damage = pack.Value;
 		
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			PlayerUpdateHp(-damage);
+			//PlayerUpdateHp(-damage);
+			PlayerCalcTrueDamage(-damage);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			EnemyUpdateHp(-damage);
+			//EnemyUpdateHp(-damage);
+			EnemyCalcTrueDamage(-damage);
 		}
+	}
+	
+	public static void EnemyCalcTrueDamage(int val) {
+		EnemyUpdateHp(val);
 	}
 	
 	public static void EnemyRemovePower(ActionPack pack) {
@@ -917,10 +941,17 @@ public class BattleCalculationFunction {
 	public static void EnemyCalcShield(ActionPack pack) {
 		int shield = CalcEnemyShieldValue(pack);
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(shield);
+			//MapDataCarrier.Instance.CuPlayerStatus.AddNowShield(shield);
+			PlayerCalcShield(shield);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(shield);
+			//MapDataCarrier.Instance.CuEnemyStatus.AddNowShield(shield);
+			EnemyCalcShield(shield);
 		}
+	}
+	
+	public static void EnemyCalcShield(int val) {
+		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		enemy.AddNowShield(val);
 	}
 	
 	public static void EnemyDeath(ActionPack pack) {
@@ -1054,6 +1085,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.NonDraw;
 		} else if (type == EnumSelf.EffectType.DemonPower) {
 			pType = EnumSelf.TurnPowerType.DemonPower;
+		} else if (type == EnumSelf.EffectType.AddShieldTrueDamage) {
+			pType = EnumSelf.TurnPowerType.AddShieldTrueDamage;
 		}
 
 		return pType;

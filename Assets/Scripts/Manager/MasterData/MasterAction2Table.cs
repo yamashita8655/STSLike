@@ -249,6 +249,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.DoubleStrength;
 		} else if (typeString == "DemonPower") {
 			type = EnumSelf.EffectType.DemonPower;
+		} else if (typeString == "AddShieldTrueDamage") {
+			type = EnumSelf.EffectType.AddShieldTrueDamage;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}
