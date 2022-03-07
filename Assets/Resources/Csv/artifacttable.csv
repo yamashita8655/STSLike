@@ -48,5 +48,6 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1034,1034,NORMAL,3,労わりの盾,ターン終了時、シールドが0であれば、シールドを6得る。,Image/UI/Artifact/careshield,AddParameter,0,ZeroTurnEndShield
 1035,1035,NORMAL,4,瀕死の力珠,ターン開始時、HPが20以下であれば、狂戦士を1得る,Image/UI/Artifact/powerball,AddParameter,0,DyingAddVersak
 1036,1036,NORMAL,2,機密書類,戦闘開始時、カードを追加で3ドロー,Image/UI/Artifact/secretpaper,AddParameter,0,GameStart3Draw
+1037,1037,NORMAL,4,ハンドグリップ,力が増加する時、追加で力が1増加する,Image/UI/Artifact/handgrip,AddParameter,0,AddAnotherStrength1
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award

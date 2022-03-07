@@ -36,6 +36,7 @@ id,rarity,name,equipcost,unlockcost,dicecost,usetype,detail,imagepath,effect,tar
 202,4,マキシマムドープ,4,10,2,Discard,付与されている力を倍化させ、その数値分筋力減少を得る。,Image/UI/Card/punch,DoubleStrength,Self,0,Add,NONE,,,,,,,,,,,,,,,,
 203,3,鬼人化,4,10,5,Erase,鬼人化を{0}得る。,Image/UI/Card/punch,DemonPower,Self,1,Add,NONE,,,,,,,,,,,,,,,,
 204,3,マッスルシールド,4,10,4,Repeat,獲得している力分のシールドを得る,Image/UI/Card/punch,StrengthShield,Self,0,Add,NONE,,,,,,,,,,,,,,,,
+205,5,アルテマブロウ,4,10,6,Repeat,力の{0}倍の追加ダメージを与える。,Image/UI/Card/punch,DamageMultiStrength,Opponent,10,Add,NONE,,,,,,,,,,,,,,,,
 #,バランス,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 301,1,アイアンプレス1,1,10,4,Repeat,{0}ダメージを与え、{1}シールドを得る,Image/UI/Card/punch,Damage,Opponent,3,Add,Shield,Self,2,Add,NONE,,,,,,,,,,,,
 302,2,アイアンプレス2,2,10,4,Repeat,{0}ダメージを与え、{1}シールドを得る,Image/UI/Card/punch,Damage,Opponent,4,Add,Shield,Self,4,Add,NONE,,,,,,,,,,,,

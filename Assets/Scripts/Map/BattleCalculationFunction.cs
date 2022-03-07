@@ -162,10 +162,8 @@ public class BattleCalculationFunction {
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
 		if (player.GetParameterListFlag(EnumSelf.ParameterType.HeroSword) == true) {
 			if (player.GetNowHp() == player.GetMaxHp()) {
-				player.AddPower(EnumSelf.PowerType.Strength, 3);
-				PlayerUpdatePower(EnumSelf.PowerType.Strength);
-				player.AddPower(EnumSelf.PowerType.Toughness, 3);
-				PlayerUpdatePower(EnumSelf.PowerType.Toughness);
+				PlayerUpdatePower(EnumSelf.PowerType.Strength, 3);
+				PlayerUpdatePower(EnumSelf.PowerType.Toughness, 3);
 			}
 		}
 		
@@ -272,8 +270,7 @@ public class BattleCalculationFunction {
 		
 		val = player.GetTurnPowerValue(EnumSelf.TurnPowerType.DemonPower);
 		if (val > 0) {
-			player.AddPower(EnumSelf.PowerType.Strength, val);
-			PlayerUpdatePower(EnumSelf.PowerType.Strength);
+			PlayerUpdatePower(EnumSelf.PowerType.Strength, val);
 		}
 		
 		// ターンスタート時に数値を減らす物
@@ -323,9 +320,8 @@ public class BattleCalculationFunction {
 			) {
 				if (status.GetTurnPowerValue((EnumSelf.TurnPowerType)i) > 0) {
 					int substrength = status.GetTurnPowerValue(EnumSelf.TurnPowerType.SubStrength);
-					status.AddPower(EnumSelf.PowerType.Strength, -substrength);
 					status.SetTurnPowerValue(EnumSelf.TurnPowerType.SubStrength, 0);
-					PlayerUpdatePower(EnumSelf.PowerType.Strength);
+					PlayerUpdatePower(EnumSelf.PowerType.Strength, -substrength);
 				}
 			} else {
 				status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
@@ -400,8 +396,7 @@ public class BattleCalculationFunction {
 		// 敵の効果
 		val = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.DemonPower);
 		if (val > 0) {
-			enemy.AddPower(EnumSelf.PowerType.Strength, val);
-			EnemyUpdatePower(EnumSelf.PowerType.Strength);
+			EnemyUpdatePower(EnumSelf.PowerType.Strength, val);
 		}
 		
 		// ターンスタート時に数値を減らす物
@@ -437,9 +432,8 @@ public class BattleCalculationFunction {
 			) {
 				if (status.GetTurnPowerValue((EnumSelf.TurnPowerType)i) > 0) {
 					int substrength = status.GetTurnPowerValue(EnumSelf.TurnPowerType.SubStrength);
-					status.AddPower(EnumSelf.PowerType.Strength, -substrength);
 					status.SetTurnPowerValue(EnumSelf.TurnPowerType.SubStrength, 0);
-					EnemyUpdatePower(EnumSelf.PowerType.Strength);
+					EnemyUpdatePower(EnumSelf.PowerType.Strength, -substrength);
 				}
 			} else {
 				status.AddTurnPower((EnumSelf.TurnPowerType)i, -1);
@@ -460,7 +454,7 @@ public class BattleCalculationFunction {
 
 		// ダメージ計算したら、空元気は解除する
 		player.ResetPower(EnumSelf.PowerType.FastStrength);
-		PlayerUpdatePower(EnumSelf.PowerType.FastStrength);
+		PlayerUpdatePower(EnumSelf.PowerType.FastStrength, 0);
 		
 		// 必殺も解除する
 		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Critical) > 0) {
@@ -559,8 +553,8 @@ public class BattleCalculationFunction {
 		
 		// 表示更新
 		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
-			PlayerUpdatePower((EnumSelf.PowerType)i);
-			EnemyUpdatePower((EnumSelf.PowerType)i);
+			PlayerUpdatePower((EnumSelf.PowerType)i, 0);
+			EnemyUpdatePower((EnumSelf.PowerType)i, 0);
 		}
 		
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
@@ -667,19 +661,32 @@ public class BattleCalculationFunction {
 		int val = pack.Value;
 		EnumSelf.PowerType pType = ConvertEffectType2PowerType(pack.Effect);
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			enemy.AddPower(pType, val);
-			int nowVal = enemy.GetPower().GetValue(pType);
-			MapDataCarrier.Instance.EnemyPowerObjects[(int)pType].GetComponent<PowerController>().SetValue(nowVal);
+			EnemyUpdatePower(pType, val);
+			//enemy.AddPower(pType, val);
+			//int nowVal = enemy.GetPower().GetValue(pType);
+			//MapDataCarrier.Instance.EnemyPowerObjects[(int)pType].GetComponent<PowerController>().SetValue(nowVal);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			player.AddPower(pType, val);
-			int nowVal = player.GetPower().GetValue(pType);
-			MapDataCarrier.Instance.PowerObjects[(int)pType].GetComponent<PowerController>().SetValue(nowVal);
+			PlayerUpdatePower(pType, val);
+			//player.AddPower(pType, val);
+			//int nowVal = player.GetPower().GetValue(pType);
+			//MapDataCarrier.Instance.PowerObjects[(int)pType].GetComponent<PowerController>().SetValue(nowVal);
 		}
 	}
 	
-	// こっちは、数値が他のタイミングで変動した際の更新
-	public static void PlayerUpdatePower(EnumSelf.PowerType type) {
+	//// こっちは、数値が他のタイミングで変動した際の更新
+	//public static void PlayerUpdatePower(EnumSelf.PowerType type) {
+	//	PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+	//	int nowVal = player.GetPower().GetValue(type);
+	//	MapDataCarrier.Instance.PowerObjects[(int)type].GetComponent<PowerController>().SetValue(nowVal);
+	//}
+	
+	public static void PlayerUpdatePower(EnumSelf.PowerType type, int addValue) {
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.AddAnotherStrength1) == true) {
+			addValue += 1;
+		}
+
+		player.AddPower(type, addValue);
 		int nowVal = player.GetPower().GetValue(type);
 		MapDataCarrier.Instance.PowerObjects[(int)type].GetComponent<PowerController>().SetValue(nowVal);
 	}
@@ -725,7 +732,7 @@ public class BattleCalculationFunction {
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
-				enemy.AddPower((EnumSelf.PowerType)i, 10);
+				EnemyUpdatePower((EnumSelf.PowerType)i, 10);
 			}
 			
 			for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
@@ -737,7 +744,7 @@ public class BattleCalculationFunction {
 			}
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
-				player.AddPower((EnumSelf.PowerType)i, 10);
+				PlayerUpdatePower((EnumSelf.PowerType)i, 10);
 			}
 			
 			for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
@@ -751,8 +758,8 @@ public class BattleCalculationFunction {
 		
 		// 
 		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
-			PlayerUpdatePower((EnumSelf.PowerType)i);
-			EnemyUpdatePower((EnumSelf.PowerType)i);
+			PlayerUpdatePower((EnumSelf.PowerType)i, 0);
+			EnemyUpdatePower((EnumSelf.PowerType)i, 0);
 		}
 	}
 	
@@ -767,7 +774,7 @@ public class BattleCalculationFunction {
 		
 		// 空元気解除
 		enemy.ResetPower(EnumSelf.PowerType.FastStrength);
-		EnemyUpdatePower(EnumSelf.PowerType.FastStrength);
+		EnemyUpdatePower(EnumSelf.PowerType.FastStrength, 0);
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
 			// 相手がリアクティブシールド状態か
@@ -831,8 +838,8 @@ public class BattleCalculationFunction {
 		
 		// 表示更新
 		for (int i = 0; i < (int)EnumSelf.PowerType.Max; i++) {
-			PlayerUpdatePower((EnumSelf.PowerType)i);
-			EnemyUpdatePower((EnumSelf.PowerType)i);
+			PlayerUpdatePower((EnumSelf.PowerType)i, 0);
+			EnemyUpdatePower((EnumSelf.PowerType)i, 0);
 		}
 		
 		for (int i = 0; i < (int)EnumSelf.TurnPowerType.Max; i++) {
@@ -946,20 +953,29 @@ public class BattleCalculationFunction {
 		int val = pack.Value;
 		EnumSelf.PowerType pType = ConvertEffectType2PowerType(pack.Effect);
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
-
-			player.AddPower(pType, val);
-			int nowVal = player.GetPower().GetValue(pType);
-			MapDataCarrier.Instance.PowerObjects[(int)pType].GetComponent<PowerController>().SetValue(nowVal);
+			PlayerUpdatePower(pType, val);
+			//player.AddPower(pType, val);
+			//int nowVal = player.GetPower().GetValue(pType);
+			//MapDataCarrier.Instance.PowerObjects[(int)pType].GetComponent<PowerController>().SetValue(nowVal);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			enemy.AddPower(pType, val);
-			int nowVal = enemy.GetPower().GetValue(pType);
-			MapDataCarrier.Instance.EnemyPowerObjects[(int)pType].GetComponent<PowerController>().SetValue(nowVal);
+			EnemyUpdatePower(pType, val);
+			//enemy.AddPower(pType, val);
+			//int nowVal = enemy.GetPower().GetValue(pType);
+			//MapDataCarrier.Instance.EnemyPowerObjects[(int)pType].GetComponent<PowerController>().SetValue(nowVal);
 		}
 	}
 	
+	//// こっちは、数値が他のタイミングで変動した際の更新
+	//public static void EnemyUpdatePower(EnumSelf.PowerType type) {
+	//	EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+	//	int nowVal = enemy.GetPower().GetValue(type);
+	//	MapDataCarrier.Instance.EnemyPowerObjects[(int)type].GetComponent<PowerController>().SetValue(nowVal);
+	//}
+	
 	// こっちは、数値が他のタイミングで変動した際の更新
-	public static void EnemyUpdatePower(EnumSelf.PowerType type) {
+	public static void EnemyUpdatePower(EnumSelf.PowerType type, int addValue) {
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		enemy.AddPower(type, addValue);
 		int nowVal = enemy.GetPower().GetValue(type);
 		MapDataCarrier.Instance.EnemyPowerObjects[(int)type].GetComponent<PowerController>().SetValue(nowVal);
 	}
@@ -1533,8 +1549,7 @@ public class BattleCalculationFunction {
 			int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
 			int addValue = strength;
 
-			player.AddPower(EnumSelf.PowerType.Strength, addValue);
-			PlayerUpdatePower(EnumSelf.PowerType.Strength);
+			PlayerUpdatePower(EnumSelf.PowerType.Strength, addValue);
 
 			PlayerUpdateTurnPower(EnumSelf.TurnPowerType.SubStrength, addValue);
 		}
