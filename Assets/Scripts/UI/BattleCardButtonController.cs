@@ -143,7 +143,10 @@ public class BattleCardButtonController : MonoBehaviour
 			} else if (list[index].Effect == EnumSelf.EffectType.DamageMultiStrength) {
 				val = BattleCalculationFunction.CalcPlayerDamageValue(list[index]);
 				originalVal = 0;
-			} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
+			} else if (
+				(list[index].Effect == EnumSelf.EffectType.Shield) ||
+				(list[index].Effect == EnumSelf.EffectType.StrengthShield)
+			) {
 				val = BattleCalculationFunction.CalcPlayerShieldValue(list[index]);
 			}
 			ValueControllers[index].UpdateDisplay(

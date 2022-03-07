@@ -26,6 +26,7 @@ public partial class EnumSelf : MonoBehaviour {
         Shield,			// シールド
         ShieldDouble,	// シールド倍化
         ShieldDamage,	// シールドのみに作用するダメージ
+        StrengthShield,	// 力の数値分、シールドを得る
         Heal,			// 回復
         Warning,		// 警告（未行動）
         Stun,			// スタン（未行動）

@@ -22,6 +22,7 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.PlayerCalcHeal(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.Shield) ||
+			(pack.Effect == EnumSelf.EffectType.StrengthShield) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldDouble)
 		) {
 			BattleCalculationFunction.PlayerCalcShield(pack);
@@ -87,6 +88,7 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.EnemyCalcHeal(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.Shield) ||
+			(pack.Effect == EnumSelf.EffectType.StrengthShield) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldDouble)
 		) {
 			BattleCalculationFunction.EnemyCalcShield(pack);
@@ -1213,7 +1215,11 @@ public class BattleCalculationFunction {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
 					findOpponentDamage = true;
 				}
-			} else if (pack.Effect == EnumSelf.EffectType.Shield) {
+			} else if (
+				(pack.Effect == EnumSelf.EffectType.Shield) ||
+				(pack.Effect == EnumSelf.EffectType.StrengthShield)
+			) {
+
 				if (pack.Target == EnumSelf.TargetType.Self) {
 					findSelfShield = true;
 				}
@@ -1392,20 +1398,29 @@ public class BattleCalculationFunction {
 		int powerToughness = player.GetPower().GetValue(EnumSelf.PowerType.Toughness);
 		int val = 0;
 
+		bool isNormalShield = true;// Valの値をそのまま使うかどうか
 		if (player.GetParameterListFlag(EnumSelf.ParameterType.ApprenticeKnight) == true) {
 			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(pack.ExecuteActionId);
 			if (IsOnlyDamageAndShield(data) == true) {
-				val = pack.Value + 3;
-			} else {
-				val = pack.Value;
+				val += pack.Value + 3;
+				isNormalShield = false;
 			}
-		} else if (player.GetParameterListFlag(EnumSelf.ParameterType.KnightMaster) == true) {
+		}
+		
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.KnightMaster) == true) {
 			if (IsOnlyDamageAndShieldAll() == true) {
-				val = pack.Value * 2;
-			} else {
-				val = pack.Value;
+				val += pack.Value * 2;
+				isNormalShield = false;
 			}
-		} else {
+		}
+
+		if (pack.Effect == EnumSelf.EffectType.StrengthShield) {
+			int strength = player.GetPower().GetValue(EnumSelf.PowerType.Strength);
+			val += strength;
+			isNormalShield = false;
+		}
+
+		if (isNormalShield == true) {
 			val = pack.Value;
 		}
 		
@@ -1461,11 +1476,25 @@ public class BattleCalculationFunction {
 	static public int CalcEnemyShieldValue(ActionPack pack) {
 		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
 		int powerToughness = enemy.GetPower().GetValue(EnumSelf.PowerType.Toughness);
-		int val = pack.Value+powerToughness;
+		bool isNormalShield = true;// Valの値をそのまま使うかどうか
+		int val = 0;
+
+		if (pack.Effect == EnumSelf.EffectType.StrengthShield) {
+			int strength = enemy.GetPower().GetValue(EnumSelf.PowerType.Strength);
+			val += strength;
+			isNormalShield = false;
+		}
+
+		if (isNormalShield == true) {
+			val = pack.Value;
+		}
+		
+		val = val + powerToughness;
+
 		if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
 			val = val - (val * 25 / 100);
 		}
-				
+
 		return val;
 	}
 	

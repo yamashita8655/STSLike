@@ -688,7 +688,10 @@ public partial class MapScene : SceneBase
 				(list[index].Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				val = BattleCalculationFunction.CalcEnemyDamageValue(list[index]);
-			} else if (list[index].Effect == EnumSelf.EffectType.Shield) {
+			} else if (
+				(list[index].Effect == EnumSelf.EffectType.Shield) ||
+				(list[index].Effect == EnumSelf.EffectType.StrengthShield)
+			) {
 				val = BattleCalculationFunction.CalcEnemyShieldValue(list[index]);
 			}
 
