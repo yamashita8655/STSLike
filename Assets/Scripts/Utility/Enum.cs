@@ -220,6 +220,7 @@ public partial class EnumSelf : MonoBehaviour {
 		AddAnotherStrength1,// 力獲得時、追加で力を1獲得
 		DamageAddStrength1,// ダメージを与える度、力と力減少を1得る。
 		NoAttackGetTurnShieldPreserve, // このターン攻撃をしていなければ、ターン終了時鉄壁を1付与。
+		Use3ShieldAddToughness, // ターン中にシールドを3回獲得した場合、守を1得る
 		Award,
 		Max,
 	}

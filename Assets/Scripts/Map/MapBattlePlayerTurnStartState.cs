@@ -39,6 +39,7 @@ public class MapBattlePlayerTurnStartState : StateBase {
 
 		// 攻撃使用フラグリセット
 		player.SetUseAttack(false);
+		player.SetUseShieldCount(0);
 
 		return true;
 	}

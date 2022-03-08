@@ -21,6 +21,7 @@ public class PlayerStatus
 	private TurnPower CuTurnPower = null;
 	
 	private bool UseAttack = false;
+	private int UseShieldCount = 0;
 
 	public PlayerStatus() {
 		ActionDataList = new List<MasterAction2Table.Data>(){
@@ -216,6 +217,10 @@ public class PlayerStatus
 
 	public void SetUseAttack(bool isUse) => UseAttack = isUse;
 	public bool GetUseAttack() => UseAttack;
+
+	public void AddUseShieldCount(int addValue) => UseShieldCount += addValue;
+	public void SetUseShieldCount(int val) => UseShieldCount = val;
+	public int GetUseShieldCount() => UseShieldCount;
 }
 
 public class EnemyStatus

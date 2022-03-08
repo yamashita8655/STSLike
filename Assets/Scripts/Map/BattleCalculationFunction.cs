@@ -568,8 +568,7 @@ public class BattleCalculationFunction {
 			}
 		}
 		
-		// ここの関数が通ったら、攻撃を使ったとみなす
-		player.SetUseAttack(true);
+		// ここの関数が通ったら、攻撃を使ったとみなすplayer.SetUseAttack(true);
 	}
 	
 	// こっちは、アクションパック以外で、シールドとのダメージ計算が必要な物
@@ -684,6 +683,14 @@ public class BattleCalculationFunction {
 			}
 			PlayerCalcShield(shield);
 			//player.AddNowShield(shield);
+		}
+
+		player.AddUseShieldCount(1);
+		if (player.GetUseShieldCount() >= 3) {
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.Use3ShieldAddToughness) == true) {
+				PlayerUpdatePower(EnumSelf.PowerType.Toughness, 1);
+				player.SetUseShieldCount(0);
+			}
 		}
 	}
 	
