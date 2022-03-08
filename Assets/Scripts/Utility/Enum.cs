@@ -57,7 +57,8 @@ public partial class EnumSelf : MonoBehaviour {
         Versak,			// 与ダメ2倍
         ReactiveShield,	// 被ダメ時、シールド獲得
         SubStrength,	// FastStrengthによる筋力減少
-        ShieldPreserve,	// ターン終了時に、シールドが無くならない
+        TurnShieldPreserve,	// ターン終了時に、シールドが無くならない。こっちは、ターン経過で1ずつ減少
+        ShieldPreserve,	// ターン終了時に、シールドが無くならない。こっちは、解除されない限りは永続
         Invincible,		// 一度だけ、被ダメ0
         DoubleAttack,	// PlayerCalcDamageNormalDamageの処理を行う効果が含まれるカードを、追加で一度発動させる
         Cost6DoubleAttack,	// アーティファクト、コスト6以上のPlayerCalcDamageNormalDamageの処理を行うカードを一度だけ2回発動する
@@ -131,6 +132,7 @@ public partial class EnumSelf : MonoBehaviour {
 		ShieldWeakness,
         Vulnerable,
 		ShieldPreserve,
+		TurnShieldPreserve,
 		TurnRegenerate,
 
 		// ターン経過時に変動しない物(他の条件で減少する物、もしくはしない物)

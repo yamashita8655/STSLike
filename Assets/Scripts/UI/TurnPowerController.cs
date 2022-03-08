@@ -85,6 +85,8 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.SubStrengthImagePath;
 		} else if (type == EnumSelf.TurnPowerType.ShieldPreserve) {
 			ret = Const.ShieldPreserveImagePath;
+		} else if (type == EnumSelf.TurnPowerType.TurnShieldPreserve) {
+			ret = Const.TurnShieldPreserveImagePath;
 		} else if (type == EnumSelf.TurnPowerType.Invincible) {
 			ret = Const.InvincibleImagePath;
 		} else if (type == EnumSelf.TurnPowerType.DoubleAttack) {

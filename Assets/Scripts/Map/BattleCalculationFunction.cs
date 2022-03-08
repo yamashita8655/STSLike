@@ -55,6 +55,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.ReactiveShield) ||
 			(pack.Effect == EnumSelf.EffectType.SubStrength) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldPreserve) ||
+			(pack.Effect == EnumSelf.EffectType.TurnShieldPreserve) ||
 			(pack.Effect == EnumSelf.EffectType.Invincible) ||
 			(pack.Effect == EnumSelf.EffectType.DoubleAttack) ||
 			(pack.Effect == EnumSelf.EffectType.Cost6DoubleAttack) ||
@@ -153,6 +154,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.ReactiveShield) ||
 			(pack.Effect == EnumSelf.EffectType.SubStrength) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldPreserve) ||
+			(pack.Effect == EnumSelf.EffectType.TurnShieldPreserve) ||
 			(pack.Effect == EnumSelf.EffectType.Invincible) ||
 			(pack.Effect == EnumSelf.EffectType.DemonPower) ||
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
@@ -183,8 +185,11 @@ public class BattleCalculationFunction {
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
 		Power power = player.GetPower();
 		
-		// 堅牢状態じゃなかったら、シールドを0にする
-		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) == 0) {
+		// 鉄壁でも堅牢でもなかったら、シールドを0にする
+		if (
+			(player.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnShieldPreserve) == 0) &&
+			(player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) == 0) 
+		) {
 			player.SetNowShield(0);
 		}
 		
@@ -277,10 +282,8 @@ public class BattleCalculationFunction {
 		}
 		
 		// ターンスタート時に数値を減らす物
-		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) > 0) {
-			player.AddTurnPower(EnumSelf.TurnPowerType.ShieldPreserve, -1);
-			int turn = player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve);
-			MapDataCarrier.Instance.TurnPowerObjects[(int)EnumSelf.TurnPowerType.ShieldPreserve].GetComponent<TurnPowerController>().SetTurn(turn);
+		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnShieldPreserve) > 0) {
+			PlayerUpdateTurnPower(EnumSelf.TurnPowerType.TurnShieldPreserve, -1);
 		}
 
 		PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Weakness, -1);
@@ -297,6 +300,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.Thorn) || 
 				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
 				(i == (int)EnumSelf.TurnPowerType.ShieldPreserve) ||
+				(i == (int)EnumSelf.TurnPowerType.TurnShieldPreserve) ||
 				(i == (int)EnumSelf.TurnPowerType.Weakness) ||
 				(i == (int)EnumSelf.TurnPowerType.Vulnerable) ||
 				(i == (int)EnumSelf.TurnPowerType.ShieldWeakness) ||
@@ -347,11 +351,14 @@ public class BattleCalculationFunction {
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
 		Power power = enemy.GetPower();
 		
-		// 堅牢状態でなければ、シールドを消滅させる
-		if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) == 0) {
+		// 鉄壁でも堅牢でもなければ、シールドを消滅させる
+		if (
+			(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnShieldPreserve) == 0) &&
+			(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) == 0)
+		) {
 			enemy.SetNowShield(0);
 		}
-
+		
 		// 超再生
 		int val = power.GetValue(EnumSelf.PowerType.Regenerate);
 		if (val > 0) {
@@ -404,10 +411,8 @@ public class BattleCalculationFunction {
 		}
 		
 		// ターンスタート時に数値を減らす物
-		if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) > 0) {
-			enemy.AddTurnPower(EnumSelf.TurnPowerType.ShieldPreserve, -1);
-			int turn = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve);
-			MapDataCarrier.Instance.EnemyTurnPowerObjects[(int)EnumSelf.TurnPowerType.ShieldPreserve].GetComponent<TurnPowerController>().SetTurn(turn);
+		if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnShieldPreserve) > 0) {
+			EnemyUpdateTurnPower(EnumSelf.TurnPowerType.TurnShieldPreserve, -1);
 		}
 	}
 
@@ -420,6 +425,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.Thorn) ||
 				(i == (int)EnumSelf.TurnPowerType.ReactiveShield) ||
 				(i == (int)EnumSelf.TurnPowerType.ShieldPreserve) ||
+				(i == (int)EnumSelf.TurnPowerType.TurnShieldPreserve) ||
 				(i == (int)EnumSelf.TurnPowerType.Invincible) ||
 				(i == (int)EnumSelf.TurnPowerType.DemonPower) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
@@ -1073,6 +1079,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.SubStrength;
 		} else if (type == EnumSelf.EffectType.ShieldPreserve) {
 			pType = EnumSelf.TurnPowerType.ShieldPreserve;
+		} else if (type == EnumSelf.EffectType.TurnShieldPreserve) {
+			pType = EnumSelf.TurnPowerType.TurnShieldPreserve;
 		} else if (type == EnumSelf.EffectType.Invincible) {
 			pType = EnumSelf.TurnPowerType.Invincible;
 		} else if (type == EnumSelf.EffectType.DoubleAttack) {
