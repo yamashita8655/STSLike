@@ -14,6 +14,8 @@ public class MapBattlePlayerTurnStartState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+
 		MapDataCarrier.Instance.SelectAttackIndex = -1;
 		MapDataCarrier.Instance.BattleTurnCount++;
 		
@@ -34,6 +36,10 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		
 		// 自分の弱体が終わると、敵の表示も変える必要があるので、ここでも更新する
 		scene.UpdateEnemyValueObject();
+
+		// 攻撃使用フラグリセット
+		player.SetUseAttack(false);
+
 		return true;
 	}
 

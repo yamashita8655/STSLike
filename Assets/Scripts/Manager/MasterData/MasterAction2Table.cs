@@ -105,6 +105,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 					(effect == EnumSelf.EffectType.DamageShieldSuction) ||
 					(effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 					(effect == EnumSelf.EffectType.DamageMultiStrength) ||
+					(effect == EnumSelf.EffectType.TrueDamage) ||
 					(effect == EnumSelf.EffectType.ShieldBash)
 				) {
 					damageNumberCount++;

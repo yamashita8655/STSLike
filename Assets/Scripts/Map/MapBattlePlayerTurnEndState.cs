@@ -13,6 +13,15 @@ public class MapBattlePlayerTurnEndState : StateBase {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		scene.TurnEndButtonObject.SetActive(false);
 		BattleCalculationFunction.PlayerTurnEndValueChange();
+	
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+
+		// ターン終了時、攻撃していなければ、鉄壁1獲得
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.NoAttackGetTurnShieldPreserve) == true) {
+			if (player.GetUseAttack() == false) {
+				BattleCalculationFunction.PlayerUpdateTurnPower(EnumSelf.TurnPowerType.TurnShieldPreserve, 1);
+			}
+		}
 
 		scene.UpdateParameterText();
 

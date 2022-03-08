@@ -19,6 +19,8 @@ public class PlayerStatus
 	private Power DebuffPower = null;
 
 	private TurnPower CuTurnPower = null;
+	
+	private bool UseAttack = false;
 
 	public PlayerStatus() {
 		ActionDataList = new List<MasterAction2Table.Data>(){
@@ -211,6 +213,9 @@ public class PlayerStatus
 	public bool GetParameterListFlag(EnumSelf.ParameterType type) {
 		return ParameterFlagList[(int)type];
 	}
+
+	public void SetUseAttack(bool isUse) => UseAttack = isUse;
+	public bool GetUseAttack() => UseAttack;
 }
 
 public class EnemyStatus

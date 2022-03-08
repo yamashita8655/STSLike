@@ -11,11 +11,12 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 			(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 			(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
+			(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldBash)
 		) {
 			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
-		} else if (pack.Effect == EnumSelf.EffectType.TrueDamage) {
-			BattleCalculationFunction.PlayerCalcTrueDamage(pack);
+		//} else if (pack.Effect == EnumSelf.EffectType.TrueDamage) {
+		//	BattleCalculationFunction.PlayerCalcTrueDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.RemovePower) {
 			BattleCalculationFunction.PlayerRemovePower(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
@@ -80,11 +81,12 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DamageSuction) ||
 			(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 			(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
+			(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldBash)
 		) {
 			BattleCalculationFunction.EnemyCalcDamageNormalDamage(pack);
-		} else if (pack.Effect == EnumSelf.EffectType.TrueDamage) {
-			BattleCalculationFunction.EnemyCalcTrueDamage(pack);
+		//} else if (pack.Effect == EnumSelf.EffectType.TrueDamage) {
+		//	BattleCalculationFunction.EnemyCalcTrueDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.RemovePower) {
 			BattleCalculationFunction.EnemyRemovePower(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
@@ -473,87 +475,101 @@ public class BattleCalculationFunction {
 	public static void PlayerCalcDamageNormalDamage(ActionPack pack) {
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
-		
-		int shield = 0;
-		int overDamage = 0;
-		int damage = CalcPlayerDamageValue(pack);
 
-		// ダメージ計算したら、空元気は解除する
-		player.ResetPower(EnumSelf.PowerType.FastStrength);
-		PlayerUpdatePower(EnumSelf.PowerType.FastStrength, 0);
-		
-		// 必殺も解除する
-		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Critical) > 0) {
-			// 最初の攻撃だったら、解除する
-			if (pack.DamageNumberCount == 0) {
-				PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Critical, -1);
+		// TrueDamageは、全てのバフデバフ効果の影響を受けない
+		// ただし、攻撃したという事実を残したいので、この関数内で統一した
+		if (pack.Effect == EnumSelf.EffectType.TrueDamage) {
+			int damage = pack.Value;
+			if (pack.Target == EnumSelf.TargetType.Opponent) {
+				EnemyCalcTrueDamage(-damage);
+			} else if (pack.Target == EnumSelf.TargetType.Self) {
+				PlayerCalcTrueDamage(-damage);
 			}
-		}
+		} else {
+			int shield = 0;
+			int overDamage = 0;
+			int damage = CalcPlayerDamageValue(pack);
 
-		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			// 相手がリアクティブシールド状態か
-			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
-				player.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
-			}
-
-			// 朽ちた体状態だったら、その数値分ダメージを加算して、数値を1増やす
-			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody) > 0) {
-				int rotbodyVal = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody);
-				damage += rotbodyVal;
-				EnemyUpdateTurnPower(EnumSelf.TurnPowerType.RotBody, 1);
+			// ダメージ計算したら、空元気は解除する
+			player.ResetPower(EnumSelf.PowerType.FastStrength);
+			PlayerUpdatePower(EnumSelf.PowerType.FastStrength, 0);
+			
+			// 必殺も解除する
+			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Critical) > 0) {
+				// 最初の攻撃だったら、解除する
+				if (pack.DamageNumberCount == 0) {
+					PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Critical, -1);
+				}
 			}
 
-			shield = enemy.GetNowShield();
-			enemy.AddNowShield(-damage);
-			overDamage = shield - damage;
-			if (overDamage < 0) {
-				if (player.GetParameterListFlag(EnumSelf.ParameterType.AssassinRod) == true) {
-					if (overDamage >= -4) {
-						overDamage = -4;
+			if (pack.Target == EnumSelf.TargetType.Opponent) {
+				// 相手がリアクティブシールド状態か
+				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
+					player.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
+				}
+
+				// 朽ちた体状態だったら、その数値分ダメージを加算して、数値を1増やす
+				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody) > 0) {
+					int rotbodyVal = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody);
+					damage += rotbodyVal;
+					EnemyUpdateTurnPower(EnumSelf.TurnPowerType.RotBody, 1);
+				}
+
+				shield = enemy.GetNowShield();
+				enemy.AddNowShield(-damage);
+				overDamage = shield - damage;
+				if (overDamage < 0) {
+					if (player.GetParameterListFlag(EnumSelf.ParameterType.AssassinRod) == true) {
+						if (overDamage >= -4) {
+							overDamage = -4;
+						}
+					}
+					
+					// 攻撃のみで反応させたいので、EnemyUpdateHp内ではなく、こちらで判定
+					if (player.GetParameterListFlag(EnumSelf.ParameterType.DamageAddStrength1) == true) {
+						PlayerUpdatePower(EnumSelf.PowerType.Strength, 1);
+						PlayerUpdateTurnPower(EnumSelf.TurnPowerType.SubStrength, 1);
+					}
+
+					EnemyUpdateHp(overDamage);
+					if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
+						PlayerUpdateHp(-overDamage);
+					}
+					
+					if (pack.Effect == EnumSelf.EffectType.DamageShieldSuction) {
+						player.AddNowShield(-overDamage);
+					}
+				}
+
+				// 相手が棘状態か
+				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Thorn) > 0) {
+					int thornDamage = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Thorn);
+					shield = player.GetNowShield();
+					player.AddNowShield(-thornDamage);
+					overDamage = shield - thornDamage;
+					if (overDamage < 0) {
+						PlayerUpdateHp(overDamage);
 					}
 				}
 				
-				// 攻撃のみで反応させたいので、EnemyUpdateHp内ではなく、こちらで判定
-				if (player.GetParameterListFlag(EnumSelf.ParameterType.DamageAddStrength1) == true) {
-					PlayerUpdatePower(EnumSelf.PowerType.Strength, 1);
-					PlayerUpdateTurnPower(EnumSelf.TurnPowerType.SubStrength, 1);
+				// 相手が反撃状態か
+				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn) > 0) {
+					int turnThornDamage = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn);
+					shield = player.GetNowShield();
+					player.AddNowShield(-turnThornDamage);
+					overDamage = shield - turnThornDamage;
+					if (overDamage < 0) {
+						PlayerUpdateHp(overDamage);
+					}
 				}
 
-				EnemyUpdateHp(overDamage);
-				if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
-					PlayerUpdateHp(-overDamage);
-				}
-				
-				if (pack.Effect == EnumSelf.EffectType.DamageShieldSuction) {
-					player.AddNowShield(-overDamage);
-				}
+			} else if (pack.Target == EnumSelf.TargetType.Self) {
+				LogManager.Instance.LogError("PlayerCalcDamageNormalDamage:Effect:Damage,Target:Self,自分を対象にしたDamageは未実装予定");
 			}
-
-			// 相手が棘状態か
-			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Thorn) > 0) {
-				int thornDamage = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Thorn);
-				shield = player.GetNowShield();
-				player.AddNowShield(-thornDamage);
-				overDamage = shield - thornDamage;
-				if (overDamage < 0) {
-					PlayerUpdateHp(overDamage);
-				}
-			}
-			
-			// 相手が反撃状態か
-			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn) > 0) {
-				int turnThornDamage = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn);
-				shield = player.GetNowShield();
-				player.AddNowShield(-turnThornDamage);
-				overDamage = shield - turnThornDamage;
-				if (overDamage < 0) {
-					PlayerUpdateHp(overDamage);
-				}
-			}
-
-		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			LogManager.Instance.LogError("PlayerCalcDamageNormalDamage:Effect:Damage,Target:Self,自分を対象にしたDamageは未実装予定");
 		}
+		
+		// ここの関数が通ったら、攻撃を使ったとみなす
+		player.SetUseAttack(true);
 	}
 	
 	// こっちは、アクションパック以外で、シールドとのダメージ計算が必要な物
@@ -573,17 +589,17 @@ public class BattleCalculationFunction {
 		}
 	}
 	
-	public static void PlayerCalcTrueDamage(ActionPack pack) {
-		int damage = pack.Value;
-		
-		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			//EnemyUpdateHp(-damage);
-			EnemyCalcTrueDamage(-damage);
-		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			//PlayerUpdateHp(-damage);
-			PlayerCalcTrueDamage(-damage);
-		}
-	}
+	//public static void PlayerCalcTrueDamage(ActionPack pack) {
+	//	int damage = pack.Value;
+	//	
+	//	if (pack.Target == EnumSelf.TargetType.Opponent) {
+	//		//EnemyUpdateHp(-damage);
+	//		EnemyCalcTrueDamage(-damage);
+	//	} else if (pack.Target == EnumSelf.TargetType.Self) {
+	//		//PlayerUpdateHp(-damage);
+	//		PlayerCalcTrueDamage(-damage);
+	//	}
+	//}
 	
 	public static void PlayerCalcTrueDamage(int val) {
 		PlayerUpdateHp(val);
@@ -826,74 +842,83 @@ public class BattleCalculationFunction {
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
 
-		int shield = 0;
-		int overDamage = 0;
-		int damage = CalcEnemyDamageValue(pack);
-		
-		// 空元気解除
-		enemy.ResetPower(EnumSelf.PowerType.FastStrength);
-		EnemyUpdatePower(EnumSelf.PowerType.FastStrength, 0);
-
-		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			// 相手がリアクティブシールド状態か
-			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
-				enemy.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
+		if (pack.Effect == EnumSelf.EffectType.TrueDamage) {
+			int damage = pack.Value;
+			if (pack.Target == EnumSelf.TargetType.Opponent) {
+				PlayerCalcTrueDamage(-damage);
+			} else if (pack.Target == EnumSelf.TargetType.Self) {
+				EnemyCalcTrueDamage(-damage);
 			}
-
-			// 朽ちた体状態だったら、その数値分ダメージを加算して、数値を1増やす
-			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody) > 0) {
-				int rotbodyVal = player.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody);
-				damage += rotbodyVal;
-				PlayerUpdateTurnPower(EnumSelf.TurnPowerType.RotBody, 1);
-			}
-
-			shield = player.GetNowShield();
-			player.AddNowShield(-damage);
-			overDamage = shield - damage;
-			if (overDamage < 0) {
-				PlayerUpdateHp(overDamage);
-				if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
-					EnemyUpdateHp(-overDamage);
-				}
-			}
+		} else {
+			int shield = 0;
+			int overDamage = 0;
+			int damage = CalcEnemyDamageValue(pack);
 			
-			// 相手が棘状態か
-			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Thorn) > 0) {
-				int thornDamage = player.GetTurnPowerValue(EnumSelf.TurnPowerType.Thorn);
-				shield = enemy.GetNowShield();
-				enemy.AddNowShield(-thornDamage);
-				overDamage = shield - thornDamage;
-				if (overDamage < 0) {
-					EnemyUpdateHp(overDamage);
+			// 空元気解除
+			enemy.ResetPower(EnumSelf.PowerType.FastStrength);
+			EnemyUpdatePower(EnumSelf.PowerType.FastStrength, 0);
+
+			if (pack.Target == EnumSelf.TargetType.Opponent) {
+				// 相手がリアクティブシールド状態か
+				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
+					enemy.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
 				}
-			}
-			
-			// 相手が反撃状態か
-			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn) > 0) {
-				int turnThornDamage = player.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn);
-				shield = enemy.GetNowShield();
-				enemy.AddNowShield(-turnThornDamage);
-				overDamage = shield - turnThornDamage;
-				if (overDamage < 0) {
-					EnemyUpdateHp(overDamage);
+
+				// 朽ちた体状態だったら、その数値分ダメージを加算して、数値を1増やす
+				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody) > 0) {
+					int rotbodyVal = player.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody);
+					damage += rotbodyVal;
+					PlayerUpdateTurnPower(EnumSelf.TurnPowerType.RotBody, 1);
 				}
+
+				shield = player.GetNowShield();
+				player.AddNowShield(-damage);
+				overDamage = shield - damage;
+				if (overDamage < 0) {
+					PlayerUpdateHp(overDamage);
+					if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
+						EnemyUpdateHp(-overDamage);
+					}
+				}
+				
+				// 相手が棘状態か
+				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Thorn) > 0) {
+					int thornDamage = player.GetTurnPowerValue(EnumSelf.TurnPowerType.Thorn);
+					shield = enemy.GetNowShield();
+					enemy.AddNowShield(-thornDamage);
+					overDamage = shield - thornDamage;
+					if (overDamage < 0) {
+						EnemyUpdateHp(overDamage);
+					}
+				}
+				
+				// 相手が反撃状態か
+				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn) > 0) {
+					int turnThornDamage = player.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn);
+					shield = enemy.GetNowShield();
+					enemy.AddNowShield(-turnThornDamage);
+					overDamage = shield - turnThornDamage;
+					if (overDamage < 0) {
+						EnemyUpdateHp(overDamage);
+					}
+				}
+			} else if (pack.Target == EnumSelf.TargetType.Self) {
+				LogManager.Instance.LogError("EnemyCalcDamageNormalDamage:Effect:Damage,Target:Self,自分を対象にしたDamageは未実装予定");
 			}
-		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			LogManager.Instance.LogError("EnemyCalcDamageNormalDamage:Effect:Damage,Target:Self,自分を対象にしたDamageは未実装予定");
 		}
 	}
 	
-	public static void EnemyCalcTrueDamage(ActionPack pack) {
-		int damage = pack.Value;
-		
-		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			//PlayerUpdateHp(-damage);
-			PlayerCalcTrueDamage(-damage);
-		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			//EnemyUpdateHp(-damage);
-			EnemyCalcTrueDamage(-damage);
-		}
-	}
+	//public static void EnemyCalcTrueDamage(ActionPack pack) {
+	//	int damage = pack.Value;
+	//	
+	//	if (pack.Target == EnumSelf.TargetType.Opponent) {
+	//		//PlayerUpdateHp(-damage);
+	//		PlayerCalcTrueDamage(-damage);
+	//	} else if (pack.Target == EnumSelf.TargetType.Self) {
+	//		//EnemyUpdateHp(-damage);
+	//		EnemyCalcTrueDamage(-damage);
+	//	}
+	//}
 	
 	public static void EnemyCalcTrueDamage(int val) {
 		EnemyUpdateHp(val);
@@ -1314,6 +1339,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
+				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
@@ -1378,6 +1404,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
+				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
@@ -1616,6 +1643,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
+				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {

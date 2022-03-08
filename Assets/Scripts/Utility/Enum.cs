@@ -219,6 +219,7 @@ public partial class EnumSelf : MonoBehaviour {
 		GameStart3Draw,// 戦闘開始時に、追加3ドロー
 		AddAnotherStrength1,// 力獲得時、追加で力を1獲得
 		DamageAddStrength1,// ダメージを与える度、力と力減少を1得る。
+		NoAttackGetTurnShieldPreserve, // このターン攻撃をしていなければ、ターン終了時鉄壁を1付与。
 		Award,
 		Max,
 	}
