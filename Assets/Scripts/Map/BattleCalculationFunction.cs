@@ -63,6 +63,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.NonDraw) ||
 			(pack.Effect == EnumSelf.EffectType.DemonPower) ||
 			(pack.Effect == EnumSelf.EffectType.AddShieldTrueDamage) ||
+			(pack.Effect == EnumSelf.EffectType.TurnThorn) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -157,6 +158,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.TurnShieldPreserve) ||
 			(pack.Effect == EnumSelf.EffectType.Invincible) ||
 			(pack.Effect == EnumSelf.EffectType.DemonPower) ||
+			(pack.Effect == EnumSelf.EffectType.TurnThorn) ||
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
 		) {
 			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
@@ -191,6 +193,12 @@ public class BattleCalculationFunction {
 			(player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) == 0) 
 		) {
 			player.SetNowShield(0);
+		}
+
+		// 反撃は、ターン開始時に0にする
+		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn) > 0) {
+			int turnThorn = player.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn);
+			PlayerUpdateTurnPower(EnumSelf.TurnPowerType.TurnThorn, -turnThorn);
 		}
 		
 		// アーティファクト系
@@ -308,6 +316,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.Critical) ||
 				(i == (int)EnumSelf.TurnPowerType.DemonPower) ||
 				(i == (int)EnumSelf.TurnPowerType.AddShieldTrueDamage) ||
+				(i == (int)EnumSelf.TurnPowerType.TurnThorn) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -357,6 +366,12 @@ public class BattleCalculationFunction {
 			(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) == 0)
 		) {
 			enemy.SetNowShield(0);
+		}
+		
+		// 反撃は、ターン開始時に0にする
+		if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn) > 0) {
+			int turnThorn = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn);
+			EnemyUpdateTurnPower(EnumSelf.TurnPowerType.TurnThorn, -turnThorn);
 		}
 		
 		// 超再生
@@ -428,6 +443,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.TurnShieldPreserve) ||
 				(i == (int)EnumSelf.TurnPowerType.Invincible) ||
 				(i == (int)EnumSelf.TurnPowerType.DemonPower) ||
+				(i == (int)EnumSelf.TurnPowerType.TurnThorn) ||
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -519,6 +535,17 @@ public class BattleCalculationFunction {
 				shield = player.GetNowShield();
 				player.AddNowShield(-thornDamage);
 				overDamage = shield - thornDamage;
+				if (overDamage < 0) {
+					PlayerUpdateHp(overDamage);
+				}
+			}
+			
+			// 相手が反撃状態か
+			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn) > 0) {
+				int turnThornDamage = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn);
+				shield = player.GetNowShield();
+				player.AddNowShield(-turnThornDamage);
+				overDamage = shield - turnThornDamage;
 				if (overDamage < 0) {
 					PlayerUpdateHp(overDamage);
 				}
@@ -840,6 +867,17 @@ public class BattleCalculationFunction {
 					EnemyUpdateHp(overDamage);
 				}
 			}
+			
+			// 相手が反撃状態か
+			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn) > 0) {
+				int turnThornDamage = player.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnThorn);
+				shield = enemy.GetNowShield();
+				enemy.AddNowShield(-turnThornDamage);
+				overDamage = shield - turnThornDamage;
+				if (overDamage < 0) {
+					EnemyUpdateHp(overDamage);
+				}
+			}
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
 			LogManager.Instance.LogError("EnemyCalcDamageNormalDamage:Effect:Damage,Target:Self,自分を対象にしたDamageは未実装予定");
 		}
@@ -1095,6 +1133,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.DemonPower;
 		} else if (type == EnumSelf.EffectType.AddShieldTrueDamage) {
 			pType = EnumSelf.TurnPowerType.AddShieldTrueDamage;
+		} else if (type == EnumSelf.EffectType.TurnThorn) {
+			pType = EnumSelf.TurnPowerType.TurnThorn;
 		}
 
 		return pType;

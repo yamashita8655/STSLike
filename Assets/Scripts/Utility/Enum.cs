@@ -69,6 +69,7 @@ public partial class EnumSelf : MonoBehaviour {
         DoubleStrength,	// 現在の数値分力を倍化させ、増加した数値分力減少(ターン終了時減少するデバフ)を付与する
         DemonPower,	// 数値分、ターン開始時に力を得る。
 		AddShieldTrueDamage, // シールド獲得時、相手に数値分の確定ダメージを与える
+        TurnThorn,			// そのターンのみの反射ダメージ
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -155,6 +156,7 @@ public partial class EnumSelf : MonoBehaviour {
 		DoubleAttack,
 		Cost6DoubleAttack,
         NonDraw,
+		TurnThorn,
 
 		Max
 	}

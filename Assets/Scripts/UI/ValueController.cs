@@ -122,6 +122,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.DoubleStrength) ||
 			(type == EnumSelf.EffectType.DemonPower) ||
 			(type == EnumSelf.EffectType.AddShieldTrueDamage) ||
+			(type == EnumSelf.EffectType.TurnThorn) ||
 			(type == EnumSelf.EffectType.Regenerate)
 		) {
 			ret = Const.PowerImagePath;

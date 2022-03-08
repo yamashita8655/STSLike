@@ -73,4 +73,5 @@ public partial class Const {
 	public static readonly string TurnRegenerateImagePath = "Image/UI/Map/turnregenerate";
 	public static readonly string CriticalImagePath = "Image/UI/Map/critical";
 	public static readonly string NonDrawImagePath = "Image/UI/Map/nondraw";
+	public static readonly string TurnThornImagePath = "Image/UI/Map/turnthorn";
 }
