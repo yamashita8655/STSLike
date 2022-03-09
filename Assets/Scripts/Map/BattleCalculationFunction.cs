@@ -194,7 +194,12 @@ public class BattleCalculationFunction {
 			(player.GetTurnPowerValue(EnumSelf.TurnPowerType.TurnShieldPreserve) == 0) &&
 			(player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldPreserve) == 0) 
 		) {
-			player.SetNowShield(0);
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.ReduseShieldLimit15) == true) {
+				// シールド減少値を15に変更
+				player.AddNowShield(-15);
+			} else {
+				player.SetNowShield(0);
+			}
 		}
 
 		// 反撃は、ターン開始時に0にする

@@ -218,6 +218,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.NoAttackGetTurnShieldPreserve;
 		} else if (typeString == "Use3ShieldAddToughness") {
 			type = EnumSelf.ParameterType.Use3ShieldAddToughness;
+		} else if (typeString == "ReduseShieldLimit15") {
+			type = EnumSelf.ParameterType.ReduseShieldLimit15;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}
