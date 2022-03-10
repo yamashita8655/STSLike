@@ -103,6 +103,8 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.AddShieldTrueDamageImagePath;
 		} else if (type == EnumSelf.TurnPowerType.TurnThorn) {
 			ret = Const.TurnThornImagePath;
+		} else if (type == EnumSelf.TurnPowerType.SupportShoot) {
+			ret = Const.SupportShootImagePath;
 		}
 
 		return ret;

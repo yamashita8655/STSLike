@@ -12,6 +12,9 @@ public class MapBattleAttackResultState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
+
 		//int select = MapDataCarrier.Instance.SelectAttackIndex;
 
 		//MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
@@ -43,6 +46,12 @@ public class MapBattleAttackResultState : StateBase {
 					}
 				}
 			}
+		}
+
+		// 援護射撃処理。カードの使用という概念は、ここにしかない。
+		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.SupportShoot) > 0) {
+			int supportShootDamage = player.GetTurnPowerValue(EnumSelf.TurnPowerType.SupportShoot);
+			BattleCalculationFunction.EnemyUpdateHp(-supportShootDamage);
 		}
 
 		MapDataCarrier.Instance.ActionPackCount = 0;

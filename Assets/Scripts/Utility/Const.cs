@@ -54,6 +54,7 @@ public partial class Const {
 	public static readonly string HealChargeImagePath = "Image/UI/Map/healcharge";
 	public static readonly string DemonPowerImagePath = "Image/UI/Map/demonpower";
 	public static readonly string AddShieldTrueDamageImagePath = "Image/UI/Map/addshieldtruedamage";
+	public static readonly string SupportShootImagePath = "Image/UI/Map/supportshoot";
 
 	// こっちは、数値固定でターン可変
 	public static readonly string TurnPowerControllerPath = "Prefab/UI/TurnPowerController";

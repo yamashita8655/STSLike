@@ -79,6 +79,7 @@ id,rarity,name,equipcost,unlockcost,dicecost,usetype,detail,imagepath,effect,tar
 708,3,バックステップ,2,10,1,Repeat,{0}シールドを得て、カードを{1}枚引く,Image/UI/Card/punch,Shield,Self,6,Add,Draw,Self,1,Add,NONE,,,,,,,,,,,,
 709,4,ドッヂロール,2,10,1,Repeat,{0}シールドを得て、カードを{1}枚引く,Image/UI/Card/punch,Shield,Self,8,Add,Draw,Self,2,Add,NONE,,,,,,,,,,,,
 710,5,アヴォイドムーブ,2,10,1,Repeat,{0}シールドを得て、カードを{1}枚引く,Image/UI/Card/punch,Shield,Self,10,Add,Draw,Self,3,Add,NONE,,,,,,,,,,,,
+711,2,援護射撃,2,10,3,Erase,援護射撃を{0}得る,Image/UI/Card/punch,SupportShoot,Self,2,Add,NONE,,,,,,,,,,,,,,,,
 #,汎用系,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 801,2,回し蹴り,2,10,3,Repeat,{0}ダメージを与え、カードを{1}枚引く,Image/UI/Card/punch,Damage,Opponent,6,Add,Draw,Self,1,Add,NONE,,,,,,,,,,,,
 802,4,イージスの盾,2,10,6,Discard,{0}シールドを得る,Image/UI/Card/punch,Shield,Self,55,Add,NONE,,,,,,,,,,,,,,,,

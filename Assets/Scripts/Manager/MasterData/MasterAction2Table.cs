@@ -256,6 +256,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.AddShieldTrueDamage;
 		} else if (typeString == "TurnThorn") {
 			type = EnumSelf.EffectType.TurnThorn;
+		} else if (typeString == "SupportShoot") {
+			type = EnumSelf.EffectType.SupportShoot;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}
@@ -324,6 +326,10 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 	{
 		Data data = null;
 		DataDict.TryGetValue(id, out data);
+
+		if (data == null) {
+			LogManager.Instance.LogError($"{id}のActionデータは存在しない");
+		}
 
 		return data;
 	}

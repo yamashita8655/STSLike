@@ -65,6 +65,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DemonPower) ||
 			(pack.Effect == EnumSelf.EffectType.AddShieldTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.TurnThorn) ||
+			(pack.Effect == EnumSelf.EffectType.SupportShoot) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -133,6 +134,8 @@ public class BattleCalculationFunction {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DoubleStrength 敵にDoubleStrengthは設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.AddShieldTrueDamage) {
 			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is AddShieldTrueDamage 敵にAddShieldTrueDamageは設定しても効果がない");
+		} else if (pack.Effect == EnumSelf.EffectType.AddShieldTrueDamage) {
+			LogManager.Instance.LogError($"EnemyValueChange:pack.Effect is {pack.Effect} 敵に {pack.Effect}は設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
 			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (
@@ -324,6 +327,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.DemonPower) ||
 				(i == (int)EnumSelf.TurnPowerType.AddShieldTrueDamage) ||
 				(i == (int)EnumSelf.TurnPowerType.TurnThorn) ||
+				(i == (int)EnumSelf.TurnPowerType.SupportShoot) || 
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -1172,6 +1176,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.AddShieldTrueDamage;
 		} else if (type == EnumSelf.EffectType.TurnThorn) {
 			pType = EnumSelf.TurnPowerType.TurnThorn;
+		} else if (type == EnumSelf.EffectType.SupportShoot) {
+			pType = EnumSelf.TurnPowerType.SupportShoot;
 		}
 
 		return pType;
