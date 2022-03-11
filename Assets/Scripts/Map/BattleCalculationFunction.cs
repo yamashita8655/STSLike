@@ -66,6 +66,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.AddShieldTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.TurnThorn) ||
 			(pack.Effect == EnumSelf.EffectType.SupportShoot) ||
+			(pack.Effect == EnumSelf.EffectType.AfterImage) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -102,39 +103,26 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.EnemyCalcShieldDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Death) {
 			BattleCalculationFunction.EnemyDeath(pack);
-		} else if (pack.Effect == EnumSelf.EffectType.Draw) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Draw 敵にDrawは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.DamageShieldSuction) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DamageShieldSuction 敵にDamageShieldSuctionは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.Critical) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Critical 敵にCriticalは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.DoubleAttack) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DoubleAttack 敵にDoubleAttackは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.GainDiceCost) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is GainDiceCost 敵にGainDiceCostは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.AddMaxDiceCost) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is AddMaxDiceCost 敵にAddMaxDiceCostは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.Hand2DeckTop) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2DeckTop 敵にHand2DeckTopは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.Hand2Discard) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2Discard 敵にHand2Discardは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.Hand2Trash) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2Trash 敵にHand2Trashは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.Hand2Erase) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Hand2Erase 敵にHand2Eraseは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.Cost6DoubleAttack) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is Cost6DoubleAttack 敵にCost6DoubleAttackは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.NonDraw) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is NonDraw 敵にNonDrawは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DamageGainMaxHp 敵にDamageGainMaxHpは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.HealCharge) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is HealCharge 敵にHealChargeは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.DoubleStrength) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is DoubleStrength 敵にDoubleStrengthは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.AddShieldTrueDamage) {
-			LogManager.Instance.LogError("EnemyValueChange:pack.Effect is AddShieldTrueDamage 敵にAddShieldTrueDamageは設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.AddShieldTrueDamage) {
+		} else if (
+			(pack.Effect == EnumSelf.EffectType.Draw) ||
+			(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
+			(pack.Effect == EnumSelf.EffectType.Critical) ||
+			(pack.Effect == EnumSelf.EffectType.DoubleAttack) ||
+			(pack.Effect == EnumSelf.EffectType.GainDiceCost) ||
+			(pack.Effect == EnumSelf.EffectType.AddMaxDiceCost) ||
+			(pack.Effect == EnumSelf.EffectType.Hand2DeckTop) ||
+			(pack.Effect == EnumSelf.EffectType.Hand2Discard) ||
+			(pack.Effect == EnumSelf.EffectType.Hand2Trash) ||
+			(pack.Effect == EnumSelf.EffectType.Hand2Erase) ||
+			(pack.Effect == EnumSelf.EffectType.Cost6DoubleAttack) ||
+			(pack.Effect == EnumSelf.EffectType.NonDraw) ||
+			(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
+			(pack.Effect == EnumSelf.EffectType.HealCharge) ||
+			(pack.Effect == EnumSelf.EffectType.DoubleStrength) ||
+			(pack.Effect == EnumSelf.EffectType.AddShieldTrueDamage) ||
+			(pack.Effect == EnumSelf.EffectType.AfterImage) ||
+			(pack.Effect == EnumSelf.EffectType.SupportShoot)
+		) {
 			LogManager.Instance.LogError($"EnemyValueChange:pack.Effect is {pack.Effect} 敵に {pack.Effect}は設定しても効果がない");
 		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
 			BattleCalculationFunction.EnemyCurse(pack);
@@ -328,6 +316,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.AddShieldTrueDamage) ||
 				(i == (int)EnumSelf.TurnPowerType.TurnThorn) ||
 				(i == (int)EnumSelf.TurnPowerType.SupportShoot) || 
+				(i == (int)EnumSelf.TurnPowerType.AfterImage) || 
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -1178,6 +1167,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.TurnThorn;
 		} else if (type == EnumSelf.EffectType.SupportShoot) {
 			pType = EnumSelf.TurnPowerType.SupportShoot;
+		} else if (type == EnumSelf.EffectType.AfterImage) {
+			pType = EnumSelf.TurnPowerType.AfterImage;
 		}
 
 		return pType;

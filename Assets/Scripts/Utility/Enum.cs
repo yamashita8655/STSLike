@@ -71,6 +71,7 @@ public partial class EnumSelf : MonoBehaviour {
 		AddShieldTrueDamage, // シールド獲得時、相手に数値分の確定ダメージを与える
         TurnThorn,			// そのターンのみの反射ダメージ
         SupportShoot,		// カードを使用する度に、相手に〇確定ダメージ
+        AfterImage,		// カードを使用する度に、1シールドを得る
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -149,6 +150,7 @@ public partial class EnumSelf : MonoBehaviour {
         DemonPower,
 		AddShieldTrueDamage,
 		SupportShoot,
+		AfterImage,
 
 
 		// ターン経過時に、1にリセットする物

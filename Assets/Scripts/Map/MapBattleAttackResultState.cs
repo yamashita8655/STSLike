@@ -53,6 +53,12 @@ public class MapBattleAttackResultState : StateBase {
 			int supportShootDamage = player.GetTurnPowerValue(EnumSelf.TurnPowerType.SupportShoot);
 			BattleCalculationFunction.EnemyUpdateHp(-supportShootDamage);
 		}
+		
+		// 残像処理。
+		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.AfterImage) > 0) {
+			int shield = player.GetTurnPowerValue(EnumSelf.TurnPowerType.AfterImage);
+			BattleCalculationFunction.PlayerCalcShield(shield);
+		}
 
 		MapDataCarrier.Instance.ActionPackCount = 0;
 		MapDataCarrier.Instance.MaxActionPackCount = data.ActionPackList.Count;

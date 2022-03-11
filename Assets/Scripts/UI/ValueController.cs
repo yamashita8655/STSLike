@@ -124,6 +124,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.AddShieldTrueDamage) ||
 			(type == EnumSelf.EffectType.TurnThorn) ||
 			(type == EnumSelf.EffectType.SupportShoot) ||
+			(type == EnumSelf.EffectType.AfterImage) ||
 			(type == EnumSelf.EffectType.Regenerate)
 		) {
 			ret = Const.PowerImagePath;
