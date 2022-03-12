@@ -12,6 +12,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 			(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 			(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
+			(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldBash)
 		) {
 			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
@@ -121,6 +122,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DoubleStrength) ||
 			(pack.Effect == EnumSelf.EffectType.AddShieldTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.AfterImage) ||
+			(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 			(pack.Effect == EnumSelf.EffectType.SupportShoot)
 		) {
 			LogManager.Instance.LogError($"EnemyValueChange:pack.Effect is {pack.Effect} 敵に {pack.Effect}は設定しても効果がない");
@@ -566,7 +568,9 @@ public class BattleCalculationFunction {
 			}
 		}
 		
-		// ここの関数が通ったら、攻撃を使ったとみなすplayer.SetUseAttack(true);
+		// ここの関数が通ったら、攻撃を使ったとみなす
+		player.AddUseAttackCount(1);
+
 	}
 	
 	// こっちは、アクションパック以外で、シールドとのダメージ計算が必要な物
@@ -684,10 +688,9 @@ public class BattleCalculationFunction {
 		}
 
 		player.AddUseShieldCount(1);
-		if (player.GetUseShieldCount() >= 3) {
+		if ((player.GetUseShieldCount()%3) == 0) {
 			if (player.GetParameterListFlag(EnumSelf.ParameterType.Use3ShieldAddToughness) == true) {
 				PlayerUpdatePower(EnumSelf.PowerType.Toughness, 1);
-				player.SetUseShieldCount(0);
 			}
 		}
 	}
@@ -1349,6 +1352,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
+				(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
@@ -1414,6 +1418,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
+				(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
@@ -1464,6 +1469,9 @@ public class BattleCalculationFunction {
 		// シールドバッシュかどうか
 		if (pack.Effect == EnumSelf.EffectType.ShieldBash) {
 			val = player.GetNowShield();
+		} else if (pack.Effect == EnumSelf.EffectType.DamageFinish) {
+			int count = player.GetUseAttackCount();
+			val = count * pack.Value;
 		} else {
 			if (player.GetParameterListFlag(EnumSelf.ParameterType.ApprenticeKnight) == true) {
 				MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(pack.ExecuteActionId);
@@ -1653,6 +1661,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
+				(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
