@@ -13,6 +13,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 			(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
+			(pack.Effect == EnumSelf.EffectType.DamageDice) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldBash)
 		) {
 			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
@@ -123,6 +124,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.AddShieldTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.AfterImage) ||
 			(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
+			(pack.Effect == EnumSelf.EffectType.DamageDice) ||
 			(pack.Effect == EnumSelf.EffectType.SupportShoot)
 		) {
 			LogManager.Instance.LogError($"EnemyValueChange:pack.Effect is {pack.Effect} 敵に {pack.Effect}は設定しても効果がない");
@@ -1353,6 +1355,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
+				(pack.Effect == EnumSelf.EffectType.DamageDice) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
@@ -1419,6 +1422,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
+				(pack.Effect == EnumSelf.EffectType.DamageDice) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
@@ -1472,6 +1476,8 @@ public class BattleCalculationFunction {
 		} else if (pack.Effect == EnumSelf.EffectType.DamageFinish) {
 			int count = player.GetUseAttackCount();
 			val = count * pack.Value;
+		} else if (pack.Effect == EnumSelf.EffectType.DamageDice) {
+			val = MapDataCarrier.Instance.CurrentTotalDiceCost;
 		} else {
 			if (player.GetParameterListFlag(EnumSelf.ParameterType.ApprenticeKnight) == true) {
 				MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(pack.ExecuteActionId);
@@ -1662,6 +1668,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
+				(pack.Effect == EnumSelf.EffectType.DamageDice) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {

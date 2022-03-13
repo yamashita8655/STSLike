@@ -146,6 +146,9 @@ public class BattleCardButtonController : MonoBehaviour
 			) {
 				val = BattleCalculationFunction.CalcPlayerDamageValue(list[index]);
 				originalVal = 0;
+			} else if (list[index].Effect == EnumSelf.EffectType.DamageDice) {
+				val = BattleCalculationFunction.CalcPlayerDamageValue(list[index]);
+				originalVal = MapDataCarrier.Instance.CurrentTotalDiceCost;
 			} else if (
 				(list[index].Effect == EnumSelf.EffectType.Shield) ||
 				(list[index].Effect == EnumSelf.EffectType.StrengthShield)

@@ -19,6 +19,7 @@ public partial class EnumSelf : MonoBehaviour {
         DamageSuction,	// 与ダメ回復
         DamageShieldSuction,	// 与ダメシールド獲得
         DamageFinish,	// 使用した攻撃xNダメージ
+        DamageDice,	// 現在のダイスコスト分の数値ダメージ
         ShieldBash,		// シールド値ダメージ
         DamageGainMaxHp,// 通常ダメージと同じだが、トドメをさした場合に最大HPが上昇する
         DamageMultiStrength,// 力に特別な補正をかけた数値分のダメージ

@@ -39,6 +39,9 @@ public class MapBattleUpdateAttackButtonDisplayState : StateBase {
 		for (int i = 0; i < ctrls.Count; i++) {
 			if (ctrls[i].gameObject.activeSelf == true) {
 				ctrls[i].UpdateInteractable(diceCost);
+				
+				// ダイス振った後にカードに数値適用する効果もあるので、こっちも呼ぶ
+				ctrls[i].UpdateDisplay();
 			}
 		}
 

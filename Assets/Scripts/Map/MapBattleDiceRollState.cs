@@ -74,7 +74,7 @@ public class MapBattleDiceRollState : StateBase {
 			BattleCalculationFunction.PlayerCalcShield(total);
 			scene.UpdateParameterText();
 		}
-			
+				
 		return true;
 	}
 

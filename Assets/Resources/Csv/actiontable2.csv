@@ -99,6 +99,7 @@ id,rarity,name,equipcost,unlockcost,dicecost,usetype,detail,imagepath,effect,tar
 814,5,超回復,5,10,3,Discard,HPを{0}回復,Image/UI/Card/punch,Heal,Self,15,Add,NONE,,,,,,,,,,,,,,,,
 #,3,ゾンビの呪い,3,10,3,Repeat,{0}ターンの間、相手に「回復ダメージ」を付与する,Image/UI/Card/punch,ReverseHeal,Opponent,1,Add,NONE,,,,,,,,,,,,,,,,
 815,3,シールドブレイク,3,10,3,Repeat,シールドに{0}ダメージを与える,Image/UI/Card/punch,ShieldDamage,Opponent,999,Add,NONE,,,,,,,,,,,,,,,,
+816,2,ダイス,3,10,2,Repeat,現在のダイスコスト分のダメージを与える。,Image/UI/Card/punch,DamageDice,Opponent,0,Add,NONE,,,,,,,,,,,,,,,,
 #,バランス向け複数混合カード,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 900,5,光合成,5,10,2,Discard,HPを{0}回復し、力を{1}獲得する,Image/UI/Card/punch,Heal,Self,15,Add,Strength,Self,1,Add,NONE,,,,,,,,,,,,
 901,5,大樹の呪い,5,10,5,Discard,相手に「与ダメ低下」を{0}ターン、「被ダメ増加」を{1}ターン付与する。,Image/UI/Card/punch,Weakness,Opponent,99,Add,Vulnerable,Opponent,99,Add,NONE,,,,,,,,,,,,
