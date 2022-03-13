@@ -42,39 +42,39 @@ public class MapInitializeState : StateBase {
 		status.SetNowHp(80);
 		
 		// 初期デッキ構築
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
 		
 		// TODO デバッグ用カード追加
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(701));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(701));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(701));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(701));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(702));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(703));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(704));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(705));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(706));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(707));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(708));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(709));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(710));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(710));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(710));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(710));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(816));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(714));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(701));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(701));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(701));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(701));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(702));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(703));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(704));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(705));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(706));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(707));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(708));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(709));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(710));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(710));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(710));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(710));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(816));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(714));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
 
 		// レギュラーカード設定
 		var regularIds = PlayerPrefsManager.Instance.GetRegularSettingCardIds();
@@ -104,9 +104,9 @@ public class MapInitializeState : StateBase {
 
 		// TODO アーティファクト効果テスト
 		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
-		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1042);
+		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1043);
 		Scene.AddArtifactObject(data);
-		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1042);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1043);
 
 		//data = MasterArtifactTable.Instance.GetData(1022);
 		//Scene.AddArtifactObject(data);

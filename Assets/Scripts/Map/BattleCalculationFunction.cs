@@ -1503,6 +1503,13 @@ public class BattleCalculationFunction {
 			}
 		}
 
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.Under1CostGainDamage4) == true) {
+			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(pack.ExecuteActionId);
+			if (data.DiceCost <= 1) {
+				val += 4;
+			}
+		}
+
 		// 必殺があるかどうか
 		if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.Critical) > 0) {
 			// 最初の攻撃だったら、加算する
