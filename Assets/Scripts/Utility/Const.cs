@@ -58,6 +58,7 @@ public partial class Const {
 	public static readonly string SupportShootImagePath = "Image/UI/Map/supportshoot";
 	public static readonly string AfterImageImagePath = "Image/UI/Map/afterimage";
 	public static readonly string ActivityImagePath = "Image/UI/Map/activity";
+	public static readonly string ResistImagePath = "Image/UI/Map/resist";
 
 	// こっちは、数値固定でターン可変
 	public static readonly string TurnPowerControllerPath = "Prefab/UI/TurnPowerController";

@@ -63,6 +63,8 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(607));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(608));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(609));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(610));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(611));
 		
 
 		// レギュラーカード設定

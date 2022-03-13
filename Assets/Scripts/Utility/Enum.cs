@@ -80,6 +80,7 @@ public partial class EnumSelf : MonoBehaviour {
         SupportShoot,		// カードを使用する度に、相手に〇確定ダメージ
         AfterImage,		// カードを使用する度に、1シールドを得る
         Activity,		// 次のターン開始時、数値分ダイスコスト加算
+        Resist,		// 山札から呪いを引いた時に、追加数値分ドロー
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -159,6 +160,7 @@ public partial class EnumSelf : MonoBehaviour {
 		AddShieldTrueDamage,
 		SupportShoot,
 		AfterImage,
+		Resist,
 
 
 		// ターン経過時に、1にリセットする物

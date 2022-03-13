@@ -857,6 +857,9 @@ public partial class MapScene : SceneBase
 	}
 
 	public void DrawCard(int drawCount) {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		int resistCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.Resist);
+
 		int drewCount = 0;
 
 		var deckList = MapDataCarrier.Instance.BattleDeckList;
@@ -866,6 +869,9 @@ public partial class MapScene : SceneBase
 			MasterAction2Table.Data drawCard = null;
 			if (deckList.Count > 0) {
 				drawCard = deckList[0];
+				if (BattleCalculationFunction.IsCurse(drawCard.Id) == true) {
+					drawCount += resistCount;
+				}
 				deckList.RemoveAt(0);
 				AddHand(drawCard);
                 //var ctrl = MapDataCarrier.Instance.GetNonActiveBattleCardController();

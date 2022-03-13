@@ -68,6 +68,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.SupportShoot) ||
 			(pack.Effect == EnumSelf.EffectType.AfterImage) ||
 			(pack.Effect == EnumSelf.EffectType.Activity) ||
+			(pack.Effect == EnumSelf.EffectType.Resist) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -123,6 +124,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.AddShieldTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.AfterImage) ||
 			(pack.Effect == EnumSelf.EffectType.Activity) ||
+			(pack.Effect == EnumSelf.EffectType.Resist) ||
 			(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 			(pack.Effect == EnumSelf.EffectType.DamageDice) ||
 			(pack.Effect == EnumSelf.EffectType.SupportShoot)
@@ -320,6 +322,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.SupportShoot) || 
 				(i == (int)EnumSelf.TurnPowerType.AfterImage) || 
 				(i == (int)EnumSelf.TurnPowerType.Activity) || 
+				(i == (int)EnumSelf.TurnPowerType.Resist) || 
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -1157,6 +1160,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.AfterImage;
 		} else if (type == EnumSelf.EffectType.Activity) {
 			pType = EnumSelf.TurnPowerType.Activity;
+		} else if (type == EnumSelf.EffectType.Resist) {
+			pType = EnumSelf.TurnPowerType.Resist;
 		}
 
 		return pType;

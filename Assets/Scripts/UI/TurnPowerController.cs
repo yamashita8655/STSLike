@@ -109,6 +109,8 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.AfterImageImagePath;
 		} else if (type == EnumSelf.TurnPowerType.Activity) {
 			ret = Const.ActivityImagePath;
+		} else if (type == EnumSelf.TurnPowerType.Resist) {
+			ret = Const.ResistImagePath;
 		}
 
 		return ret;
