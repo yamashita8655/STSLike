@@ -55,5 +55,6 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1041,1041,NORMAL,3,ヒザのような塔,ターン終了時のシールド減少量が-15になる。,Image/UI/Artifact/kneetower,AddParameter,0,ReduseShieldLimit15
 1042,1042,NORMAL,2,サバイバルキット,手札が0枚になった時、カードを1枚ドロー,Image/UI/Artifact/survivalkit,AddParameter,0,ZeroHand1Draw
 1043,1043,NORMAL,4,モデルガン,1コスト以下のカードのダメージ+4,Image/UI/Artifact/survivalkit,AddParameter,0,Under1CostGainDamage4
+1044,1044,NORMAL,3,予備弾薬,ターン開始時、+1ドロー,Image/UI/Artifact/reservemagazine,AddParameter,0,TurnStartDrawGain1
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award

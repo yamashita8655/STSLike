@@ -230,6 +230,7 @@ public partial class EnumSelf : MonoBehaviour {
 		ReduseShieldLimit15, // ターン終了時のシールド減少量が-15になる
 		ZeroHand1Draw, // 手札が0枚になった時、カードを1枚ドロー
 		Under1CostGainDamage4, // 1コスト以下のカードのダメージ+4
+		TurnStartDrawGain1, // ターン開始時、+1ドロー
 		Award,
 		Max,
 	}

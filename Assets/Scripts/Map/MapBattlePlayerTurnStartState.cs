@@ -35,6 +35,11 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		BattleCalculationFunction.PlayerTurnStartValueChange();
 
 		int drawCount = Const.DrawCount;// 何か補正で引く枚数が増えたら、ここ調整する
+
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.TurnStartDrawGain1) == true) {
+			drawCount++;
+		}
+
 		scene.DrawCard(drawCount);
 
 		scene.UpdateParameterText();
