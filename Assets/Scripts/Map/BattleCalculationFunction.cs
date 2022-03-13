@@ -571,7 +571,7 @@ public class BattleCalculationFunction {
 		}
 		
 		// ここの関数が通ったら、攻撃を使ったとみなす
-		player.AddUseAttackCount(1);
+		player.AddTurnUseAttackCount(1);
 
 	}
 	
@@ -689,8 +689,8 @@ public class BattleCalculationFunction {
 			//player.AddNowShield(shield);
 		}
 
-		player.AddUseShieldCount(1);
-		if ((player.GetUseShieldCount()%3) == 0) {
+		player.AddTurnUseShieldCount(1);
+		if ((player.GetTurnUseShieldCount()%3) == 0) {
 			if (player.GetParameterListFlag(EnumSelf.ParameterType.Use3ShieldAddToughness) == true) {
 				PlayerUpdatePower(EnumSelf.PowerType.Toughness, 1);
 			}
@@ -1474,7 +1474,7 @@ public class BattleCalculationFunction {
 		if (pack.Effect == EnumSelf.EffectType.ShieldBash) {
 			val = player.GetNowShield();
 		} else if (pack.Effect == EnumSelf.EffectType.DamageFinish) {
-			int count = player.GetUseAttackCount();
+			int count = player.GetTurnUseAttackCount();
 			val = count * pack.Value;
 		} else if (pack.Effect == EnumSelf.EffectType.DamageDice) {
 			val = MapDataCarrier.Instance.CurrentTotalDiceCost;

@@ -56,5 +56,6 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1042,1042,NORMAL,2,サバイバルキット,手札が0枚になった時、カードを1枚ドロー,Image/UI/Artifact/survivalkit,AddParameter,0,ZeroHand1Draw
 1043,1043,NORMAL,4,モデルガン,1コスト以下のカードのダメージ+4,Image/UI/Artifact/survivalkit,AddParameter,0,Under1CostGainDamage4
 1044,1044,NORMAL,3,予備弾薬,ターン開始時、+1ドロー,Image/UI/Artifact/reservemagazine,AddParameter,0,TurnStartDrawGain1
+1045,1045,NORMAL,1,研ぎ石,カードを10枚使用する毎に、1ドロー,Image/UI/Artifact/sharpeningstone,AddParameter,0,Use10Card1Draw
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award

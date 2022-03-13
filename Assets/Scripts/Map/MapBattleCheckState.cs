@@ -142,9 +142,17 @@ public class MapBattleCheckState : StateBase {
 						(MapDataCarrier.Instance.Cost6DoubleAttackBattleCardData == null)
 					) {
 						MapDataCarrier.Instance.SelectBattleCardData = null;
-						// 効果終了時に、手札0枚だったら、補充する
+						// 効果終了後時に、手札0枚だったら、補充する
 						if (MapDataCarrier.Instance.CuPlayerStatus.GetParameterListFlag(EnumSelf.ParameterType.ZeroHand1Draw) == true) {
 							if (MapDataCarrier.Instance.GetHandCount() == 0) {
+								scene.DrawCard(1);
+							}
+						}
+
+						// 効果終了後に、10枚使用したかどうか判定
+						if (MapDataCarrier.Instance.CuPlayerStatus.GetParameterListFlag(EnumSelf.ParameterType.Use10Card1Draw) == true) {
+							Debug.Log(MapDataCarrier.Instance.CuPlayerStatus.GetBattleUseCardCount());
+							if ((MapDataCarrier.Instance.CuPlayerStatus.GetBattleUseCardCount() % 10) == 0) {
 								scene.DrawCard(1);
 							}
 						}

@@ -20,9 +20,10 @@ public class PlayerStatus
 
 	private TurnPower CuTurnPower = null;
 	
-	private int UseShieldCount = 0;
-	private int UseAttackCount = 0;
-	private int UseCardCount = 0;
+	private int TurnUseShieldCount = 0;
+	private int TurnUseAttackCount = 0;
+	private int TurnUseCardCount = 0;
+	private int BattleUseCardCount = 0;
 
 	public PlayerStatus() {
 		ActionDataList = new List<MasterAction2Table.Data>(){
@@ -216,17 +217,21 @@ public class PlayerStatus
 		return ParameterFlagList[(int)type];
 	}
 
-	public void AddUseShieldCount(int addValue) => UseShieldCount += addValue;
-	public void SetUseShieldCount(int val) => UseShieldCount = val;
-	public int GetUseShieldCount() => UseShieldCount;
+	public void AddTurnUseShieldCount(int addValue) => TurnUseShieldCount += addValue;
+	public void SetTurnUseShieldCount(int val) => TurnUseShieldCount = val;
+	public int GetTurnUseShieldCount() => TurnUseShieldCount;
 	
-	public void AddUseAttackCount(int addValue) => UseAttackCount += addValue;
-	public void SetUseAttackCount(int val) => UseAttackCount = val;
-	public int GetUseAttackCount() => UseAttackCount;
+	public void AddTurnUseAttackCount(int addValue) => TurnUseAttackCount += addValue;
+	public void SetTurnUseAttackCount(int val) => TurnUseAttackCount = val;
+	public int GetTurnUseAttackCount() => TurnUseAttackCount;
 	
-	public void AddUseCardCount(int addValue) => UseCardCount += addValue;
-	public void SetUseCardCount(int val) => UseCardCount = val;
-	public int GetUseCardCount() => UseCardCount;
+	public void AddTurnUseCardCount(int addValue) => TurnUseCardCount += addValue;
+	public void SetTurnUseCardCount(int val) => TurnUseCardCount = val;
+	public int GetTurnUseCardCount() => TurnUseCardCount;
+	
+	public void AddBattleUseCardCount(int addValue) => BattleUseCardCount += addValue;
+	public void SetBattleUseCardCount(int val) => BattleUseCardCount = val;
+	public int GetBattleUseCardCount() => BattleUseCardCount;
 }
 
 public class EnemyStatus

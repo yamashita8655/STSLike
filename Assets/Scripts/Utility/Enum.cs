@@ -231,6 +231,7 @@ public partial class EnumSelf : MonoBehaviour {
 		ZeroHand1Draw, // 手札が0枚になった時、カードを1枚ドロー
 		Under1CostGainDamage4, // 1コスト以下のカードのダメージ+4
 		TurnStartDrawGain1, // ターン開始時、+1ドロー
+		Use10Card1Draw, // カードを10枚使用する毎に、1ドロー
 		Award,
 		Max,
 	}

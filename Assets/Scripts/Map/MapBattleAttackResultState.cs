@@ -60,7 +60,8 @@ public class MapBattleAttackResultState : StateBase {
 			BattleCalculationFunction.PlayerCalcShield(shield);
 		}
 
-		player.AddUseCardCount(1);
+		player.AddTurnUseCardCount(1);
+		player.AddBattleUseCardCount(1);
 
 		MapDataCarrier.Instance.ActionPackCount = 0;
 		MapDataCarrier.Instance.MaxActionPackCount = data.ActionPackList.Count;

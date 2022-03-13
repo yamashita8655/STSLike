@@ -18,7 +18,7 @@ public class MapBattlePlayerTurnEndState : StateBase {
 
 		// ターン終了時、攻撃していなければ、鉄壁1獲得
 		if (player.GetParameterListFlag(EnumSelf.ParameterType.NoAttackGetTurnShieldPreserve) == true) {
-			if (player.GetUseAttackCount() <= 0) {
+			if (player.GetTurnUseAttackCount() <= 0) {
 				BattleCalculationFunction.PlayerUpdateTurnPower(EnumSelf.TurnPowerType.TurnShieldPreserve, 1);
 			}
 		}

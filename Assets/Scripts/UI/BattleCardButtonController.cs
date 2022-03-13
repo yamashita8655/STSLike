@@ -122,7 +122,7 @@ public class BattleCardButtonController : MonoBehaviour
 				}
 			}
 		} else if (Data.CostType == EnumSelf.CostType.ReduceUseCardSheet) {
-			cost = Data.DiceCost - player.GetUseCardCount();
+			cost = Data.DiceCost - player.GetTurnUseCardCount();
 		}
 
 		CurrentCost = cost;
