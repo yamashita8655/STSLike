@@ -142,6 +142,13 @@ public class MapBattleCheckState : StateBase {
 						(MapDataCarrier.Instance.Cost6DoubleAttackBattleCardData == null)
 					) {
 						MapDataCarrier.Instance.SelectBattleCardData = null;
+						// 効果終了時に、手札0枚だったら、補充する
+						if (MapDataCarrier.Instance.CuPlayerStatus.GetParameterListFlag(EnumSelf.ParameterType.ZeroHand1Draw) == true) {
+							if (MapDataCarrier.Instance.GetHandCount() == 0) {
+								scene.DrawCard(1);
+							}
+						}
+
 						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
 					} else {
 						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackResult);

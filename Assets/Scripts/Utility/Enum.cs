@@ -228,6 +228,7 @@ public partial class EnumSelf : MonoBehaviour {
 		NoAttackGetTurnShieldPreserve, // このターン攻撃をしていなければ、ターン終了時鉄壁を1付与。
 		Use3ShieldAddToughness, // ターン中にシールドを3回獲得した場合、守を1得る
 		ReduseShieldLimit15, // ターン終了時のシールド減少量が-15になる
+		ZeroHand1Draw, // ZeroHand1Draw
 		Award,
 		Max,
 	}

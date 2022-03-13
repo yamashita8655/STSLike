@@ -220,6 +220,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.Use3ShieldAddToughness;
 		} else if (typeString == "ReduseShieldLimit15") {
 			type = EnumSelf.ParameterType.ReduseShieldLimit15;
+		} else if (typeString == "ZeroHand1Draw") {
+			type = EnumSelf.ParameterType.ZeroHand1Draw;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}
