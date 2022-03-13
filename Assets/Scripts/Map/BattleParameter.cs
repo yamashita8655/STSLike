@@ -22,6 +22,7 @@ public class PlayerStatus
 	
 	private int UseShieldCount = 0;
 	private int UseAttackCount = 0;
+	private int UseCardCount = 0;
 
 	public PlayerStatus() {
 		ActionDataList = new List<MasterAction2Table.Data>(){
@@ -222,6 +223,10 @@ public class PlayerStatus
 	public void AddUseAttackCount(int addValue) => UseAttackCount += addValue;
 	public void SetUseAttackCount(int val) => UseAttackCount = val;
 	public int GetUseAttackCount() => UseAttackCount;
+	
+	public void AddUseCardCount(int addValue) => UseCardCount += addValue;
+	public void SetUseCardCount(int val) => UseCardCount = val;
+	public int GetUseCardCount() => UseCardCount;
 }
 
 public class EnemyStatus

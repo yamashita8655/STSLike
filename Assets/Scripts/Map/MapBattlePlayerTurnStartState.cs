@@ -19,6 +19,7 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		// 回数を数えてる系フラグリセット
 		player.SetUseShieldCount(0);
 		player.SetUseAttackCount(0);
+		player.SetUseCardCount(0);
 
 		MapDataCarrier.Instance.SelectAttackIndex = -1;
 		MapDataCarrier.Instance.BattleTurnCount++;

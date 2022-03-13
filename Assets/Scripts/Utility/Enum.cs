@@ -243,4 +243,9 @@ public partial class EnumSelf : MonoBehaviour {
 		Discard,	// 破棄される
 		Erase,		// 破棄にも登録されない
 	}
+	
+	public enum CostType {
+		None = 0,
+		ReduceUseCardSheet,	// ターン中に使用したカードの枚数分、コストが下がる
+	}
 }

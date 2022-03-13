@@ -60,8 +60,25 @@ public class MapBattleAttackResultState : StateBase {
 			BattleCalculationFunction.PlayerCalcShield(shield);
 		}
 
+		player.AddUseCardCount(1);
+
 		MapDataCarrier.Instance.ActionPackCount = 0;
 		MapDataCarrier.Instance.MaxActionPackCount = data.ActionPackList.Count;
+		
+		// 使用できるコストから、手札で使えるカードをアクティブにする
+		// カード効果適用後に状態が変化する場合もあるので、ここでも処理する
+		int diceCost = MapDataCarrier.Instance.CurrentTotalDiceCost;
+		var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
+		for (int i = 0; i < ctrls.Count; i++) {
+			if (ctrls[i].gameObject.activeSelf == true) {
+				ctrls[i].UpdateDisplay();
+
+				// UpdateDisplay()呼んだ後じゃないと、判定に使用するコストが更新されていないので
+				// 順番間違えないようにする事
+				ctrls[i].UpdateInteractable(diceCost);
+				
+			}
+		}
 		
 		return true;
 	}

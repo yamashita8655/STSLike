@@ -38,10 +38,13 @@ public class MapBattleUpdateAttackButtonDisplayState : StateBase {
 		var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
 		for (int i = 0; i < ctrls.Count; i++) {
 			if (ctrls[i].gameObject.activeSelf == true) {
-				ctrls[i].UpdateInteractable(diceCost);
-				
 				// ダイス振った後にカードに数値適用する効果もあるので、こっちも呼ぶ
 				ctrls[i].UpdateDisplay();
+
+				// UpdateDisplay()呼んだ後じゃないと、判定に使用するコストが更新されていないので
+				// 順番間違えないようにする事
+				ctrls[i].UpdateInteractable(diceCost);
+				
 			}
 		}
 

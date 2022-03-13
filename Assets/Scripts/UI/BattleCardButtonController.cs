@@ -31,6 +31,8 @@ public class BattleCardButtonController : MonoBehaviour
 
 	private Action<BattleCardButtonController> ClickCallback = null;
 	private Action<MasterAction2Table.Data> DetailClickCallback = null;
+	
+	private int CurrentCost = 0;
 
 	private List<ValueController> ValueControllers = new List<ValueController>();
 
@@ -77,6 +79,7 @@ public class BattleCardButtonController : MonoBehaviour
 	}
 
 	public void UpdateDisplay() {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
 		ResourceManager.Instance.RequestExecuteOrder(
 			string.Format(Const.RarityFrameImagePath, Data.Rarity.ToString()),
 			ExecuteOrder.Type.Sprite,
@@ -111,12 +114,27 @@ public class BattleCardButtonController : MonoBehaviour
 		Name.text = Data.Name;
 
 		int cost = Data.DiceCost;
-		if (BattleCalculationFunction.IsCurse(Data.Id) == true) {
-			if (MapDataCarrier.Instance.CuPlayerStatus.GetParameterListFlag(EnumSelf.ParameterType.AntiCurse) == true) {
-				cost = 0;
+
+		if (Data.CostType == EnumSelf.CostType.None) {
+			if (BattleCalculationFunction.IsCurse(Data.Id) == true) {
+				if (player.GetParameterListFlag(EnumSelf.ParameterType.AntiCurse) == true) {
+					cost = 0;
+				}
 			}
+		} else if (Data.CostType == EnumSelf.CostType.ReduceUseCardSheet) {
+			cost = Data.DiceCost - player.GetUseCardCount();
 		}
-		Cost.text = cost.ToString();
+
+		CurrentCost = cost;
+		Cost.text = CurrentCost.ToString();
+
+		if (CurrentCost == Data.DiceCost) {
+			Cost.color = Color.black;
+		} else if (cost > Data.DiceCost) {
+			Cost.color = Color.red;
+		} else if (cost < Data.DiceCost) {
+			Cost.color = Color.green;
+		}
 
 		// 一回全て非表示
 		for (int i = 0; i < ValueControllers.Count; i++) {
@@ -164,7 +182,12 @@ public class BattleCardButtonController : MonoBehaviour
 	}
 
 	public void UpdateInteractable(int totalCost) {
-		if (Data.DiceCost <= totalCost) {
+		if (Data.CostType == EnumSelf.CostType.ReduceUseCardSheet) {
+			Debug.Log(CurrentCost);
+			Debug.Log(totalCost);
+		}
+
+		if (CurrentCost <= totalCost) {
 			AttackButton.interactable = true;
 		} else {
 			AttackButton.interactable = false;

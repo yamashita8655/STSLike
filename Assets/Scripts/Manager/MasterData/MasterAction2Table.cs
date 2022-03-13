@@ -11,6 +11,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 		public int EquipCost { get; private set; }
 		public int UnlockCost { get; private set; }
 		public int DiceCost { get; private set; }
+		public EnumSelf.CostType CostType { get; private set; }
 		public EnumSelf.UseType UseType { get; private set; }
 		public string Detail { get; private set; }
 		public string ImagePath { get; private set; }
@@ -22,6 +23,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			int equipCost,
 			int unlockCost,
 			int diceCost,
+			EnumSelf.CostType costType,
 			EnumSelf.UseType useType,
 			string detail,
 			string imagePath,
@@ -34,6 +36,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			EquipCost		= equipCost;
 			UnlockCost		= unlockCost;
 			DiceCost		= diceCost;
+			CostType		= costType;
 			UseType			= useType;
 			Detail			= detail;
 			ImagePath		= imagePath;
@@ -86,7 +89,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 
 			// アクションパックを先に作っておく
 			List<ActionPack> list = new List<ActionPack>();
-			int index = 9;
+			int index = 10;
 			int damageNumberCount = 0;
 			while (true) {
 				if (paramList[index] == "NONE") {
@@ -125,9 +128,10 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 				int.Parse(paramList[3]),
 				int.Parse(paramList[4]),
 				int.Parse(paramList[5]),
-				GetUseType(paramList[6]),
-				paramList[7],
+				GetCostType(paramList[6]),
+				GetUseType(paramList[7]),
 				paramList[8],
+				paramList[9],
 				list
 			);
 
@@ -324,6 +328,16 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.UseType.Discard;
 		} else if (typeString == "Erase") {
 			type = EnumSelf.UseType.Erase;
+		}
+
+		return type;
+	}
+	
+	private EnumSelf.CostType GetCostType(string typeString) {
+		EnumSelf.CostType type = EnumSelf.CostType.None;
+		
+		if (typeString == "ReduceUseCardSheet") {
+			type = EnumSelf.CostType.ReduceUseCardSheet;
 		}
 
 		return type;
