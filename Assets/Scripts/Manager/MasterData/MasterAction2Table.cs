@@ -282,6 +282,10 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Activity;
 		} else if (typeString == "Resist") {
 			type = EnumSelf.EffectType.Resist;
+		} else if (typeString == "AddHandCurseDamage") {
+			type = EnumSelf.EffectType.AddHandCurseDamage;
+		} else if (typeString == "DiscardCurseHeal") {
+			type = EnumSelf.EffectType.DiscardCurseHeal;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}

@@ -72,6 +72,7 @@ id,rarity,name,equipcost,unlockcost,dicecost,costtype,usetype,detail,imagepath,e
 609,2,非常食,3,10,0,None,Discard,ダイスコスト+{0},Image/UI/Card/punch,GainDiceCost,Self,3,Add,NONE,,,,,,,,,,,,,,,,
 610,1,過剰補給,3,10,3,None,Erase,抵抗を{0}得る,Image/UI/Card/punch,Resist,Self,1,Add,NONE,,,,,,,,,,,,,,,,
 611,3,過剰補給,3,10,3,None,Erase,抵抗を{0}得る,Image/UI/Card/punch,Resist,Self,2,Add,NONE,,,,,,,,,,,,,,,,
+612,3,呪術指南,3,10,3,None,Erase,呪詛を{0}得て、呪詛返しを{1}得る。,Image/UI/Card/punch,AddHandCurseDamage,Self,1,Add,DiscardCurseHeal,Self,2,Add,NONE,,,,,,,,,,,,
 #,手数系,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 701,1,ジャブ,2,10,0,None,Repeat,{0}ダメージを与える,Image/UI/Card/punch,Damage,Opponent,2,Add,NONE,,,,,,,,,,,,,,,,
 702,2,ダッシュパンチ,2,10,1,None,Repeat,{0}ダメージを与え、カードを{1}枚引く,Image/UI/Card/punch,Damage,Opponent,4,Add,Draw,Self,1,Add,NONE,,,,,,,,,,,,

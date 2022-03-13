@@ -898,6 +898,8 @@ public partial class MapScene : SceneBase
 	}
 	
 	public void AddHand(MasterAction2Table.Data data) {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		int addHandCurseDamageCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.AddHandCurseDamage);
 		var trashList = MapDataCarrier.Instance.TrashList;
 		var ctrl = MapDataCarrier.Instance.GetNonActiveBattleCardController();
     	if (ctrl != null) {
@@ -905,8 +907,26 @@ public partial class MapScene : SceneBase
 			ctrl.SetData(data);
 			ctrl.UpdateDisplay();
 			ctrl.UpdateInteractable(MapDataCarrier.Instance.CurrentTotalDiceCost);
+			if (BattleCalculationFunction.IsCurse(data.Id) == true) {
+				if (addHandCurseDamageCount > 0) {
+					BattleCalculationFunction.PlayerCalcTrueDamage(-addHandCurseDamageCount);
+				}
+			}
 		} else {
 			trashList.Add(data);
+		}
+	}
+	
+	public void AddDiscard(MasterAction2Table.Data data) {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		var discardList = MapDataCarrier.Instance.DiscardList;
+		if (BattleCalculationFunction.IsCurse(data.Id) == true) {
+			int discardCurseHealCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.DiscardCurseHeal);
+			if (discardCurseHealCount > 0) {
+				Debug.Log(discardCurseHealCount);
+				player.AddNowHp(discardCurseHealCount);
+				UpdateParameterText();
+			}
 		}
 	}
 	

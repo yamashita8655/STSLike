@@ -139,6 +139,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.AfterImage) ||
 			(type == EnumSelf.EffectType.Activity) ||
 			(type == EnumSelf.EffectType.Resist) ||
+			(type == EnumSelf.EffectType.DiscardCurseHeal) ||
 			(type == EnumSelf.EffectType.Regenerate)
 		) {
 			ret = Const.PowerImagePath;
@@ -157,6 +158,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.AddCurse2Deck) ||
 			(type == EnumSelf.EffectType.AddCurse2Hand) ||
 			(type == EnumSelf.EffectType.AddCurse2DeckEternal) ||
+			(type == EnumSelf.EffectType.AddHandCurseDamage) ||
 			(type == EnumSelf.EffectType.ReverseHeal)
 		) {
 			ret = Const.DebuffImagePath;

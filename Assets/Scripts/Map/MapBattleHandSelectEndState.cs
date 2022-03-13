@@ -33,7 +33,7 @@ public class MapBattleHandSelectEndState : StateBase {
 				}
 
 				if (pack.Effect == EnumSelf.EffectType.Hand2Discard) {
-					discardList.Add(ctrls[i].GetData());
+					scene.AddDiscard(ctrls[i].GetData());
 				}
 
 				if (pack.Effect == EnumSelf.EffectType.Hand2Trash) {

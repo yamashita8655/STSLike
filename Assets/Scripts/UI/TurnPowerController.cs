@@ -111,6 +111,10 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.ActivityImagePath;
 		} else if (type == EnumSelf.TurnPowerType.Resist) {
 			ret = Const.ResistImagePath;
+		} else if (type == EnumSelf.TurnPowerType.AddHandCurseDamage) {
+			ret = Const.AddHandCurseDamageImagePath;
+		} else if (type == EnumSelf.TurnPowerType.DiscardCurseHeal) {
+			ret = Const.DiscardCurseHealImagePath;
 		}
 
 		return ret;

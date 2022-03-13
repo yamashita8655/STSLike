@@ -130,8 +130,7 @@ public class MapBattleCheckState : StateBase {
 						if (data.UseType == EnumSelf.UseType.Erase) {
 							// Eraseなら、捨て札にも破棄札にもならず、その戦闘中は2度と使えないカード
 						} else if (data.UseType == EnumSelf.UseType.Discard) {
-							var discardList = MapDataCarrier.Instance.DiscardList;
-                    		discardList.Add(data);
+							scene.AddDiscard(data);
 						} else if (data.UseType == EnumSelf.UseType.Repeat) {
 							var trashList = MapDataCarrier.Instance.TrashList;
                     		trashList.Add(data);

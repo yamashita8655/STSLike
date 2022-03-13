@@ -81,6 +81,8 @@ public partial class EnumSelf : MonoBehaviour {
         AfterImage,		// カードを使用する度に、1シールドを得る
         Activity,		// 次のターン開始時、数値分ダイスコスト加算
         Resist,		// 山札から呪いを引いた時に、追加数値分ドロー
+		AddHandCurseDamage,// 手札に呪いが加わった時に、数値分ダメージ
+		DiscardCurseHeal,// 呪いを破棄した時に、数値分HP回復
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -161,7 +163,10 @@ public partial class EnumSelf : MonoBehaviour {
 		SupportShoot,
 		AfterImage,
 		Resist,
+		AddHandCurseDamage,
+		DiscardCurseHeal,
 
+		
 
 		// ターン経過時に、1にリセットする物
         RotBody,
