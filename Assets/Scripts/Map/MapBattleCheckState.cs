@@ -48,6 +48,8 @@ public class MapBattleCheckState : StateBase {
 	override public void OnUpdateMain(float delta)
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
 
 		// 自分が負ける判定が先に来る
 		if (IsDead) {
@@ -61,8 +63,8 @@ public class MapBattleCheckState : StateBase {
 				if (pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) {
 					// TODO 固定値決めうち、シートにはダメージ値しか設定できない為。
 					// TODO 効果量の所も配列設定にして、場合によっては追加情報を見るのもいいかも…
-					MapDataCarrier.Instance.CuPlayerStatus.AddMaxHp(3);
-					MapDataCarrier.Instance.CuPlayerStatus.AddNowHp(3);
+					player.AddMaxHp(3);
+					player.AddNowHp(3);
 					scene.UpdateParameterText();
 				}
 			}
@@ -73,7 +75,7 @@ public class MapBattleCheckState : StateBase {
 				if (MapDataCarrier.Instance.InitiativeActionPackCount < MapDataCarrier.Instance.MaxInitiativeActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleInitiativeValueChange);
 				} else {
-					MapDataCarrier.Instance.CuPlayerStatus.RemoveInitiativeFirstActionData();
+					player.RemoveInitiativeFirstActionData();
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerInitiative);
 				}
             } else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattlePlayerTurnStart) {// プレイヤーのターンスタート時のHP変動
@@ -143,17 +145,23 @@ public class MapBattleCheckState : StateBase {
 					) {
 						MapDataCarrier.Instance.SelectBattleCardData = null;
 						// 効果終了後時に、手札0枚だったら、補充する
-						if (MapDataCarrier.Instance.CuPlayerStatus.GetParameterListFlag(EnumSelf.ParameterType.ZeroHand1Draw) == true) {
+						if (player.GetParameterListFlag(EnumSelf.ParameterType.ZeroHand1Draw) == true) {
 							if (MapDataCarrier.Instance.GetHandCount() == 0) {
 								scene.DrawCard(1);
 							}
 						}
 
 						// 効果終了後に、10枚使用したかどうか判定
-						if (MapDataCarrier.Instance.CuPlayerStatus.GetParameterListFlag(EnumSelf.ParameterType.Use10Card1Draw) == true) {
-							Debug.Log(MapDataCarrier.Instance.CuPlayerStatus.GetBattleUseCardCount());
-							if ((MapDataCarrier.Instance.CuPlayerStatus.GetBattleUseCardCount() % 10) == 0) {
+						if (player.GetParameterListFlag(EnumSelf.ParameterType.Use10Card1Draw) == true) {
+							if ((player.GetBattleUseCardCount() % 10) == 0) {
 								scene.DrawCard(1);
+							}
+						}
+						
+						// 効果終了後に、10枚使用したかどうか判定
+						if (player.GetParameterListFlag(EnumSelf.ParameterType.Use10CardGain3Activity) == true) {
+							if ((player.GetBattleUseCardCount() % 10) == 0) {
+								BattleCalculationFunction.PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Activity, 3);
 							}
 						}
 

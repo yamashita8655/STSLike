@@ -39,7 +39,7 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		if (player.GetParameterListFlag(EnumSelf.ParameterType.TurnStartDrawGain1) == true) {
 			drawCount++;
 		}
-
+		
 		scene.DrawCard(drawCount);
 
 		scene.UpdateParameterText();

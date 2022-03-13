@@ -270,6 +270,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.SupportShoot;
 		} else if (typeString == "AfterImage") {
 			type = EnumSelf.EffectType.AfterImage;
+		} else if (typeString == "Activity") {
+			type = EnumSelf.EffectType.Activity;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}

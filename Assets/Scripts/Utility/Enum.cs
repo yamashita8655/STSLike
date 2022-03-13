@@ -74,6 +74,7 @@ public partial class EnumSelf : MonoBehaviour {
         TurnThorn,			// そのターンのみの反射ダメージ
         SupportShoot,		// カードを使用する度に、相手に〇確定ダメージ
         AfterImage,		// カードを使用する度に、1シールドを得る
+        Activity,		// 次のターン開始時、数値分ダイスコスト加算
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -162,6 +163,11 @@ public partial class EnumSelf : MonoBehaviour {
 		DoubleAttack,
 		Cost6DoubleAttack,
         NonDraw,
+
+		// ダイス振った後に0にするもの
+		Activity,
+
+		// ターン開始時に0にするもの
 		TurnThorn,
 
 		Max
@@ -232,6 +238,7 @@ public partial class EnumSelf : MonoBehaviour {
 		Under1CostGainDamage4, // 1コスト以下のカードのダメージ+4
 		TurnStartDrawGain1, // ターン開始時、+1ドロー
 		Use10Card1Draw, // カードを10枚使用する毎に、1ドロー
+		Use10CardGain3Activity, // カードを10枚使用する毎に、活性を3得る。
 		Award,
 		Max,
 	}
