@@ -188,8 +188,16 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Stun;
 		} else if (typeString == "Death") {
 			type = EnumSelf.EffectType.Death;
-		} else if (typeString == "Curse") {
-			type = EnumSelf.EffectType.Curse;
+		} else if (typeString == "AddCard2Deck") {
+			type = EnumSelf.EffectType.AddCard2Deck;
+		} else if (typeString == "AddCard2Hand") {
+			type = EnumSelf.EffectType.AddCard2Hand;
+		} else if (typeString == "AddCurse2Deck") {
+			type = EnumSelf.EffectType.AddCurse2Deck;
+		} else if (typeString == "AddCurse2Hand") {
+			type = EnumSelf.EffectType.AddCurse2Hand;
+		} else if (typeString == "AddCurse2DeckEternal") {
+			type = EnumSelf.EffectType.AddCurse2DeckEternal;
 		} else if (typeString == "Draw") {
 			type = EnumSelf.EffectType.Draw;
 		} else if (typeString == "GainDiceCost") {

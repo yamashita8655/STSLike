@@ -20,6 +20,9 @@ public class MapBattleEnemyValueChangeState : StateBase {
 
 		BattleCalculationFunction.EnemyValueChange(pack);
 
+		// 動的にカード加える系（呪いとか、複製とか）
+		scene.CheckAddCard(pack);
+
 		scene.UpdateParameterText();
 
 		return true;

@@ -52,6 +52,9 @@ public class MapBattleValueChangeState : StateBase {
 				showHandCardSelect = true;
 			}
 		}
+		
+		// 動的にカード加える系（呪いとか、複製とか）
+		scene.CheckAddCard(pack);
 
 		scene.UpdateParameterText();
 

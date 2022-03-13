@@ -51,6 +51,11 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.RemovePower) ||
 			(type == EnumSelf.EffectType.Curse) ||
 			(type == EnumSelf.EffectType.ShieldDouble) ||
+			(type == EnumSelf.EffectType.AddCard2Deck) ||
+			(type == EnumSelf.EffectType.AddCard2Hand) ||
+			(type == EnumSelf.EffectType.AddCurse2Deck) ||
+			(type == EnumSelf.EffectType.AddCurse2Hand) ||
+			(type == EnumSelf.EffectType.AddCurse2DeckEternal) ||
 			(type == EnumSelf.EffectType.Stun)
 		) {
 			EffectValue.text = "";
@@ -97,7 +102,10 @@ public class ValueController : MonoBehaviour
 			ret = Const.DrawImagePath;
 		} else if (type == EnumSelf.EffectType.GainDiceCost) {
 			ret = Const.GainDiceCostImagePath;
-		} else if (type == EnumSelf.EffectType.Hand2DeckTop) {
+		} else if (
+			(type == EnumSelf.EffectType.Hand2DeckTop) ||
+			(type == EnumSelf.EffectType.AddCard2Deck)
+		) {
 			ret = Const.Hand2DeckTopImagePath;
 		} else if (type == EnumSelf.EffectType.Hand2Discard) {
 			ret = Const.Hand2DiscardImagePath;
@@ -105,6 +113,8 @@ public class ValueController : MonoBehaviour
 			ret = Const.Hand2TrashImagePath;
 		} else if (type == EnumSelf.EffectType.Hand2Erase) {
 			ret = Const.Hand2EraseImagePath;
+		} else if (type == EnumSelf.EffectType.AddCard2Hand) {
+			ret = Const.Hand2HandImagePath;
 		} else if (
 			(type == EnumSelf.EffectType.Strength) ||
 			(type == EnumSelf.EffectType.FastStrength) ||
@@ -140,10 +150,12 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.Vulnerable) ||
 			(type == EnumSelf.EffectType.RemovePower) ||
 			(type == EnumSelf.EffectType.RotBody) ||
-			(type == EnumSelf.EffectType.Curse) ||
 			(type == EnumSelf.EffectType.ReactiveShield) ||
 			(type == EnumSelf.EffectType.SubStrength) ||
 			(type == EnumSelf.EffectType.NonDraw) ||
+			(type == EnumSelf.EffectType.AddCurse2Deck) ||
+			(type == EnumSelf.EffectType.AddCurse2Hand) ||
+			(type == EnumSelf.EffectType.AddCurse2DeckEternal) ||
 			(type == EnumSelf.EffectType.ReverseHeal)
 		) {
 			ret = Const.DebuffImagePath;

@@ -34,6 +34,11 @@ public partial class EnumSelf : MonoBehaviour {
         Stun,			// スタン（未行動）
         Death,			// 即死
 		Curse,			// 呪い付与
+		AddCard2Deck,	// カードを、一時的にデッキに加える。
+		AddCard2Hand,	// カードを、一時的に手札に加える。
+		AddCurse2Deck,	// 呪いを、一時的にデッキに加える。呪いもこれで扱う。
+		AddCurse2Hand,	// 呪いを、一時的に手札に加える。呪いもこれで扱う。
+		AddCurse2DeckEternal,	// 呪いを、恒久的にデッキに加える。
         Draw,			// 山札を引く
         GainDiceCost,	// 一時的なダイスコスト増加（減は、元々のダイスコスト下げればいいだけなので、システムとして使わないから実装しない
         Hand2DeckTop,	// 手札をデッキトップに戻す

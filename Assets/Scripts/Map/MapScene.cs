@@ -867,15 +867,16 @@ public partial class MapScene : SceneBase
 			if (deckList.Count > 0) {
 				drawCard = deckList[0];
 				deckList.RemoveAt(0);
-                var ctrl = MapDataCarrier.Instance.GetNonActiveBattleCardController();
-                if (ctrl != null) {
-					ctrl.gameObject.SetActive(true);
-					ctrl.SetData(drawCard);
-					ctrl.UpdateDisplay();
-					ctrl.UpdateInteractable(MapDataCarrier.Instance.CurrentTotalDiceCost);
-				} else {
-					trashList.Add(drawCard);
-				}
+				AddHand(drawCard);
+                //var ctrl = MapDataCarrier.Instance.GetNonActiveBattleCardController();
+                //if (ctrl != null) {
+				//	ctrl.gameObject.SetActive(true);
+				//	ctrl.SetData(drawCard);
+				//	ctrl.UpdateDisplay();
+				//	ctrl.UpdateInteractable(MapDataCarrier.Instance.CurrentTotalDiceCost);
+				//} else {
+				//	trashList.Add(drawCard);
+				//}
 				drewCount++;
 			} else {
 				if (trashList.Count > 0) {
@@ -888,6 +889,58 @@ public partial class MapScene : SceneBase
 
 		TrashCountText.text = trashList.Count.ToString();
 		DeckCountText.text = deckList.Count.ToString();
+	}
+	
+	public void AddHand(MasterAction2Table.Data data) {
+		var trashList = MapDataCarrier.Instance.TrashList;
+		var ctrl = MapDataCarrier.Instance.GetNonActiveBattleCardController();
+    	if (ctrl != null) {
+			ctrl.gameObject.SetActive(true);
+			ctrl.SetData(data);
+			ctrl.UpdateDisplay();
+			ctrl.UpdateInteractable(MapDataCarrier.Instance.CurrentTotalDiceCost);
+		} else {
+			trashList.Add(data);
+		}
+	}
+	
+	public void CheckAddCard(ActionPack pack) {
+		// 動的にカード加える系（呪いとか、複製とか）
+		if (
+			(pack.Effect == EnumSelf.EffectType.AddCard2Deck) ||
+			(pack.Effect == EnumSelf.EffectType.AddCard2Hand) ||
+			(pack.Effect == EnumSelf.EffectType.AddCurse2Deck) ||
+			(pack.Effect == EnumSelf.EffectType.AddCurse2Hand) ||
+			(pack.Effect == EnumSelf.EffectType.AddCurse2DeckEternal)
+		) {
+			int actionId = pack.Value;
+			MasterAction2Table.Data addData = MasterAction2Table.Instance.GetData(actionId);
+
+			if (
+				(pack.Effect == EnumSelf.EffectType.AddCard2Deck) ||
+				(pack.Effect == EnumSelf.EffectType.AddCurse2Deck)
+			) {
+				// 山札に加える
+				var deckList = MapDataCarrier.Instance.BattleDeckList;
+				int random = UnityEngine.Random.Range(0, deckList.Count+1);
+				deckList.Insert(random, addData);
+			} else if (
+				(pack.Effect == EnumSelf.EffectType.AddCard2Hand) ||
+				(pack.Effect == EnumSelf.EffectType.AddCurse2Hand)
+			) {
+				// 手札に加える
+				AddHand(addData);
+			} else if (pack.Effect == EnumSelf.EffectType.AddCurse2DeckEternal) {
+				// 戦闘中の山札に加えて、かつ、オリジナルにも加える
+				var battleDeckList = MapDataCarrier.Instance.BattleDeckList;
+				var originalDeckList = MapDataCarrier.Instance.OriginalDeckList;
+
+				int random = UnityEngine.Random.Range(0, battleDeckList.Count+1);
+				battleDeckList.Insert(random, addData);
+
+				originalDeckList.Add(addData);
+			}
+		}
 	}
 
 	public void UpdateHandSelectToggle(bool isOn) {

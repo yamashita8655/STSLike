@@ -33,8 +33,6 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.PlayerCalcShieldDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Death) {
 			BattleCalculationFunction.PlayerDeath(pack);
-		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
-			BattleCalculationFunction.PlayerCurse(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.Strength) ||
 			(pack.Effect == EnumSelf.EffectType.FastStrength) ||
@@ -130,8 +128,6 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.SupportShoot)
 		) {
 			LogManager.Instance.LogError($"EnemyValueChange:pack.Effect is {pack.Effect} 敵に {pack.Effect}は設定しても効果がない");
-		} else if (pack.Effect == EnumSelf.EffectType.Curse) {
-			BattleCalculationFunction.EnemyCurse(pack);
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.Strength) ||
 			(pack.Effect == EnumSelf.EffectType.FastStrength) ||
@@ -723,24 +719,6 @@ public class BattleCalculationFunction {
 		}
 	}
 	
-	public static void PlayerCurse(ActionPack pack) {
-		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
-		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
-
-		if (pack.Target == EnumSelf.TargetType.Self) {
-			int actionId = pack.Value;
-			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(actionId);
-
-			// 呪いは山札に加える
-			var deckList = MapDataCarrier.Instance.BattleDeckList;
-			//deckList.Add(data);
-			int random = UnityEngine.Random.Range(0, deckList.Count+1);
-			deckList.Insert(random, data);
-		} else {
-			LogManager.Instance.LogError("PlayerCurse:Target:Opponent は、サポートしていない");
-		}
-	}
-	
 	public static void PlayerUpdatePower(ActionPack pack) {
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
@@ -1047,23 +1025,23 @@ public class BattleCalculationFunction {
 		}
 	}
 	
-	public static void EnemyCurse(ActionPack pack) {
-		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
-		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
-
-		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			int actionId = pack.Value;
-			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(actionId);
-
-			// 呪いは山札に加える
-			var deckList = MapDataCarrier.Instance.BattleDeckList;
-			int random = UnityEngine.Random.Range(0, deckList.Count+1);
-			deckList.Insert(random, data);
-			//deckList.Add(data);
-		} else {
-			LogManager.Instance.LogError("EnemyCurse:Target:Self は、サポートしていない");
-		}
-	}
+//	public static void EnemyCurse(ActionPack pack) {
+//		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+//		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
+//
+//		if (pack.Target == EnumSelf.TargetType.Opponent) {
+//			int actionId = pack.Value;
+//			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(actionId);
+//
+//			// 呪いは山札に加える
+//			var deckList = MapDataCarrier.Instance.BattleDeckList;
+//			int random = UnityEngine.Random.Range(0, deckList.Count+1);
+//			deckList.Insert(random, data);
+//			//deckList.Add(data);
+//		} else {
+//			LogManager.Instance.LogError("EnemyCurse:Target:Self は、サポートしていない");
+//		}
+//	}
 	
 	// こっちは、アクションパックによる付与
 	public static void EnemyUpdatePower(ActionPack pack) {
