@@ -920,12 +920,19 @@ public partial class MapScene : SceneBase
 	public void AddDiscard(MasterAction2Table.Data data) {
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 		var discardList = MapDataCarrier.Instance.DiscardList;
+
 		discardList.Add(data);
 		if (BattleCalculationFunction.IsCurse(data.Id) == true) {
 			int discardCurseHealCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.DiscardCurseHeal);
 			if (discardCurseHealCount > 0) {
 				player.AddNowHp(discardCurseHealCount);
 				UpdateParameterText();
+			}
+				
+			int curseReturnCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.CurseReturn);
+			if (curseReturnCount > 0) {
+				BattleCalculationFunction.EnemyUpdateTurnPower(EnumSelf.TurnPowerType.Weakness, curseReturnCount);
+				BattleCalculationFunction.EnemyUpdateTurnPower(EnumSelf.TurnPowerType.Vulnerable, curseReturnCount);
 			}
 		}
 
