@@ -119,6 +119,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Hand2Discard) ||
 			(pack.Effect == EnumSelf.EffectType.Hand2Trash) ||
 			(pack.Effect == EnumSelf.EffectType.Hand2Erase) ||
+			(pack.Effect == EnumSelf.EffectType.HandCurseDiscard) ||
 			(pack.Effect == EnumSelf.EffectType.Cost6DoubleAttack) ||
 			(pack.Effect == EnumSelf.EffectType.NonDraw) ||
 			(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||

@@ -56,6 +56,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.AddCurse2Deck) ||
 			(type == EnumSelf.EffectType.AddCurse2Hand) ||
 			(type == EnumSelf.EffectType.AddCurse2DeckEternal) ||
+			(type == EnumSelf.EffectType.HandCurseDiscard) ||
 			(type == EnumSelf.EffectType.Stun)
 		) {
 			EffectValue.text = "";
@@ -107,7 +108,10 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.AddCard2Deck)
 		) {
 			ret = Const.Hand2DeckTopImagePath;
-		} else if (type == EnumSelf.EffectType.Hand2Discard) {
+		} else if (
+			(type == EnumSelf.EffectType.Hand2Discard) ||
+			(type == EnumSelf.EffectType.HandCurseDiscard)
+		) {
 			ret = Const.Hand2DiscardImagePath;
 		} else if (type == EnumSelf.EffectType.Hand2Trash) {
 			ret = Const.Hand2TrashImagePath;

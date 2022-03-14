@@ -45,6 +45,7 @@ public partial class EnumSelf : MonoBehaviour {
         Hand2Trash,		// 手札を捨て札に送る
         Hand2Discard,	// 手札を破棄する
         Hand2Erase,		// 手札を削除
+        HandCurseDiscard,	// 手札の呪いを全て破棄
 		// バフ、デバフ
         Strength,		// 力上昇
         FastStrength,	// ターン終了後に下がる力上昇

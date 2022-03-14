@@ -210,8 +210,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.Hand2Discard;
 		} else if (typeString == "Hand2Trash") {
 			type = EnumSelf.EffectType.Hand2Trash;
-		} else if (typeString == "Hand2Erase") {
-			type = EnumSelf.EffectType.Hand2Erase;
+		} else if (typeString == "HandCurseDiscard") {
+			type = EnumSelf.EffectType.HandCurseDiscard;
 		} else if (typeString == "Strength") {
 			type = EnumSelf.EffectType.Strength;
 		} else if (typeString == "FastStrength") {

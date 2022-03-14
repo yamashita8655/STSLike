@@ -52,6 +52,21 @@ public class MapBattleValueChangeState : StateBase {
 				showHandCardSelect = true;
 			}
 		}
+
+
+		if (pack.Effect == EnumSelf.EffectType.HandCurseDiscard) {
+			var discardList = MapDataCarrier.Instance.DiscardList;
+			var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
+			for (int i = 0; i < ctrls.Count; i++) {
+				if (ctrls[i].gameObject.activeSelf == true) {
+					if (BattleCalculationFunction.IsCurse(ctrls[i].GetData().Id)) {
+						ctrls[i].gameObject.SetActive(false);
+						scene.AddDiscard(ctrls[i].GetData());
+					}
+				}
+			}
+			scene.UpdateCardListCountText();
+		}
 		
 		// 動的にカード加える系（呪いとか、複製とか）
 		scene.CheckAddCard(pack);
