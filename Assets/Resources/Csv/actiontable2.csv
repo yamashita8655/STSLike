@@ -78,6 +78,7 @@ id,rarity,name,equipcost,unlockcost,dicecost,costtype,usetype,detail,imagepath,e
 615,3,インスタントアミュレット,3,10,3,None,Discard,手札の呪いを全て破棄する。,Image/UI/Card/punch,HandCurseDiscard,Self,0,Add,NONE,,,,,,,,,,,,,,,,
 616,3,カニバリング,3,10,3,None,Erase,超再生を{0}得て、自傷を{1}得る,Image/UI/Card/punch,Regenerate,Self,1,Add,SelfHarm,Self,1,Add,NONE,,,,,,,,,,,,
 617,4,怨念返し,3,10,7,None,Erase,怨念返しを{0}得る,Image/UI/Card/punch,CurseReturn,Self,1,Add,NONE,,,,,,,,,,,,,,,,
+618,5,破邪乃キャノン,3,10,5,None,Erase,破棄されているカード数x{0}ダメージを与える,Image/UI/Card/punch,DamageDiscardCount,Opponent,5,Add,NONE,,,,,,,,,,,,,,,,
 #,手数系,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 701,1,ジャブ,2,10,0,None,Repeat,{0}ダメージを与える,Image/UI/Card/punch,Damage,Opponent,2,Add,NONE,,,,,,,,,,,,,,,,
 702,2,ダッシュパンチ,2,10,1,None,Repeat,{0}ダメージを与え、カードを{1}枚引く,Image/UI/Card/punch,Damage,Opponent,4,Add,Draw,Self,1,Add,NONE,,,,,,,,,,,,

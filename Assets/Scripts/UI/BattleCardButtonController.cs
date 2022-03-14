@@ -160,6 +160,7 @@ public class BattleCardButtonController : MonoBehaviour
 				val = BattleCalculationFunction.CalcPlayerDamageValue(list[index]);
 			} else if (
 				(list[index].Effect == EnumSelf.EffectType.DamageMultiStrength) ||
+				(list[index].Effect == EnumSelf.EffectType.DamageDiscardCount) ||
 				(list[index].Effect == EnumSelf.EffectType.DamageFinish)
 			) {
 				val = BattleCalculationFunction.CalcPlayerDamageValue(list[index]);

@@ -11,6 +11,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 			(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 			(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
+			(pack.Effect == EnumSelf.EffectType.DamageDiscardCount) ||
 			(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 			(pack.Effect == EnumSelf.EffectType.DamageDice) ||
@@ -138,6 +139,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DiscardShield) ||
 			(pack.Effect == EnumSelf.EffectType.CurseReturn) ||
 			(pack.Effect == EnumSelf.EffectType.SelfHarm) ||
+			(pack.Effect == EnumSelf.EffectType.DamageDiscardCount) ||
 			(pack.Effect == EnumSelf.EffectType.SupportShoot)
 		) {
 			LogManager.Instance.LogError($"EnemyValueChange:pack.Effect is {pack.Effect} 敵に {pack.Effect}は設定しても効果がない");
@@ -1367,6 +1369,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
+				(pack.Effect == EnumSelf.EffectType.DamageDiscardCount) ||
 				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 				(pack.Effect == EnumSelf.EffectType.DamageDice) ||
@@ -1434,6 +1437,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
+				(pack.Effect == EnumSelf.EffectType.DamageDiscardCount) ||
 				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 				(pack.Effect == EnumSelf.EffectType.DamageDice) ||
@@ -1509,6 +1513,12 @@ public class BattleCalculationFunction {
 			}
 
 			if (pack.Effect == EnumSelf.EffectType.DamageMultiStrength) {
+				isNormalDamage = false;
+			}
+			
+			if (pack.Effect == EnumSelf.EffectType.DamageDiscardCount) {
+				int discardCount = MapDataCarrier.Instance.DiscardList.Count;
+				val = pack.Value * discardCount;
 				isNormalDamage = false;
 			}
 
@@ -1687,6 +1697,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.DamageShieldSuction) ||
 				(pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 				(pack.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
+				(pack.Effect == EnumSelf.EffectType.DamageDiscardCount) ||
 				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 				(pack.Effect == EnumSelf.EffectType.DamageDice) ||
