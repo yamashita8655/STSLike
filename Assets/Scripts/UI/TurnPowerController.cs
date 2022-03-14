@@ -115,6 +115,8 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.AddHandCurseDamageImagePath;
 		} else if (type == EnumSelf.TurnPowerType.DiscardCurseHeal) {
 			ret = Const.DiscardCurseHealImagePath;
+		} else if (type == EnumSelf.TurnPowerType.DiscardShield) {
+			ret = Const.DiscardShieldImagePath;
 		}
 
 		return ret;

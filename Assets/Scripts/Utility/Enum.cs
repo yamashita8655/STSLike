@@ -83,6 +83,7 @@ public partial class EnumSelf : MonoBehaviour {
         Resist,		// 山札から呪いを引いた時に、追加数値分ドロー
 		AddHandCurseDamage,// 手札に呪いが加わった時に、数値分ダメージ
 		DiscardCurseHeal,// 呪いを破棄した時に、数値分HP回復
+		DiscardShield,// カード破棄した時に、数値分シールドを得る
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -165,6 +166,7 @@ public partial class EnumSelf : MonoBehaviour {
 		Resist,
 		AddHandCurseDamage,
 		DiscardCurseHeal,
+		DiscardShield,
 
 		
 

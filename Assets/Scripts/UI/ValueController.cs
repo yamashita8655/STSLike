@@ -140,6 +140,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.Activity) ||
 			(type == EnumSelf.EffectType.Resist) ||
 			(type == EnumSelf.EffectType.DiscardCurseHeal) ||
+			(type == EnumSelf.EffectType.DiscardShield) ||
 			(type == EnumSelf.EffectType.Regenerate)
 		) {
 			ret = Const.PowerImagePath;

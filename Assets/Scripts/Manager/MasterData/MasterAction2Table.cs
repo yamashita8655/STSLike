@@ -286,6 +286,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.AddHandCurseDamage;
 		} else if (typeString == "DiscardCurseHeal") {
 			type = EnumSelf.EffectType.DiscardCurseHeal;
+		} else if (typeString == "DiscardShield") {
+			type = EnumSelf.EffectType.DiscardShield;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}

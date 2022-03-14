@@ -928,6 +928,12 @@ public partial class MapScene : SceneBase
 				UpdateParameterText();
 			}
 		}
+
+		int discardShieldCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.DiscardShield);
+		if (discardShieldCount > 0) {
+			player.AddNowShield(discardShieldCount);
+			UpdateParameterText();
+		}
 	}
 	
 	public void CheckAddCard(ActionPack pack) {
