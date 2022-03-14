@@ -41,6 +41,15 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		}
 		
 		scene.DrawCard(drawCount);
+		
+		int selfHarmCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.SelfHarm);
+		if (selfHarmCount > 0) {
+			// この自傷呪い数値は決め打ち。
+			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(5002);
+			for (int i = 0; i < selfHarmCount; i++) {
+				scene.AddHand(data);
+			}
+		}
 
 		scene.UpdateParameterText();
 		

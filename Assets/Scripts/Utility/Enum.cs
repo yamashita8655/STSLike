@@ -85,6 +85,7 @@ public partial class EnumSelf : MonoBehaviour {
 		AddHandCurseDamage,// 手札に呪いが加わった時に、数値分ダメージ
 		DiscardCurseHeal,// 呪いを破棄した時に、数値分HP回復
 		DiscardShield,// カード破棄した時に、数値分シールドを得る
+		SelfHarm,// ターン開始時に、手札に自傷を数値分加える
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -168,8 +169,7 @@ public partial class EnumSelf : MonoBehaviour {
 		AddHandCurseDamage,
 		DiscardCurseHeal,
 		DiscardShield,
-
-		
+		SelfHarm,
 
 		// ターン経過時に、1にリセットする物
         RotBody,

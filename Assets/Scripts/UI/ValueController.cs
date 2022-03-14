@@ -164,6 +164,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.AddCurse2Hand) ||
 			(type == EnumSelf.EffectType.AddCurse2DeckEternal) ||
 			(type == EnumSelf.EffectType.AddHandCurseDamage) ||
+			(type == EnumSelf.EffectType.SelfHarm) ||
 			(type == EnumSelf.EffectType.ReverseHeal)
 		) {
 			ret = Const.DebuffImagePath;

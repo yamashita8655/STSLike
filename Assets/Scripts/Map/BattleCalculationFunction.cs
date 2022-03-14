@@ -72,6 +72,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.AddHandCurseDamage) ||
 			(pack.Effect == EnumSelf.EffectType.DiscardCurseHeal) ||
 			(pack.Effect == EnumSelf.EffectType.DiscardShield) ||
+			(pack.Effect == EnumSelf.EffectType.SelfHarm) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -134,6 +135,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.AddHandCurseDamage) ||
 			(pack.Effect == EnumSelf.EffectType.DiscardCurseHeal) ||
 			(pack.Effect == EnumSelf.EffectType.DiscardShield) ||
+			(pack.Effect == EnumSelf.EffectType.SelfHarm) ||
 			(pack.Effect == EnumSelf.EffectType.SupportShoot)
 		) {
 			LogManager.Instance.LogError($"EnemyValueChange:pack.Effect is {pack.Effect} 敵に {pack.Effect}は設定しても効果がない");
@@ -333,6 +335,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.AddHandCurseDamage) || 
 				(i == (int)EnumSelf.TurnPowerType.DiscardCurseHeal) || 
 				(i == (int)EnumSelf.TurnPowerType.DiscardShield) || 
+				(i == (int)EnumSelf.TurnPowerType.SelfHarm) || 
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -1178,6 +1181,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.DiscardCurseHeal;
 		} else if (type == EnumSelf.EffectType.DiscardShield) {
 			pType = EnumSelf.TurnPowerType.DiscardShield;
+		} else if (type == EnumSelf.EffectType.SelfHarm) {
+			pType = EnumSelf.TurnPowerType.SelfHarm;
 		}
 
 		return pType;

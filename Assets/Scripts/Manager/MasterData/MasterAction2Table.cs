@@ -288,6 +288,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.DiscardCurseHeal;
 		} else if (typeString == "DiscardShield") {
 			type = EnumSelf.EffectType.DiscardShield;
+		} else if (typeString == "SelfHarm") {
+			type = EnumSelf.EffectType.SelfHarm;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}
