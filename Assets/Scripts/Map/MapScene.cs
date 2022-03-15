@@ -921,12 +921,14 @@ public partial class MapScene : SceneBase
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 		var discardList = MapDataCarrier.Instance.DiscardList;
 
+		bool isUpdate = false;
+
 		discardList.Add(data);
 		if (BattleCalculationFunction.IsCurse(data.Id) == true) {
 			int discardCurseHealCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.DiscardCurseHeal);
 			if (discardCurseHealCount > 0) {
 				player.AddNowHp(discardCurseHealCount);
-				UpdateParameterText();
+				isUpdate = true;
 			}
 				
 			int curseReturnCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.CurseReturn);
@@ -939,6 +941,16 @@ public partial class MapScene : SceneBase
 		int discardShieldCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.DiscardShield);
 		if (discardShieldCount > 0) {
 			player.AddNowShield(discardShieldCount);
+			isUpdate = true;
+		}
+		
+		int discardDamageCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.DiscardDamage);
+		if (discardDamageCount > 0) {
+			BattleCalculationFunction.PlayerCalcDamageNormalDamage(discardDamageCount);
+			isUpdate = true;
+		}
+
+		if (isUpdate == true) {
 			UpdateParameterText();
 		}
 	}

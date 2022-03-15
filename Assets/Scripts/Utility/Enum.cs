@@ -88,6 +88,7 @@ public partial class EnumSelf : MonoBehaviour {
 		DiscardShield,// カード破棄した時に、数値分シールドを得る
 		SelfHarm,// ターン開始時に、手札に自傷を数値分加える
 		CurseReturn,// 呪いを破棄する度、数値分相手に与ダメ低下と被ダメ上昇を与える
+		DiscardDamage,// カード破棄した時に、数値分ダメージを与える
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -173,6 +174,7 @@ public partial class EnumSelf : MonoBehaviour {
 		DiscardShield,
 		SelfHarm,
 		CurseReturn,
+		DiscardDamage,
 
 		// ターン経過時に、1にリセットする物
         RotBody,

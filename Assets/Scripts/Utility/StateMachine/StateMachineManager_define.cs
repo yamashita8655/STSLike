@@ -30,6 +30,7 @@ public enum MapState : int
 	BattleAttackResult = 0,
 	BattleAttackSelectUserWait,
 	BattleCheck,
+	BattleCheckAfter,
 	BattleDiceRoll,
 	BattleDiceRollUserWait,
 	BattleEnd,

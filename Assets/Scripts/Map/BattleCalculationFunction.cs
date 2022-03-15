@@ -73,6 +73,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.AddHandCurseDamage) ||
 			(pack.Effect == EnumSelf.EffectType.DiscardCurseHeal) ||
 			(pack.Effect == EnumSelf.EffectType.DiscardShield) ||
+			(pack.Effect == EnumSelf.EffectType.DiscardDamage) ||
 			(pack.Effect == EnumSelf.EffectType.CurseReturn) ||
 			(pack.Effect == EnumSelf.EffectType.SelfHarm) ||
 			(pack.Effect == EnumSelf.EffectType.Weakness)
@@ -137,6 +138,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.AddHandCurseDamage) ||
 			(pack.Effect == EnumSelf.EffectType.DiscardCurseHeal) ||
 			(pack.Effect == EnumSelf.EffectType.DiscardShield) ||
+			(pack.Effect == EnumSelf.EffectType.DiscardDamage) ||
 			(pack.Effect == EnumSelf.EffectType.CurseReturn) ||
 			(pack.Effect == EnumSelf.EffectType.SelfHarm) ||
 			(pack.Effect == EnumSelf.EffectType.DamageDiscardCount) ||
@@ -339,6 +341,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.AddHandCurseDamage) || 
 				(i == (int)EnumSelf.TurnPowerType.DiscardCurseHeal) || 
 				(i == (int)EnumSelf.TurnPowerType.DiscardShield) || 
+				(i == (int)EnumSelf.TurnPowerType.DiscardDamage) || 
 				(i == (int)EnumSelf.TurnPowerType.CurseReturn) || 
 				(i == (int)EnumSelf.TurnPowerType.SelfHarm) || 
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
@@ -1190,6 +1193,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.SelfHarm;
 		} else if (type == EnumSelf.EffectType.CurseReturn) {
 			pType = EnumSelf.TurnPowerType.CurseReturn;
+		} else if (type == EnumSelf.EffectType.DiscardDamage) {
+			pType = EnumSelf.TurnPowerType.DiscardDamage;
 		}
 
 		return pType;

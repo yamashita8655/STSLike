@@ -15,6 +15,7 @@ public partial class MapScene : SceneBase
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleAttackResult, new MapBattleAttackResultState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait, new MapBattleAttackSelectUserWaitState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleCheck, new MapBattleCheckState());
+		stm.AddState(StateMachineName.Map, (int)MapState.BattleCheckAfter, new MapBattleCheckAfterState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleDiceRoll, new MapBattleDiceRollState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleDiceRollUserWait, new MapBattleDiceRollUserWaitState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleEnd, new MapBattleEndState());

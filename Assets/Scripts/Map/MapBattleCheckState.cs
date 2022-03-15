@@ -33,7 +33,7 @@ public class MapBattleCheckState : StateBase {
 				// TODO 使用済みフェニックスののうの数値決め打ち
 				MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1001);
 				scene.AddArtifactObject(data);
-			} else {
+			}  else {
 				IsDead = true;
 			}
 		}
@@ -101,22 +101,6 @@ public class MapBattleCheckState : StateBase {
 				if (MapDataCarrier.Instance.ActionPackCount < MapDataCarrier.Instance.MaxActionPackCount) {
 					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleValueChange);
 				} else {
-                    //int select = MapDataCarrier.Instance.SelectAttackIndex;
-                    //if (select != -1) {
-                    //	// 処理が終わったら、呪いのアクションだった場合は、基に戻す
-                    //	MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetActionData(select);
-                    //	bool IsCurse = BattleCalculationFunction.IsCurse(data.Id);
-                    //	if (IsCurse == true) {
-                    //		MapDataCarrier.Instance.CuPlayerStatus.ResetActionData(select);
-                    //	}
-                    //}
-
-                    //if (MapDataCarrier.Instance.DiceValueList.Count == 0) {
-                    //	StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerTurnEnd);
-                    //} else {
-                    //	StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
-                    //}
-
 					// 何らかの効果で、ダブル発動時のカードの場合はカードは削除するので、捨て札やデッキに登録しない
 					if (MapDataCarrier.Instance.IsDoubleAttackCard == true) {
 						MapDataCarrier.Instance.DoubleAttackBattleCardData = null;
@@ -164,7 +148,7 @@ public class MapBattleCheckState : StateBase {
 							}
 						}
 
-						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
+						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheckAfter);
 					} else {
 						StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackResult);
 					}
@@ -206,6 +190,8 @@ public class MapBattleCheckState : StateBase {
 				//}
 				scene.UpdateEnemyValueObject();
 
+			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleCheckAfter) {// プレイヤーのバトルチェック後のフロー。
+				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
 			}
 		}
 		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);

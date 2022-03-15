@@ -146,6 +146,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.Resist) ||
 			(type == EnumSelf.EffectType.DiscardCurseHeal) ||
 			(type == EnumSelf.EffectType.DiscardShield) ||
+			(type == EnumSelf.EffectType.DiscardDamage) ||
 			(type == EnumSelf.EffectType.CurseReturn) ||
 			(type == EnumSelf.EffectType.Regenerate)
 		) {
