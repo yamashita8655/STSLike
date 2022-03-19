@@ -618,26 +618,31 @@ public class BattleCalculationFunction {
 		int damage = pack.Value;
 
 		if (pack.Target == EnumSelf.TargetType.Self) {
-			player.AddTotalSelfTrueDamage(damage);
-			PlayerUpdateHp(-damage);
-
-			int addSelfTrueDamageStrengthCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.AddSelfTrueDamageStrength);
-			if (addSelfTrueDamageStrengthCount > 0) {
-				PlayerUpdatePower(EnumSelf.PowerType.Strength, addSelfTrueDamageStrengthCount);
-			}
-			
-			int addSelfTrueDamageHealChargeCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.AddSelfTrueDamageHealCharge);
-			if (addSelfTrueDamageHealChargeCount > 0) {
-				PlayerUpdatePower(EnumSelf.PowerType.HealCharge, addSelfTrueDamageHealChargeCount);
-			}
-			
-			int drawSelfTrueDamageCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.DrawSelfTrueDamage);
-			if (drawSelfTrueDamageCount > 0) {
-				var scene = MapDataCarrier.Instance.Scene as MapScene;
-				scene.DrawCard(drawSelfTrueDamageCount);
-			}
+			PlayerCalcSelfTrueDamage(damage);
 		} else if (pack.Target == EnumSelf.TargetType.Opponent) {
 			LogManager.Instance.LogError($"PlayerCalcTrueDamage:{EnumSelf.TargetType.Opponent}、相手を対象にしたSelfTrueDamageは未実装予定");
+		}
+	}
+	
+	public static void PlayerCalcSelfTrueDamage(int addValue) {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		player.AddTotalSelfTrueDamage(addValue);
+		PlayerUpdateHp(-addValue);
+
+		int addSelfTrueDamageStrengthCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.AddSelfTrueDamageStrength);
+		if (addSelfTrueDamageStrengthCount > 0) {
+			PlayerUpdatePower(EnumSelf.PowerType.Strength, addSelfTrueDamageStrengthCount);
+		}
+		
+		int addSelfTrueDamageHealChargeCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.AddSelfTrueDamageHealCharge);
+		if (addSelfTrueDamageHealChargeCount > 0) {
+			PlayerUpdatePower(EnumSelf.PowerType.HealCharge, addSelfTrueDamageHealChargeCount);
+		}
+		
+		int drawSelfTrueDamageCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.DrawSelfTrueDamage);
+		if (drawSelfTrueDamageCount > 0) {
+			var scene = MapDataCarrier.Instance.Scene as MapScene;
+			scene.DrawCard(drawSelfTrueDamageCount);
 		}
 	}
 	
@@ -802,8 +807,16 @@ public class BattleCalculationFunction {
 	
 	public static void PlayerUpdatePower(EnumSelf.PowerType type, int addValue) {
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
-		if (player.GetParameterListFlag(EnumSelf.ParameterType.AddAnotherStrength1) == true) {
-			addValue += 1;
+		if (type == EnumSelf.PowerType.Strength) {
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.AddAnotherStrength1) == true) {
+				addValue += 1;
+			}
+		}
+		
+		if (type == EnumSelf.PowerType.HealCharge) {
+			if (player.GetParameterListFlag(EnumSelf.ParameterType.ExtraAddHealCharge1) == true) {
+				addValue += 1;
+			}
 		}
 
 		player.AddPower(type, addValue);

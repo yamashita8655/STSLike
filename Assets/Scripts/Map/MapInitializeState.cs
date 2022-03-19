@@ -96,17 +96,17 @@ public class MapInitializeState : StateBase {
 
 		// TODO アーティファクト効果テスト
 		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
-		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(11);
+		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1047);
 		Scene.AddArtifactObject(data);
-		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(11);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1047);
 
-		//data = MasterArtifactTable.Instance.GetData(1022);
-		//Scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1022);
+		data = MasterArtifactTable.Instance.GetData(1048);
+		Scene.AddArtifactObject(data);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1048);
 
-		//data = MasterArtifactTable.Instance.GetData(1023);
-		//Scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1023);
+		data = MasterArtifactTable.Instance.GetData(1037);
+		Scene.AddArtifactObject(data);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1037);
 
 		//data = MasterArtifactTable.Instance.GetData(4);
 		//Scene.AddArtifactObject(data);

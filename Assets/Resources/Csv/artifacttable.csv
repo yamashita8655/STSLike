@@ -60,5 +60,7 @@ id,uid,lottype,rarity,name,detail,imagepath,type,actionid,parametertype
 1044,1044,NORMAL,3,予備弾薬,ターン開始時、+1ドロー,Image/UI/Artifact/reservemagazine,AddParameter,0,TurnStartDrawGain1
 1045,1045,NORMAL,1,研ぎ石,カードを10枚使用する毎に、1ドロー,Image/UI/Artifact/sharpeningstone,AddParameter,0,Use10Card1Draw
 1046,1046,NORMAL,2,手回し発電機,カードを10枚使用する毎に、活性を3得る。,Image/UI/Artifact/generator,AddParameter,0,Use10CardGain3Activity
+1047,1047,NORMAL,1,腐った卵,ターン開始時、1ドロー、1自確定ダメージ、1シールドを得る,Image/UI/Artifact/rotegg,AddParameter,0,TurnStart1SelfTrueDamage2Shield
+1048,1048,NORMAL,2,サプリメント,回復チャージを得る時、追加で1回復チャージを得る,Image/UI/Artifact/supplement,AddParameter,0,ExtraAddHealCharge1
 #,抽選テーブルに獲得できるアーティファクトが無い場合に、獲得する効果がないアーティファクト,,,,,,,,
 2000,2000,SPECIAL,1,やり込み証明書,このアイテムを手に入れるだけ、アーティファクトを沢山集めたという証明書。効果は特にない。,Image/UI/Artifact/ring,AddParameter,0,Award

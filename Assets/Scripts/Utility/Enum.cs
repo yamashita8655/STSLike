@@ -267,6 +267,8 @@ public partial class EnumSelf : MonoBehaviour {
 		TurnStartDrawGain1, // ターン開始時、+1ドロー
 		Use10Card1Draw, // カードを10枚使用する毎に、1ドロー
 		Use10CardGain3Activity, // カードを10枚使用する毎に、活性を3得る。
+		TurnStart1SelfTrueDamage2Shield, // ターン開始時、1自確定ダメージ、2シールドを得る
+		ExtraAddHealCharge1, // 回復チャージを得る時、追加で1回復チャージを得る
 		Award,
 		Max,
 	}

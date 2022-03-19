@@ -230,6 +230,10 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.Use10Card1Draw;
 		} else if (typeString == "Use10CardGain3Activity") {
 			type = EnumSelf.ParameterType.Use10CardGain3Activity;
+		} else if (typeString == "TurnStart1SelfTrueDamage2Shield") {
+			type = EnumSelf.ParameterType.TurnStart1SelfTrueDamage2Shield;
+		} else if (typeString == "ExtraAddHealCharge1") {
+			type = EnumSelf.ParameterType.ExtraAddHealCharge1;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
 		}
