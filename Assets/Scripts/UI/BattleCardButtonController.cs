@@ -123,6 +123,12 @@ public class BattleCardButtonController : MonoBehaviour
 			}
 		} else if (Data.CostType == EnumSelf.CostType.ReduceUseCardSheet) {
 			cost = Data.DiceCost - player.GetTurnUseCardCount();
+		} else if (Data.CostType == EnumSelf.CostType.ReduceSelfTrueDamage) {
+			cost = Data.DiceCost - player.GetTotalSelfTrueDamage();
+		}
+
+		if (cost < 0) {
+			cost = 0;
 		}
 
 		CurrentCost = cost;
@@ -184,11 +190,6 @@ public class BattleCardButtonController : MonoBehaviour
 	}
 
 	public void UpdateInteractable(int totalCost) {
-		if (Data.CostType == EnumSelf.CostType.ReduceUseCardSheet) {
-			Debug.Log(CurrentCost);
-			Debug.Log(totalCost);
-		}
-
 		if (CurrentCost <= totalCost) {
 			AttackButton.interactable = true;
 		} else {

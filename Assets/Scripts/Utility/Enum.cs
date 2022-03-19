@@ -280,5 +280,6 @@ public partial class EnumSelf : MonoBehaviour {
 	public enum CostType {
 		None = 0,
 		ReduceUseCardSheet,	// ターン中に使用したカードの枚数分、コストが下がる
+		ReduceSelfTrueDamage,	// 戦闘中に受けた自確定ダメージ分、コストが下がる
 	}
 }

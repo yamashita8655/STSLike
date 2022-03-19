@@ -370,6 +370,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 		
 		if (typeString == "ReduceUseCardSheet") {
 			type = EnumSelf.CostType.ReduceUseCardSheet;
+		} else if (typeString == "ReduceSelfTrueDamage") {
+			type = EnumSelf.CostType.ReduceSelfTrueDamage;
 		}
 
 		return type;
