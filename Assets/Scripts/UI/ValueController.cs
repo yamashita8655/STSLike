@@ -152,6 +152,8 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.DiscardShield) ||
 			(type == EnumSelf.EffectType.DiscardDamage) ||
 			(type == EnumSelf.EffectType.CurseReturn) ||
+			(type == EnumSelf.EffectType.AddSelfTrueDamageStrength) ||
+			(type == EnumSelf.EffectType.DrawSelfTrueDamage) ||
 			(type == EnumSelf.EffectType.Regenerate)
 		) {
 			ret = Const.PowerImagePath;

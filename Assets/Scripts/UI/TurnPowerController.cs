@@ -123,6 +123,10 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.CurseReturnImagePath;
 		} else if (type == EnumSelf.TurnPowerType.DiscardDamage) {
 			ret = Const.DiscardDamageImagePath;
+		} else if (type == EnumSelf.TurnPowerType.AddSelfTrueDamageStrength) {
+			ret = Const.AddSelfTrueDamageStrengthImagePath;
+		} else if (type == EnumSelf.TurnPowerType.DrawSelfTrueDamage) {
+			ret = Const.DrawSelfTrueDamageImagePath;
 		}
 
 		return ret;

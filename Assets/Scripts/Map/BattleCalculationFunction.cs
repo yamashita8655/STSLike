@@ -79,7 +79,8 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DiscardDamage) ||
 			(pack.Effect == EnumSelf.EffectType.CurseReturn) ||
 			(pack.Effect == EnumSelf.EffectType.SelfHarm) ||
-			(pack.Effect == EnumSelf.EffectType.Weakness)
+			(pack.Effect == EnumSelf.EffectType.AddSelfTrueDamageStrength) ||
+			(pack.Effect == EnumSelf.EffectType.DrawSelfTrueDamage)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.DoubleStrength) {
@@ -147,6 +148,8 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.DamageDiscardCount) ||
 			(pack.Effect == EnumSelf.EffectType.SelfTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.DamageTotalSelfTrueDamage) ||
+			(pack.Effect == EnumSelf.EffectType.AddSelfTrueDamageStrength) ||
+			(pack.Effect == EnumSelf.EffectType.DrawSelfTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.SupportShoot)
 		) {
 			LogManager.Instance.LogError($"EnemyValueChange:pack.Effect is {pack.Effect} 敵に {pack.Effect}は設定しても効果がない");
@@ -349,6 +352,8 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.DiscardDamage) || 
 				(i == (int)EnumSelf.TurnPowerType.CurseReturn) || 
 				(i == (int)EnumSelf.TurnPowerType.SelfHarm) || 
+				(i == (int)EnumSelf.TurnPowerType.AddSelfTrueDamageStrength) || 
+				(i == (int)EnumSelf.TurnPowerType.DrawSelfTrueDamage) || 
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -612,6 +617,17 @@ public class BattleCalculationFunction {
 		if (pack.Target == EnumSelf.TargetType.Self) {
 			player.AddTotalSelfTrueDamage(damage);
 			PlayerUpdateHp(-damage);
+
+			int addSelfTrueDamageStrengthCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.AddSelfTrueDamageStrength);
+			if (addSelfTrueDamageStrengthCount > 0) {
+				PlayerUpdatePower(EnumSelf.PowerType.Strength, addSelfTrueDamageStrengthCount);
+			}
+			
+			int drawSelfTrueDamageCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.DrawSelfTrueDamage);
+			if (drawSelfTrueDamageCount > 0) {
+				var scene = MapDataCarrier.Instance.Scene as MapScene;
+				scene.DrawCard(drawSelfTrueDamageCount);
+			}
 		} else if (pack.Target == EnumSelf.TargetType.Opponent) {
 			LogManager.Instance.LogError($"PlayerCalcTrueDamage:{EnumSelf.TargetType.Opponent}、相手を対象にしたSelfTrueDamageは未実装予定");
 		}
@@ -1202,6 +1218,10 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.CurseReturn;
 		} else if (type == EnumSelf.EffectType.DiscardDamage) {
 			pType = EnumSelf.TurnPowerType.DiscardDamage;
+		} else if (type == EnumSelf.EffectType.AddSelfTrueDamageStrength) {
+			pType = EnumSelf.TurnPowerType.AddSelfTrueDamageStrength;
+		} else if (type == EnumSelf.EffectType.DrawSelfTrueDamage) {
+			pType = EnumSelf.TurnPowerType.DrawSelfTrueDamage;
 		}
 
 		return pType;

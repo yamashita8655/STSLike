@@ -65,6 +65,8 @@ public partial class Const {
 	public static readonly string SelfHarmImagePath = "Image/UI/Map/selfharm";
 	public static readonly string CurseReturnImagePath = "Image/UI/Map/cursereturn";
 	public static readonly string DiscardDamageImagePath = "Image/UI/Map/discarddamage";
+	public static readonly string AddSelfTrueDamageStrengthImagePath = "Image/UI/Map/addselftruedamagestrength";
+	public static readonly string DrawSelfTrueDamageImagePath = "Image/UI/Map/drawselftruedamage";
 
 	// こっちは、数値固定でターン可変
 	public static readonly string TurnPowerControllerPath = "Prefab/UI/TurnPowerController";
