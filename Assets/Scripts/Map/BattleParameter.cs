@@ -24,6 +24,7 @@ public class PlayerStatus
 	private int TurnUseAttackCount = 0;
 	private int TurnUseCardCount = 0;
 	private int BattleUseCardCount = 0;
+	private int TotalSelfTrueDamage = 0;
 
 	public PlayerStatus() {
 		ActionDataList = new List<MasterAction2Table.Data>(){
@@ -232,6 +233,10 @@ public class PlayerStatus
 	public void AddBattleUseCardCount(int addValue) => BattleUseCardCount += addValue;
 	public void SetBattleUseCardCount(int val) => BattleUseCardCount = val;
 	public int GetBattleUseCardCount() => BattleUseCardCount;
+	
+	public void AddTotalSelfTrueDamage(int addValue) => TotalSelfTrueDamage += addValue;
+	public void SetTotalSelfTrueDamage(int val) => TotalSelfTrueDamage = val;
+	public int GetTotalSelfTrueDamage() => TotalSelfTrueDamage;
 }
 
 public class EnemyStatus

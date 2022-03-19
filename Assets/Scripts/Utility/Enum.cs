@@ -24,6 +24,7 @@ public partial class EnumSelf : MonoBehaviour {
         DamageGainMaxHp,// 通常ダメージと同じだが、トドメをさした場合に最大HPが上昇する
         DamageMultiStrength,// 力に特別な補正をかけた数値分のダメージ
         DamageDiscardCount,// 破棄されているカード数xnダメージ
+        DamageTotalSelfTrueDamage,	// 受けた自分の自確定ダメージxｎダメージ(TrueDamageでは無いので、注意)
         TrueDamage,		// 全てを無視した固定ダメージ
         SelfTrueDamage,		// 全てを無視した固定ダメージを自身に与える
         RemovePower,	// 状態変化全て解除

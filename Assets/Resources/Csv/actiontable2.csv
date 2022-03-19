@@ -56,6 +56,7 @@ id,rarity,name,equipcost,unlockcost,dicecost,costtype,usetype,detail,imagepath,e
 403,3,捨て身ナックル,1,10,3,None,Repeat,{0}ダメージを与え、自確定ダメージを{1}受ける。,Image/UI/Card/punch,Damage,Opponent,21,Add,SelfTrueDamage,Self,2,Add,NONE,,,,,,,,,,,,
 404,4,血の儀式,1,10,0,None,Discard,{0}ドロー、+{1}ダイスコストを得て、自確定ダメージを{2}受ける。,Image/UI/Card/punch,Draw,Self,2,Add,GainDiceCost,Self,6,Add,SelfTrueDamage,Self,3,Add,NONE,,,,,,,,
 405,3,血の代償,1,10,0,None,Repeat,+{0}ダイスコストを得て、自確定ダメージを{1}受ける。,Image/UI/Card/punch,GainDiceCost,Self,6,Add,SelfTrueDamage,Self,3,Add,NONE,,,,,,,,,,,,
+406,4,ペインバースト,1,10,0,None,Repeat,+{0}ダイスコストを得て、自確定ダメージを{1}受ける。,Image/UI/Card/punch,DamageTotalSelfTrueDamage,Opponent,3,Add,NONE,,,,,,,,,,,,,,,,
 #,バフ系,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 501,2,ウォークライ,2,10,3,None,Erase,自身に「力」を{0}付与する。,Image/UI/Card/punch,Strength,Self,2,Add,NONE,,,,,,,,,,,,,,,,
 502,1,マッスルドープ,3,10,1,None,Repeat,自身に「力」を{0}付与し、「力減少」を{1}付与する。,Image/UI/Card/punch,Strength,Self,3,Add,SubStrength,Self,3,Add,NONE,,,,,,,,,,,,

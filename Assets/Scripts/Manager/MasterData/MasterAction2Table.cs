@@ -112,6 +112,7 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 					(effect == EnumSelf.EffectType.TrueDamage) ||
 					(effect == EnumSelf.EffectType.DamageFinish) ||
 					(effect == EnumSelf.EffectType.DamageDice) ||
+					(effect == EnumSelf.EffectType.DamageTotalSelfTrueDamage) ||
 					(effect == EnumSelf.EffectType.ShieldBash)
 				) {
 					damageNumberCount++;
@@ -167,6 +168,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.DamageMultiStrength;
 		} else if (typeString == "DamageDiscardCount") {
 			type = EnumSelf.EffectType.DamageDiscardCount;
+		} else if (typeString == "DamageTotalSelfTrueDamage") {
+			type = EnumSelf.EffectType.DamageTotalSelfTrueDamage;
 		} else if (typeString == "TrueDamage") {
 			type = EnumSelf.EffectType.TrueDamage;
 		} else if (typeString == "SelfTrueDamage") {

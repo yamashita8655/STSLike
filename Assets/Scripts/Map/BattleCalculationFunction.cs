@@ -15,6 +15,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 			(pack.Effect == EnumSelf.EffectType.DamageDice) ||
+			(pack.Effect == EnumSelf.EffectType.DamageTotalSelfTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.ShieldBash)
 		) {
 			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
@@ -145,6 +146,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.SelfHarm) ||
 			(pack.Effect == EnumSelf.EffectType.DamageDiscardCount) ||
 			(pack.Effect == EnumSelf.EffectType.SelfTrueDamage) ||
+			(pack.Effect == EnumSelf.EffectType.DamageTotalSelfTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.SupportShoot)
 		) {
 			LogManager.Instance.LogError($"EnemyValueChange:pack.Effect is {pack.Effect} 敵に {pack.Effect}は設定しても効果がない");
@@ -604,11 +606,11 @@ public class BattleCalculationFunction {
 	// Player用
 	public static void PlayerCalcSelfTrueDamage(ActionPack pack) {
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
-		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
 
 		int damage = pack.Value;
 
 		if (pack.Target == EnumSelf.TargetType.Self) {
+			player.AddTotalSelfTrueDamage(damage);
 			PlayerUpdateHp(-damage);
 		} else if (pack.Target == EnumSelf.TargetType.Opponent) {
 			LogManager.Instance.LogError($"PlayerCalcTrueDamage:{EnumSelf.TargetType.Opponent}、相手を対象にしたSelfTrueDamageは未実装予定");
@@ -631,18 +633,6 @@ public class BattleCalculationFunction {
 			EnemyUpdateHp(overDamage);
 		}
 	}
-	
-	//public static void PlayerCalcTrueDamage(ActionPack pack) {
-	//	int damage = pack.Value;
-	//	
-	//	if (pack.Target == EnumSelf.TargetType.Opponent) {
-	//		//EnemyUpdateHp(-damage);
-	//		EnemyCalcTrueDamage(-damage);
-	//	} else if (pack.Target == EnumSelf.TargetType.Self) {
-	//		//PlayerUpdateHp(-damage);
-	//		PlayerCalcTrueDamage(-damage);
-	//	}
-	//}
 	
 	public static void PlayerCalcTrueDamage(int val) {
 		PlayerUpdateHp(val);
@@ -1395,6 +1385,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 				(pack.Effect == EnumSelf.EffectType.DamageDice) ||
+				(pack.Effect == EnumSelf.EffectType.DamageTotalSelfTrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
@@ -1463,6 +1454,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 				(pack.Effect == EnumSelf.EffectType.DamageDice) ||
+				(pack.Effect == EnumSelf.EffectType.DamageTotalSelfTrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {
@@ -1518,6 +1510,8 @@ public class BattleCalculationFunction {
 			val = count * pack.Value;
 		} else if (pack.Effect == EnumSelf.EffectType.DamageDice) {
 			val = MapDataCarrier.Instance.CurrentTotalDiceCost;
+		} else if (pack.Effect == EnumSelf.EffectType.DamageTotalSelfTrueDamage) {
+			val = player.GetTotalSelfTrueDamage() * pack.Value;
 		} else {
 			if (player.GetParameterListFlag(EnumSelf.ParameterType.ApprenticeKnight) == true) {
 				MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(pack.ExecuteActionId);
@@ -1723,6 +1717,7 @@ public class BattleCalculationFunction {
 				(pack.Effect == EnumSelf.EffectType.TrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.DamageFinish) ||
 				(pack.Effect == EnumSelf.EffectType.DamageDice) ||
+				(pack.Effect == EnumSelf.EffectType.DamageTotalSelfTrueDamage) ||
 				(pack.Effect == EnumSelf.EffectType.ShieldBash)
 			) {
 				if (pack.Target == EnumSelf.TargetType.Opponent) {

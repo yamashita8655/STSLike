@@ -76,6 +76,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.DamageDiscardCount) ||
 			(type == EnumSelf.EffectType.DamageFinish) ||
 			(type == EnumSelf.EffectType.DamageDice) ||
+			(type == EnumSelf.EffectType.DamageTotalSelfTrueDamage) ||
 			(type == EnumSelf.EffectType.ShieldBash)
 		) {
 			ret = Const.DamageImagePath;
