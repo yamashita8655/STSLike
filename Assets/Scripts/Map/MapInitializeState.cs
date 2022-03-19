@@ -53,20 +53,20 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
 		
-		// TODO デバッグ用カード追加
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(401));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(402));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(403));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(404));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(405));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(406));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(407));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(408));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(408));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(409));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(409));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(410));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(410));
+		//// TODO デバッグ用カード追加
+		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(401));
+		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(402));
+		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(403));
+		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(404));
+		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(405));
+		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(406));
+		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(407));
+		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(408));
+		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(408));
+		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(409));
+		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(409));
+		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(410));
+		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(410));
 
 		// レギュラーカード設定
 		var regularIds = PlayerPrefsManager.Instance.GetRegularSettingCardIds();
@@ -96,17 +96,17 @@ public class MapInitializeState : StateBase {
 
 		// TODO アーティファクト効果テスト
 		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
-		MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1047);
-		Scene.AddArtifactObject(data);
-		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1047);
+		//MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1047);
+		//Scene.AddArtifactObject(data);
+		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1047);
 
-		data = MasterArtifactTable.Instance.GetData(1048);
-		Scene.AddArtifactObject(data);
-		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1048);
+		//data = MasterArtifactTable.Instance.GetData(1048);
+		//Scene.AddArtifactObject(data);
+		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1048);
 
-		data = MasterArtifactTable.Instance.GetData(1037);
-		Scene.AddArtifactObject(data);
-		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1037);
+		//data = MasterArtifactTable.Instance.GetData(1037);
+		//Scene.AddArtifactObject(data);
+		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1037);
 
 		//data = MasterArtifactTable.Instance.GetData(4);
 		//Scene.AddArtifactObject(data);
