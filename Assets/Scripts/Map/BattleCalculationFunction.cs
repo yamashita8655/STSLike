@@ -20,6 +20,8 @@ public class BattleCalculationFunction {
 			BattleCalculationFunction.PlayerCalcDamageNormalDamage(pack);
 		//} else if (pack.Effect == EnumSelf.EffectType.TrueDamage) {
 		//	BattleCalculationFunction.PlayerCalcTrueDamage(pack);
+		} else if (pack.Effect == EnumSelf.EffectType.SelfTrueDamage) {
+			BattleCalculationFunction.PlayerCalcSelfTrueDamage(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.RemovePower) {
 			BattleCalculationFunction.PlayerRemovePower(pack);
 		} else if (pack.Effect == EnumSelf.EffectType.Heal) {
@@ -142,6 +144,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.CurseReturn) ||
 			(pack.Effect == EnumSelf.EffectType.SelfHarm) ||
 			(pack.Effect == EnumSelf.EffectType.DamageDiscardCount) ||
+			(pack.Effect == EnumSelf.EffectType.SelfTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.SupportShoot)
 		) {
 			LogManager.Instance.LogError($"EnemyValueChange:pack.Effect is {pack.Effect} 敵に {pack.Effect}は設定しても効果がない");
@@ -596,6 +599,20 @@ public class BattleCalculationFunction {
 		// ここの関数が通ったら、攻撃を使ったとみなす
 		player.AddTurnUseAttackCount(1);
 
+	}
+	
+	// Player用
+	public static void PlayerCalcSelfTrueDamage(ActionPack pack) {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
+
+		int damage = pack.Value;
+
+		if (pack.Target == EnumSelf.TargetType.Self) {
+			PlayerUpdateHp(-damage);
+		} else if (pack.Target == EnumSelf.TargetType.Opponent) {
+			LogManager.Instance.LogError($"PlayerCalcTrueDamage:{EnumSelf.TargetType.Opponent}、相手を対象にしたSelfTrueDamageは未実装予定");
+		}
 	}
 	
 	// こっちは、アクションパック以外で、シールドとのダメージ計算が必要な物

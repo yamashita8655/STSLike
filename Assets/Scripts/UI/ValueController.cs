@@ -79,7 +79,10 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.ShieldBash)
 		) {
 			ret = Const.DamageImagePath;
-		} else if (type == EnumSelf.EffectType.TrueDamage) {
+		} else if (
+			(type == EnumSelf.EffectType.TrueDamage) ||
+			(type == EnumSelf.EffectType.SelfTrueDamage)
+		) {
 			ret = Const.TrueDamageImagePath;
 		} else if (
 			(type == EnumSelf.EffectType.Shield) ||

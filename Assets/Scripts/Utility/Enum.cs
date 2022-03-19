@@ -25,6 +25,7 @@ public partial class EnumSelf : MonoBehaviour {
         DamageMultiStrength,// 力に特別な補正をかけた数値分のダメージ
         DamageDiscardCount,// 破棄されているカード数xnダメージ
         TrueDamage,		// 全てを無視した固定ダメージ
+        SelfTrueDamage,		// 全てを無視した固定ダメージを自身に与える
         RemovePower,	// 状態変化全て解除
         Shield,			// シールド
         ShieldDouble,	// シールド倍化

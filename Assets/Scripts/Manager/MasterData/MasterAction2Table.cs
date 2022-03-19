@@ -169,6 +169,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.DamageDiscardCount;
 		} else if (typeString == "TrueDamage") {
 			type = EnumSelf.EffectType.TrueDamage;
+		} else if (typeString == "SelfTrueDamage") {
+			type = EnumSelf.EffectType.SelfTrueDamage;
 		} else if (typeString == "DamageFinish") {
 			type = EnumSelf.EffectType.DamageFinish;
 		} else if (typeString == "DamageDice") {
