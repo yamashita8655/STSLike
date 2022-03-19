@@ -93,6 +93,7 @@ public partial class EnumSelf : MonoBehaviour {
 		DiscardDamage,// カード破棄した時に、数値分ダメージを与える
 		AddSelfTrueDamageStrength,// 自確定ダメージ受けた時、力を獲得
 		DrawSelfTrueDamage,// 自確定ダメージ受けた時、1枚ドロー
+		AddSelfTrueDamageHealCharge,// 自確定ダメージ受けた時、回復チャージを1得る
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -181,6 +182,7 @@ public partial class EnumSelf : MonoBehaviour {
 		DiscardDamage,
 		AddSelfTrueDamageStrength,
 		DrawSelfTrueDamage,
+		AddSelfTrueDamageHealCharge,
 
 		// ターン経過時に、1にリセットする物
         RotBody,

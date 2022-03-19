@@ -60,6 +60,7 @@ id,rarity,name,equipcost,unlockcost,dicecost,costtype,usetype,detail,imagepath,e
 407,5,フレアドライブ,1,10,18,ReduceSelfTrueDamage,Repeat,{0}ダメージを与える。戦闘中に受けた自確定ダメージ分、ダイスコストが下がる。,Image/UI/Card/punch,Damage,Opponent,50,Add,NONE,,,,,,,,,,,,,,,,
 408,3,熱血,1,10,3,None,Erase,熱血を{0}得る。,Image/UI/Card/punch,AddSelfTrueDamageStrength,Self,1,Add,NONE,,,,,,,,,,,,,,,,
 409,2,蒸血気機関,1,10,3,None,Erase,血札を{0}得る。,Image/UI/Card/punch,DrawSelfTrueDamage,Self,1,Add,NONE,,,,,,,,,,,,,,,,
+410,3,癒血,1,10,3,None,Erase,癒血を{0}得る。,Image/UI/Card/punch,AddSelfTrueDamageHealCharge,Self,1,Add,NONE,,,,,,,,,,,,,,,,
 #,バフ系,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 501,2,ウォークライ,2,10,3,None,Erase,自身に「力」を{0}付与する。,Image/UI/Card/punch,Strength,Self,2,Add,NONE,,,,,,,,,,,,,,,,
 502,1,マッスルドープ,3,10,1,None,Repeat,自身に「力」を{0}付与し、「力減少」を{1}付与する。,Image/UI/Card/punch,Strength,Self,3,Add,SubStrength,Self,3,Add,NONE,,,,,,,,,,,,

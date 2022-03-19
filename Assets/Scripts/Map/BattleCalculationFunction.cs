@@ -80,6 +80,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.CurseReturn) ||
 			(pack.Effect == EnumSelf.EffectType.SelfHarm) ||
 			(pack.Effect == EnumSelf.EffectType.AddSelfTrueDamageStrength) ||
+			(pack.Effect == EnumSelf.EffectType.AddSelfTrueDamageHealCharge) ||
 			(pack.Effect == EnumSelf.EffectType.DrawSelfTrueDamage)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -149,6 +150,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.SelfTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.DamageTotalSelfTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.AddSelfTrueDamageStrength) ||
+			(pack.Effect == EnumSelf.EffectType.AddSelfTrueDamageHealCharge) ||
 			(pack.Effect == EnumSelf.EffectType.DrawSelfTrueDamage) ||
 			(pack.Effect == EnumSelf.EffectType.SupportShoot)
 		) {
@@ -353,6 +355,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.CurseReturn) || 
 				(i == (int)EnumSelf.TurnPowerType.SelfHarm) || 
 				(i == (int)EnumSelf.TurnPowerType.AddSelfTrueDamageStrength) || 
+				(i == (int)EnumSelf.TurnPowerType.AddSelfTrueDamageHealCharge) || 
 				(i == (int)EnumSelf.TurnPowerType.DrawSelfTrueDamage) || 
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
@@ -621,6 +624,11 @@ public class BattleCalculationFunction {
 			int addSelfTrueDamageStrengthCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.AddSelfTrueDamageStrength);
 			if (addSelfTrueDamageStrengthCount > 0) {
 				PlayerUpdatePower(EnumSelf.PowerType.Strength, addSelfTrueDamageStrengthCount);
+			}
+			
+			int addSelfTrueDamageHealChargeCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.AddSelfTrueDamageHealCharge);
+			if (addSelfTrueDamageHealChargeCount > 0) {
+				PlayerUpdatePower(EnumSelf.PowerType.HealCharge, addSelfTrueDamageHealChargeCount);
 			}
 			
 			int drawSelfTrueDamageCount = player.GetTurnPowerValue(EnumSelf.TurnPowerType.DrawSelfTrueDamage);
@@ -1222,6 +1230,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.AddSelfTrueDamageStrength;
 		} else if (type == EnumSelf.EffectType.DrawSelfTrueDamage) {
 			pType = EnumSelf.TurnPowerType.DrawSelfTrueDamage;
+		} else if (type == EnumSelf.EffectType.AddSelfTrueDamageHealCharge) {
+			pType = EnumSelf.TurnPowerType.AddSelfTrueDamageHealCharge;
 		}
 
 		return pType;
@@ -1302,7 +1312,6 @@ public class BattleCalculationFunction {
 	// 敵味方のHP増減はここで統一
 	// HP増減の内容（毒なのかダメージなのか）を知る必要が出てきた場合は、引数で渡してここで処理する
 	// また、HP変動時に判定する物も、ここで処理を統一する
-
 	static public void PlayerUpdateHp(int val) {
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 

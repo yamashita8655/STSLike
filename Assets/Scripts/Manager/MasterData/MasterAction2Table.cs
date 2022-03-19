@@ -306,6 +306,8 @@ public class MasterAction2Table : SimpleSingleton<MasterAction2Table>
 			type = EnumSelf.EffectType.AddSelfTrueDamageStrength;
 		} else if (typeString == "DrawSelfTrueDamage") {
 			type = EnumSelf.EffectType.DrawSelfTrueDamage;
+		} else if (typeString == "AddSelfTrueDamageHealCharge") {
+			type = EnumSelf.EffectType.AddSelfTrueDamageHealCharge;
 		} else if (typeString == "DebugDisaster") {
 			type = EnumSelf.EffectType.DebugDisaster;
 		}
