@@ -55,13 +55,28 @@ public class MenuRegularArtifactSettingArtifactDetailOpenState : StateBase {
 			scene.ArtifactDetailEquipButton.gameObject.SetActive(true);
 			scene.ArtifactDetailCostText.text = data.EquipCost.ToString();
 			
-			int nowCost = scene.GetNowEquipCost();
-			int maxCost = scene.GetMaxCost();
+			int nowCost = scene.GetNowArtifactEquipCost();
+			int maxCost = scene.GetArtifactMaxCost();
 
-			if ((nowCost+data.EquipCost) <= maxCost) {
-				scene.ArtifactDetailEquipButton.interactable = true;
-			} else {
+			// アーティファクトは、同じものは装備出来ないようにするので、
+			// 既に装備されていたら、装備ボタンは押せなくする
+			bool isFind = false;
+			for (int i = 0; i < MenuDataCarrier.Instance.RegularArtifactButtonControllers.Count; i++) {
+				var listData = MenuDataCarrier.Instance.RegularArtifactButtonControllers[i];
+				if (listData.GetData().Id == data.Id) {
+					isFind = true;
+					break;
+				}
+			}
+
+			if (isFind == true) {
 				scene.ArtifactDetailEquipButton.interactable = false;
+			} else {
+				if ((nowCost+data.EquipCost) <= maxCost) {
+					scene.ArtifactDetailEquipButton.interactable = true;
+				} else {
+					scene.ArtifactDetailEquipButton.interactable = false;
+				}
 			}
 		}
 
