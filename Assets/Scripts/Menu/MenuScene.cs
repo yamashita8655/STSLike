@@ -334,6 +334,15 @@ public partial class MenuScene : SceneBase
 		DungeonRoot.SetActive(true);
 	}
 	
+	public void OnClickDungeonCloseButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+			return;
+		}
+		DungeonRoot.SetActive(false);
+	}
+	
 	public void OnClickCardUnlockButton() {
         var stm = StateMachineManager.Instance;
 		// ユーザー入力待機状態でなければ、処理しない
