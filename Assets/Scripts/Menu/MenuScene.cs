@@ -6,6 +6,35 @@ using UnityEngine.UI;
 
 public partial class MenuScene : SceneBase
 {
+	// ↓↓固定テキスト↓↓
+	[SerializeField]
+	private Text SFMenuDungeonText = null;
+	public Text MenuDungeonText => SFMenuDungeonText;
+	
+	[SerializeField]
+	private Text SFMenuRegularCardText = null;
+	public Text MenuRegularCardText => SFMenuRegularCardText;
+	
+	[SerializeField]
+	private Text SFMenuRegularArtifactText = null;
+	public Text MenuRegularArtifactText => SFMenuRegularArtifactText;
+	
+	[SerializeField]
+	private Text SFMenuOptionText = null;
+	public Text MenuOptionText => SFMenuOptionText;
+	
+	[SerializeField]
+	private Text SFMenuOptionCloseButtonText = null;
+	public Text MenuOptionCloseButtonText => SFMenuOptionCloseButtonText;
+	
+	[SerializeField]
+	private Text SFMenuRegularCardReturnButtonText = null;
+	public Text MenuRegularCardReturnButtonText => SFMenuRegularCardReturnButtonText;
+	
+	[SerializeField]
+	private Text SFMenuRegularArtifactReturnButtonText = null;
+	public Text MenuRegularArtifactReturnButtonText => SFMenuRegularArtifactReturnButtonText;
+	
 	// ↓↓ダンジョンメニュー↓↓
 	[SerializeField]
 	private GameObject SFDungeonRoot = null;
@@ -166,6 +195,89 @@ public partial class MenuScene : SceneBase
 	public GameObject CarryEquipCardContentRoot => SFCarryEquipCardContentRoot;
 	
 	// ↑↑レギュラーカードメニュー↑↑
+	
+	// ↓↓レギュラーアーティファクトメニュー↓↓
+	[SerializeField]
+	private GameObject SFRegularArtifactSettingRoot = null;
+	public GameObject RegularArtifactSettingRoot => SFRegularArtifactSettingRoot;
+	
+	[SerializeField]
+	private Text SFArtifactCarryPointText = null;
+	public Text ArtifactCarryPointText => SFArtifactCarryPointText;
+	
+	[SerializeField]
+	private Text SFArtifactNowRegularCostText = null;
+	public Text ArtifactNowRegularCostText => SFArtifactNowRegularCostText;
+	
+	[SerializeField]
+	private Text SFArtifactMaxRegularCostText = null;
+	public Text ArtifactMaxRegularCostText => SFArtifactMaxRegularCostText;
+	
+	[SerializeField]
+	private GameObject SFArtifactContentRoot = null;
+	public GameObject ArtifactContentRoot => SFArtifactContentRoot;
+	
+	[SerializeField]
+	private Text SFArtifactMaxCostUpNeedPointText = null;
+	public Text ArtifactMaxCostUpNeedPointText => SFArtifactMaxCostUpNeedPointText;
+	
+	[SerializeField]
+	private Button SFArtifactMaxCostUpButton = null;
+	public Button ArtifactMaxCostUpButton => SFArtifactMaxCostUpButton;
+	
+	// TODO ボタンをコンポーネント化は、とりあえずあと
+	// ひとまず、何が装備されているかだけ見れるようにしておく
+	[SerializeField]
+	private Text[] SFEquipArtifactTexts = null;
+	public Text[] EquipArtifactTexts => SFEquipArtifactTexts;
+	
+	// カード詳細系
+	[SerializeField]
+	private GameObject SFArtifactDetailRoot = null;
+	public GameObject ArtifactDetailRoot => SFArtifactDetailRoot;
+	
+	[SerializeField]
+	private Text SFArtifactDetailNameText = null;
+	public Text ArtifactDetailNameText => SFArtifactDetailNameText;
+	
+	[SerializeField]
+	private Text SFArtifactDetailDetailText = null;
+	public Text ArtifactDetailDetailText => SFArtifactDetailDetailText;
+	
+	[SerializeField]
+	private Text SFArtifactDetailCostText = null;
+	public Text ArtifactDetailCostText => SFArtifactDetailCostText;
+	
+	[SerializeField]
+	private Image SFArtifactDetailImage = null;
+	public Image ArtifactDetailImage => SFArtifactDetailImage;
+	
+	[SerializeField]
+	private Image SFArtifactDetailRarityFrameImage = null;
+	public Image ArtifactDetailRarityFrameImage => SFArtifactDetailRarityFrameImage;
+	
+	[SerializeField]
+	private Button SFArtifactDetailUnlockButton = null;
+	public Button ArtifactDetailUnlockButton => SFArtifactDetailUnlockButton;
+	
+	[SerializeField]
+	private Button SFArtifactDetailEquipButton = null;
+	public Button ArtifactDetailEquipButton => SFArtifactDetailEquipButton;
+	
+	[SerializeField]
+	private GameObject SFArtifactEquipSelectRoot = null;
+	public GameObject ArtifactEquipSelectRoot => SFArtifactEquipSelectRoot;
+	
+	[SerializeField]
+	private Button[] SFArtifactEquipSelectButtons = null;
+	public Button[] ArtifactEquipSelectButtons => SFArtifactEquipSelectButtons;
+	
+	[SerializeField]
+	private GameObject SFCarryEquipArtifactContentRoot = null;
+	public GameObject CarryEquipArtifactContentRoot => SFCarryEquipArtifactContentRoot;
+	
+	// ↑↑レギュラーアーティファクトメニュー↑↑
+
 
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -248,13 +360,16 @@ public partial class MenuScene : SceneBase
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingInitialize);
 	}
-
-	public void UpdateEquipCardDisplay(int index) {
-/*		int id = PlayerPrefsManager.Instance.GetRegularSettingCardId(index);
-		MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(id);
-		SFEquipCardTexts[index].text = data.Name;*/
-	}
 	
+	public void OnClickRegularArtifactSettingButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingInitialize);
+	}
+
 	public void UpdateEquipCardCostText() {
 		NowRegularCostText.text = GetNowEquipCost().ToString();
 	}
@@ -265,6 +380,22 @@ public partial class MenuScene : SceneBase
 
         for (int i = 0; i < ids.Count; i++) {
 			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(ids[i]);
+			cost += data.EquipCost;
+		}
+
+		return cost;
+	}
+	
+	public void UpdateEquipArtifactCostText() {
+		ArtifactNowRegularCostText.text = GetNowArtifactEquipCost().ToString();
+	}
+	
+	public int GetNowArtifactEquipCost() {
+		int cost = 0;
+        List<int> ids = PlayerPrefsManager.Instance.GetRegularSettingArtifactIds();
+
+        for (int i = 0; i < ids.Count; i++) {
+			MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(ids[i]);
 			cost += data.EquipCost;
 		}
 
@@ -561,4 +692,146 @@ public partial class MenuScene : SceneBase
 		UpdateEquipCardCostText();
 	}
 	// ↑↑レギュラーカード↑↑
+	
+	// ↓↓レギュラーアーティファクト↓↓
+	public void OnClickRegularArtifactSettingCloseButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularArtifactSettingUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingEnd);
+	}
+	
+	public void OnClickArtifactMaxCostUpButton() {
+		Debug.Log("Click");
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularArtifactSettingUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingMaxCostUp);
+	}
+
+	public void UpdateArtifactMaxCostUpDisplay() {
+		int carryPoint = PlayerPrefsManager.Instance.GetPoint();
+		ArtifactCarryPointText.text = carryPoint.ToString();
+
+		int usedPoint = PlayerPrefsManager.Instance.GetUsedArtifactRegularCostPoint();
+		int level = MasterRegularArtifactMaxCostTable.Instance.GetNowLevel(usedPoint);
+		
+		int maxCost = GetArtifactMaxCost();
+		ArtifactMaxRegularCostText.text = maxCost.ToString();
+
+		if (MasterRegularArtifactMaxCostTable.Instance.IsMaxLevel(level) == true) {
+			ArtifactMaxCostUpButton.interactable = false;
+			ArtifactMaxCostUpNeedPointText.text = "-";
+		} else {
+			int nextNeedPoint = MasterRegularArtifactMaxCostTable.Instance.GetNextLevelNeedPoint(usedPoint);
+			ArtifactMaxCostUpButton.interactable = true;
+			ArtifactMaxCostUpNeedPointText.text = nextNeedPoint.ToString();
+
+			if (carryPoint >= nextNeedPoint) {
+				ArtifactMaxCostUpButton.interactable = true;
+			} else {
+				ArtifactMaxCostUpButton.interactable = false;
+			}
+		}
+	}
+
+	public int GetArtifactMaxCost() {
+		int usedPoint = PlayerPrefsManager.Instance.GetUsedArtifactRegularCostPoint();
+		int level = MasterRegularArtifactMaxCostTable.Instance.GetNowLevel(usedPoint);
+		
+		int maxCost = Const.BaseRegularArtifactMaxCost + level;
+
+		return maxCost;
+	}
+	
+	public void OnClickEquipArtifactDetailButton(int index) {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularArtifactSettingUserWait) {
+			return;
+		}
+
+		MenuDataCarrier.Instance.EquipArtifactSelectIndex = index;
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingEquipArtifactDetailOpen);
+	}
+	
+	public void OnClickArtifactDetailButton(RegularSettingArtifactContentItem item) {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularArtifactSettingUserWait) {
+			return;
+		}
+		MenuDataCarrier.Instance.SelectArtifactContentItem = item;
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingArtifactDetailOpen);
+	}
+	
+	public void OnClickArtifactDetailCloseButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularArtifactSettingUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingArtifactDetailClose);
+	}
+	
+	public void OnClickArtifactDetailUnlockButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularArtifactSettingUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingArtifactDetailUnlock);
+	}
+	
+	public void OnClickArtifactDetailEquipButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularArtifactSettingUserWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingArtifactDetailEquip);
+	}
+	
+	public void OnClickArtifactDetailEquipSelectBackButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularArtifactSettingArtifactDetailEquipUserWait) {
+			return;
+		}
+		SFArtifactEquipSelectRoot.SetActive(false);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingUserWait);
+	}
+	
+	public void OnClickCarryArtifactButton(MasterArtifactTable.Data data) {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularArtifactSettingUserWait) {
+			return;
+		}
+
+		MenuDataCarrier.Instance.EquipArtifactSelectData = data;
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingEquipArtifactDetailOpen);
+	}
+	
+	public void OnClickCarryArtifactDetailButton(RegularArtifactButtonController ctrl) {
+		// TODO 選択された装備カードを取り外す処理
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularArtifactSettingUserWait) {
+			return;
+		}
+
+		var data = ctrl.GetData();
+		MenuDataCarrier.Instance.RegularArtifactButtonControllers.Remove(ctrl);
+		//ctrl.gameObject.SetActive(false);
+		GameObject.Destroy(ctrl.gameObject);
+		PlayerPrefsManager.Instance.RemoveRegularSettingArtifactId(data.Id);
+
+		UpdateEquipArtifactCostText();
+	}
+	// ↑↑レギュラーアーティファクト↑↑
 }

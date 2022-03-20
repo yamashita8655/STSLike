@@ -38,6 +38,10 @@ public class MasterStringTable : SimpleSingleton<MasterStringTable>
 		// 1行目はメタデータなので、読み飛ばす
 		for (int i = 1; i < lineList.Count; i++) {
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
+			
+			if (paramList[0] == "#") {
+				continue;
+			}
 
 			// マルチランゲージ対応する時に、ここに国別の物追加する
 			List<string> values = new List<string>();

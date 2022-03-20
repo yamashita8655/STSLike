@@ -1551,7 +1551,10 @@ public class BattleCalculationFunction {
 			int count = player.GetTurnUseAttackCount();
 			val = count * pack.Value;
 		} else if (pack.Effect == EnumSelf.EffectType.DamageDice) {
-			val = MapDataCarrier.Instance.CurrentTotalDiceCost;
+			// ここに来る際には、もうダイスコストが引かれてしまっている為
+			// 払ったコスト分を加算して、調整する
+			var data = MasterAction2Table.Instance.GetData(pack.ExecuteActionId);
+			val = MapDataCarrier.Instance.CurrentTotalDiceCost + data.DiceCost;
 		} else if (pack.Effect == EnumSelf.EffectType.DamageTotalSelfTrueDamage) {
 			val = player.GetTotalSelfTrueDamage() * pack.Value;
 		} else {

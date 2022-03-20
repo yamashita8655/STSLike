@@ -17,7 +17,10 @@ public class DebugController : MonoBehaviour
 	[SerializeField]
 	private InputField AddPointInputField = null;
 
-	private int LogIndex = 1;
+    [SerializeField]
+    private Dropdown FindArtifactDropDown = null;
+
+    private int LogIndex = 1;
 
 	public void Initialize()
 	{
@@ -33,9 +36,19 @@ public class DebugController : MonoBehaviour
 			}
 		}
 		FindCardDropDown.AddOptions(options);
-	}
 
-	public void OnClickOpenButton()
+        FindArtifactDropDown.ClearOptions();
+        options = new List<string>();
+        for (int i = 1; i < 6; i++) {
+            var list = MasterArtifactTable.Instance.GetRarityArtifactCloneList(i);
+            for (int i2 = 0; i2 < list.Count; i2++) {
+                options.Add(list[i2].ToString());
+            }
+        }
+        FindArtifactDropDown.AddOptions(options);
+    }
+
+    public void OnClickOpenButton()
 	{
 		DebugManager.Instance.OpenDebug();
 	}
@@ -82,8 +95,24 @@ public class DebugController : MonoBehaviour
 		int id = int.Parse(FindCardDropDown.options[FindCardDropDown.value].text);
 		PlayerPrefsManager.Instance.SaveFindCardId(id);
 	}
-	
-	public void OnClickAddPointButton()
+
+    public void OnClickArtifactFindAllButton()
+    {
+        for (int i = 1; i < 6; i++) {
+            var list = MasterArtifactTable.Instance.GetRarityArtifactCloneList(i);
+            for (int i2 = 0; i2 < list.Count; i2++) {
+                PlayerPrefsManager.Instance.SaveFindArtifactId(list[i2]);
+            }
+        }
+    }
+
+    public void OnClickArtifactFindIdButton()
+    {
+        int id = int.Parse(FindArtifactDropDown.options[FindArtifactDropDown.value].text);
+        PlayerPrefsManager.Instance.SaveFindArtifactId(id);
+    }
+
+    public void OnClickAddPointButton()
 	{
 		int point = int.Parse(AddPointInputField.text);
 		PlayerPrefsManager.Instance.AddPoint(point);

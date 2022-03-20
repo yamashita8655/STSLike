@@ -1,2 +1,12 @@
 id,jp
 Test,test<br>test<comma>test
+Test2,test<br>test<comma>test
+#,全体
+Common_Close,閉じる
+Common_Return,戻る
+Common_CostUp,コストアップ
+#,Menu
+Menu_MenuDungeon,ダンジョン
+Menu_MenuRegularCard,レギュラーカード
+Menu_MenuRegularArtifact,レギュラーアーティファクト
+Menu_MenuOption,オプション

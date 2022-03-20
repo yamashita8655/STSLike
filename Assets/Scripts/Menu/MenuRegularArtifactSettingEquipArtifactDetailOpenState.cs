@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuRegularCardSettingEquipCardDetailOpenState : StateBase {
+public class MenuRegularArtifactSettingEquipArtifactDetailOpenState : StateBase {
 
     /// <summary>
     /// メイン前処理.
@@ -11,24 +11,20 @@ public class MenuRegularCardSettingEquipCardDetailOpenState : StateBase {
     override public bool OnBeforeMain()
     {
 		var scene = MenuDataCarrier.Instance.Scene as MenuScene;
-		scene.CardDetailRoot.SetActive(true);
+		scene.ArtifactDetailRoot.SetActive(true);
 
-		var data = MenuDataCarrier.Instance.EquipCardSelectData;
+		var data = MenuDataCarrier.Instance.EquipArtifactSelectData;
 		
-		scene.CardDetailNameText.text = data.Name;
+		scene.ArtifactDetailNameText.text = data.Name;
 
-		System.Object[] arguments = new System.Object[data.ActionPackList.Count];
-		for (int i = 0; i < data.ActionPackList.Count; i++) {
-			arguments[i] = data.ActionPackList[i].Value;
-		}
-		scene.CardDetailDetailText.text = string.Format(data.Detail, arguments);
+		scene.ArtifactDetailDetailText.text = data.Detail;
 		
 		ResourceManager.Instance.RequestExecuteOrder(
 			data.ImagePath,
 			ExecuteOrder.Type.Sprite,
 			scene.gameObject,
 			(rawSprite) => {
-				scene.CardDetailImage.sprite = rawSprite as Sprite;
+				scene.ArtifactDetailImage.sprite = rawSprite as Sprite;
 			}
 		);
 		
@@ -37,14 +33,13 @@ public class MenuRegularCardSettingEquipCardDetailOpenState : StateBase {
 			ExecuteOrder.Type.Sprite,
 			scene.gameObject,
 			(rawSprite) => {
-				scene.CardDetailRarityFrameImage.sprite = rawSprite as Sprite;
+				scene.ArtifactDetailRarityFrameImage.sprite = rawSprite as Sprite;
 			}
 		);
 			
-		scene.CardDetailUnlockButton.gameObject.SetActive(false);
-		scene.CardDetailEquipButton.gameObject.SetActive(false);
-		scene.CardDetailCostText.text = data.EquipCost.ToString();
-
+		scene.ArtifactDetailUnlockButton.gameObject.SetActive(false);
+		scene.ArtifactDetailEquipButton.gameObject.SetActive(false);
+		scene.ArtifactDetailCostText.text = data.EquipCost.ToString();
 		return false;
     }
 
@@ -54,7 +49,7 @@ public class MenuRegularCardSettingEquipCardDetailOpenState : StateBase {
     /// <param name="delta">経過時間</param>
     override public void OnUpdateMain(float delta)
     {
-		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingUserWait);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingUserWait);
     }
 
     /// <summary>

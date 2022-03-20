@@ -68,6 +68,7 @@ public class EntryPoint : MonoBehaviour {
 		MasterArtifactLotTable.Instance.Initialize();
 		MasterStringTable.Instance.Initialize();
 		MasterRegularCardMaxCostTable.Instance.Initialize();
+		MasterRegularArtifactMaxCostTable.Instance.Initialize();
 
 		// マスターデータ読み込んでないと出来ない初期化があるので、これはマスターデータ読み終わった後に対応
 		DebugManager.Instance.Initialize();

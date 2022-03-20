@@ -24,6 +24,16 @@ public partial class MenuScene : SceneBase
 		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailEquip, new MenuRegularCardSettingCardDetailEquipState());
 		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailEquipUserWait, new MenuRegularCardSettingCardDetailEquipUserWaitState());
 		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailClose, new MenuRegularCardSettingCardDetailCloseState());
+		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingInitialize, new MenuRegularArtifactSettingInitializeState());
+		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingUserWait, new MenuRegularArtifactSettingUserWaitState());
+		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingEnd, new MenuRegularArtifactSettingEndState());
+		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingMaxCostUp, new MenuRegularArtifactSettingMaxCostUpState());
+		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingEquipArtifactDetailOpen, new MenuRegularArtifactSettingEquipArtifactDetailOpenState());
+		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingArtifactDetailOpen, new MenuRegularArtifactSettingArtifactDetailOpenState());
+		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingArtifactDetailUnlock, new MenuRegularArtifactSettingArtifactDetailUnlockState());
+		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingArtifactDetailEquip, new MenuRegularArtifactSettingArtifactDetailEquipState());
+		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingArtifactDetailEquipUserWait, new MenuRegularArtifactSettingArtifactDetailEquipUserWaitState());
+		stm.AddState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingArtifactDetailClose, new MenuRegularArtifactSettingArtifactDetailCloseState());
 		stm.AddState(StateMachineName.Menu, (int)MenuState.End, new MenuEndState());
 
 	}

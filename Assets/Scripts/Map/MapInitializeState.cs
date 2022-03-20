@@ -95,8 +95,9 @@ public class MapInitializeState : StateBase {
 		}
 
 		// TODO アーティファクト効果テスト
+		MasterArtifactTable.Data data = null;
 		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
-		//MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(1047);
+		//data = MasterArtifactTable.Instance.GetData(1047);
 		//Scene.AddArtifactObject(data);
 		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1047);
 
@@ -115,6 +116,14 @@ public class MapInitializeState : StateBase {
 		//data = MasterArtifactTable.Instance.GetData(1000);
 		//Scene.AddArtifactObject(data);
 		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1000);
+		
+		// レギュラーアーティファクト設定
+		regularIds = PlayerPrefsManager.Instance.GetRegularSettingArtifactIds();
+		for (int i = 0; i < regularIds.Count; i++) {
+			data = MasterArtifactTable.Instance.GetData(regularIds[i]);
+			Scene.AddArtifactObject(data);
+			MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(regularIds[i]);
+		}
 
 		status.SetMaxDiceCount(3);
 

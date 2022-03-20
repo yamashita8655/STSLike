@@ -15,6 +15,10 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		UnlockCardIds,
 		UsedRegularCostPoint,
 		RegularSettingCardIds,
+		FindArtifactIds,
+		UnlockArtifactIds,
+		UsedArtifactRegularCostPoint,
+		RegularSettingArtifactIds,
 		Max,
 		None
 	};
@@ -30,15 +34,24 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"UnlockCardIds",
 		"UsedRegularCostPoint",
 		"RegularSettingCardIds",
+		"FindArtifactIds",
+		"UnlockArtifactIds",
+		"UsedArtifactRegularCostPoint",
+		"RegularSettingArtifactIds"
 	};
 
 	private List<int> FindCardIds = new List<int>();
 	private List<int> UnlockCardIds = new List<int>();
 	private List<int> RegularSettingCardIds = new List<int>();
 	
+	private List<int> FindArtifactIds = new List<int>();
+	private List<int> UnlockArtifactIds = new List<int>();
+	private List<int> RegularSettingArtifactIds = new List<int>();
+	
 	public void Initialize() {
 		CreateFirstData();
 		InitializeCardStatusList();
+		InitializeArtifactStatusList();
 	}
 
 	// 初回のセーブデータ作成
@@ -69,6 +82,14 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 				} else if (i == (int)SaveType.RegularSettingCardIds) {
 					//
 					saveString = "2";
+				} else if (i == (int)SaveType.FindArtifactIds) {
+					saveString = "";
+				} else if (i == (int)SaveType.UnlockArtifactIds) {
+					saveString = "";
+				} else if (i == (int)SaveType.UsedArtifactRegularCostPoint) {
+					saveString = "0";
+				} else if (i == (int)SaveType.RegularSettingArtifactIds) {
+					saveString = "";
 				}
 				PlayerPrefs.SetString(key, saveString);
 			}
@@ -282,5 +303,148 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 			}
 		}
 		SaveParameter(SaveType.RegularSettingCardIds, saveString);
+	}
+	
+	public void InitializeArtifactStatusList() {
+		string saveString = GetParameter(SaveType.FindArtifactIds);
+		if (string.IsNullOrEmpty(saveString) == false) {
+			char[] split = {'-'};
+			List<string> lineList = Functions.SplitString(saveString, split);
+
+			for (int i = 0; i < lineList.Count; i++) {
+				Debug.Log(lineList[i]);
+				FindArtifactIds.Add(int.Parse(lineList[i]));
+			}
+		}
+		
+		saveString = GetParameter(SaveType.UnlockArtifactIds);
+		if (string.IsNullOrEmpty(saveString) == false) {
+			char[] split = {'-'};
+			List<string> lineList = Functions.SplitString(saveString, split);
+
+			for (int i = 0; i < lineList.Count; i++) {
+				UnlockArtifactIds.Add(int.Parse(lineList[i]));
+			}
+		}
+		
+		saveString = GetParameter(SaveType.RegularSettingArtifactIds);
+		if (string.IsNullOrEmpty(saveString) == false) {
+			char[] split = {'-'};
+			List<string> lineList = Functions.SplitString(saveString, split);
+
+			for (int i = 0; i < lineList.Count; i++) {
+				RegularSettingArtifactIds.Add(int.Parse(lineList[i]));
+			}
+		}
+	}
+	
+	public void SaveFindArtifactId(int id) {
+		string saveString = GetParameter(SaveType.FindArtifactIds);
+
+		if (FindArtifactIds.Count == 0) {
+			saveString = id.ToString();
+		} else {
+			if (FindArtifactIds.Contains(id) == true) {
+				LogManager.Instance.LogWarning("PlayerPrefsManager:SaveFindArtifactId already find:" + id);
+				return;
+			} else {
+				saveString += "-" + id.ToString();
+			}
+		}
+
+		FindArtifactIds.Add(id);
+		
+		SaveParameter(SaveType.FindArtifactIds, saveString);
+	}
+	
+	public bool IsFindArtifact(int id) {
+		bool res = false;
+		for (int i = 0; i < FindArtifactIds.Count; i++) {
+			if (FindArtifactIds[i] == id) {
+				res = true;
+				break;
+			}
+		}
+
+		return res;
+	}
+	
+	public void SaveUnclookArtifactId(int id) {
+		string saveString = GetParameter(SaveType.UnlockArtifactIds);
+
+		if (UnlockArtifactIds.Count == 0) {
+			saveString = id.ToString();
+		} else {
+			if (UnlockArtifactIds.Contains(id) == true) {
+				LogManager.Instance.LogWarning("PlayerPrefsManager:SaveUnclookArtifactId already unlock:" + id);
+				return;
+			} else {
+				saveString += "-" + id.ToString();
+			}
+		}
+		
+		UnlockArtifactIds.Add(id);
+		
+		SaveParameter(SaveType.UnlockArtifactIds, saveString);
+	}
+	
+	public bool IsUnlockArtifact(int id) {
+		bool res = false;
+		for (int i = 0; i < UnlockArtifactIds.Count; i++) {
+			if (UnlockArtifactIds[i] == id) {
+				res = true;
+				break;
+			}
+		}
+
+		return res;
+	}
+	
+	public int GetUsedArtifactRegularCostPoint()
+	{
+		string saveString = GetParameter(SaveType.UsedArtifactRegularCostPoint);
+		int point = int.Parse(saveString);
+		return point;
+	}
+	
+	public void AddUsedArtifactRegularCostPoint(int addValue)
+	{
+		string saveString = GetParameter(SaveType.UsedArtifactRegularCostPoint);
+		int val = int.Parse(saveString) + addValue;
+		SaveUsedArtifactRegularCostPoint(val);
+	}
+	
+	public void SaveUsedArtifactRegularCostPoint(int val)
+	{
+		string saveString = val.ToString();
+		SaveParameter(SaveType.UsedArtifactRegularCostPoint, saveString);
+	}
+	
+	public List<int> GetRegularSettingArtifactIds()
+	{
+		return RegularSettingArtifactIds;
+	}
+
+	public void AddRegularSettingArtifactId(int id) {
+		RegularSettingArtifactIds.Add(id);
+		SaveRegularSettingArtifactId();
+	}
+	
+	public void RemoveRegularSettingArtifactId(int id) {
+		RegularSettingArtifactIds.Remove(id);
+		SaveRegularSettingArtifactId();
+	}
+	
+	public void SaveRegularSettingArtifactId()
+	{
+		string saveString = "";
+		for (int i = 0; i < RegularSettingArtifactIds.Count; i++) {
+			if (i == 0) {
+				saveString += RegularSettingArtifactIds[i].ToString();
+			} else {
+				saveString += "-" + RegularSettingArtifactIds[i].ToString();
+			}
+		}
+		SaveParameter(SaveType.RegularSettingArtifactIds, saveString);
 	}
 }

@@ -7,6 +7,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 	public class Data {
 		public int Id { get; private set; }
 		public int UId { get; private set; }
+		public int EquipCost { get; private set; }
+		public int UnlockCost { get; private set; }
 		public string LotType { get; private set; }
 		public int Rarity { get; private set; }
 		public string Name { get; private set; }
@@ -20,6 +22,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
         public Data(
 			int id,
 			int uid,
+			int equipCost,
+			int unlockCost,
 			string lotType,
 			int rarity,
 			string name,
@@ -32,6 +36,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 		{
 			Id			= id;
 			UId			= uid;
+			EquipCost	= equipCost;
+			UnlockCost	= unlockCost;
 			LotType		= lotType;
 			Rarity		= rarity;
 			Name		= name;
@@ -79,21 +85,23 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			Data data = new Data(
 				int.Parse(paramList[0]),
 				int.Parse(paramList[1]),
-				paramList[2],
+				int.Parse(paramList[2]),
 				int.Parse(paramList[3]),
 				paramList[4],
-				paramList[5],
+				int.Parse(paramList[5]),
 				paramList[6],
-				ConvertArtifactEffectType(paramList[7]),
-				int.Parse(paramList[8]),
-				ConvertParameterType(paramList[9])
+				paramList[7],
+				paramList[8],
+				ConvertArtifactEffectType(paramList[9]),
+				int.Parse(paramList[10]),
+				ConvertParameterType(paramList[11])
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);
 
 			// TODO NORMALが、トレジャーから手に入るリスト
-			if (paramList[2] == "NORMAL") {
-				RarityArtifactList[int.Parse(paramList[3])-1].Add(int.Parse(paramList[0]));
+			if (paramList[4] == "NORMAL") {
+				RarityArtifactList[int.Parse(paramList[5])-1].Add(int.Parse(paramList[0]));
 			}
 		}
 	}

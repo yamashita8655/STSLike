@@ -4,6 +4,7 @@ using UnityEngine;
 
 public partial class Const {
 	public static readonly int BaseRegularCardMaxCost = 1;
+	public static readonly int BaseRegularArtifactMaxCost = 1;
 	public static readonly int MaxPoint = 99999999;
 	public static readonly int MaxHand = 20;
 	public static readonly int DrawCount = 6;
@@ -14,6 +15,7 @@ public partial class Const {
 	public static readonly string NotFoundImagePath = "Image/UI/Menu/notfound";
 	public static readonly string RegularSettingCardContentItemPath = "Prefab/UI/RegularSettingCardContentItem";
 	public static readonly string CardContentItemPath = "Prefab/UI/CardContentItem";
+	public static readonly string RegularSettingArtifactContentItemPath = "Prefab/UI/RegularSettingArtifactContentItem";
 	
 	public static readonly string UseTypeDiscardImagePath = "Image/UI/Map/discardcard";
 	public static readonly string UseTypeEraseImagePath = "Image/UI/Map/erasecard";
@@ -21,6 +23,7 @@ public partial class Const {
 	public static readonly string ValueItemPath = "Prefab/UI/ValueItem";
 	public static readonly string BattleCardButtonItemPath = "Prefab/UI/BattleCardButtonItem";
 	public static readonly string RegularCardButtonItemPath = "Prefab/UI/RegularCardButtonItem";
+	public static readonly string RegularArtifactButtonItemPath = "Prefab/UI/RegularArtifactButtonItem";
 
 	public static readonly string DamageImagePath = "Image/UI/Card/damage";
 	public static readonly string TrueDamageImagePath = "Image/UI/Card/truedamage";

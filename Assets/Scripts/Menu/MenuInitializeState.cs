@@ -22,6 +22,17 @@ public class MenuInitializeState : StateBase {
 		scene.ArtifactUnlockRoot.SetActive(false);
 		scene.RegularCardSettingRoot.SetActive(false);
 		scene.CardEquipSelectRoot.SetActive(false);
+		scene.RegularArtifactSettingRoot.SetActive(false);
+		scene.ArtifactEquipSelectRoot.SetActive(false);
+
+		// 固定テキストの設定
+		scene.MenuDungeonText.text = MasterStringTable.Instance.GetString("Menu_MenuDungeon");
+		scene.MenuRegularCardText.text = MasterStringTable.Instance.GetString("Menu_MenuRegularCard");
+		scene.MenuRegularArtifactText.text = MasterStringTable.Instance.GetString("Menu_MenuRegularArtifact");
+		scene.MenuOptionText.text = MasterStringTable.Instance.GetString("Menu_MenuOption");
+		scene.MenuOptionCloseButtonText.text = MasterStringTable.Instance.GetString("Common_Close");
+		scene.MenuRegularCardReturnButtonText.text = MasterStringTable.Instance.GetString("Common_Return");
+		scene.MenuRegularArtifactReturnButtonText.text = MasterStringTable.Instance.GetString("Common_Return");
 
 		// BGMに関する設定
 		scene.MBgmSlider.value = PlayerPrefsManager.Instance.GetBgmVolume();

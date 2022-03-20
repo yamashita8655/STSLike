@@ -31,7 +31,9 @@ public class MenuRegularCardSettingInitializeState : StateBase {
 		}
 		
 		// 既に設定されているカードリスト設定
-		LoadRegularCardObjects();
+		if (MenuDataCarrier.Instance.RegularCardButtonControllers.Count == 0) {
+			LoadRegularCardObjects();
+		}
 
 		return false;
     }

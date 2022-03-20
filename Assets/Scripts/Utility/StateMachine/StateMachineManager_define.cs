@@ -97,6 +97,16 @@ public enum MenuState : int
 	RegularCardSettingCardDetailEquip,
 	RegularCardSettingCardDetailEquipUserWait,
 	RegularCardSettingCardDetailClose,
+	RegularArtifactSettingInitialize,
+	RegularArtifactSettingUserWait,
+	RegularArtifactSettingEnd,
+	RegularArtifactSettingMaxCostUp,
+	RegularArtifactSettingEquipArtifactDetailOpen,
+	RegularArtifactSettingArtifactDetailOpen,
+	RegularArtifactSettingArtifactDetailUnlock,
+	RegularArtifactSettingArtifactDetailEquip,
+	RegularArtifactSettingArtifactDetailEquipUserWait,
+	RegularArtifactSettingArtifactDetailClose,
 	End,
 }
 
