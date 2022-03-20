@@ -18,7 +18,7 @@ public class MenuRegularCardSettingCardDetailUnlockState : StateBase {
 		int carryPoint = PlayerPrefsManager.Instance.GetPoint();
 
 		PlayerPrefsManager.Instance.AddPoint(-usedPoint);
-		PlayerPrefsManager.Instance.SaveUnclookCardId(data.Id);
+		PlayerPrefsManager.Instance.SaveUnlookCardId(data.Id);
 
 		item.UpdateDisplay();
 		

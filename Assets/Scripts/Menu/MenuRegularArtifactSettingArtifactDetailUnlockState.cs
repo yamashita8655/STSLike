@@ -18,7 +18,7 @@ public class MenuRegularArtifactSettingArtifactDetailUnlockState : StateBase {
 		int carryPoint = PlayerPrefsManager.Instance.GetPoint();
 
 		PlayerPrefsManager.Instance.AddPoint(-usedPoint);
-		PlayerPrefsManager.Instance.SaveUnclookArtifactId(data.Id);
+		PlayerPrefsManager.Instance.SaveUnlookArtifactId(data.Id);
 
 		item.UpdateDisplay();
 		

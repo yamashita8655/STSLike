@@ -226,14 +226,14 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		return res;
 	}
 	
-	public void SaveUnclookCardId(int id) {
+	public void SaveUnlookCardId(int id) {
 		string saveString = GetParameter(SaveType.UnlockCardIds);
 
 		if (UnlockCardIds.Count == 0) {
 			saveString = id.ToString();
 		} else {
 			if (UnlockCardIds.Contains(id) == true) {
-				LogManager.Instance.LogWarning("PlayerPrefsManager:SaveUnclookCardId already unlock:" + id);
+				LogManager.Instance.LogWarning("PlayerPrefsManager:SaveUnlookCardId already unlock:" + id);
 				return;
 			} else {
 				saveString += "-" + id.ToString();
@@ -369,14 +369,14 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		return res;
 	}
 	
-	public void SaveUnclookArtifactId(int id) {
+	public void SaveUnlookArtifactId(int id) {
 		string saveString = GetParameter(SaveType.UnlockArtifactIds);
 
 		if (UnlockArtifactIds.Count == 0) {
 			saveString = id.ToString();
 		} else {
 			if (UnlockArtifactIds.Contains(id) == true) {
-				LogManager.Instance.LogWarning("PlayerPrefsManager:SaveUnclookArtifactId already unlock:" + id);
+				LogManager.Instance.LogWarning("PlayerPrefsManager:SaveUnlookArtifactId already unlock:" + id);
 				return;
 			} else {
 				saveString += "-" + id.ToString();

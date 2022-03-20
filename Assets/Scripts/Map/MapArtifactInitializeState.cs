@@ -81,6 +81,9 @@ public class MapArtifactInitializeState : StateBase {
 					scene.ArtifactRarityImages[index2].sprite = rawSprite as Sprite;
 				}
 			);
+			
+			// 見つけたIDリストに加える
+			PlayerPrefsManager.Instance.SaveFindArtifactId(id);
 		}
 
 		return true;
