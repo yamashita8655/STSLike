@@ -11,12 +11,12 @@ using System.Collections.Generic;
 public class AnimationController : MonoBehaviour
 {
 	#region PrivateMember
-	Action		EndCallback = null;
+	protected Action		EndCallback = null;
 	//int			PrevStateHash = 0;
 	//bool 		IsAutoActiveFalse = false;
 
 	//[SerializeField]	public	GameObject	EffectRootObject;
-	[SerializeField]	public	Animator	BaseAnimation;
+	[SerializeField]	protected	Animator	BaseAnimation;
 
 	#endregion
 

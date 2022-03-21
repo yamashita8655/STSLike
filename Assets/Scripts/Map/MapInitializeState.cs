@@ -159,6 +159,7 @@ public class MapInitializeState : StateBase {
 		yield return LoadEnemyTurnPowerObjects();
 		yield return LoadBattleCardObjects();
 		yield return LoadEnemyValueObjects();
+		yield return LoadPopupObjects();
 		yield return LoadBgImage();
 
 		FadeManager.Instance.FadeIn(0.5f, null);
@@ -202,7 +203,7 @@ public class MapInitializeState : StateBase {
 				Scene.gameObject,
 				(rawObject) => {
 					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-					obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, 0, Scene.TurnPowerRoot);
+					obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, 0, Scene.TurnPowerRoot, Scene.SpawnPopup);
 					MapDataCarrier.Instance.TurnPowerObjects.Add(obj);
 					loadedCount++;
 				}
@@ -250,7 +251,7 @@ public class MapInitializeState : StateBase {
 				Scene.gameObject,
 				(rawObject) => {
 					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-					obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, 0, Scene.EnemyTurnPowerRoot);
+					obj.GetComponent<TurnPowerController>().Initialize((EnumSelf.TurnPowerType)index, 0, Scene.EnemyTurnPowerRoot, Scene.SpawnPopup);
 					MapDataCarrier.Instance.EnemyTurnPowerObjects.Add(obj);
 					loadedCount++;
 				}
@@ -350,6 +351,36 @@ public class MapInitializeState : StateBase {
 					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
 					obj.GetComponent<ValueController>().Initialize(Scene.EnemyActionValueRoot);
 					MapDataCarrier.Instance.EnemyValueObjects.Add(obj);
+					loadedCount++;
+				}
+			);
+		}
+		
+		while (loadCount < loadedCount) {
+			yield return null;
+		}
+	}
+	
+	private IEnumerator LoadPopupObjects() {
+		int objectCount = 10;
+		
+		int loadCount = objectCount;
+		int loadedCount = 0;
+
+		for (int i = 0; i < objectCount; i++) {
+			int index = i;
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.PopupObjectPath,
+				ExecuteOrder.Type.GameObject,
+				Scene.gameObject,
+				(rawObject) => {
+					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
+					obj.transform.SetParent(Scene.PopupObjectRoot.transform);
+					obj.transform.localPosition = Vector3.zero;
+					obj.transform.localScale = Vector3.one;
+					var ctrl = obj.GetComponent<PopupAnimationController>();
+					ctrl.Initialize();
+					MapDataCarrier.Instance.PopupAnimationControllers.Add(ctrl);
 					loadedCount++;
 				}
 			);

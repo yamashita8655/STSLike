@@ -90,6 +90,8 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 
 	public int AddDiceCost { get; set; }
 	
+	public List<PopupAnimationController> PopupAnimationControllers { get; set; }
+	
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
 		MapTypeList = new List<EnumSelf.MapType>();
@@ -142,6 +144,8 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		DiscardList = new List<MasterAction2Table.Data>();
 
 		CardContentItemList = new List<CardContentItem>();
+
+		PopupAnimationControllers = new List<PopupAnimationController>();
 	}
 
 	public void RemoveRarityNoAcquiredArtifactList(int id) {
@@ -191,6 +195,23 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		}
 
 		return count;
+	}
+
+	public void SpawnPopup(List<string> texts) {
+		if (texts.Count > PopupAnimationControllers.Count) {
+			LogManager.Instance.LogError("SpawnPopup,10個以上指定されてNULLエラー");
+		}
+
+		int index = 0;
+		for (; index < texts.Count; index++) {
+			PopupAnimationControllers[index].Initialize(texts[index]);
+			PopupAnimationControllers[index].Play("Play", () => {});
+		}
+		
+		for (; index < PopupAnimationControllers.Count; index++) {
+			PopupAnimationControllers[index].Play("Init",() => {});
+		}
+		
 	}
 
 	public void Release() {

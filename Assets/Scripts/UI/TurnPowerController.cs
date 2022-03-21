@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-//using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +14,13 @@ public class TurnPowerController : MonoBehaviour
 
 	private int RemainTurn = 0;
 
-	public void Initialize(EnumSelf.TurnPowerType type, int turn, GameObject attachRoot) {
+	private Action<List<string>> OnClickCallback = null;
+	private EnumSelf.TurnPowerType CuTurnPowerType = EnumSelf.TurnPowerType.None;
+
+	public void Initialize(EnumSelf.TurnPowerType type, int turn, GameObject attachRoot, Action<List<string>> onClickCallback) {
+
+		OnClickCallback = onClickCallback;
+		CuTurnPowerType = type;
 
 		string path = ConvertType2Path(type);
 
@@ -134,4 +140,8 @@ public class TurnPowerController : MonoBehaviour
 		return ret;
 	}
 
+	public void OnClick() {
+		List<string> list = new List<string>(){$"{CuTurnPowerType}"};
+		OnClickCallback(list);
+	}
 }

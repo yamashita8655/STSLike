@@ -320,6 +320,10 @@ public partial class MapScene : SceneBase
 	private Text CuAddDiceCostText = null;
 	public Text AddDiceCostText => CuAddDiceCostText;
 	
+	[SerializeField]
+	private GameObject CuPopupObjectRoot = null;
+	public GameObject PopupObjectRoot => CuPopupObjectRoot;
+	
 	// Start is called before the first frame update
 	IEnumerator Start() {
 		while (EntryPoint.IsInitialized == false) {
@@ -1049,5 +1053,9 @@ public partial class MapScene : SceneBase
 			return;
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleHandSelectEnd);
+	}
+
+	public void SpawnPopup(List<string> texts) {
+		MapDataCarrier.Instance.SpawnPopup(texts);
 	}
 }
