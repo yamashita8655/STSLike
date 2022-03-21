@@ -179,7 +179,7 @@ public class MapInitializeState : StateBase {
 				Scene.gameObject,
 				(rawObject) => {
 					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-					obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, 0, Scene.PowerRoot);
+					obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, 0, Scene.PowerRoot, Scene.SpawnPopup);
 					MapDataCarrier.Instance.PowerObjects.Add(obj);
 					loadedCount++;
 				}
@@ -227,7 +227,7 @@ public class MapInitializeState : StateBase {
 				Scene.gameObject,
 				(rawObject) => {
 					GameObject obj = GameObject.Instantiate(rawObject) as GameObject;
-					obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, 0, Scene.EnemyPowerRoot);
+					obj.GetComponent<PowerController>().Initialize((EnumSelf.PowerType)index, 0, Scene.EnemyPowerRoot, Scene.SpawnPopup);
 					MapDataCarrier.Instance.EnemyPowerObjects.Add(obj);
 					loadedCount++;
 				}

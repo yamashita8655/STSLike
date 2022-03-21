@@ -23,7 +23,7 @@ public class PopupAnimationController : AnimationController
 		PopupText.text = text;
 	}
 	
-	public void Play(string stateName, Action callback)
+	new public void Play(string stateName, Action callback)
 	{
 		EndCallback = callback;
 		BaseAnimation.Play(stateName, -1, 0f);

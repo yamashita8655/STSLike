@@ -14,9 +14,15 @@ public class PowerController : MonoBehaviour
 
 	private int Value = 0;
 	
-	public void Initialize(EnumSelf.PowerType type, int val, GameObject attachRoot) {
+	private Action<string> OnClickCallback = null;
+	private EnumSelf.PowerType CuPowerType = EnumSelf.PowerType.None;
+	
+	public void Initialize(EnumSelf.PowerType type, int val, GameObject attachRoot, Action<string> onClickCallback) {
+		CuPowerType = type;
+		OnClickCallback = onClickCallback;
 
 		string path = ConvertType2Path(type);
+
 
 		ResourceManager.Instance.RequestExecuteOrder(
 			path,
@@ -70,5 +76,8 @@ public class PowerController : MonoBehaviour
 
 		return ret;
 	}
-
+	
+	public void OnClick() {
+		OnClickCallback($"{CuPowerType}");
+	}
 }

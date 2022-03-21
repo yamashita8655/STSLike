@@ -1055,7 +1055,7 @@ public partial class MapScene : SceneBase
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleHandSelectEnd);
 	}
 
-	public void SpawnPopup(List<string> texts) {
-		MapDataCarrier.Instance.SpawnPopup(texts);
+	public void SpawnPopup(string id) {
+		MapDataCarrier.Instance.SpawnPopup(id);
 	}
 }

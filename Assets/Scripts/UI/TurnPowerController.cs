@@ -14,10 +14,10 @@ public class TurnPowerController : MonoBehaviour
 
 	private int RemainTurn = 0;
 
-	private Action<List<string>> OnClickCallback = null;
+	private Action<string> OnClickCallback = null;
 	private EnumSelf.TurnPowerType CuTurnPowerType = EnumSelf.TurnPowerType.None;
 
-	public void Initialize(EnumSelf.TurnPowerType type, int turn, GameObject attachRoot, Action<List<string>> onClickCallback) {
+	public void Initialize(EnumSelf.TurnPowerType type, int turn, GameObject attachRoot, Action<string> onClickCallback) {
 
 		OnClickCallback = onClickCallback;
 		CuTurnPowerType = type;
@@ -141,7 +141,6 @@ public class TurnPowerController : MonoBehaviour
 	}
 
 	public void OnClick() {
-		List<string> list = new List<string>(){$"{CuTurnPowerType}"};
-		OnClickCallback(list);
+		OnClickCallback($"{CuTurnPowerType}");
 	}
 }

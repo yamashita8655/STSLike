@@ -197,14 +197,18 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		return count;
 	}
 
-	public void SpawnPopup(List<string> texts) {
-		if (texts.Count > PopupAnimationControllers.Count) {
+	public void SpawnPopup(string id) {
+
+		List<string> list = new List<string>();
+		CreateSpawnStringList(list, id);
+
+		if (list.Count > PopupAnimationControllers.Count) {
 			LogManager.Instance.LogError("SpawnPopup,10個以上指定されてNULLエラー");
 		}
 
 		int index = 0;
-		for (; index < texts.Count; index++) {
-			PopupAnimationControllers[index].Initialize(texts[index]);
+		for (; index < list.Count; index++) {
+			PopupAnimationControllers[index].Initialize(list[index]);
 			PopupAnimationControllers[index].Play("Play", () => {});
 		}
 		
@@ -214,7 +218,17 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		
 	}
 
+	private void CreateSpawnStringList(List<string> list, string id) {
+		var data = MasterPopupStringTable.Instance.GetData(id);
+		list.Add(MasterStringTable.Instance.GetString(data.StringTableKey));
+		var otherIds = data.OtherIds;
+		for (int i = 0; i < otherIds.Count; i++) {
+			CreateSpawnStringList(list, otherIds[i]);
+		}
+	}
+
 	public void Release() {
 		Scene = null;
 	}
 }
+
