@@ -19,8 +19,8 @@ id,name,hp,mhp,imagepath,initiativeactionid,aiid,adddropactionids
 307,ロックフェイス,120,120,Image/Map/Enemy/rockface,NONE,3070,NONE
 308,トロール,100,100,Image/Map/Enemy/troll,NONE,3080,NONE
 309,アーマーラット,80,80,Image/Map/Enemy/armorrat,3090,3090,NONE
-310,怪しい仮面,120,120,Image/Map/Enemy/mask,NONE,3100,NONE
-311,ゾンビ,120,120,Image/Map/Enemy/zombie,NONE,3110,NONE
+310,怪しい仮面,110,110,Image/Map/Enemy/mask,NONE,3100,NONE
+311,ゾンビ,110,110,Image/Map/Enemy/zombie,NONE,3110,NONE
 312,未定3,120,120,Image/Map/Enemy/goblin,NONE,3120,NONE
 313,未定4,60,60,Image/Map/Enemy/goblin,3130,3130,NONE
 314,未定5,120,120,Image/Map/Enemy/goblin,0,3140,NONE
