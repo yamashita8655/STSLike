@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class MapUpdateMapState : StateBase {
 
-	private readonly int EnemyRatio = 700;
-	private readonly int EliteRatio = 0;
-	private readonly int TreasureRatio = 100;
-	private readonly int HealRatio = 200;
-	//private readonly int EnemyRatio = 100;
+	//private readonly int EnemyRatio = 700;
 	//private readonly int EliteRatio = 0;
-	//private readonly int TreasureRatio = 0;
-	//private readonly int HealRatio = 0;
+	//private readonly int TreasureRatio = 100;
+	//private readonly int HealRatio = 200;
+	private readonly int EnemyRatio = 0;
+	private readonly int EliteRatio = 0;
+	private readonly int TreasureRatio = 0;
+	private readonly int HealRatio = 100;
 
 	/// <summary>
 	/// メイン前処理.
@@ -90,6 +90,16 @@ public class MapUpdateMapState : StateBase {
 		// 部屋を追加する時点では、2つ前の部屋が選択されている状態なので、MaxFloorは-2している。
 		if (MapDataCarrier.Instance.NowFloor == (MapDataCarrier.Instance.MaxFloor-2)) {
 			type = EnumSelf.MapType.Boss;
+		} else if (
+			(MapDataCarrier.Instance.NowFloor == (15-2)) ||
+			(MapDataCarrier.Instance.NowFloor == (30-2))
+		) {
+			// 15階と30階は、アーティファクト部屋固定にする
+			// TODO この辺も、設定データに書いとくのがいいかもしれないね
+			type = EnumSelf.MapType.Treasure;
+		} else if (MapDataCarrier.Instance.NowFloor == (MapDataCarrier.Instance.MaxFloor-1-2)) {
+			// ボス部屋手前は、回復固定にする
+			type = EnumSelf.MapType.Heal;
 		} else {
 			int seedEnd = (EnemyRatio + EliteRatio + TreasureRatio + HealRatio);
 			int seed = UnityEngine.Random.Range(0, seedEnd);
