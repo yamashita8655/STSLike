@@ -41,10 +41,8 @@ public class MapHealResultState : StateBase {
 
 		if (index == 1) {
 			MasterHealTable.Data data = MasterHealTable.Instance.GetData(2);
-			int addMaxHpVal = data.Values[difficult];
-			player.AddMaxHp(addMaxHpVal);
-			player.AddNowHp(addMaxHpVal);
-			scene.UpdateParameterText();
+			int addDiceCost = data.Values[difficult];
+			MapDataCarrier.Instance.AddDiceCost += addDiceCost;
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealEnd);
 		}
 		

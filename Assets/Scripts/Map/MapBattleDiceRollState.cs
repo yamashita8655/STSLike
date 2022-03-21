@@ -73,6 +73,7 @@ public class MapBattleDiceRollState : StateBase {
 			BattleCalculationFunction.PlayerUpdateTurnPower(EnumSelf.TurnPowerType.Activity, -val);
 		}
 
+		total += MapDataCarrier.Instance.AddDiceCost;
 		
 		MapDataCarrier.Instance.CurrentTotalDiceCost = total;
 		scene.UpdateCurrentTotalDiceCostText();

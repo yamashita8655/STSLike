@@ -4,9 +4,13 @@ Test2,test<br>test<comma>test
 #,全体
 Common_Close,閉じる
 Common_Return,戻る
-Common_CostUp,コストアップ
 #,Menu
 Menu_MenuDungeon,ダンジョン
 Menu_MenuRegularCard,レギュラーカード
 Menu_MenuRegularArtifact,レギュラーアーティファクト
 Menu_MenuOption,オプション
+#,戦闘
+Map_HealDetail1,休息して、HPを{0}回復する。
+Map_HealDetail2,訓練をして、戦闘時に追加ダイスコストを{0}得る。<br>現在の追加ダイスコスト+{1}
+Map_HealDetail3,デッキのカードを{0}枚消去する。
+Map_HealValue,回復量+{0}

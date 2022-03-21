@@ -29,6 +29,8 @@ public class MapInitializeState : StateBase {
 		Scene.HandCardSelectRoot.SetActive(false);
 		Scene.HandCardSelectDecideButton.gameObject.SetActive(false);
 		Scene.HandCardSelectDecideButton.interactable = false;
+		
+		MapDataCarrier.Instance.AddDiceCost = 0;
 
 		MapDataCarrier.Instance.HandDifficultList.Clear();
 		for (int i = 0; i < Scene.DifficultImages.Length; i++) {

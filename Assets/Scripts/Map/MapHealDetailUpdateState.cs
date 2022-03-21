@@ -25,28 +25,49 @@ public class MapHealDetailUpdateState : StateBase {
 			int healRatio = data.Values[difficult];
 			int healVal = player.GetMaxHp() * healRatio / 100;
 
-			scene.HealDetailText.text = string.Format(data.Detail, healVal.ToString());
+			scene.HealDetailText.text = string.Format(
+				MasterStringTable.Instance.GetString(data.Detail),
+				healVal.ToString()
+			);
 		
 			// 回復時のバフを持っていたら、表記を足す
 			if (player.GetParameterListFlag(EnumSelf.ParameterType.RestUp1) == true) {
-				scene.HealDetailText.text += "\n回復量+8";
+				scene.HealDetailText.text += string.Format(
+					MasterStringTable.Instance.GetString("Map_HealValue"),
+					8
+				);
 			}
 			if (player.GetParameterListFlag(EnumSelf.ParameterType.RestUp2) == true) {
-				scene.HealDetailText.text += "\n回復量+15";
+				scene.HealDetailText.text += string.Format(
+					MasterStringTable.Instance.GetString("Map_HealValue"),
+					15	
+				);
 			}
 			if (player.GetParameterListFlag(EnumSelf.ParameterType.RestUp3) == true) {
-				scene.HealDetailText.text += "\n回復量+21";
+				scene.HealDetailText.text += string.Format(
+					MasterStringTable.Instance.GetString("Map_HealValue"),
+					21	
+				);
 			}
 		}
 
 		if (index == 1) {
 			MasterHealTable.Data data = MasterHealTable.Instance.GetData(2);
 			int addMaxHpVal = data.Values[difficult];
-			scene.HealDetailText.text = string.Format(data.Detail, addMaxHpVal.ToString());
+			scene.HealDetailText.text = string.Format(
+				MasterStringTable.Instance.GetString(data.Detail),
+				addMaxHpVal.ToString(),
+				MapDataCarrier.Instance.AddDiceCost
+			);
 		}
 		
 		if (index == 2) {
-			scene.HealDetailText.text = "デッキからカードを1枚削除する。";
+			MasterHealTable.Data data = MasterHealTable.Instance.GetData(3);
+			int removeCount = data.Values[difficult];
+			scene.HealDetailText.text = string.Format(
+				MasterStringTable.Instance.GetString(data.Detail),
+				removeCount.ToString()
+			);
 		}
 
 		return true;

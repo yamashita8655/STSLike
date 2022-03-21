@@ -17,6 +17,8 @@ public class MapBattleInitializeState : StateBase {
 		
 		scene.HandCardRoot.SetActive(true);
 
+		scene.AddDiceCostText.text = MapDataCarrier.Instance.AddDiceCost.ToString();
+
 		MapDataCarrier.Instance.DiceValueList.Clear();
 		MapDataCarrier.Instance.BattleTurnCount = 0;
 		MapDataCarrier.Instance.SelectBattleCardData = null;

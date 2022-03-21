@@ -316,6 +316,10 @@ public partial class MapScene : SceneBase
 	private Text CuHandCardSelectText = null;
 	public Text HandCardSelectText => CuHandCardSelectText;
 	
+	[SerializeField]
+	private Text CuAddDiceCostText = null;
+	public Text AddDiceCostText => CuAddDiceCostText;
+	
 	// Start is called before the first frame update
 	IEnumerator Start() {
 		while (EntryPoint.IsInitialized == false) {

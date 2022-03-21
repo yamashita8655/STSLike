@@ -87,6 +87,8 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public List<MasterAction2Table.Data> DiscardList { get; set; }
 	
 	public List<CardContentItem> CardContentItemList { get; set; }
+
+	public int AddDiceCost { get; set; }
 	
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
