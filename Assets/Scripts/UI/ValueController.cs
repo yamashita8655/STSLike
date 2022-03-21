@@ -57,6 +57,7 @@ public class ValueController : MonoBehaviour
 			(type == EnumSelf.EffectType.AddCurse2Hand) ||
 			(type == EnumSelf.EffectType.AddCurse2DeckEternal) ||
 			(type == EnumSelf.EffectType.HandCurseDiscard) ||
+			(type == EnumSelf.EffectType.DoubleStrength) ||
 			(type == EnumSelf.EffectType.Stun)
 		) {
 			EffectValue.text = "";

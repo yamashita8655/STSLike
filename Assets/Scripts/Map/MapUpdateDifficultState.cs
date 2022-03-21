@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class MapUpdateDifficultState : StateBase {
 
-	//private readonly int Level1Ratio = 220;
-	//private readonly int Level2Ratio = 220;
-	//private readonly int Level3Ratio = 330;
-	//private readonly int Level4Ratio = 150;
-	//private readonly int Level5Ratio = 80;
-	private readonly int Level1Ratio = 0;
-	private readonly int Level2Ratio = 0;
-	private readonly int Level3Ratio = 0;
-	private readonly int Level4Ratio = 0;
-	private readonly int Level5Ratio = 5;
+	private readonly int Level1Ratio = 220;
+	private readonly int Level2Ratio = 220;
+	private readonly int Level3Ratio = 330;
+	private readonly int Level4Ratio = 150;
+	private readonly int Level5Ratio = 80;
+	//private readonly int Level1Ratio = 0;
+	//private readonly int Level2Ratio = 0;
+	//private readonly int Level3Ratio = 0;
+	//private readonly int Level4Ratio = 0;
+	//private readonly int Level5Ratio = 5;
 
     /// <summary>
     /// メイン前処理.

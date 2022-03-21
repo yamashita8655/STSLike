@@ -50,6 +50,7 @@ public class BattleCalculationFunction {
 		} else if (
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal) ||
 			(pack.Effect == EnumSelf.EffectType.Vulnerable) ||
+			(pack.Effect == EnumSelf.EffectType.Weakness) ||
 			(pack.Effect == EnumSelf.EffectType.AutoShield) ||
 			(pack.Effect == EnumSelf.EffectType.Thorn) ||
 			(pack.Effect == EnumSelf.EffectType.RotBody) ||

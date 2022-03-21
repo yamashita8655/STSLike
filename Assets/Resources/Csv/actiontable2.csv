@@ -191,7 +191,7 @@ id,rarity,name,equipcost,unlockcost,dicecost,costtype,usetype,detail,imagepath,e
 3080,1,バフ,0,0,1,None,Repeat,{0}シールドを得て、力を{1}得る。,Image/UI/Card/punch,Shield,Self,11,Add,Strength,Self,3,Add,NONE,,,,,,,,,,,,
 3081,1,殴る,0,0,1,None,Repeat,{0}ダメージを与える。,Image/UI/Card/punch,Damage,Opponent,20,Add,NONE,,,,,,,,,,,,,,,,
 3090,1,トゲの鎧,0,0,1,None,Repeat,自身に「棘」を{0}付与する。,Image/UI/Card/punch,Thorn,Self,3,Add,NONE,,,,,,,,,,,,,,,,
-3091,1,体当たり,0,0,1,None,Repeat,{0}ダメージを与える,Image/UI/Card/punch,Damage,Opponent,20,Add,NONE,,,,,,,,,,,,,,,,
+3091,1,体当たり,0,0,1,None,Repeat,{0}ダメージを与える,Image/UI/Card/punch,Damage,Opponent,17,Add,NONE,,,,,,,,,,,,,,,,
 3092,1,棘の防御,0,0,1,None,Repeat,{0}シールドを得て、自身に「棘」を{0}付与する。,Image/UI/Card/punch,Shield,Self,10,Add,Thorn,Self,2,Add,NONE,,,,,,,,,,,,
 3100,1,錯乱の霧,0,0,1,None,Repeat,束縛の呪いを5付与する。,Image/UI/Card/punch,AddCurse2Deck,Opponent,5001,Add,AddCurse2Deck,Opponent,5001,Add,AddCurse2Deck,Opponent,5001,Add,AddCurse2Deck,Opponent,5001,Add,AddCurse2Deck,Opponent,5001,Add,NONE
 3101,1,毒霧,0,0,1,None,Repeat,毒の呪いを2付与する。,Image/UI/Card/punch,AddCurse2Deck,Opponent,5004,Add,AddCurse2Deck,Opponent,5004,Add,NONE,,,,,,,,,,,,
