@@ -410,6 +410,12 @@ public class MapInitializeState : StateBase {
 		}
 	}
 
+	private void SetText() {
+		Scene.CarryCardDetailCloseButtonText.text = MasterStringTable.Instance.GetString("Common_Close");
+		Scene.TreasureResultSkipButtonText.text = MasterStringTable.Instance.GetString("Common_Skip");
+		Scene.TreasureResultDecideButtonText.text = MasterStringTable.Instance.GetString("Common_Decide");
+	}
+
 	/// <summary>
 	/// メイン更新処理.
 	/// </summary>
@@ -422,5 +428,6 @@ public class MapInitializeState : StateBase {
 	/// ステート解放時処理.
 	/// </summary>
 	override public void OnRelease()
-	{ }
+	{
+	}
 }

@@ -323,6 +323,19 @@ public partial class MapScene : SceneBase
 	[SerializeField]
 	private GameObject CuPopupObjectRoot = null;
 	public GameObject PopupObjectRoot => CuPopupObjectRoot;
+
+	// テキスト設定系
+	[SerializeField]
+	private Text CuCarryCardDetailCloseButtonText = null;
+	public Text CarryCardDetailCloseButtonText => CuCarryCardDetailCloseButtonText;
+	
+	[SerializeField]
+	private Text CuTreasureResultSkipButtonText = null;
+	public Text TreasureResultSkipButtonText => CuTreasureResultSkipButtonText;
+	
+	[SerializeField]
+	private Text CuTreasureResultDecideButtonText = null;
+	public Text TreasureResultDecideButtonText => CuTreasureResultDecideButtonText;
 	
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -482,6 +495,22 @@ public partial class MapScene : SceneBase
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ResultChangeResult);
 	}
 	
+	public void OnClickBgDetailButton() {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.ResultTreasureUserWait) {
+			return;
+		}
+		int treasureIndex = MapDataCarrier.Instance.SelectTreasureIndex;
+		if (treasureIndex == -1) {
+			return;
+		}
+		MasterAction2Table.Data data = MapDataCarrier.Instance.TreasureList[treasureIndex];
+		SpawnPopup(data);
+	}
+	
+	
+	
 	public void OnClickBackButton() {
 		// ユーザー入力待機状態でなければ、処理しない
 		var stm = StateMachineManager.Instance;
@@ -628,7 +657,7 @@ public partial class MapScene : SceneBase
 		//	return;
 		//}
 
-		CarryCardDetailController.Open(data);
+		CarryCardDetailController.Open(data, SpawnPopup);
 	}
 	
 	public void OnClickEraseCardDetailButton(MasterAction2Table.Data data) {
@@ -1056,6 +1085,11 @@ public partial class MapScene : SceneBase
 	}
 
 	public void SpawnPopup(string id) {
-		MapDataCarrier.Instance.SpawnPopup(id);
+        List<string> list = new List<string>() { id };
+		MapDataCarrier.Instance.SpawnPopup(list);
+	}
+	
+	public void SpawnPopup(MasterAction2Table.Data data) {
+		MapDataCarrier.Instance.SpawnPopup(data);
 	}
 }

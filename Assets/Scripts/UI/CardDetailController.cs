@@ -24,8 +24,14 @@ public class CardDetailController : MonoBehaviour
 	[SerializeField]
 	private Text Cost = null;
 
-	public void Open(MasterAction2Table.Data data) {
-		gameObject.SetActive(true);
+    private MasterAction2Table.Data Data = null;
+    private Action<MasterAction2Table.Data> OnClickDetailBgCallback = null;
+
+    public void Open(MasterAction2Table.Data data, Action<MasterAction2Table.Data> onClickDetailBgCallback) {
+        Data = data;
+        OnClickDetailBgCallback = onClickDetailBgCallback;
+
+        gameObject.SetActive(true);
 
 		ResourceManager.Instance.RequestExecuteOrder(
 			string.Format(Const.RarityFrameImagePath, data.Rarity.ToString()),
@@ -84,4 +90,9 @@ public class CardDetailController : MonoBehaviour
 	public void OnClickCloseButton() {
 		Close();
 	}
+
+    public void OnClickDetailBg()
+    {
+        OnClickDetailBgCallback(Data);
+    }
 }

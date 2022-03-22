@@ -21,6 +21,8 @@ public class MapArtifactInitializeState : StateBase {
 		scene.ArtifactImage.gameObject.SetActive(false);
 		scene.ArtifactDetailText.gameObject.SetActive(false);
 		
+		MapDataCarrier.Instance.SelectArtifactIndex = -1;
+		
 		int difficult = MapDataCarrier.Instance.SelectDifficultNumber;
 
 		// TODO とりあえず1番目のレシオセットを固定で使う

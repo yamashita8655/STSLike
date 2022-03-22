@@ -197,10 +197,12 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		return count;
 	}
 
-	public void SpawnPopup(string id) {
+	public void SpawnPopup(List<string> ids) {
 
 		List<string> list = new List<string>();
-		CreateSpawnStringList(list, id);
+		for (int i = 0; i < ids.Count; i++) {
+			CreateSpawnStringList(list, ids[i]);
+		}
 
 		if (list.Count > PopupAnimationControllers.Count) {
 			LogManager.Instance.LogError("SpawnPopup,10個以上指定されてNULLエラー");
@@ -225,6 +227,15 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		for (int i = 0; i < otherIds.Count; i++) {
 			CreateSpawnStringList(list, otherIds[i]);
 		}
+	}
+	
+	public void SpawnPopup(MasterAction2Table.Data data) {
+		HashSet<string> list = new HashSet<string>();
+		var packs = data.ActionPackList;
+		for (int i = 0; i < packs.Count; i++) {
+			list.Add($"{packs[i].Effect}");
+		}
+		SpawnPopup(new List<string>(list));
 	}
 
 	public void Release() {

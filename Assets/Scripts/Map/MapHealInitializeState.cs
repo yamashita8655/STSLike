@@ -17,6 +17,8 @@ public class MapHealInitializeState : StateBase {
 
 		scene.HealDecideButton.interactable = false;
 
+		MapDataCarrier.Instance.SelectHealIndex = -1;
+
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 			
 		MasterHealTable.Data data = MasterHealTable.Instance.GetData(1);
