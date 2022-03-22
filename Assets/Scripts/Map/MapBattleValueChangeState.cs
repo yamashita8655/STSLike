@@ -79,6 +79,21 @@ public class MapBattleValueChangeState : StateBase {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
 		}
 
+		// 使用できるコストから、手札で使えるカードをアクティブにする
+		// カード効果適用後に状態が変化する場合もあるので、ここでも処理する
+		int diceCost = MapDataCarrier.Instance.CurrentTotalDiceCost;
+		var ctrls2 = MapDataCarrier.Instance.BattleCardButtonControllers;
+		for (int i = 0; i < ctrls2.Count; i++) {
+			if (ctrls2[i].gameObject.activeSelf == true) {
+				ctrls2[i].UpdateDisplay();
+
+				// UpdateDisplay()呼んだ後じゃないと、判定に使用するコストが更新されていないので
+				// 順番間違えないようにする事
+				ctrls2[i].UpdateInteractable(diceCost);
+				
+			}
+		}
+
 		return true;
 	}
 

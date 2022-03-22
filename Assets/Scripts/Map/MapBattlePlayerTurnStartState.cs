@@ -52,7 +52,7 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		}
 		
 		if (player.GetParameterListFlag(EnumSelf.ParameterType.TurnStart1SelfTrueDamage2Shield) == true) {
-			player.AddNowShield(2);
+			BattleCalculationFunction.PlayerCalcShield(2);
 			BattleCalculationFunction.PlayerCalcSelfTrueDamage(1);
 		}
 

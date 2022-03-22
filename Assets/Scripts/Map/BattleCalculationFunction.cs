@@ -544,7 +544,7 @@ public class BattleCalculationFunction {
 			if (pack.Target == EnumSelf.TargetType.Opponent) {
 				// 相手がリアクティブシールド状態か
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
-					player.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
+					enemy.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
 				}
 
 				// 朽ちた体状態だったら、その数値分ダメージを加算して、数値を1増やす
@@ -921,7 +921,7 @@ public class BattleCalculationFunction {
 			if (pack.Target == EnumSelf.TargetType.Opponent) {
 				// 相手がリアクティブシールド状態か
 				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
-					enemy.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
+					player.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
 				}
 
 				// 朽ちた体状態だったら、その数値分ダメージを加算して、数値を1増やす
@@ -1011,32 +1011,11 @@ public class BattleCalculationFunction {
 	public static void EnemyCalcShieldDamage(ActionPack pack) {
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
 		EnemyStatus enemy = MapDataCarrier.Instance.CuEnemyStatus;
-		int powerToughness = enemy.GetPower().GetValue(EnumSelf.PowerType.Toughness);
-		int shield = pack.Value+powerToughness;
-		
 
 		if (pack.Target == EnumSelf.TargetType.Opponent) {
-			if (pack.Effect == EnumSelf.EffectType.ShieldDouble) {
-				shield = player.GetNowShield();
-			} else {
-				// シールド低下しているかどうか
-				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
-					// シールドが25％下がる
-					shield = shield - (shield * 25 / 100);
-				}
-			}
-			player.AddNowShield(shield);
+			player.AddNowShield(-pack.Value);
 		} else if (pack.Target == EnumSelf.TargetType.Self) {
-			if (pack.Effect == EnumSelf.EffectType.ShieldDouble) {
-				shield = enemy.GetNowShield();
-			} else {
-				// シールド低下しているかどうか
-				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ShieldWeakness) > 0) {
-					// シールドが25％下がる
-					shield = shield - (shield * 25 / 100);
-				}
-			}
-			enemy.AddNowShield(shield);
+			enemy.AddNowShield(-pack.Value);
 		}
 	}
 	

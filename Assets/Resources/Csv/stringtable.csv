@@ -37,7 +37,7 @@ PopupVersak,攻撃のダメージが2倍になる。<br>ターン終了時に1�
 PopupReactiveShield,攻撃を受けた時、数値分シールドを得る。
 PopupSubStrength,ターン終了時、数値分[<color=#0000ff00>力</color>]が減少する。<br>ターン終了時に0になる。
 PopupInvincible,HPが減少する時、減少値を0にする。<br>効果が発動した時、1減少。
-PopupCritical,次に行う攻撃のダメージが2倍になる。<br>効果が発動した時、1減少。
+PopupCritical,次に行う攻撃の基本ダメージが2倍になる。<br>効果が発動した時、1減少。
 PopupDemonPower,ターン開始時、数値分力が増加する。
 PopupAddShieldTrueDamage,シールド獲得時、相手に数値分の確定ダメージを与える。
 PopupSupportShoot,カードを使用した時、相手に数値分の確定ダメージを与える。
