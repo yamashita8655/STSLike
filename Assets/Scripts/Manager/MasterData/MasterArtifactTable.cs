@@ -17,6 +17,7 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 		public EnumSelf.ArtifactEffectType Type { get; private set; }
 		public int ActionId { get; private set; }
 		public EnumSelf.ParameterType ParameterType { get; private set; }
+		public List<string> PopupStringIds { get; private set; }
 
 
         public Data(
@@ -31,7 +32,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			string imagePath,
 			EnumSelf.ArtifactEffectType type,
 			int actionId,
-			EnumSelf.ParameterType parameterType
+			EnumSelf.ParameterType parameterType,
+			List<string> popupStringIds
 		)
 		{
 			Id			= id;
@@ -46,6 +48,7 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			Type		= type;
 			ActionId	= actionId;
 			ParameterType = parameterType;
+			PopupStringIds = popupStringIds;
 		}
 	};
 
@@ -74,6 +77,7 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 		RarityArtifactList.Add(new List<int>());
 
 		char[] split2 = { ',' };
+		char[] split3 = { '-' };
 		// 1行目はメタデータなので、読み飛ばす
 		for (int i = 1; i < lineList.Count; i++) {
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
@@ -81,6 +85,15 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			if (paramList[0] == "#") {
 				continue;
 			}
+			
+			List<string> popupStringIds = new List<string>();
+			if (paramList[12] != "NONE") {
+				List<string> popupStringId = Functions.SplitString(paramList[12], split3);
+				for (int i2 = 0; i2 < popupStringId.Count; i2++) {
+					popupStringIds.Add(popupStringId[i2]);
+				}
+			}
+
 
 			Data data = new Data(
 				int.Parse(paramList[0]),
@@ -94,7 +107,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 				paramList[8],
 				ConvertArtifactEffectType(paramList[9]),
 				int.Parse(paramList[10]),
-				ConvertParameterType(paramList[11])
+				ConvertParameterType(paramList[11]),
+				popupStringIds
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);

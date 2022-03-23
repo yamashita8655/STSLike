@@ -625,7 +625,7 @@ public partial class MapScene : SceneBase
 		//	return;
 		//}
 
-		CarryArtifactDetailController.Open(data);
+		CarryArtifactDetailController.Open(data, SpawnPopup);
 	}
 	
 	//public void OnClickCarryCardDetailButton(int index) {
@@ -1090,6 +1090,10 @@ public partial class MapScene : SceneBase
 	}
 	
 	public void SpawnPopup(MasterAction2Table.Data data) {
+		MapDataCarrier.Instance.SpawnPopup(data);
+	}
+	
+	public void SpawnPopup(MasterArtifactTable.Data data) {
 		MapDataCarrier.Instance.SpawnPopup(data);
 	}
 }

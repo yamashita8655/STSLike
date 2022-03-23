@@ -15,8 +15,14 @@ public class ArtifactDetailController : MonoBehaviour
 	[SerializeField]
 	private Text ArtifactDetail = null;
 
-	public void Open(MasterArtifactTable.Data data) {
-		gameObject.SetActive(true);
+    private MasterArtifactTable.Data Data = null;
+    private Action<MasterArtifactTable.Data> OnClickDetailBgCallback = null;
+
+    public void Open(MasterArtifactTable.Data data, Action<MasterArtifactTable.Data> callback) {
+        Data = data;
+        OnClickDetailBgCallback = callback;
+
+        gameObject.SetActive(true);
 
 		//ResourceManager.Instance.RequestExecuteOrder(
 		//	string.Format(FramePath, data.Rarity.ToString()),
@@ -47,4 +53,9 @@ public class ArtifactDetailController : MonoBehaviour
 	public void OnClickCloseButton() {
 		Close();
 	}
+
+    public void OnClickDetailBgButton()
+    {
+        OnClickDetailBgCallback(Data);
+    }
 }

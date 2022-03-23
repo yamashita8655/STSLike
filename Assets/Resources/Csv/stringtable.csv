@@ -45,7 +45,7 @@ PopupAddShieldTrueDamage,威圧<br>シールド獲得時、相手に数値分の
 PopupSupportShoot,援護射撃<br>カードを使用した時、相手に数値分の確定ダメージを与える。
 PopupAfterImage,残像<br>カードを使用した時、数値分のシールドを得る。
 PopupResist,抵抗<br>呪いを引いた時、数値分山札からカードを引く。
-PopupAddHandCurseDamage,呪詛<br>手札に呪いを加えた時、数値分相手にダメージを与える。
+PopupAddHandCurseDamage,呪詛<br>手札に呪いを加えた時、数値分ダメージを受ける。
 PopupDiscardCurseHeal,呪詛返し<br>呪いを破棄した時、数値分HPを回復する。
 PopupDiscardShield,破棄盾<br>呪いを破棄した時、数値分シールドを得る。
 PopupSelfHarm,自傷<br>ターン開始時、数値分手札に自傷を加える。
