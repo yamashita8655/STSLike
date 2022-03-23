@@ -867,4 +867,22 @@ public partial class MenuScene : SceneBase
 
 		MenuDataCarrier.Instance.SpawnPopup(data);
 	}
+	
+	public void OnClickArtifactDetailBgButton() {
+		MasterArtifactTable.Data data = null;
+
+		if (MenuDataCarrier.Instance.SelectArtifactContentItem != null) {
+			data = MenuDataCarrier.Instance.SelectArtifactContentItem.GetData();
+		}
+		
+		if (MenuDataCarrier.Instance.EquipArtifactSelectData != null) {
+			data = MenuDataCarrier.Instance.EquipArtifactSelectData;
+		}
+
+		if (PlayerPrefsManager.Instance.IsFindArtifact(data.Id) == false) {
+			return;
+		}
+
+		MenuDataCarrier.Instance.SpawnPopup(data);
+	}
 }

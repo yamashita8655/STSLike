@@ -89,6 +89,10 @@ public class MenuDataCarrier : SimpleMonoBehaviourSingleton<MenuDataCarrier> {
 		SpawnPopup(new List<string>(list));
 	}
 
+	public void SpawnPopup(MasterArtifactTable.Data data) {
+		SpawnPopup(data.PopupStringIds);
+	}
+
 	public void Release() {
 		Scene = null;
 	}
