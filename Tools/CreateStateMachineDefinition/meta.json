@@ -38,6 +38,7 @@
 	],
 	
 	"Map":[
+		"BattleStart",
 		"BattleAttackResult",
 		"BattleAttackSelectUserWait",
 		"BattleCheck",

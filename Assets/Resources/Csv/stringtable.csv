@@ -22,7 +22,7 @@ PopupFastStrength,力と力減少を得る。
 PopupToughness,守り<br>戦闘中、数値分シールド値が増減する。
 PopupRegenerate,超再生<br>ターン開始時、数値分HPが回復する。
 PopupPoison,毒<br>ターン開始時、数値分確定ダメージを受ける。
-PopupAddMaxDiceCost,ダイスコスト増加(ターン)<br>戦闘中、数値分ダイスコストが加算される。
+PopupAddMaxDiceCost,ダイスコスト増加<br>戦闘中、数値分ダイスコストが加算される。
 PopupHealCharge,回復チャージ<br>戦闘終了時、数値分HPが回復する。
 PopupDiceMinusOne,ダイス1減少<br>使用するダイスが1減少する。<br>ターン終了時に1減少。
 PopupReverseHeal,回復ダメージ<br>回復効果でダメージを受ける。<br>ターン終了時に1減少。
@@ -88,7 +88,7 @@ PopupAddCurse2Deck,呪いを、一時的にデッキに加える効果。
 PopupAddCurse2Hand,呪いを、一時的に手札に加える効果。
 PopupAddCurse2DeckEternal,呪いを、恒久的にデッキに加える効果。
 PopupDraw,山札を引く効果。
-PopupGainDiceCost,一時的にダイスコストを増加させる。
+PopupGainDiceCost,ダイスコスト増加(ターン)<br>このターン、数値分ダイスコストが加算される。
 PopupHand2DeckTop,手札をデッキトップに戻す効果。
 PopupHand2Trash,手札を捨て札に送る効果。
 PopupHand2Discard,手札を破棄する効果。

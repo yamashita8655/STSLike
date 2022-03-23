@@ -224,7 +224,7 @@ public class MapBattleInitializeState : StateBase {
 	override public void OnUpdateMain(float delta)
 	{
 		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyLotAction);
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerInitiative);
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleStart);
 	}
 
 	/// <summary>

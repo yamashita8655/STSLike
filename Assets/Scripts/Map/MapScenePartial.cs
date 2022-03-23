@@ -12,6 +12,7 @@ public partial class MapScene : SceneBase
 		StateMachineManager.Instance.Init();
 		var stm = StateMachineManager.Instance;
 		stm.CreateStateMachineMap(StateMachineName.Map);
+		stm.AddState(StateMachineName.Map, (int)MapState.BattleStart, new MapBattleStartState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleAttackResult, new MapBattleAttackResultState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait, new MapBattleAttackSelectUserWaitState());
 		stm.AddState(StateMachineName.Map, (int)MapState.BattleCheck, new MapBattleCheckState());

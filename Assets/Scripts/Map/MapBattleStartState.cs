@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapBattlePlayerInitiativeState : StateBase {
+public class MapBattleStartState : StateBase {
 
     /// <summary>
     /// メイン前処理.
@@ -11,18 +11,10 @@ public class MapBattlePlayerInitiativeState : StateBase {
     override public bool OnBeforeMain()
     {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
-
-		BattleCalculationFunction.PlayerInitiativeValueChange();
-
-		MasterAction2Table.Data data = MapDataCarrier.Instance.CuPlayerStatus.GetInitiativeFirstActionData();
-		MapDataCarrier.Instance.InitiativeActionPackCount = 0;
-		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
-		if (data != null) {
-			MapDataCarrier.Instance.MaxInitiativeActionPackCount = data.ActionPackList.Count;
-			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleInitiativeValueChange);
-		} else {
-			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyInitiative);
+		if (MapDataCarrier.Instance.CuPlayerStatus.GetParameterListFlag(EnumSelf.ParameterType.GameStart3Draw) == true) {
+			scene.DrawCard(3);
 		}
+
 		return false;
     }
 
@@ -32,6 +24,7 @@ public class MapBattlePlayerInitiativeState : StateBase {
     /// <param name="delta">経過時間</param>
     override public void OnUpdateMain(float delta)
     {
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattlePlayerInitiative);
     }
 
     /// <summary>

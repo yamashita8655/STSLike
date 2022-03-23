@@ -277,7 +277,10 @@ public partial class MenuScene : SceneBase
 	public GameObject CarryEquipArtifactContentRoot => SFCarryEquipArtifactContentRoot;
 	
 	// ↑↑レギュラーアーティファクトメニュー↑↑
-
+	
+	[SerializeField]
+	private GameObject CuPopupObjectRoot = null;
+	public GameObject PopupObjectRoot => CuPopupObjectRoot;
 
 	// Start is called before the first frame update
 	IEnumerator Start() {
@@ -298,7 +301,6 @@ public partial class MenuScene : SceneBase
 		SFMuteText.text = MasterTextTable.Instance.GetData("OptionMuteText").Text;
 
 		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.Initialize);
-		FadeManager.Instance.FadeIn(0.5f, null);
 	}
 
 	// Update is called once per frame
@@ -617,6 +619,10 @@ public partial class MenuScene : SceneBase
 		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
 			return;
 		}
+		
+		MenuDataCarrier.Instance.SelectCardContentItem = null;
+		MenuDataCarrier.Instance.EquipCardSelectData = null;
+
 		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularCardSettingCardDetailClose);
 	}
 	
@@ -843,4 +849,22 @@ public partial class MenuScene : SceneBase
 		UpdateEquipArtifactCostText();
 	}
 	// ↑↑レギュラーアーティファクト↑↑
+	
+	public void OnClickCardDetailBgButton() {
+		MasterAction2Table.Data data = null;
+
+		if (MenuDataCarrier.Instance.SelectCardContentItem != null) {
+			data = MenuDataCarrier.Instance.SelectCardContentItem.GetData();
+		}
+		
+		if (MenuDataCarrier.Instance.EquipCardSelectData != null) {
+			data = MenuDataCarrier.Instance.EquipCardSelectData;
+		}
+
+		if (PlayerPrefsManager.Instance.IsFindCard(data.Id) == false) {
+			return;
+		}
+
+		MenuDataCarrier.Instance.SpawnPopup(data);
+	}
 }

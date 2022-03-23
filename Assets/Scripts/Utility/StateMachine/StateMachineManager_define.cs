@@ -27,7 +27,8 @@ public enum HomeState : int
 
 public enum MapState : int
 {
-	BattleAttackResult = 0,
+	BattleStart = 0,
+	BattleAttackResult,
 	BattleAttackSelectUserWait,
 	BattleCheck,
 	BattleCheckAfter,

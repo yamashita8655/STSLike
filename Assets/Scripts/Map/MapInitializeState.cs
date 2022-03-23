@@ -56,7 +56,9 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
 		
 		//// TODO デバッグ用カード追加
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(202));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(616));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(616));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(616));
 		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(816));
 		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(818));
 		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(820));
@@ -148,6 +150,8 @@ public class MapInitializeState : StateBase {
 		//LoadPlayerPowerObjects();
 
 		Scene.StartCoroutine(CoObjectLoad());
+
+		SetText();
 		
 		return true;
 	}

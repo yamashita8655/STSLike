@@ -542,11 +542,6 @@ public class BattleCalculationFunction {
 			}
 
 			if (pack.Target == EnumSelf.TargetType.Opponent) {
-				// 相手がリアクティブシールド状態か
-				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
-					enemy.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
-				}
-
 				// 朽ちた体状態だったら、その数値分ダメージを加算して、数値を1増やす
 				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody) > 0) {
 					int rotbodyVal = enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody);
@@ -601,7 +596,12 @@ public class BattleCalculationFunction {
 						PlayerUpdateHp(overDamage);
 					}
 				}
-
+				
+				// 相手がリアクティブシールド状態か
+				// これは、ダメージ計算が終わってから付与する
+				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
+					enemy.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
+				}
 			} else if (pack.Target == EnumSelf.TargetType.Self) {
 				LogManager.Instance.LogError("PlayerCalcDamageNormalDamage:Effect:Damage,Target:Self,自分を対象にしたDamageは未実装予定");
 			}
@@ -919,11 +919,6 @@ public class BattleCalculationFunction {
 			EnemyUpdatePower(EnumSelf.PowerType.FastStrength, 0);
 
 			if (pack.Target == EnumSelf.TargetType.Opponent) {
-				// 相手がリアクティブシールド状態か
-				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
-					player.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
-				}
-
 				// 朽ちた体状態だったら、その数値分ダメージを加算して、数値を1増やす
 				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody) > 0) {
 					int rotbodyVal = player.GetTurnPowerValue(EnumSelf.TurnPowerType.RotBody);
@@ -962,6 +957,13 @@ public class BattleCalculationFunction {
 						EnemyUpdateHp(overDamage);
 					}
 				}
+				
+				// 相手がリアクティブシールド状態か
+				// これは、ダメージ計算が終わってから付与する
+				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
+					player.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
+				}
+
 			} else if (pack.Target == EnumSelf.TargetType.Self) {
 				LogManager.Instance.LogError("EnemyCalcDamageNormalDamage:Effect:Damage,Target:Self,自分を対象にしたDamageは未実装予定");
 			}
