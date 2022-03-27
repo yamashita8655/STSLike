@@ -16,6 +16,7 @@ Map_HealDetail1,休息して、HPを{0}回復する。
 Map_HealDetail2,訓練をして、戦闘時に追加ダイスコストを{0}得る。<br>現在の追加ダイスコスト+{1}
 Map_HealDetail3,デッキのカードを{0}枚消去する。
 Map_HealValue,回復量+{0}
+Map_EventDetail,サイコロの出た目によって、何かが起こる…。
 #ポップアップの説明,
 PopupStrength,力<br>戦闘中、数値分ダメージを与える効果が増減する。
 PopupFastStrength,力と力減少を得る。

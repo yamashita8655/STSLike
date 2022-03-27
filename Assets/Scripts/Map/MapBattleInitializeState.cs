@@ -158,7 +158,6 @@ public class MapBattleInitializeState : StateBase {
 		int maxFloor = MapDataCarrier.Instance.MaxFloor;
 		int lotId = 0;
 
-
 		MasterDungeonTable.Data dungeonData = MapDataCarrier.Instance.DungeonData;
 
 		if (MapDataCarrier.Instance.SelectDifficultNumber == 4) {
@@ -175,6 +174,15 @@ public class MapBattleInitializeState : StateBase {
 			} else {
 				var lotFloors = dungeonData.LotFloors;
 				var enemyLotIds = dungeonData.EnemyLotIds;
+
+				// イベントによって、今の階層を計算上±10の補正がかかる可能性がある
+				nowFloor += MapDataCarrier.Instance.EventBattleFloorAdd;
+				if (nowFloor <= 1) {
+					nowFloor = 1;
+				} else if (nowFloor >= maxFloor) {
+					nowFloor = maxFloor-1;
+				}
+
 				for (int i = 0; i < lotFloors.Count; i++) {
 					if (nowFloor <= lotFloors[i]) {
 						lotId = enemyLotIds[i];

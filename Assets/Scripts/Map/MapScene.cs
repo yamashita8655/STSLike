@@ -337,6 +337,14 @@ public partial class MapScene : SceneBase
 	private Text CuTreasureResultDecideButtonText = null;
 	public Text TreasureResultDecideButtonText => CuTreasureResultDecideButtonText;
 	
+	[SerializeField]
+	private GameObject CuEventRoot = null;
+	public GameObject EventRoot => CuEventRoot;
+	
+	[SerializeField]
+	private Text CuEventDetailText = null;
+	public Text EventDetailText => CuEventDetailText;
+	
 	// Start is called before the first frame update
 	IEnumerator Start() {
 		while (EntryPoint.IsInitialized == false) {
@@ -383,9 +391,21 @@ public partial class MapScene : SceneBase
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealInitialize);
 		} else if (type == EnumSelf.MapType.Treasure) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ArtifactInitialize);
+		} else if (type == EnumSelf.MapType.Event) {
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEventInitialize);
 		} else {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleInitialize);
 		}
+	}
+	
+	public void OnClickEventDiceRollButton()
+	{
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.BattleEventDiceRollWait) {
+			return;
+		}
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEventDiceRoll);
 	}
 
 	// -----以下、バトルシーン用

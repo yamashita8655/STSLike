@@ -20,6 +20,7 @@ public class MapInitializeState : StateBase {
 		Scene.MapRoot.SetActive(true);
 		Scene.DungeonResultRoot.SetActive(false);
 		Scene.ArtifactRoot.SetActive(false);
+		Scene.EventRoot.SetActive(false);
 
 		Scene.CarryArtifactDetailController.Close();
 		Scene.CarryCardDetailController.Close();
@@ -56,9 +57,9 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
 		
 		//// TODO デバッグ用カード追加
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(816));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(818));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(820));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(11));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(11));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(11));
 		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(403));
 		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(404));
 		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(405));
@@ -415,6 +416,7 @@ public class MapInitializeState : StateBase {
 		Scene.CarryCardDetailCloseButtonText.text = MasterStringTable.Instance.GetString("Common_Close");
 		Scene.TreasureResultSkipButtonText.text = MasterStringTable.Instance.GetString("Common_Skip");
 		Scene.TreasureResultDecideButtonText.text = MasterStringTable.Instance.GetString("Common_Decide");
+		Scene.EventDetailText.text = MasterStringTable.Instance.GetString("Map_EventDetail");
 	}
 
 	/// <summary>

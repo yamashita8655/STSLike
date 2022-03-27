@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class MapUpdateMapState : StateBase {
 
-	private readonly int EnemyRatio = 700;
-	private readonly int EliteRatio = 0;
-	private readonly int TreasureRatio = 100;
-	private readonly int HealRatio = 200;
-	//private readonly int EnemyRatio = 100;
+	//private readonly int EnemyRatio = 700;
 	//private readonly int EliteRatio = 0;
-	//private readonly int TreasureRatio = 0;
-	//private readonly int HealRatio = 100;
+	//private readonly int TreasureRatio = 100;
+	//private readonly int HealRatio = 200;
+	//private readonly int EventRatio = 0;
+	private readonly int EnemyRatio = 0;
+	private readonly int EliteRatio = 0;
+	private readonly int TreasureRatio = 0;
+	private readonly int HealRatio = 0;
+	private readonly int EventRatio = 100;
 
 	/// <summary>
 	/// メイン前処理.
@@ -101,7 +103,7 @@ public class MapUpdateMapState : StateBase {
 			// ボス部屋手前は、回復固定にする
 			type = EnumSelf.MapType.Heal;
 		} else {
-			int seedEnd = (EnemyRatio + EliteRatio + TreasureRatio + HealRatio);
+			int seedEnd = (EnemyRatio + EliteRatio + TreasureRatio + HealRatio + EventRatio);
 			int seed = UnityEngine.Random.Range(0, seedEnd);
 
 			int startBorder = 0;
@@ -128,6 +130,12 @@ public class MapUpdateMapState : StateBase {
 			if (startBorder <= seed && seed < endBorder) {
 				type = EnumSelf.MapType.Heal;
 			}
+			
+			startBorder = endBorder;
+			endBorder += EventRatio;
+			if (startBorder <= seed && seed < endBorder) {
+				type = EnumSelf.MapType.Event;
+			}
 		}
 
 		return type;
@@ -139,9 +147,6 @@ public class MapUpdateMapState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		//FadeManager.Instance.FadeIn(FadeManager.Type.Mask, 0.5f, () => {
-		//	LocalSceneManager.Instance.LoadScene(MapDataCarrier.Instance.NextSceneName, null);
-		//});
 	}
 
 	/// <summary>

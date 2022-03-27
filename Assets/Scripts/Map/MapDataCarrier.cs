@@ -92,6 +92,8 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	
 	public List<PopupAnimationController> PopupAnimationControllers { get; set; }
 	
+	public int EventBattleFloorAdd { get; set; }
+	
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
 		MapTypeList = new List<EnumSelf.MapType>();

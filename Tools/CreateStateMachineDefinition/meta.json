@@ -38,6 +38,10 @@
 	],
 	
 	"Map":[
+		"BattleEventInitialize",
+		"BattleEventDiceRollWait",
+		"BattleEventDiceRoll",
+		"BattleEventResult",
 		"BattleStart",
 		"BattleAttackResult",
 		"BattleAttackSelectUserWait",

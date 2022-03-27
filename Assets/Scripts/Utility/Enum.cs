@@ -10,6 +10,7 @@ public partial class EnumSelf : MonoBehaviour {
 		Boss,
 		Heal,
 		Treasure,
+		Event,
 		Max
 	};
 	
