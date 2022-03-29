@@ -59,6 +59,12 @@ public class MapBattleDiceRollState : StateBase {
 			total += (MapDataCarrier.Instance.DiceValueList[i]+1);
 		}
 		
+		// ここじゃないと、他の加算値が加算された量のシールドになるので、ここでダイスシールド効果発動
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.DiceShield) == true) {
+			BattleCalculationFunction.PlayerCalcShield(total);
+			scene.UpdateParameterText();
+		}
+		
 		if (player.GetPower().GetValue(EnumSelf.PowerType.AddMaxDiceCost) != 0) {
 			total += player.GetPower().GetValue(EnumSelf.PowerType.AddMaxDiceCost);
 			// 一応、減少の可能性もあるので、下限チェック
@@ -78,11 +84,6 @@ public class MapBattleDiceRollState : StateBase {
 		MapDataCarrier.Instance.CurrentTotalDiceCost = total;
 		scene.UpdateCurrentTotalDiceCostText();
 
-		if (player.GetParameterListFlag(EnumSelf.ParameterType.DiceShield) == true) {
-			BattleCalculationFunction.PlayerCalcShield(total);
-			scene.UpdateParameterText();
-		}
-				
 		return true;
 	}
 
