@@ -62,6 +62,10 @@ public class MapBattleAttackResultState : StateBase {
 
 		player.AddTurnUseCardCount(1);
 		player.AddBattleUseCardCount(1);
+		bool isDamageFind = BattleCalculationFunction.IsOpponentDamage(data);
+		if (isDamageFind == true) {
+			player.AddTurnUseAttackCardCount(1);
+		}
 
 		MapDataCarrier.Instance.ActionPackCount = 0;
 		MapDataCarrier.Instance.MaxActionPackCount = data.ActionPackList.Count;

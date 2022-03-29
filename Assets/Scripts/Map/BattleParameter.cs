@@ -21,7 +21,8 @@ public class PlayerStatus
 	private TurnPower CuTurnPower = null;
 	
 	private int TurnUseShieldCount = 0;
-	private int TurnUseAttackCount = 0;
+	private int TurnUseAttackEffectCount = 0;
+	private int TurnUseAttackCardCount = 0;
 	private int TurnUseCardCount = 0;
 	private int BattleUseCardCount = 0;
 	private int TotalSelfTrueDamage = 0;
@@ -222,9 +223,13 @@ public class PlayerStatus
 	public void SetTurnUseShieldCount(int val) => TurnUseShieldCount = val;
 	public int GetTurnUseShieldCount() => TurnUseShieldCount;
 	
-	public void AddTurnUseAttackCount(int addValue) => TurnUseAttackCount += addValue;
-	public void SetTurnUseAttackCount(int val) => TurnUseAttackCount = val;
-	public int GetTurnUseAttackCount() => TurnUseAttackCount;
+	public void AddTurnUseAttackEffectCount(int addValue) => TurnUseAttackEffectCount += addValue;
+	public void SetTurnUseAttackEffectCount(int val) => TurnUseAttackEffectCount = val;
+	public int GetTurnUseAttackEffectCount() => TurnUseAttackEffectCount;
+	
+	public void AddTurnUseAttackCardCount(int addValue) => TurnUseAttackCardCount += addValue;
+	public void SetTurnUseAttackCardCount(int val) => TurnUseAttackCardCount = val;
+	public int GetTurnUseAttackCardCount() => TurnUseAttackCardCount;
 	
 	public void AddTurnUseCardCount(int addValue) => TurnUseCardCount += addValue;
 	public void SetTurnUseCardCount(int val) => TurnUseCardCount = val;

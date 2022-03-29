@@ -607,8 +607,8 @@ public class BattleCalculationFunction {
 			}
 		}
 		
-		// ここの関数が通ったら、攻撃を使ったとみなす
-		player.AddTurnUseAttackCount(1);
+		// ここの関数が通ったら、攻撃効果が発動したとみなす
+		player.AddTurnUseAttackEffectCount(1);
 
 	}
 	
@@ -1529,7 +1529,7 @@ public class BattleCalculationFunction {
 		if (pack.Effect == EnumSelf.EffectType.ShieldBash) {
 			val = player.GetNowShield();
 		} else if (pack.Effect == EnumSelf.EffectType.DamageFinish) {
-			int count = player.GetTurnUseAttackCount();
+			int count = player.GetTurnUseAttackCardCount();
 			val = count * pack.Value;
 		} else if (pack.Effect == EnumSelf.EffectType.DamageDice) {
 			// ここに来る際には、もうダイスコストが引かれてしまっている為
