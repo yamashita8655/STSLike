@@ -9,7 +9,10 @@ public class ArtifactButtonContentItem : MonoBehaviour
 	[SerializeField]
 	private Image ArtifactImage = null;
 
-	private Action<MasterArtifactTable.Data> Callback = null;
+    [SerializeField]
+    private Text ArtifactCountingText = null;
+
+    private Action<MasterArtifactTable.Data> Callback = null;
 
 	private MasterArtifactTable.Data Data = null;
 
@@ -25,8 +28,20 @@ public class ArtifactButtonContentItem : MonoBehaviour
 				ArtifactImage.sprite = rawSprite as Sprite;
 			}
 		);
+
+		if (Data.CountingType != EnumSelf.CountingType.None) {
+			ArtifactCountingText.gameObject.SetActive(true);
+		} else {
+			ArtifactCountingText.gameObject.SetActive(false);
+		}
+
+		UpdateCountingText(0);
 		
 		Callback = callback;
+	}
+
+	public void UpdateCountingText(int val) {
+		ArtifactCountingText.text = val.ToString();
 	}
 	
 	public void OnClick() {

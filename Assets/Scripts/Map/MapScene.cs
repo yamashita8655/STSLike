@@ -1124,4 +1124,19 @@ public partial class MapScene : SceneBase
 	public void SpawnPopup(MasterArtifactTable.Data data) {
 		MapDataCarrier.Instance.SpawnPopup(data);
 	}
+
+	public void UpdateCarryArtifactDisplay() {
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		var list = MapDataCarrier.Instance.CarryArtifactList;
+		for (int i = 0; i < list.Count; i++) {
+			var data = list[i].GetData();
+			if (data.CountingType == EnumSelf.CountingType.TurnCount) {
+				list[i].UpdateCountingText(MapDataCarrier.Instance.BattleTurnCount);
+			} else if (data.CountingType == EnumSelf.CountingType.TurnUseShieldCardCount) {
+				list[i].UpdateCountingText(player.GetTurnUseShieldCount() % data.CountingLimit);
+			} else if (data.CountingType == EnumSelf.CountingType.BattleUseCardCount) {
+				list[i].UpdateCountingText(player.GetBattleUseCardCount() % data.CountingLimit);
+			}
+		}
+	}
 }

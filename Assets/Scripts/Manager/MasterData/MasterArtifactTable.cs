@@ -18,6 +18,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 		public int ActionId { get; private set; }
 		public EnumSelf.ParameterType ParameterType { get; private set; }
 		public List<string> PopupStringIds { get; private set; }
+		public EnumSelf.CountingType CountingType { get; private set; }
+		public int CountingLimit { get; private set; }
 
 
         public Data(
@@ -33,7 +35,9 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			EnumSelf.ArtifactEffectType type,
 			int actionId,
 			EnumSelf.ParameterType parameterType,
-			List<string> popupStringIds
+			List<string> popupStringIds,
+			EnumSelf.CountingType countingType,
+			int countingLimit
 		)
 		{
 			Id			= id;
@@ -49,6 +53,8 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			ActionId	= actionId;
 			ParameterType = parameterType;
 			PopupStringIds = popupStringIds;
+			CountingType = countingType;
+			CountingLimit = countingLimit;
 		}
 	};
 
@@ -108,7 +114,9 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 				ConvertArtifactEffectType(paramList[9]),
 				int.Parse(paramList[10]),
 				ConvertParameterType(paramList[11]),
-				popupStringIds
+				popupStringIds,
+				ConvertCountingType(paramList[13]),
+				int.Parse(paramList[14])
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);
@@ -258,6 +266,20 @@ public class MasterArtifactTable : SimpleSingleton<MasterArtifactTable>
 			type = EnumSelf.ParameterType.ExtraAddHealCharge1;
 		} else if (typeString == "Award") {
 			type = EnumSelf.ParameterType.Award;
+		}
+
+		return type;
+	}
+	
+	private EnumSelf.CountingType ConvertCountingType(string typeString) {
+		EnumSelf.CountingType type = EnumSelf.CountingType.None;
+
+		if (typeString == "TurnCount") {
+			type = EnumSelf.CountingType.TurnCount;
+		} else if (typeString == "TurnUseShieldCardCount") {
+			type = EnumSelf.CountingType.TurnUseShieldCardCount;
+		} else if (typeString == "BattleUseCardCount") {
+			type = EnumSelf.CountingType.BattleUseCardCount;
 		}
 
 		return type;

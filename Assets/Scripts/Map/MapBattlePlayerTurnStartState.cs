@@ -58,6 +58,7 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		}
 
 		scene.UpdateParameterText();
+		scene.UpdateCarryArtifactDisplay();
 		
 		// 自分の弱体が終わると、敵の表示も変える必要があるので、ここでも更新する
 		scene.UpdateEnemyValueObject();

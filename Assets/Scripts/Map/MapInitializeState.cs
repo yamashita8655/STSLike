@@ -100,26 +100,31 @@ public class MapInitializeState : StateBase {
 
 		// TODO アーティファクト効果テスト
 		MasterArtifactTable.Data data = null;
+
 		// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
-		//data = MasterArtifactTable.Instance.GetData(1047);
-		//Scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1047);
+		data = MasterArtifactTable.Instance.GetData(1021);
+		Scene.AddArtifactObject(data);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1021);
 
-		//data = MasterArtifactTable.Instance.GetData(1048);
-		//Scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1048);
+		data = MasterArtifactTable.Instance.GetData(1022);
+		Scene.AddArtifactObject(data);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1022);
 
-		//data = MasterArtifactTable.Instance.GetData(1037);
-		//Scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1037);
+		data = MasterArtifactTable.Instance.GetData(1023);
+		Scene.AddArtifactObject(data);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1023);
 
-		//data = MasterArtifactTable.Instance.GetData(4);
-		//Scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(4);
+		data = MasterArtifactTable.Instance.GetData(1040);
+		Scene.AddArtifactObject(data);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1040);
 
-		//data = MasterArtifactTable.Instance.GetData(1000);
-		//Scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1000);
+		data = MasterArtifactTable.Instance.GetData(1045);
+		Scene.AddArtifactObject(data);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1045);
+		
+		data = MasterArtifactTable.Instance.GetData(1046);
+		Scene.AddArtifactObject(data);
+		MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1046);
 		
 		// レギュラーアーティファクト設定
 		regularIds = PlayerPrefsManager.Instance.GetRegularSettingArtifactIds();

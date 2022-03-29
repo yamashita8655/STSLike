@@ -38,6 +38,8 @@ public class MapBattleCheckState : StateBase {
 			}
 		}
 
+		scene.UpdateCarryArtifactDisplay();
+
 		return true;
 	}
 

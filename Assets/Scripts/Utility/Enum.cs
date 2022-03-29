@@ -291,4 +291,11 @@ public partial class EnumSelf : MonoBehaviour {
 		ReduceUseCardSheet,	// ターン中に使用したカードの枚数分、コストが下がる
 		ReduceSelfTrueDamage,	// 戦闘中に受けた自確定ダメージ分、コストが下がる
 	}
+	
+	public enum CountingType {
+		None = 0,
+		TurnCount,			// 経過ターン
+		TurnUseShieldCardCount,	// 1ターン中に使用したシールドカードの数
+		BattleUseCardCount		// 戦闘中に使用したカードの数
+	}
 }
