@@ -529,7 +529,15 @@ public partial class MapScene : SceneBase
 		SpawnPopup(data);
 	}
 	
-	
+	public void OnClickEnemyImageButton() {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		MasterAction2Table.Data data = MapDataCarrier.Instance.CuEnemyStatus.GetActionData();
+		if (data == null) {
+			return;
+		}
+		SpawnPopup(data);
+	}
 	
 	public void OnClickBackButton() {
 		// ユーザー入力待機状態でなければ、処理しない
