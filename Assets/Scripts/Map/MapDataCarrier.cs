@@ -93,6 +93,8 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	public List<PopupAnimationController> PopupAnimationControllers { get; set; }
 	
 	public int EventBattleFloorAdd { get; set; }
+
+	public List<int> ChestList { get; set; }
 	
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
@@ -148,6 +150,8 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		CardContentItemList = new List<CardContentItem>();
 
 		PopupAnimationControllers = new List<PopupAnimationController>();
+
+		ChestList = new List<int>(){0,0,0};
 	}
 
 	public void RemoveRarityNoAcquiredArtifactList(int id) {

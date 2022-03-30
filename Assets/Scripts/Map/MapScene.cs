@@ -345,6 +345,10 @@ public partial class MapScene : SceneBase
 	private Text CuEventDetailText = null;
 	public Text EventDetailText => CuEventDetailText;
 	
+	[SerializeField]
+	private GameObject CuChestRoot = null;
+	public GameObject ChestRoot => CuChestRoot;
+	
 	// Start is called before the first frame update
 	IEnumerator Start() {
 		while (EntryPoint.IsInitialized == false) {
