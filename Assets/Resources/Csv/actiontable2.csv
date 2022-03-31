@@ -253,6 +253,7 @@ id,rarity,name,equipcost,unlockcost,dicecost,costtype,usetype,detail,imagepath,e
 6009,1,壊れた盾,0,0,1,None,Repeat,戦闘開始時、破棄盾を3得る,Image/UI/Card/punch,DiscardShield,Self,3,Add,NONE,,,,,,,,,,,,,,,,
 6010,1,壊れた剣,0,0,1,None,Repeat,戦闘開始時、破棄剣を3得る,Image/UI/Card/punch,DiscardDamage,Self,3,Add,NONE,,,,,,,,,,,,,,,,
 #,デバッグ系,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+9987,1,デバッグ敵即死,0,0,0,None,Repeat,敵即死,Image/UI/Card/punch,Death,Opponent,0,Add,NONE,,,,,,,,,,,,,,,,
 9988,1,デバッグ自分に呪い,0,0,1,None,Repeat,自分に呪い,Image/UI/Card/punch,AddCurse2Deck,Self,5000,Add,AddCurse2Deck,Self,5001,Add,AddCurse2Deck,Self,5002,Add,AddCurse2Deck,Self,5003,Add,NONE,,,,
 9989,1,デバッグセルフ腐敗の息,0,0,1,None,Repeat,自分に「与ダメ低下」を{0}ターン、「被ダメ増加」を{1}ターン、「シールド低下」を{2}ターン付与する。,Image/UI/Card/punch,Weakness,Self,3,Add,Vulnerable,Self,3,Add,ShieldWeakness,Self,3,Add,NONE,,,,,,,,
 9990,1,デバッグ自分と相手にリアクティブシールド,0,0,1,None,Repeat,自分と相手にリアクティブシールド,Image/UI/Card/punch,ReactiveShield,Opponent,2,Add,ReactiveShield,Self,2,Add,NONE,,,,,,,,,,,,

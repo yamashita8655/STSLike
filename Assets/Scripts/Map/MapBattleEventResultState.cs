@@ -13,8 +13,7 @@ public class MapBattleEventResultState : StateBase {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
 		// とりあえず0番目決め打ち
-		//int dice = MapDataCarrier.Instance.DiceValueList[0];
-		int dice = 5;
+		int dice = MapDataCarrier.Instance.DiceValueList[0];
 
 		if (dice == 0) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleInitialize);

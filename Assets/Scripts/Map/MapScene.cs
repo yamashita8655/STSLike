@@ -349,6 +349,18 @@ public partial class MapScene : SceneBase
 	private GameObject CuChestRoot = null;
 	public GameObject ChestRoot => CuChestRoot;
 	
+	[SerializeField]
+	private Text CuBronzeChestCountText = null;
+	public Text BronzeChestCountText => CuBronzeChestCountText;
+	
+	[SerializeField]
+	private Text CuSilverChestCountText = null;
+	public Text SilverChestCountText => CuSilverChestCountText;
+	
+	[SerializeField]
+	private Text CuGoldChestCountText = null;
+	public Text GoldChestCountText => CuGoldChestCountText;
+	
 	// Start is called before the first frame update
 	IEnumerator Start() {
 		while (EntryPoint.IsInitialized == false) {
@@ -1142,5 +1154,11 @@ public partial class MapScene : SceneBase
 				list[i].UpdateCountingText(player.GetBattleUseCardCount() % data.CountingLimit);
 			}
 		}
+	}
+
+	public void UpdateChestCountDisplay() {
+		CuBronzeChestCountText.text = $"{MapDataCarrier.Instance.ChestList[0]}";
+		CuSilverChestCountText.text = $"{MapDataCarrier.Instance.ChestList[1]}";
+		CuGoldChestCountText.text = $"{MapDataCarrier.Instance.ChestList[2]}";
 	}
 }

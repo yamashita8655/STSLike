@@ -9,11 +9,11 @@ public class MapUpdateMapState : StateBase {
 	private readonly int TreasureRatio = 100;
 	private readonly int HealRatio = 200;
 	private readonly int EventRatio = 100;
-	//private readonly int EnemyRatio = 0;
+	//private readonly int EnemyRatio = 100;
 	//private readonly int EliteRatio = 0;
 	//private readonly int TreasureRatio = 0;
 	//private readonly int HealRatio = 0;
-	//private readonly int EventRatio = 100;
+	//private readonly int EventRatio = 0;
 
 	/// <summary>
 	/// メイン前処理.

@@ -23,7 +23,7 @@ id,name,hp,mhp,imagepath,initiativeactionid,aiid,adddropactionids
 311,ゾンビ,110,110,Image/Map/Enemy/zombie,NONE,3110,NONE
 312,未定3,120,120,Image/Map/Enemy/goblin,NONE,3120,NONE
 313,未定4,60,60,Image/Map/Enemy/goblin,3130,3130,NONE
-314,未定5,120,120,Image/Map/Enemy/goblin,0,3140,NONE
+314,未定5,120,120,Image/Map/Enemy/goblin,NONE,3140,NONE
 398,死へ誘う者,300,300,Image/Map/Enemy/deathreaper,NONE,3980,903-904
 399,ドラゴンゾンビ,250,250,Image/Map/Enemy/dragonzombie,3990,3990,905-906
 9999,デバッグかかし,999,999,Image/Map/Enemy/slime,99990,99990,NONE

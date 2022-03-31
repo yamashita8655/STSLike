@@ -30,7 +30,60 @@ public class MapBattleWinState : StateBase {
 			player.AddNowHp(player.GetPower().GetValue(EnumSelf.PowerType.HealCharge));
 			scene.UpdateParameterText();
 		}
-		
+
+		// ここで宝箱の抽選を行う
+
+		// まずは、宝箱の獲得抽選
+		MasterDungeonTable.Data dungeonData = MapDataCarrier.Instance.DungeonData;
+		int nowFloor = MapDataCarrier.Instance.NowFloor;
+		int maxFloor = MapDataCarrier.Instance.MaxFloor;
+		bool isBoss = false;
+		bool isElite = false;
+		bool isEnemy = false;
+		if (nowFloor == maxFloor) {
+			isBoss = true;
+		} else {
+			if (MapDataCarrier.Instance.SelectDifficultNumber == 4) {
+				isElite = true;
+			} else {
+				isEnemy = true;
+			}
+		}
+
+		int chestGetRatio = 0;
+		if (isBoss == true) {
+			chestGetRatio = dungeonData.BossChestDropRatio;
+		}
+		if (isElite == true) {
+			chestGetRatio = dungeonData.EliteChestDropRatio;
+		}
+		if (isEnemy == true) {
+			// 特別な敵（メタルスライム）かどうかは、後で実装する
+			chestGetRatio = dungeonData.EnemyChestDropRatio;
+		}
+
+		bool getChest = UnityEngine.Random.Range(0, 100+1) <= chestGetRatio ? true : false;
+
+		if (getChest == true) {
+			// 宝箱の中身抽選をする
+			List<int> ratioList = null;
+			if (isBoss == true) {
+				ratioList = dungeonData.BossChestRarityLotRatio;
+			}
+			if (isElite == true) {
+				ratioList = dungeonData.EliteChestRarityLotRatio;
+			}
+			if (isEnemy == true) {
+				ratioList = dungeonData.EnemyChestRarityLotRatio;
+			}
+
+			int rarity = BattleCalculationFunction.LotRarity(ratioList); 
+
+			// rarityは1から始まりで返ってくるので、1引く
+			MapDataCarrier.Instance.ChestList[rarity-1]++;
+
+			scene.UpdateChestCountDisplay();
+		}
 		
 		return true;
 	}

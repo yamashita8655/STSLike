@@ -57,9 +57,9 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
 		
 		//// TODO デバッグ用カード追加
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(11));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(11));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(11));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(9987));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(9987));
+		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(9987));
 		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(403));
 		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(404));
 		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(405));
@@ -155,6 +155,7 @@ public class MapInitializeState : StateBase {
 		Scene.StartCoroutine(CoObjectLoad());
 
 		SetText();
+		Scene.UpdateChestCountDisplay();
 		
 		return true;
 	}
