@@ -7,6 +7,8 @@ public class MapBattleCheckState : StateBase {
 
 	private bool IsWin = false;
 	private bool IsDead = false;
+	
+	private bool IsEnemyEscape = false;
 
 	/// <summary>
 	/// 初期化前処理.
@@ -19,9 +21,14 @@ public class MapBattleCheckState : StateBase {
 
 		IsWin = false;
 		IsDead = false;
+		IsEnemyEscape = false;
 
 		if (enemy.IsDead()) {
 			IsWin = true;
+		}
+		
+		if (enemy.IsEscape()) {
+			IsEnemyEscape = true;
 		}
 
 		if (player.IsDead()) {
@@ -71,6 +78,9 @@ public class MapBattleCheckState : StateBase {
 				}
 			}
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleWin);
+		} else if (IsEnemyEscape) {
+			// 戦闘終了
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnd);
 		} else {
             if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleInitiativeValueChange) {// プレイヤーのイニシアチブ
 				MapDataCarrier.Instance.InitiativeActionPackCount++;

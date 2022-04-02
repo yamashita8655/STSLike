@@ -20,6 +20,10 @@ public class MapBattleEnemyValueChangeState : StateBase {
 
 		BattleCalculationFunction.EnemyValueChange(pack);
 
+		if (pack.Effect == EnumSelf.EffectType.Escape) {
+			enemy.SetEscape();
+		}
+
 		// 動的にカード加える系（呪いとか、複製とか）
 		scene.CheckAddCard(pack);
 

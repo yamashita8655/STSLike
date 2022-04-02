@@ -272,3 +272,5 @@ id,rarity,name,equipcost,unlockcost,dicecost,costtype,usetype,detail,imagepath,e
 99991,1,敵のStrengthShield,0,0,1,None,Repeat,力分シールドを得る,Image/UI/Card/punch,StrengthShield,Self,0,Add,NONE,,,,,,,,,,,,,,,,
 900000,1,メタルボディ,0,0,1,None,Repeat,自身に「メタルボディ」を1付与。,Image/UI/Card/punch,MetalBody,Self,1,Add,NONE,,,,,,,,,,,,,,,,
 900001,1,体当たり,0,0,1,None,Repeat,{0}ダメージを与える,Image/UI/Card/punch,Damage,Opponent,8,Add,NONE,,,,,,,,,,,,,,,,
+900002,1,逃げる,0,0,1,None,Repeat,逃げる,Image/UI/Card/punch,Escape,Self,0,Add,NONE,,,,,,,,,,,,,,,,
+900003,1,固くなる,0,0,1,None,Repeat,{0}シールドを得る,Image/UI/Card/punch,Shield,Self,30,Add,NONE,,,,,,,,,,,,,,,,

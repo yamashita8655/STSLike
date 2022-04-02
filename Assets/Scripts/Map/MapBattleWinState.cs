@@ -12,27 +12,7 @@ public class MapBattleWinState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
-		var player = MapDataCarrier.Instance.CuPlayerStatus;
-		if (player.GetParameterListFlag(EnumSelf.ParameterType.FirstAidKit) == true) {
-			if (player.GetNowHp() <= (player.GetMaxHp()/2)) {
-				player.AddNowHp(12);
-				scene.UpdateParameterText();
-			}
-		}
-		
-		if (player.GetParameterListFlag(EnumSelf.ParameterType.SeekersAmulet) == true) {
-			player.AddMaxHp(1);
-			player.AddNowHp(1);
-			scene.UpdateParameterText();
-		}
-		
-		if (player.GetPower().GetValue(EnumSelf.PowerType.HealCharge) > 0) {
-			player.AddNowHp(player.GetPower().GetValue(EnumSelf.PowerType.HealCharge));
-			scene.UpdateParameterText();
-		}
-
 		// ここで宝箱の抽選を行う
-
 		// まずは、宝箱の獲得抽選
 		MasterDungeonTable.Data dungeonData = MapDataCarrier.Instance.DungeonData;
 		int nowFloor = MapDataCarrier.Instance.NowFloor;

@@ -272,6 +272,8 @@ public class EnemyStatus
 	
 	private MasterEnemyAITable.Data AIData = null;
 
+	private bool IsEscapeFlag = false;
+
 	public EnemyStatus(MasterEnemyTable.Data data) {
 		ActionDataList = new List<MasterAction2Table.Data>();
 		InitiativeActionDataList = new List<MasterAction2Table.Data>();
@@ -279,6 +281,7 @@ public class EnemyStatus
 		DebuffPower = new Power();
 		Data = data;
 		CuTurnPower = new TurnPower();
+		IsEscapeFlag = false;
 	}
 
 	public MasterEnemyTable.Data GetEnemyData() {
@@ -428,6 +431,14 @@ public class EnemyStatus
 
 	public bool IsDead() {
 		return (NowHp <= 0);
+	}
+	
+	public void SetEscape() {
+		IsEscapeFlag = true;
+	}
+	
+	public bool IsEscape() {
+		return IsEscapeFlag;
 	}
 
 	public void AddPower(EnumSelf.PowerType type, int val) {

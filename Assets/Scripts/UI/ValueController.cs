@@ -47,6 +47,7 @@ public class ValueController : MonoBehaviour
 
 		if (
 			(type == EnumSelf.EffectType.Warning) ||
+			(type == EnumSelf.EffectType.Escape) ||
 			(type == EnumSelf.EffectType.Death) ||
 			(type == EnumSelf.EffectType.RemovePower) ||
 			(type == EnumSelf.EffectType.Curse) ||
@@ -98,6 +99,7 @@ public class ValueController : MonoBehaviour
 			ret = Const.HealImagePath;
 		} else if (
 			(type == EnumSelf.EffectType.Warning) ||
+			(type == EnumSelf.EffectType.Escape) ||
 			(type == EnumSelf.EffectType.DebugDisaster)
 		) {
 			ret = Const.WarningImagePath;

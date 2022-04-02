@@ -97,3 +97,4 @@ PopupHand2Erase,手札を削除する効果。
 PopupHandCurseDiscard,手札の呪いを全て破棄する効果。
 PopupDoubleStrength,現在の力の数値分、力を獲得し<br>増加した力の数値分、力減少を獲得する。
 PopupMetalBody,ダメージを受ける時、ダメージ量が1になる。
+PopupEscape,逃げて、戦闘が終了する。勝利した事にはならない。
