@@ -11,9 +11,25 @@ public class MapBattleStartState : StateBase {
     override public bool OnBeforeMain()
     {
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
-		if (MapDataCarrier.Instance.CuPlayerStatus.GetParameterListFlag(EnumSelf.ParameterType.GameStart3Draw) == true) {
+		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
+
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.GameStart3Draw) == true) {
 			scene.DrawCard(3);
 		}
+		
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.HeroSword) == true) {
+			if (player.GetNowHp() == player.GetMaxHp()) {
+				BattleCalculationFunction.PlayerUpdatePower(EnumSelf.PowerType.Strength, 3);
+				BattleCalculationFunction.PlayerUpdatePower(EnumSelf.PowerType.Toughness, 3);
+			}
+		}
+		
+		if (player.GetParameterListFlag(EnumSelf.ParameterType.HeroShield) == true) {
+			if (player.GetNowHp() <= 20) {
+				BattleCalculationFunction.PlayerUpdateTurnPower(EnumSelf.TurnPowerType.TurnRegenerate, 10);
+			}
+		}
+		
 
 		return false;
     }

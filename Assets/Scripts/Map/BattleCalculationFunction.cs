@@ -564,6 +564,12 @@ public class BattleCalculationFunction {
 						PlayerUpdatePower(EnumSelf.PowerType.Strength, 1);
 						PlayerUpdateTurnPower(EnumSelf.TurnPowerType.SubStrength, 1);
 					}
+					
+					// 相手がリアクティブシールド状態か
+					// これは、ダメージ計算が終わってから付与する
+					if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
+						enemy.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
+					}
 
 					EnemyUpdateHp(overDamage);
 					if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
@@ -594,11 +600,6 @@ public class BattleCalculationFunction {
 					overDamage = shield - turnThornDamage;
 					if (overDamage < 0) {
 						PlayerUpdateHp(overDamage);
-						// 相手がリアクティブシールド状態か
-						// これは、ダメージ計算が終わってから付与する
-						if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
-							enemy.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
-						}
 					}
 				}
 				
@@ -931,6 +932,11 @@ public class BattleCalculationFunction {
 				overDamage = shield - damage;
 				if (overDamage < 0) {
 					PlayerUpdateHp(overDamage);
+					// 相手がリアクティブシールド状態か
+					// これは、ダメージ計算が終わってから付与する
+					if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
+						player.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
+					}
 					if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
 						EnemyUpdateHp(-overDamage);
 					}
