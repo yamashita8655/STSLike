@@ -95,6 +95,7 @@ public partial class EnumSelf : MonoBehaviour {
 		AddSelfTrueDamageStrength,// 自確定ダメージ受けた時、力を獲得
 		DrawSelfTrueDamage,// 自確定ダメージ受けた時、1枚ドロー
 		AddSelfTrueDamageHealCharge,// 自確定ダメージ受けた時、回復チャージを1得る
+		MetalBody,// ダメージを受ける時、そのダメージは1になる
 
 		// デバッグ用状態変化
         DebugDisaster,
@@ -184,6 +185,7 @@ public partial class EnumSelf : MonoBehaviour {
 		AddSelfTrueDamageStrength,
 		DrawSelfTrueDamage,
 		AddSelfTrueDamageHealCharge,
+		MetalBody,
 
 		// ターン経過時に、1にリセットする物
         RotBody,

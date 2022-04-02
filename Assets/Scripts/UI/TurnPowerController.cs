@@ -135,6 +135,8 @@ public class TurnPowerController : MonoBehaviour
 			ret = Const.DrawSelfTrueDamageImagePath;
 		} else if (type == EnumSelf.TurnPowerType.AddSelfTrueDamageHealCharge) {
 			ret = Const.AddSelfTrueDamageHealChargeImagePath;
+		} else if (type == EnumSelf.TurnPowerType.MetalBody) {
+			ret = Const.MetalBodyImagePath;
 		}
 
 		return ret;

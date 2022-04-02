@@ -58,8 +58,12 @@ public class MapBattleWinState : StateBase {
 			chestGetRatio = dungeonData.EliteChestDropRatio;
 		}
 		if (isEnemy == true) {
-			// 特別な敵（メタルスライム）かどうかは、後で実装する
-			chestGetRatio = dungeonData.EnemyChestDropRatio;
+			var enemyId = MapDataCarrier.Instance.CuEnemyStatus.GetEnemyData().Id;
+			if ((enemyId / 10000) == 9) {
+				chestGetRatio = 100;
+			} else {
+				chestGetRatio = dungeonData.EnemyChestDropRatio;
+			}
 		}
 
 		bool getChest = UnityEngine.Random.Range(0, 100+1) <= chestGetRatio ? true : false;

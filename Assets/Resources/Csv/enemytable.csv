@@ -31,4 +31,5 @@ id,name,hp,mhp,imagepath,initiativeactionid,aiid,adddropactionids
 9997,デバッグ森の大樹,1,1,Image/Map/Enemy/woodking,2990,2990,902
 9996,デバッグ死へ誘う者,1,1,Image/Map/Enemy/deathreaper,NONE,3980,903-904
 9995,デバッグドラゴンゾンビ,1,1,Image/Map/Enemy/dragonzombie,3990,3990,905-906
+90000,ブロンズスライム,7,7,Image/Map/Enemy/slime,900000,900000,NONE
 99999,イベントでドロップのみ選択する時用のダミー敵,1,1,Image/Map/Enemy/goblin,NONE,1010,NONE

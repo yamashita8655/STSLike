@@ -82,6 +82,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.SelfHarm) ||
 			(pack.Effect == EnumSelf.EffectType.AddSelfTrueDamageStrength) ||
 			(pack.Effect == EnumSelf.EffectType.AddSelfTrueDamageHealCharge) ||
+			(pack.Effect == EnumSelf.EffectType.MetalBody) ||
 			(pack.Effect == EnumSelf.EffectType.DrawSelfTrueDamage)
 		) {
 			BattleCalculationFunction.PlayerUpdateTurnPower(pack);
@@ -182,6 +183,7 @@ public class BattleCalculationFunction {
 			(pack.Effect == EnumSelf.EffectType.Invincible) ||
 			(pack.Effect == EnumSelf.EffectType.DemonPower) ||
 			(pack.Effect == EnumSelf.EffectType.TurnThorn) ||
+			(pack.Effect == EnumSelf.EffectType.MetalBody) ||
 			(pack.Effect == EnumSelf.EffectType.ReverseHeal)
 		) {
 			BattleCalculationFunction.EnemyUpdateTurnPower(pack);
@@ -189,20 +191,6 @@ public class BattleCalculationFunction {
 	}
 	
 	public static void PlayerInitiativeValueChange() {
-		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
-		if (player.GetParameterListFlag(EnumSelf.ParameterType.HeroSword) == true) {
-			if (player.GetNowHp() == player.GetMaxHp()) {
-				PlayerUpdatePower(EnumSelf.PowerType.Strength, 3);
-				PlayerUpdatePower(EnumSelf.PowerType.Toughness, 3);
-			}
-		}
-		
-		if (player.GetParameterListFlag(EnumSelf.ParameterType.HeroShield) == true) {
-			if (player.GetNowHp() <= 20) {
-				PlayerUpdateTurnPower(EnumSelf.TurnPowerType.TurnRegenerate, 10);
-			}
-		}
-		
 	}
 	
 	public static void PlayerTurnStartValueChange() {
@@ -357,6 +345,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.SelfHarm) || 
 				(i == (int)EnumSelf.TurnPowerType.AddSelfTrueDamageStrength) || 
 				(i == (int)EnumSelf.TurnPowerType.AddSelfTrueDamageHealCharge) || 
+				(i == (int)EnumSelf.TurnPowerType.MetalBody) || 
 				(i == (int)EnumSelf.TurnPowerType.DrawSelfTrueDamage) || 
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
@@ -485,6 +474,7 @@ public class BattleCalculationFunction {
 				(i == (int)EnumSelf.TurnPowerType.Invincible) ||
 				(i == (int)EnumSelf.TurnPowerType.DemonPower) ||
 				(i == (int)EnumSelf.TurnPowerType.TurnThorn) ||
+				(i == (int)EnumSelf.TurnPowerType.MetalBody) || 
 				(i == (int)EnumSelf.TurnPowerType.AutoShield)
 			) {
 				continue;
@@ -571,7 +561,13 @@ public class BattleCalculationFunction {
 						enemy.AddNowShield(enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield));
 					}
 
+					// メタルボディだったら、1ダメージになる
+					if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.MetalBody) > 0) {
+						overDamage = -1;
+					}
+
 					EnemyUpdateHp(overDamage);
+
 					if (pack.Effect == EnumSelf.EffectType.DamageSuction) {
 						PlayerUpdateHp(-overDamage);
 					}
@@ -931,7 +927,14 @@ public class BattleCalculationFunction {
 				player.AddNowShield(-damage);
 				overDamage = shield - damage;
 				if (overDamage < 0) {
+
+					// メタルボディだったら、1ダメージになる
+					if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.MetalBody) > 0) {
+						overDamage = -1;
+					}
+
 					PlayerUpdateHp(overDamage);
+
 					// 相手がリアクティブシールド状態か
 					// これは、ダメージ計算が終わってから付与する
 					if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.ReactiveShield) > 0) {
@@ -1232,6 +1235,8 @@ public class BattleCalculationFunction {
 			pType = EnumSelf.TurnPowerType.DrawSelfTrueDamage;
 		} else if (type == EnumSelf.EffectType.AddSelfTrueDamageHealCharge) {
 			pType = EnumSelf.TurnPowerType.AddSelfTrueDamageHealCharge;
+		} else if (type == EnumSelf.EffectType.MetalBody) {
+			pType = EnumSelf.TurnPowerType.MetalBody;
 		}
 
 		return pType;
