@@ -537,17 +537,20 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		}
 		SaveParameter(SaveType.RegularSettingArtifactIds, saveString);
 	}
+	
+	public void AddEnemyKillCount(int id, int addValue) {
+		int index = MasterEnemyTable.Instance.GetIndexFromId(id);
+		EnemyKillCountList[index] += addValue;
+		SaveEnemyKillCount(index, EnemyKillCountList[index]);
+	}
 
-	public void SaveEnemyKillCount(SaveType type, int count) {
-		int index = (int)type - (int)SaveType.EnemyKillCountStart;
-		Debug.Log(type);
-		Debug.Log($"index{index}");
-		EnemyKillCountList[index] = count;
-		SaveParameter(type, count.ToString());
+	public void SaveEnemyKillCount(int typeIndex, int count) {
+		EnemyKillCountList[typeIndex] = count;
+		SaveParameter((SaveType)(typeIndex + (int)SaveType.EnemyKillCountStart), count.ToString());
 	}
 	
-	public int GetEnemyKillCount(SaveType type) {
-		int index = (int)type - (int)SaveType.EnemyKillCountStart;
+	public int GetEnemyKillCount(int id) {
+		int index = MasterEnemyTable.Instance.GetIndexFromId(id);
 		return EnemyKillCountList[index];
 	}
 }

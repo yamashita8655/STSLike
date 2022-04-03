@@ -135,10 +135,11 @@ public class DebugController : MonoBehaviour
     public void OnClickAddEnemyKillCountButton()
     {
         int count = int.Parse(EnemyKillCountInputField.text);
-        Debug.Log($"value{EnemyKillCountDropDown.value}");
-        int type = (EnemyKillCountDropDown.value + (int)PlayerPrefsManager.SaveType.EnemyKillCountStart);
-        PlayerPrefsManager.Instance.SaveEnemyKillCount((PlayerPrefsManager.SaveType)type, count);
+        PlayerPrefsManager.Instance.AddEnemyKillCount(EnemyKillCountDropDown.value, count);
 
-        UpdateDebugLog($"{EnemyKillCountDropDown.options[EnemyKillCountDropDown.value].text}：{count}");
+		int id = int.Parse(EnemyKillCountDropDown.options[EnemyKillCountDropDown.value].text);
+		int now = PlayerPrefsManager.Instance.GetEnemyKillCount(id);
+
+        UpdateDebugLog($"{EnemyKillCountDropDown.options[EnemyKillCountDropDown.value].text}：{now}");
     }
 }

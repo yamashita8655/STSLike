@@ -39,6 +39,7 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 	private readonly string FilePath = "csv/enemytable";
 
 	private Dictionary<int, Data> DataDict = new Dictionary<int, Data>();
+	private Dictionary<int, int> DataIndexDict = new Dictionary<int, int>();
 
 	public void Initialize()
 	{
@@ -55,6 +56,7 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 		char[] split2 = { ',' };
 		char[] split3 = { '-' };
 		// 1行目はメタデータなので、読み飛ばす
+		int index = 0;
 		for (int i = 1; i < lineList.Count; i++) {
 			List<string> paramList = Functions.SplitString(lineList[i], split2);
 			
@@ -79,6 +81,8 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 			);
 
 			DataDict.Add(int.Parse(paramList[0]), data);
+			DataIndexDict.Add(int.Parse(paramList[0]), index);
+			index++;
 		}
 	}
 	
@@ -97,6 +101,14 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 		Dictionary<int, Data> dict = new Dictionary<int, Data>(DataDict);
         return dict;
     }
+	
+	public int GetIndexFromId(int id)
+	{
+		int index = 0;
+		DataIndexDict.TryGetValue(id, out index);
+
+		return index;
+	}
 }
 
 

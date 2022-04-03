@@ -11,6 +11,7 @@ public class MapBattleWinState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		var enemyId = MapDataCarrier.Instance.CuEnemyStatus.GetEnemyData().Id;
 
 		// ここで宝箱の抽選を行う
 		// まずは、宝箱の獲得抽選
@@ -38,7 +39,6 @@ public class MapBattleWinState : StateBase {
 			chestGetRatio = dungeonData.EliteChestDropRatio;
 		}
 		if (isEnemy == true) {
-			var enemyId = MapDataCarrier.Instance.CuEnemyStatus.GetEnemyData().Id;
 			if ((enemyId / 10000) == 9) {
 				chestGetRatio = 100;
 			} else {
@@ -68,6 +68,9 @@ public class MapBattleWinState : StateBase {
 
 			scene.UpdateChestCountDisplay();
 		}
+
+		// 撃破数保存
+		PlayerPrefsManager.Instance.AddEnemyKillCount(enemyId, 1);
 		
 		return true;
 	}
