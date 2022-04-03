@@ -90,6 +90,13 @@ public class MasterEnemyTable : SimpleSingleton<MasterEnemyTable>
 
 		return data;
 	}
+	
+	// ディクショナリは外で操作されると困るので、クローンを返す
+	public Dictionary<int, Data> GetCloneDict()
+    {
+		Dictionary<int, Data> dict = new Dictionary<int, Data>(DataDict);
+        return dict;
+    }
 }
 
 

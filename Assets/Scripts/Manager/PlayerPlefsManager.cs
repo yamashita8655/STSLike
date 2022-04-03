@@ -19,6 +19,45 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		UnlockArtifactIds,
 		UsedArtifactRegularCostPoint,
 		RegularSettingArtifactIds,
+
+		// トロフィー保存用
+		EnemyKillCountStart,
+		EnemyKillCount101 = EnemyKillCountStart,
+		EnemyKillCount198,
+		EnemyKillCount199,
+		EnemyKillCount201,
+		EnemyKillCount202,
+		EnemyKillCount203,
+		EnemyKillCount204,
+		EnemyKillCount205,
+		EnemyKillCount206,
+		EnemyKillCount298,
+		EnemyKillCount299,
+		EnemyKillCount301,
+		EnemyKillCount302,
+		EnemyKillCount303,
+		EnemyKillCount304,
+		EnemyKillCount305,
+		EnemyKillCount306,
+		EnemyKillCount307,
+		EnemyKillCount308,
+		EnemyKillCount309,
+		EnemyKillCount310,
+		EnemyKillCount311,
+		EnemyKillCount312,
+		EnemyKillCount313,
+		EnemyKillCount314,
+		EnemyKillCount398,
+		EnemyKillCount399,
+		EnemyKillCount9999,
+		EnemyKillCount9998,
+		EnemyKillCount9997,
+		EnemyKillCount9996,
+		EnemyKillCount9995,
+		EnemyKillCount90000,
+		EnemyKillCount99999,
+		EnemyKillCountEnd = EnemyKillCount99999,// 処理では使わないけど、Max的な意味合いで使う
+
 		Max,
 		None
 	};
@@ -37,7 +76,42 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"FindArtifactIds",
 		"UnlockArtifactIds",
 		"UsedArtifactRegularCostPoint",
-		"RegularSettingArtifactIds"
+		"RegularSettingArtifactIds",
+		// 敵キルカウント
+		"EnemyKillCount101",
+		"EnemyKillCount198",
+		"EnemyKillCount199",
+		"EnemyKillCount201",
+		"EnemyKillCount202",
+		"EnemyKillCount203",
+		"EnemyKillCount204",
+		"EnemyKillCount205",
+		"EnemyKillCount206",
+		"EnemyKillCount298",
+		"EnemyKillCount299",
+		"EnemyKillCount301",
+		"EnemyKillCount302",
+		"EnemyKillCount303",
+		"EnemyKillCount304",
+		"EnemyKillCount305",
+		"EnemyKillCount306",
+		"EnemyKillCount307",
+		"EnemyKillCount308",
+		"EnemyKillCount309",
+		"EnemyKillCount310",
+		"EnemyKillCount311",
+		"EnemyKillCount312",
+		"EnemyKillCount313",
+		"EnemyKillCount314",
+		"EnemyKillCount398",
+		"EnemyKillCount399",
+		"EnemyKillCount9999",
+		"EnemyKillCount9998",
+		"EnemyKillCount9997",
+		"EnemyKillCount9996",
+		"EnemyKillCount9995",
+		"EnemyKillCount90000",
+		"EnemyKillCount99999",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -48,10 +122,13 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	private List<int> UnlockArtifactIds = new List<int>();
 	private List<int> RegularSettingArtifactIds = new List<int>();
 	
+	private List<int> EnemyKillCountList = new List<int>();
+	
 	public void Initialize() {
 		CreateFirstData();
 		InitializeCardStatusList();
 		InitializeArtifactStatusList();
+		InitializeEnemyKillCountList();
 	}
 
 	// 初回のセーブデータ作成
@@ -90,6 +167,10 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 					saveString = "0";
 				} else if (i == (int)SaveType.RegularSettingArtifactIds) {
 					saveString = "";
+				} else if (
+					((int)SaveType.EnemyKillCountStart <= i) && (i <= (int)SaveType.EnemyKillCountEnd)
+				) {
+					saveString = "0";
 				}
 				PlayerPrefs.SetString(key, saveString);
 			}
@@ -338,6 +419,15 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		}
 	}
 	
+	public void InitializeEnemyKillCountList() {
+		int startIndex = (int)SaveType.EnemyKillCountStart;
+		int endIndex = (int)SaveType.EnemyKillCountEnd+1;
+		for (int i = startIndex; i < endIndex; i++) {
+			string saveString = GetParameter((SaveType)i);
+			EnemyKillCountList.Add(int.Parse(saveString));
+		}
+	}
+	
 	public void SaveFindArtifactId(int id) {
 		string saveString = GetParameter(SaveType.FindArtifactIds);
 
@@ -446,5 +536,18 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 			}
 		}
 		SaveParameter(SaveType.RegularSettingArtifactIds, saveString);
+	}
+
+	public void SaveEnemyKillCount(SaveType type, int count) {
+		int index = (int)type - (int)SaveType.EnemyKillCountStart;
+		Debug.Log(type);
+		Debug.Log($"index{index}");
+		EnemyKillCountList[index] = count;
+		SaveParameter(type, count.ToString());
+	}
+	
+	public int GetEnemyKillCount(SaveType type) {
+		int index = (int)type - (int)SaveType.EnemyKillCountStart;
+		return EnemyKillCountList[index];
 	}
 }

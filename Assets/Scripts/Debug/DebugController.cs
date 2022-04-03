@@ -20,6 +20,12 @@ public class DebugController : MonoBehaviour
     [SerializeField]
     private Dropdown FindArtifactDropDown = null;
 
+    [SerializeField]
+    private Dropdown EnemyKillCountDropDown = null;
+
+    [SerializeField]
+    private InputField EnemyKillCountInputField = null;
+
     private int LogIndex = 1;
 
 	public void Initialize()
@@ -46,6 +52,14 @@ public class DebugController : MonoBehaviour
             }
         }
         FindArtifactDropDown.AddOptions(options);
+
+        EnemyKillCountDropDown.ClearOptions();
+        options = new List<string>();
+        var dict = MasterEnemyTable.Instance.GetCloneDict();
+        foreach (var data in dict) {
+            options.Add(data.Key.ToString());
+        }
+        EnemyKillCountDropDown.AddOptions(options);
     }
 
     public void OnClickOpenButton()
@@ -117,4 +131,14 @@ public class DebugController : MonoBehaviour
 		int point = int.Parse(AddPointInputField.text);
 		PlayerPrefsManager.Instance.AddPoint(point);
 	}
+
+    public void OnClickAddEnemyKillCountButton()
+    {
+        int count = int.Parse(EnemyKillCountInputField.text);
+        Debug.Log($"value{EnemyKillCountDropDown.value}");
+        int type = (EnemyKillCountDropDown.value + (int)PlayerPrefsManager.SaveType.EnemyKillCountStart);
+        PlayerPrefsManager.Instance.SaveEnemyKillCount((PlayerPrefsManager.SaveType)type, count);
+
+        UpdateDebugLog($"{EnemyKillCountDropDown.options[EnemyKillCountDropDown.value].text}：{count}");
+    }
 }
