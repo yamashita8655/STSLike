@@ -16,7 +16,11 @@ public partial class Const {
 	public static readonly string RegularSettingCardContentItemPath = "Prefab/UI/RegularSettingCardContentItem";
 	public static readonly string CardContentItemPath = "Prefab/UI/CardContentItem";
 	public static readonly string RegularSettingArtifactContentItemPath = "Prefab/UI/RegularSettingArtifactContentItem";
+	public static readonly string TrophyCellItemPath = "Prefab/UI/TrophyCellItem";
 	public static readonly string PopupObjectPath = "Prefab/UI/PopupObject";
+	
+	public static readonly string CardCostUpImagePath = "Image/Icon/cardcostup";
+	public static readonly string ArtifactCostUpImagePath = "Image/Icon/artifactcostup";
 	
 	public static readonly string ChestImagePath = "Image/Map/Chest{0}";
 	public static readonly string ChestObjectPath = "Prefab/UI/ChestObject";

@@ -301,4 +301,29 @@ public partial class EnumSelf : MonoBehaviour {
 		TurnUseShieldCardCount,	// 1ターン中に使用したシールドカードの数
 		BattleUseCardCount		// 戦闘中に使用したカードの数
 	}
+	
+	public enum TrophyCountType {
+		None = 0,
+		DeleteEnemy,
+		HealCount,
+		DiceCostUpCount,
+		EraseCount,
+		FindRarityCard,
+		FindRarityArtifact,
+		GetStrength,
+		GetShield,
+		DeckCount,
+		GiveDamage,
+		MaxHp,
+		HP1Win,
+		NoDamageBoss,
+		NoDamageElite,
+		DoubleKO,
+	}
+	
+	public enum TrophyRewardType {
+		None = 0,
+		CardCostUp,
+		ArtifactCostUp,
+	}
 }

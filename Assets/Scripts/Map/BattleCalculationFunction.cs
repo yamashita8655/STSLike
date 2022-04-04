@@ -510,6 +510,10 @@ public class BattleCalculationFunction {
 		if (pack.Effect == EnumSelf.EffectType.TrueDamage) {
 			int damage = pack.Value;
 			if (pack.Target == EnumSelf.TargetType.Opponent) {
+				// メタルボディだったら、1ダメージになる
+				if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.MetalBody) > 0) {
+					damage = -1;
+				}
 				EnemyCalcTrueDamage(-damage);
 			} else if (pack.Target == EnumSelf.TargetType.Self) {
 				PlayerCalcTrueDamage(-damage);
@@ -657,6 +661,9 @@ public class BattleCalculationFunction {
 		enemy.AddNowShield(-damage);
 		overDamage = shield - damage;
 		if (overDamage < 0) {
+			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.MetalBody) > 0) {
+				overDamage = -1;
+			}
 			EnemyUpdateHp(overDamage);
 		}
 	}
@@ -902,6 +909,10 @@ public class BattleCalculationFunction {
 		if (pack.Effect == EnumSelf.EffectType.TrueDamage) {
 			int damage = pack.Value;
 			if (pack.Target == EnumSelf.TargetType.Opponent) {
+				// メタルボディだったら、1ダメージになる
+				if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.MetalBody) > 0) {
+					damage = -1;
+				}
 				PlayerCalcTrueDamage(-damage);
 			} else if (pack.Target == EnumSelf.TargetType.Self) {
 				EnemyCalcTrueDamage(-damage);
