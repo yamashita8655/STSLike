@@ -26,6 +26,7 @@ public class MenuInitializeState : StateBase {
 		Scene.CardEquipSelectRoot.SetActive(false);
 		Scene.RegularArtifactSettingRoot.SetActive(false);
 		Scene.ArtifactEquipSelectRoot.SetActive(false);
+		Scene.TrophyRoot.SetActive(false);
 
 		// 固定テキストの設定
 		Scene.MenuDungeonText.text = MasterStringTable.Instance.GetString("Menu_MenuDungeon");

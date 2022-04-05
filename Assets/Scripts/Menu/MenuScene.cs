@@ -225,6 +225,33 @@ public partial class MenuScene : SceneBase
 	private Button SFArtifactMaxCostUpButton = null;
 	public Button ArtifactMaxCostUpButton => SFArtifactMaxCostUpButton;
 	
+	// ↓↓↓トロフィー↓↓↓
+	[SerializeField]
+	private GameObject SFTrophyRoot = null;
+	public GameObject TrophyRoot => SFTrophyRoot;
+	
+	[SerializeField]
+	private GameObject SFTrophyNonAchieveListCellRoot = null;
+	public GameObject TrophyNonAchieveListCellRoot => SFTrophyNonAchieveListCellRoot;
+	
+	[SerializeField]
+	private GameObject SFTrophyAchieveListCellRoot = null;
+	public GameObject TrophyAchieveListCellRoot => SFTrophyAchieveListCellRoot;
+	
+	[SerializeField]
+	private GameObject SFNonAchieveListRoot = null;
+	public GameObject NonAchieveListRoot => SFNonAchieveListRoot;
+	
+	[SerializeField]
+	private GameObject SFAchieveListRoot = null;
+	public GameObject AchieveListRoot => SFAchieveListRoot;
+	
+	[SerializeField]
+	private Toggle SFNonAchieveToggle = null;
+	public Toggle NonAchieveToggle => SFNonAchieveToggle;
+	// ↑↑↑トロフィー↑↑↑
+
+	
 	// TODO ボタンをコンポーネント化は、とりあえずあと
 	// ひとまず、何が装備されているかだけ見れるようにしておく
 	[SerializeField]
@@ -379,6 +406,47 @@ public partial class MenuScene : SceneBase
 			return;
 		}
 		StateMachineManager.Instance.ChangeState(StateMachineName.Menu, (int)MenuState.RegularArtifactSettingInitialize);
+	}
+	
+	public void OnClickTrophyButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+			return;
+		}
+		TrophyRoot.SetActive(true);
+		NonAchieveToggle.isOn = true;
+		OnNonAchieveToggleValueChange(true);
+
+		for (int i = 0; i < 10; i++) {
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.TrophyCellItemPath,
+				ExecuteOrder.Type.GameObject,
+				gameObject,
+				(rawobj) => {
+					GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
+					obj.transform.SetParent(SFTrophyNonAchieveListCellRoot.transform);
+					obj.transform.localPosition = Vector3.zero;
+					obj.transform.localScale = Vector3.one;
+					//obj.GetComponent<TrophyCellItemController>().Initialize();
+				}
+			);
+		}
+		
+		for (int i = 0; i < 10; i++) {
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.TrophyCellItemPath,
+				ExecuteOrder.Type.GameObject,
+				gameObject,
+				(rawobj) => {
+					GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
+					obj.transform.SetParent(SFTrophyAchieveListCellRoot.transform);
+					obj.transform.localPosition = Vector3.zero;
+					obj.transform.localScale = Vector3.one;
+					//obj.GetComponent<TrophyCellItemController>().Initialize();
+				}
+			);
+		}
 	}
 
 	public void UpdateEquipCardCostText() {
@@ -885,4 +953,20 @@ public partial class MenuScene : SceneBase
 
 		MenuDataCarrier.Instance.SpawnPopup(data);
 	}
+
+	// ↓トロフィー
+	public void OnClickTrophyCloseButton() {
+        var stm = StateMachineManager.Instance;
+		// ユーザー入力待機状態でなければ、処理しない
+		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+			return;
+		}
+		TrophyRoot.SetActive(false);
+	}
+	
+	public void OnNonAchieveToggleValueChange(bool isOn) {
+		SFNonAchieveListRoot.SetActive(isOn);
+		SFAchieveListRoot.SetActive(!isOn);
+	}
+	// ↑トロフィー
 }
