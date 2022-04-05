@@ -33,7 +33,7 @@ public class MasterTrophyTable : SimpleSingleton<MasterTrophyTable>
 		}
 	};
 
-	private readonly string FilePath = "csv/trophy";
+	private readonly string FilePath = "csv/trophytable";
 
 	private Dictionary<string, Data> DataDict = new Dictionary<string, Data>();
 
