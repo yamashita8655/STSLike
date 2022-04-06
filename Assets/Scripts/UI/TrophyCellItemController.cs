@@ -29,7 +29,7 @@ public class TrophyCellItemController : MonoBehaviour
 
 		Data = data;
 
-		TrophyText.text = data.Detail;
+		TrophyText.text = string.Format(data.Detail, data.CompleteCount);
 		AchieveValueText.text = $"{data.RewardValue}";
 
 		int maxProgressCount = data.CompleteCount;
@@ -69,9 +69,9 @@ public class TrophyCellItemController : MonoBehaviour
 		} else {
 			// 達成してるかチェック
 			if (nowProgressCount >= maxProgressCount) {
-				CellButton.interactable = false;
-			} else {
 				CellButton.interactable = true;
+			} else {
+				CellButton.interactable = false;
 			}
 		}
 

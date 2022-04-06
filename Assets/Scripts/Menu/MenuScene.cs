@@ -418,34 +418,38 @@ public partial class MenuScene : SceneBase
 		NonAchieveToggle.isOn = true;
 		OnNonAchieveToggleValueChange(true);
 
-		for (int i = 0; i < 10; i++) {
-			ResourceManager.Instance.RequestExecuteOrder(
-				Const.TrophyCellItemPath,
-				ExecuteOrder.Type.GameObject,
-				gameObject,
-				(rawobj) => {
-					GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
-					obj.transform.SetParent(SFTrophyNonAchieveListCellRoot.transform);
-					obj.transform.localPosition = Vector3.zero;
-					obj.transform.localScale = Vector3.one;
-					//obj.GetComponent<TrophyCellItemController>().Initialize();
-				}
-			);
-		}
-		
-		for (int i = 0; i < 10; i++) {
-			ResourceManager.Instance.RequestExecuteOrder(
-				Const.TrophyCellItemPath,
-				ExecuteOrder.Type.GameObject,
-				gameObject,
-				(rawobj) => {
-					GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
-					obj.transform.SetParent(SFTrophyAchieveListCellRoot.transform);
-					obj.transform.localPosition = Vector3.zero;
-					obj.transform.localScale = Vector3.one;
-					//obj.GetComponent<TrophyCellItemController>().Initialize();
-				}
-			);
+		var dict = MasterTrophyTable.Instance.GetCloneDict();
+		foreach (var data in dict) {
+			bool isReceipt = false;
+			if (isReceipt == true) {
+				MasterTrophyTable.Data tData = data.Value;
+				ResourceManager.Instance.RequestExecuteOrder(
+					Const.TrophyCellItemPath,
+					ExecuteOrder.Type.GameObject,
+					gameObject,
+					(rawobj) => {
+						GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
+						obj.transform.SetParent(SFTrophyNonAchieveListCellRoot.transform);
+						obj.transform.localPosition = Vector3.zero;
+						obj.transform.localScale = Vector3.one;
+						obj.GetComponent<TrophyCellItemController>().Initialize(tData, true, (data) => { Debug.Log(data); });
+					}
+				);
+			} else {
+				MasterTrophyTable.Data tData = data.Value;
+				ResourceManager.Instance.RequestExecuteOrder(
+					Const.TrophyCellItemPath,
+					ExecuteOrder.Type.GameObject,
+					gameObject,
+					(rawobj) => {
+						GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
+						obj.transform.SetParent(SFTrophyNonAchieveListCellRoot.transform);
+						obj.transform.localPosition = Vector3.zero;
+						obj.transform.localScale = Vector3.one;
+						obj.GetComponent<TrophyCellItemController>().Initialize(tData, false, (data) => { Debug.Log(data); });
+					}
+				);
+			}
 		}
 	}
 

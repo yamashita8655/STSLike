@@ -128,4 +128,11 @@ public class MasterTrophyTable : SimpleSingleton<MasterTrophyTable>
 
 		return data;
 	}
+	
+	// ディクショナリは外で操作されると困るので、クローンを返す
+	public Dictionary<string, Data> GetCloneDict()
+    {
+		Dictionary<string, Data> dict = new Dictionary<string, Data>(DataDict);
+        return dict;
+    }
 }
