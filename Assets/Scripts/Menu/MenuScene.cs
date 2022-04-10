@@ -574,7 +574,7 @@ public partial class MenuScene : SceneBase
 
 		if (prevBgmVolume != sliderVolume) {
 			saveString = sliderVolume.ToString();
-			PlayerPrefsManager.Instance.SaveParameter(PlayerPrefsManager.SaveType.BgmVolume, saveString);
+			PlayerPrefsManager.Instance.SaveParameter("BgmVolume", saveString);
 		}
 		
 		// SEのボリュームに変更があれば、保存
@@ -584,7 +584,7 @@ public partial class MenuScene : SceneBase
 
 		if (prevBgmVolume != sliderVolume) {
 			saveString = sliderVolume.ToString();
-			PlayerPrefsManager.Instance.SaveParameter(PlayerPrefsManager.SaveType.SeVolume, saveString);
+			PlayerPrefsManager.Instance.SaveParameter("SeVolume", saveString);
 		}
 
 		// BGMのミュートに変更があれば、保存
@@ -593,7 +593,7 @@ public partial class MenuScene : SceneBase
 
 		if (isOn != toggleIsOn) {
 			saveString = toggleIsOn.ToString();
-    		PlayerPrefsManager.Instance.SaveParameter(PlayerPrefsManager.SaveType.BgmMute, saveString);
+    		PlayerPrefsManager.Instance.SaveParameter("BgmMute", saveString);
     	}
 
 		// SEのミュートに変更があれば、保存
@@ -602,7 +602,7 @@ public partial class MenuScene : SceneBase
 
 		if (isOn != toggleIsOn) {
 			saveString = toggleIsOn.ToString();
-    		PlayerPrefsManager.Instance.SaveParameter(PlayerPrefsManager.SaveType.SeMute, saveString);
+    		PlayerPrefsManager.Instance.SaveParameter("SeMute", saveString);
     	}
 	}
 	// ↑↑オプション機能↑↑
