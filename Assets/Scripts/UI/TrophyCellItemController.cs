@@ -21,11 +21,11 @@ public class TrophyCellItemController : MonoBehaviour
 	[SerializeField]
     private Button CellButton = null;
 
-    private Action<MasterTrophyTable.Data> Callback = null;
+    private Action<TrophyCellItemController> Callback = null;
 
 	private MasterTrophyTable.Data Data = null;
 
-	public void Initialize(MasterTrophyTable.Data data, bool isAchieved, Action<MasterTrophyTable.Data> callback) {
+	public void Initialize(MasterTrophyTable.Data data, bool isAchieved, Action<TrophyCellItemController> callback) {
 
 		Data = data;
 
@@ -63,7 +63,7 @@ public class TrophyCellItemController : MonoBehaviour
 				}
 			);
 		}
-
+		
 		if (isAchieved == true) {
 			CellButton.interactable = false;
 		} else {
@@ -78,9 +78,13 @@ public class TrophyCellItemController : MonoBehaviour
 		Callback = callback;
 	}
 
+	public void UpdateCellButtonInteractable(bool interactable) {
+		CellButton.interactable = interactable;
+	}
+
 	public void OnClick() {
 		if (Callback != null) {
-			Callback(Data);
+			Callback(this);
 		}
 	}
 	

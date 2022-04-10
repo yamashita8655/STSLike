@@ -429,10 +429,10 @@ public partial class MenuScene : SceneBase
 					gameObject,
 					(rawobj) => {
 						GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
-						obj.transform.SetParent(SFTrophyNonAchieveListCellRoot.transform);
+						obj.transform.SetParent(SFTrophyAchieveListCellRoot.transform);
 						obj.transform.localPosition = Vector3.zero;
 						obj.transform.localScale = Vector3.one;
-						obj.GetComponent<TrophyCellItemController>().Initialize(tData, true, (data) => { Debug.Log(data); });
+						obj.GetComponent<TrophyCellItemController>().Initialize(tData, true, (ctrl) => {});
 					}
 				);
 			} else {
@@ -446,7 +446,15 @@ public partial class MenuScene : SceneBase
 						obj.transform.SetParent(SFTrophyNonAchieveListCellRoot.transform);
 						obj.transform.localPosition = Vector3.zero;
 						obj.transform.localScale = Vector3.one;
-						obj.GetComponent<TrophyCellItemController>().Initialize(tData, false, (data) => { Debug.Log(data); });
+						obj.GetComponent<TrophyCellItemController>().Initialize(
+							tData,
+							false,
+							(ctrl) => {
+								ctrl.UpdateCellButtonInteractable(false);
+								var data2 = ctrl.GetData();
+								ctrl.transform.SetParent(SFTrophyAchieveListCellRoot.transform);
+							}
+						);
 					}
 				);
 			}
