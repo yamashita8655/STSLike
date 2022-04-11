@@ -254,6 +254,9 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	private Dictionary<string, int> EnemyKillCountDict = new Dictionary<string, int>();
 	private Dictionary<string, int> TrophyUnlockedDict = new Dictionary<string, int>();
 	
+	private int UnlockCardCostUp = 0;
+	private int UnlockArtifactCostUp = 0;
+	
 	public void Initialize() {
 		CreateFirstData();
 		InitializeCardStatusList();
@@ -789,261 +792,20 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	}
 	
 	public void InitializeTrophyUnlockedDict() {
-		string saveString = "";
-		saveString = GetParameter("TrophyUnlock1");
-		TrophyUnlockedDict.Add("TrophyUnlock1", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock2");
-		TrophyUnlockedDict.Add("TrophyUnlock2", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock3");
-		TrophyUnlockedDict.Add("TrophyUnlock3", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock4");
-		TrophyUnlockedDict.Add("TrophyUnlock4", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock5");
-		TrophyUnlockedDict.Add("TrophyUnlock5", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock6");
-		TrophyUnlockedDict.Add("TrophyUnlock6", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock7");
-		TrophyUnlockedDict.Add("TrophyUnlock7", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock8");
-		TrophyUnlockedDict.Add("TrophyUnlock8", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock9");
-		TrophyUnlockedDict.Add("TrophyUnlock9", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict0");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict0", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict1");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict1", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict2");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict2", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict3");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict3", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict4");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict4", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict5");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict5", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict6");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict6", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict7");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict7", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict8");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict8", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict9");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict9", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock20");
-		TrophyUnlockedDict.Add("TrophyUnlock20", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock21");
-		TrophyUnlockedDict.Add("TrophyUnlock21", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock22");
-		TrophyUnlockedDict.Add("TrophyUnlock22", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock23");
-		TrophyUnlockedDict.Add("TrophyUnlock23", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock24");
-		TrophyUnlockedDict.Add("TrophyUnlock24", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock25");
-		TrophyUnlockedDict.Add("TrophyUnlock25", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock26");
-		TrophyUnlockedDict.Add("TrophyUnlock26", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock27");
-		TrophyUnlockedDict.Add("TrophyUnlock27", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock28");
-		TrophyUnlockedDict.Add("TrophyUnlock28", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock29");
-		TrophyUnlockedDict.Add("TrophyUnlock29", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock30");
-		TrophyUnlockedDict.Add("TrophyUnlock30", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock31");
-		TrophyUnlockedDict.Add("TrophyUnlock31", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock32");
-		TrophyUnlockedDict.Add("TrophyUnlock32", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock33");
-		TrophyUnlockedDict.Add("TrophyUnlock33", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock34");
-		TrophyUnlockedDict.Add("TrophyUnlock34", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock35");
-		TrophyUnlockedDict.Add("TrophyUnlock35", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock36");
-		TrophyUnlockedDict.Add("TrophyUnlock36", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock37");
-		TrophyUnlockedDict.Add("TrophyUnlock37", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock38");
-		TrophyUnlockedDict.Add("TrophyUnlock38", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock39");
-		TrophyUnlockedDict.Add("TrophyUnlock39", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock40");
-		TrophyUnlockedDict.Add("TrophyUnlock40", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock41");
-		TrophyUnlockedDict.Add("TrophyUnlock41", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock42");
-		TrophyUnlockedDict.Add("TrophyUnlock42", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock43");
-		TrophyUnlockedDict.Add("TrophyUnlock43", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock44");
-		TrophyUnlockedDict.Add("TrophyUnlock44", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock45");
-		TrophyUnlockedDict.Add("TrophyUnlock45", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock46");
-		TrophyUnlockedDict.Add("TrophyUnlock46", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock47");
-		TrophyUnlockedDict.Add("TrophyUnlock47", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock48");
-		TrophyUnlockedDict.Add("TrophyUnlock48", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock49");
-		TrophyUnlockedDict.Add("TrophyUnlock49", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock50");
-		TrophyUnlockedDict.Add("TrophyUnlock50", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock51");
-		TrophyUnlockedDict.Add("TrophyUnlock51", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock52");
-		TrophyUnlockedDict.Add("TrophyUnlock52", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock53");
-		TrophyUnlockedDict.Add("TrophyUnlock53", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock54");
-		TrophyUnlockedDict.Add("TrophyUnlock54", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock55");
-		TrophyUnlockedDict.Add("TrophyUnlock55", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock56");
-		TrophyUnlockedDict.Add("TrophyUnlock56", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock57");
-		TrophyUnlockedDict.Add("TrophyUnlock57", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock58");
-		TrophyUnlockedDict.Add("TrophyUnlock58", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock59");
-		TrophyUnlockedDict.Add("TrophyUnlock59", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock60");
-		TrophyUnlockedDict.Add("TrophyUnlock60", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock61");
-		TrophyUnlockedDict.Add("TrophyUnlock61", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock62");
-		TrophyUnlockedDict.Add("TrophyUnlock62", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock63");
-		TrophyUnlockedDict.Add("TrophyUnlock63", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock64");
-		TrophyUnlockedDict.Add("TrophyUnlock64", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock65");
-		TrophyUnlockedDict.Add("TrophyUnlock65", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock66");
-		TrophyUnlockedDict.Add("TrophyUnlock66", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock67");
-		TrophyUnlockedDict.Add("TrophyUnlock67", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock68");
-		TrophyUnlockedDict.Add("TrophyUnlock68", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock69");
-		TrophyUnlockedDict.Add("TrophyUnlock69", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock70");
-		TrophyUnlockedDict.Add("TrophyUnlock70", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock71");
-		TrophyUnlockedDict.Add("TrophyUnlock71", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock72");
-		TrophyUnlockedDict.Add("TrophyUnlock72", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock73");
-		TrophyUnlockedDict.Add("TrophyUnlock73", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock74");
-		TrophyUnlockedDict.Add("TrophyUnlock74", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock75");
-		TrophyUnlockedDict.Add("TrophyUnlock75", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock76");
-		TrophyUnlockedDict.Add("TrophyUnlock76", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock77");
-		TrophyUnlockedDict.Add("TrophyUnlock77", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock78");
-		TrophyUnlockedDict.Add("TrophyUnlock78", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock79");
-		TrophyUnlockedDict.Add("TrophyUnlock79", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock80");
-		TrophyUnlockedDict.Add("TrophyUnlock80", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock81");
-		TrophyUnlockedDict.Add("TrophyUnlock81", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock82");
-		TrophyUnlockedDict.Add("TrophyUnlock82", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock83");
-		TrophyUnlockedDict.Add("TrophyUnlock83", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock84");
-		TrophyUnlockedDict.Add("TrophyUnlock84", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock85");
-		TrophyUnlockedDict.Add("TrophyUnlock85", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock86");
-		TrophyUnlockedDict.Add("TrophyUnlock86", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock87");
-		TrophyUnlockedDict.Add("TrophyUnlock87", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock88");
-		TrophyUnlockedDict.Add("TrophyUnlock88", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock89");
-		TrophyUnlockedDict.Add("TrophyUnlock89", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock90");
-		TrophyUnlockedDict.Add("TrophyUnlock90", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock91");
-		TrophyUnlockedDict.Add("TrophyUnlock91", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock92");
-		TrophyUnlockedDict.Add("TrophyUnlock92", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock93");
-		TrophyUnlockedDict.Add("TrophyUnlock93", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock94");
-		TrophyUnlockedDict.Add("TrophyUnlock94", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock95");
-		TrophyUnlockedDict.Add("TrophyUnlock95", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock96");
-		TrophyUnlockedDict.Add("TrophyUnlock96", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock97");
-		TrophyUnlockedDict.Add("TrophyUnlock97", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock98");
-		TrophyUnlockedDict.Add("TrophyUnlock98", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlock99");
-		TrophyUnlockedDict.Add("TrophyUnlock99", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict00");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict00", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict01");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict01", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict02");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict02", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict03");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict03", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict04");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict04", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict05");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict05", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict06");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict06", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict07");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict07", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict08");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict08", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict09");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict09", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict10");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict10", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict11");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict11", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict12");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict12", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict13");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict13", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict14");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict14", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict15");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict15", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict16");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict16", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict17");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict17", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict18");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict18", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict19");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict19", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict20");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict20", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict21");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict21", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict22");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict22", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict23");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict23", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict24");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict24", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict25");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict25", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict26");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict26", int.Parse(saveString));
-		saveString = GetParameter("TrophyUnlockedDict27");
-		TrophyUnlockedDict.Add("TrophyUnlockedDict27", int.Parse(saveString));
+		var dict = MasterTrophyTable.Instance.GetCloneDict();
+		foreach (var data in dict) {
+			string key = $"TrophyUnlock{data.Value.Id}";
+			string saveString = GetParameter(key);
+			int unlock = int.Parse(saveString);
+			TrophyUnlockedDict.Add(key, unlock);
+			if (unlock == 1) {
+				if (data.Value.RewardType == EnumSelf.TrophyRewardType.CardCostUp) {
+					UnlockCardCostUp += data.Value.RewardValue;
+				} else if (data.Value.RewardType == EnumSelf.TrophyRewardType.ArtifactCostUp) {
+					UnlockArtifactCostUp += data.Value.RewardValue;
+				}
+			}
+		}
 	}
 	
 	public void SaveFindArtifactId(int id) {
@@ -1174,12 +936,26 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	
 	public void SaveTrophyUnlock(int id, int unlocked) {
 		string key = $"TrophyUnlock{id}";
-		TrophyUnlockedDict[key] =unlocked;
+		TrophyUnlockedDict[key] = unlocked;
+		var data = MasterTrophyTable.Instance.GetData(id);
+		if (data.RewardType == EnumSelf.TrophyRewardType.CardCostUp) {
+			UnlockCardCostUp += data.RewardValue;
+		} else if (data.RewardType == EnumSelf.TrophyRewardType.ArtifactCostUp) {
+			UnlockArtifactCostUp += data.RewardValue;
+		}
 		SaveParameter(key, unlocked.ToString());
 	}
 	
 	public int GetTrophyUnlock(int id) {
 		string key = $"TrophyUnlock{id}";
 		return TrophyUnlockedDict[key];
+	}
+
+	public int GetUnlockCardCostUp() {
+		return UnlockCardCostUp;
+	}
+	
+	public int GetUnlockArtifactCostUp() {
+		return UnlockArtifactCostUp;
 	}
 }

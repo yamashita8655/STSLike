@@ -35,7 +35,7 @@ public class MasterTrophyTable : SimpleSingleton<MasterTrophyTable>
 
 	private readonly string FilePath = "csv/trophytable";
 
-	private Dictionary<string, Data> DataDict = new Dictionary<string, Data>();
+	private Dictionary<int, Data> DataDict = new Dictionary<int, Data>();
 
 	public void Initialize()
 	{
@@ -66,7 +66,7 @@ public class MasterTrophyTable : SimpleSingleton<MasterTrophyTable>
 					int.Parse(paramList[6])
 				);
 
-			DataDict.Add(paramList[0], data);
+			DataDict.Add(int.Parse(paramList[0]), data);
 		}
 	}
 	
@@ -121,7 +121,7 @@ public class MasterTrophyTable : SimpleSingleton<MasterTrophyTable>
 	}
 
 	// DataはSet関数をpublicに用意していないので、クローンにしなくて良い
-	public Data GetData(string id)
+	public Data GetData(int id)
 	{
 		Data data = null;
 		DataDict.TryGetValue(id, out data);
@@ -130,9 +130,9 @@ public class MasterTrophyTable : SimpleSingleton<MasterTrophyTable>
 	}
 	
 	// ディクショナリは外で操作されると困るので、クローンを返す
-	public Dictionary<string, Data> GetCloneDict()
+	public Dictionary<int, Data> GetCloneDict()
     {
-		Dictionary<string, Data> dict = new Dictionary<string, Data>(DataDict);
+		Dictionary<int, Data> dict = new Dictionary<int, Data>(DataDict);
         return dict;
     }
 }

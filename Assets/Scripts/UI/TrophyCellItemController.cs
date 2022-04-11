@@ -29,21 +29,6 @@ public class TrophyCellItemController : MonoBehaviour
 
 		Data = data;
 
-		TrophyText.text = string.Format(data.Detail, data.CompleteCount);
-		AchieveValueText.text = $"{data.RewardValue}";
-
-		int maxProgressCount = data.CompleteCount;
-		int nowProgressCount = 0;
-
-		if (Data.Type == EnumSelf.TrophyCountType.DeleteEnemy) {
-			int id = Data.Parameter;
-			nowProgressCount = PlayerPrefsManager.Instance.GetEnemyKillCount(id);
-		//} else if (Data.Type == EnumSelf.TrophyCountType.DeleteEnemy) {
-		//	
-		}
-		
-		ProgressText.text = $"{nowProgressCount}/{maxProgressCount}";
-
 		if (Data.RewardType == EnumSelf.TrophyRewardType.CardCostUp) {
 			ResourceManager.Instance.RequestExecuteOrder(
 				Const.CardCostUpImagePath,
@@ -64,6 +49,27 @@ public class TrophyCellItemController : MonoBehaviour
 			);
 		}
 		
+		Callback = callback;
+
+		UpdateDisplay(isAchieved);
+	}
+
+	public void UpdateDisplay(bool isAchieved) {
+		TrophyText.text = string.Format(Data.Detail, Data.CompleteCount);
+		AchieveValueText.text = $"{Data.RewardValue}";
+
+		int maxProgressCount = Data.CompleteCount;
+		int nowProgressCount = 0;
+
+		if (Data.Type == EnumSelf.TrophyCountType.DeleteEnemy) {
+			int id = Data.Parameter;
+			nowProgressCount = PlayerPrefsManager.Instance.GetEnemyKillCount(id);
+		//} else if (Data.Type == EnumSelf.TrophyCountType.DeleteEnemy) {
+		//	
+		}
+		
+		ProgressText.text = $"{nowProgressCount}/{maxProgressCount}";
+
 		if (isAchieved == true) {
 			CellButton.interactable = false;
 		} else {
@@ -75,7 +81,6 @@ public class TrophyCellItemController : MonoBehaviour
 			}
 		}
 
-		Callback = callback;
 	}
 
 	public void UpdateCellButtonInteractable(bool interactable) {

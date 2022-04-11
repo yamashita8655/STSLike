@@ -50,7 +50,6 @@ public class EntryPoint : MonoBehaviour {
 
 		NetworkManager.Instance.Initialize();
 		ResourceManager.Instance.Initialize();
-		PlayerPrefsManager.Instance.Initialize();
 		FadeManager.Instance.Initialize();
 		SystemDialogManager.Instance.Initialize();
 
@@ -74,6 +73,7 @@ public class EntryPoint : MonoBehaviour {
 		MasterTrophyTable.Instance.Initialize();
 		
 		// マスターデータ読み込んでないと出来ない初期化があるので、これはマスターデータ読み終わった後に対応
+		PlayerPrefsManager.Instance.Initialize();
 		DebugManager.Instance.Initialize();
 
 		// 色々

@@ -249,6 +249,9 @@ public partial class MenuScene : SceneBase
 	[SerializeField]
 	private Toggle SFNonAchieveToggle = null;
 	public Toggle NonAchieveToggle => SFNonAchieveToggle;
+
+	private Dictionary<int, TrophyCellItemController> TrophyLockCellDict = new Dictionary<int, TrophyCellItemController>();
+
 	// ↑↑↑トロフィー↑↑↑
 
 	
@@ -419,44 +422,62 @@ public partial class MenuScene : SceneBase
 		OnNonAchieveToggleValueChange(true);
 
 		var dict = MasterTrophyTable.Instance.GetCloneDict();
-		foreach (var data in dict) {
-			bool isReceipt = false;
-			if (isReceipt == true) {
-				MasterTrophyTable.Data tData = data.Value;
-				ResourceManager.Instance.RequestExecuteOrder(
-					Const.TrophyCellItemPath,
-					ExecuteOrder.Type.GameObject,
-					gameObject,
-					(rawobj) => {
-						GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
-						obj.transform.SetParent(SFTrophyAchieveListCellRoot.transform);
-						obj.transform.localPosition = Vector3.zero;
-						obj.transform.localScale = Vector3.one;
-						obj.GetComponent<TrophyCellItemController>().Initialize(tData, true, (ctrl) => {});
-					}
-				);
-			} else {
-				MasterTrophyTable.Data tData = data.Value;
-				ResourceManager.Instance.RequestExecuteOrder(
-					Const.TrophyCellItemPath,
-					ExecuteOrder.Type.GameObject,
-					gameObject,
-					(rawobj) => {
-						GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
-						obj.transform.SetParent(SFTrophyNonAchieveListCellRoot.transform);
-						obj.transform.localPosition = Vector3.zero;
-						obj.transform.localScale = Vector3.one;
-						obj.GetComponent<TrophyCellItemController>().Initialize(
-							tData,
-							false,
-							(ctrl) => {
-								ctrl.UpdateCellButtonInteractable(false);
-								var data2 = ctrl.GetData();
-								ctrl.transform.SetParent(SFTrophyAchieveListCellRoot.transform);
-							}
-						);
-					}
-				);
+
+		if (TrophyLockCellDict.Count == 0) {
+			foreach (var data in dict) {
+				int isReceipt = PlayerPrefsManager.Instance.GetTrophyUnlock(data.Value.Id);
+				if (isReceipt == 1) {
+					var data2 = data.Value;
+					ResourceManager.Instance.RequestExecuteOrder(
+						Const.TrophyCellItemPath,
+						ExecuteOrder.Type.GameObject,
+						gameObject,
+						(rawobj) => {
+							GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
+							obj.transform.SetParent(SFTrophyAchieveListCellRoot.transform);
+							obj.transform.localPosition = Vector3.zero;
+							obj.transform.localScale = Vector3.one;
+							var ctrl = obj.GetComponent<TrophyCellItemController>();
+							ctrl.Initialize(data2, true, (ctrl) => {});
+							TrophyLockCellDict.Add(data2.Id, ctrl);
+						}
+					);
+				} else {
+					MasterTrophyTable.Data tData = data.Value;
+					ResourceManager.Instance.RequestExecuteOrder(
+						Const.TrophyCellItemPath,
+						ExecuteOrder.Type.GameObject,
+						gameObject,
+						(rawobj) => {
+							GameObject obj = GameObject.Instantiate(rawobj) as GameObject;
+							obj.transform.SetParent(SFTrophyNonAchieveListCellRoot.transform);
+							obj.transform.localPosition = Vector3.zero;
+							obj.transform.localScale = Vector3.one;
+							var ctrl = obj.GetComponent<TrophyCellItemController>();
+							ctrl.Initialize(
+								tData,
+								false,
+								(ctrl) => {
+									ctrl.UpdateCellButtonInteractable(false);
+									var data2 = ctrl.GetData();
+									if (data2.RewardType == EnumSelf.TrophyRewardType.CardCostUp) {
+										
+									}
+									ctrl.transform.SetParent(SFTrophyAchieveListCellRoot.transform);
+									PlayerPrefsManager.Instance.SaveTrophyUnlock(data2.Id, 1);
+								}
+							);
+							TrophyLockCellDict.Add(tData.Id, ctrl);
+						}
+					);
+				}
+			}
+		} else {
+			foreach (var data in dict) {
+				int isReceipt = PlayerPrefsManager.Instance.GetTrophyUnlock(data.Value.Id);
+				var ctrl = TrophyLockCellDict[data.Value.Id];
+				bool isAchieved = isReceipt == 1 ? true : false;
+				ctrl.UpdateDisplay(isAchieved);
 			}
 		}
 	}
@@ -667,7 +688,7 @@ public partial class MenuScene : SceneBase
 		int usedPoint = PlayerPrefsManager.Instance.GetUsedRegularCostPoint();
 		int level = MasterRegularCardMaxCostTable.Instance.GetNowLevel(usedPoint);
 		
-		int maxCost = Const.BaseRegularCardMaxCost + level;
+		int maxCost = Const.BaseRegularCardMaxCost + level + PlayerPrefsManager.Instance.GetUnlockCardCostUp();
 
 		return maxCost;
 	}
@@ -838,7 +859,7 @@ public partial class MenuScene : SceneBase
 		int usedPoint = PlayerPrefsManager.Instance.GetUsedArtifactRegularCostPoint();
 		int level = MasterRegularArtifactMaxCostTable.Instance.GetNowLevel(usedPoint);
 		
-		int maxCost = Const.BaseRegularArtifactMaxCost + level;
+		int maxCost = Const.BaseRegularArtifactMaxCost + level + PlayerPrefsManager.Instance.GetUnlockArtifactCostUp();
 
 		return maxCost;
 	}
