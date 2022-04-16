@@ -36,6 +36,9 @@ public class MapHealResultState : StateBase {
 			
 			player.AddNowHp(healVal);
 			scene.UpdateParameterText();
+		
+			PlayerPrefsManager.Instance.AddHealCount(1);
+
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealEnd);
 		}
 
@@ -43,6 +46,9 @@ public class MapHealResultState : StateBase {
 			MasterHealTable.Data data = MasterHealTable.Instance.GetData(2);
 			int addDiceCost = data.Values[difficult];
 			MapDataCarrier.Instance.AddDiceCost += addDiceCost;
+			
+			PlayerPrefsManager.Instance.AddDiceCostUpCount(1);
+
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealEnd);
 		}
 		
@@ -51,6 +57,9 @@ public class MapHealResultState : StateBase {
 		  	scene.UpdateOriginalDeckCountText();
 			scene.CardListRoot.SetActive(false);
 			MapDataCarrier.Instance.SelectEraseData = null;
+
+			PlayerPrefsManager.Instance.AddEraseCount(1);
+
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealEnd);
 		}
 

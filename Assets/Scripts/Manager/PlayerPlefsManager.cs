@@ -113,6 +113,10 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"EnemyKillCount90000",
 		"EnemyKillCount99999",
 		
+		"HealCount",
+		"DiceCostUpCount",
+		"EraseCount",
+		
 		// トロフィーアンロック
 		"TrophyUnlock1",
 		"TrophyUnlock2",
@@ -337,6 +341,12 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 					(key == "EnemyKillCount90000") ||
 					(key == "EnemyKillCount99999")
 				) {
+					saveString = "0";
+				} else if (key == "HealCount") {
+					saveString = "0";
+				} else if (key == "DiceCostUpCount") {
+					saveString = "0";
+				} else if (key == "EraseCount") {
 					saveString = "0";
 				} else if (
 					(key == "TrophyUnlock1") ||
@@ -957,5 +967,29 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	
 	public int GetUnlockArtifactCostUp() {
 		return UnlockArtifactCostUp;
+	}
+
+	public void AddHealCount(int addValue) {
+		int count = GetHealCount() + addValue;
+		SaveParameter("HealCount", count.ToString());
+	}
+	public int GetHealCount() {
+		return int.Parse(GetParameter("HealCount"));
+	}
+	
+	public void AddDiceCostUpCount(int addValue) {
+		int count = GetDiceCostUpCount() + addValue;
+		SaveParameter("DiceCostUpCount", count.ToString());
+	}
+	public int GetDiceCostUpCount() {
+		return int.Parse(GetParameter("DiceCostUpCount"));
+	}
+	
+	public void AddEraseCount(int addValue) {
+		int count = GetEraseCount() + addValue;
+		SaveParameter("EraseCount", count.ToString());
+	}
+	public int GetEraseCount() {
+		return int.Parse(GetParameter("EraseCount"));
 	}
 }
