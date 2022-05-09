@@ -26,6 +26,15 @@ public class DebugController : MonoBehaviour
     [SerializeField]
     private InputField EnemyKillCountInputField = null;
 
+    [SerializeField]
+    private InputField HealCountInputField = null;
+
+    [SerializeField]
+    private InputField DiceCostUpCountInputField = null;
+
+    [SerializeField]
+    private InputField EraseCountInputField = null;
+
     private int LogIndex = 1;
 
 	public void Initialize()
@@ -141,5 +150,23 @@ public class DebugController : MonoBehaviour
 		int now = PlayerPrefsManager.Instance.GetEnemyKillCount(id);
 
         UpdateDebugLog($"{EnemyKillCountDropDown.options[EnemyKillCountDropDown.value].text}：{now}");
+    }
+    
+	public void OnClickAddHealCountButton()
+    {
+        int count = int.Parse(HealCountInputField.text);
+        PlayerPrefsManager.Instance.AddHealCount(count);
+    }
+	
+	public void OnClickAddDiceCostUpCountButton()
+    {
+        int count = int.Parse(DiceCostUpCountInputField.text);
+        PlayerPrefsManager.Instance.AddDiceCostUpCount(count);
+    }
+	
+	public void OnClickAddEraseCountButton()
+    {
+        int count = int.Parse(EraseCountInputField.text);
+        PlayerPrefsManager.Instance.AddEraseCount(count);
     }
 }

@@ -64,8 +64,15 @@ public class TrophyCellItemController : MonoBehaviour
 		if (Data.Type == EnumSelf.TrophyCountType.DeleteEnemy) {
 			int id = Data.Parameter;
 			nowProgressCount = PlayerPrefsManager.Instance.GetEnemyKillCount(id);
-		//} else if (Data.Type == EnumSelf.TrophyCountType.DeleteEnemy) {
-		//	
+		} else if (Data.Type == EnumSelf.TrophyCountType.HealCount) {
+			nowProgressCount = PlayerPrefsManager.Instance.GetHealCount();
+		} else if (Data.Type == EnumSelf.TrophyCountType.DiceCostUpCount) {
+			nowProgressCount = PlayerPrefsManager.Instance.GetDiceCostUpCount();
+		} else if (Data.Type == EnumSelf.TrophyCountType.EraseCount) {
+			nowProgressCount = PlayerPrefsManager.Instance.GetEraseCount();
+		} else if (Data.Type == EnumSelf.TrophyCountType.FindRarityCard) {
+			int rarity = Data.Parameter;
+			nowProgressCount = PlayerPrefsManager.Instance.GetFindRarityCardCount(rarity);
 		}
 		
 		ProgressText.text = $"{nowProgressCount}/{maxProgressCount}";

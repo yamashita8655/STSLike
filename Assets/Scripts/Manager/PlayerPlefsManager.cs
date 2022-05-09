@@ -616,6 +616,18 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 
 		return res;
 	}
+
+	public int GetFindRarityCardCount(int rarity) {
+		int count = 0;
+		for (int i = 0; i < FindCardIds.Count; i++) {
+			MasterAction2Table.Data data = MasterAction2Table.Instance.GetData(FindCardIds[i]);
+			if (data.Rarity == rarity) {
+				count++;
+			}
+		}
+
+		return count;
+	}
 	
 	public void SaveUnlookCardId(int id) {
 		string saveString = GetParameter("UnlockCardIds");
