@@ -861,6 +861,18 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		return res;
 	}
 	
+	public int GetFindRarityArtifactCount(int rarity) {
+		int count = 0;
+		for (int i = 0; i < FindArtifactIds.Count; i++) {
+			MasterArtifactTable.Data data = MasterArtifactTable.Instance.GetData(FindArtifactIds[i]);
+			if (data.Rarity == rarity) {
+				count++;
+			}
+		}
+
+		return count;
+	}
+	
 	public void SaveUnlookArtifactId(int id) {
 		string saveString = GetParameter("UnlockArtifactIds");
 

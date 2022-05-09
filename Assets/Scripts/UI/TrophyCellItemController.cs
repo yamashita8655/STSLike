@@ -73,6 +73,9 @@ public class TrophyCellItemController : MonoBehaviour
 		} else if (Data.Type == EnumSelf.TrophyCountType.FindRarityCard) {
 			int rarity = Data.Parameter;
 			nowProgressCount = PlayerPrefsManager.Instance.GetFindRarityCardCount(rarity);
+		} else if (Data.Type == EnumSelf.TrophyCountType.FindRarityArtifact) {
+			int rarity = Data.Parameter;
+			nowProgressCount = PlayerPrefsManager.Instance.GetFindRarityArtifactCount(rarity);
 		}
 		
 		ProgressText.text = $"{nowProgressCount}/{maxProgressCount}";
