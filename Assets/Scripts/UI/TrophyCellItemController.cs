@@ -76,6 +76,16 @@ public class TrophyCellItemController : MonoBehaviour
 		} else if (Data.Type == EnumSelf.TrophyCountType.FindRarityArtifact) {
 			int rarity = Data.Parameter;
 			nowProgressCount = PlayerPrefsManager.Instance.GetFindRarityArtifactCount(rarity);
+		} else if (Data.Type == EnumSelf.TrophyCountType.GetStrength) {
+			nowProgressCount = PlayerPrefsManager.Instance.GetStrength();
+		} else if (Data.Type == EnumSelf.TrophyCountType.GetShield) {
+			nowProgressCount = PlayerPrefsManager.Instance.GetShield();
+		} else if (Data.Type == EnumSelf.TrophyCountType.DeckCount) {
+			nowProgressCount = PlayerPrefsManager.Instance.GetDeckCount();
+		} else if (Data.Type == EnumSelf.TrophyCountType.GiveDamage) {
+			nowProgressCount = PlayerPrefsManager.Instance.GetGiveDamage();
+		} else if (Data.Type == EnumSelf.TrophyCountType.MaxHp) {
+			nowProgressCount = PlayerPrefsManager.Instance.GetMaxHp();
 		}
 		
 		ProgressText.text = $"{nowProgressCount}/{maxProgressCount}";

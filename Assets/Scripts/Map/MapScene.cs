@@ -725,6 +725,9 @@ public partial class MapScene : SceneBase
 
 		PlayerNowHpText.text = player.GetNowHp().ToString();
 		PlayerMaxHpText.text = player.GetMaxHp().ToString();
+
+		// トロフィー用
+		PlayerPrefsManager.Instance.SetMaxHp(player.GetMaxHp());
 		
 		int playerShield = MapDataCarrier.Instance.CuPlayerStatus.GetNowShield();
 		if (playerShield > 0) {
@@ -926,6 +929,8 @@ public partial class MapScene : SceneBase
 
 	public void UpdateOriginalDeckCountText() {
 		OriginalDeckCountText.text = MapDataCarrier.Instance.OriginalDeckList.Count.ToString();
+		// トロフィー用
+		PlayerPrefsManager.Instance.SetDeckCount(MapDataCarrier.Instance.OriginalDeckList.Count);
 	}
 	
 	public void UpdateCardListCountText() {
@@ -935,6 +940,9 @@ public partial class MapScene : SceneBase
 		DiscardCountText.text = discardList.Count.ToString();
 		TrashCountText.text = trashList.Count.ToString();
 		DeckCountText.text = deckList.Count.ToString();
+		
+		// トロフィー用
+		PlayerPrefsManager.Instance.SetDeckCount(deckList.Count);
 	}
 
 	public void DrawCard(int drawCount) {

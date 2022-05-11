@@ -771,6 +771,9 @@ public class BattleCalculationFunction {
 			}
 		}
 		player.AddNowShield(val);
+
+		// トロフィー用
+		PlayerPrefsManager.Instance.SetShield(player.GetNowShield());
 	}
 	
 	public static void PlayerDeath(ActionPack pack) {
@@ -827,6 +830,11 @@ public class BattleCalculationFunction {
 		player.AddPower(type, addValue);
 		int nowVal = player.GetPower().GetValue(type);
 		MapDataCarrier.Instance.PowerObjects[(int)type].GetComponent<PowerController>().SetValue(nowVal);
+
+		// トロフィー用
+		if (type == EnumSelf.PowerType.Strength) {
+			PlayerPrefsManager.Instance.SetStrength(nowVal);
+		}
 	}
 	
 	public static void PlayerUpdateTurnPower(ActionPack pack) {
@@ -1372,6 +1380,9 @@ public class BattleCalculationFunction {
 		enemy.AddNowHp(val);
 
 		if (val < 0) {
+			// トロフィー用
+			PlayerPrefsManager.Instance.SetGiveDamage(val * -1);// ダメージ値はマイナスで管理しているので、プラスに直して保存する
+
 			// 0未満であれば、Hp減少という判断
 			// 敵の状態異常Patiantの数値があれば、その数値も減らす
 			if (enemy.GetTurnPowerValue(EnumSelf.TurnPowerType.Patient) > 0) {

@@ -116,6 +116,11 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"HealCount",
 		"DiceCostUpCount",
 		"EraseCount",
+		"GetStrength",
+		"GetShield",
+		"DeckCount",
+		"GiveDamage",
+		"MaxHp",
 		
 		// トロフィーアンロック
 		"TrophyUnlock1",
@@ -347,6 +352,16 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 				} else if (key == "DiceCostUpCount") {
 					saveString = "0";
 				} else if (key == "EraseCount") {
+					saveString = "0";
+				} else if (key == "GetStrength") {
+					saveString = "0";
+				} else if (key == "GetShield") {
+					saveString = "0";
+				} else if (key == "DeckCount") {
+					saveString = "0";
+				} else if (key == "GiveDamage") {
+					saveString = "0";
+				} else if (key == "MaxHp") {
 					saveString = "0";
 				} else if (
 					(key == "TrophyUnlock1") ||
@@ -1015,5 +1030,55 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	}
 	public int GetEraseCount() {
 		return int.Parse(GetParameter("EraseCount"));
+	}
+	
+	public void SetStrength(int value) {
+		int strength = GetStrength();
+		if (value > strength) {
+			SaveParameter("GetStrength", value.ToString());
+		}
+	}
+	public int GetStrength() {
+		return int.Parse(GetParameter("GetStrength"));
+	}
+	
+	public void SetShield(int value) {
+		int strength = GetShield();
+		if (value > strength) {
+			SaveParameter("GetShield", value.ToString());
+		}
+	}
+	public int GetShield() {
+		return int.Parse(GetParameter("GetShield"));
+	}
+	
+	public void SetDeckCount(int value) {
+		int strength = GetDeckCount();
+		if (value > strength) {
+			SaveParameter("DeckCount", value.ToString());
+		}
+	}
+	public int GetDeckCount() {
+		return int.Parse(GetParameter("DeckCount"));
+	}
+	
+	public void SetGiveDamage(int value) {
+		int strength = GetGiveDamage();
+		if (value > strength) {
+			SaveParameter("GiveDamage", value.ToString());
+		}
+	}
+	public int GetGiveDamage() {
+		return int.Parse(GetParameter("GiveDamage"));
+	}
+	
+	public void SetMaxHp(int value) {
+		int strength = GetMaxHp();
+		if (value > strength) {
+			SaveParameter("MaxHp", value.ToString());
+		}
+	}
+	public int GetMaxHp() {
+		return int.Parse(GetParameter("MaxHp"));
 	}
 }
