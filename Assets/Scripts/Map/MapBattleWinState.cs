@@ -71,6 +71,21 @@ public class MapBattleWinState : StateBase {
 
 		// 撃破数保存
 		PlayerPrefsManager.Instance.AddEnemyKillCount(enemyId, 1);
+
+		// トロフィー
+		var player = MapDataCarrier.Instance.CuPlayerStatus;
+		if (player.GetNowHp() == 1) {
+			PlayerPrefsManager.Instance.SetHP1Win(1);
+		}
+		
+		if (player.GetBattleTakenDamage() == 0) {
+			if (isBoss == true) {
+				PlayerPrefsManager.Instance.SetNoDamageBoss(1);
+			}
+			if (isElite == true) {
+				PlayerPrefsManager.Instance.SetNoDamageElite(1);
+			}
+		}
 		
 		return true;
 	}

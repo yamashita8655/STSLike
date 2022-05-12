@@ -121,6 +121,10 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"DeckCount",
 		"GiveDamage",
 		"MaxHp",
+		"HP1Win",
+		"NoDamageBoss",
+		"NoDamageElite",
+		"DoubleKO",
 		
 		// トロフィーアンロック
 		"TrophyUnlock1",
@@ -362,6 +366,14 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 				} else if (key == "GiveDamage") {
 					saveString = "0";
 				} else if (key == "MaxHp") {
+					saveString = "0";
+				} else if (key == "HP1Win") {
+					saveString = "0";
+				} else if (key == "NoDamageBoss") {
+					saveString = "0";
+				} else if (key == "NoDamageElite") {
+					saveString = "0";
+				} else if (key == "DoubleKO") {
 					saveString = "0";
 				} else if (
 					(key == "TrophyUnlock1") ||
@@ -1080,5 +1092,33 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	}
 	public int GetMaxHp() {
 		return int.Parse(GetParameter("MaxHp"));
+	}
+	
+	public void SetHP1Win(int value) {
+		SaveParameter("HP1Win", value.ToString());
+	}
+	public int GetHP1Win() {
+		return int.Parse(GetParameter("HP1Win"));
+	}
+	
+	public void SetNoDamageBoss(int value) {
+		SaveParameter("NoDamageBoss", value.ToString());
+	}
+	public int GetNoDamageBoss() {
+		return int.Parse(GetParameter("NoDamageBoss"));
+	}
+	
+	public void SetNoDamageElite(int value) {
+		SaveParameter("NoDamageElite", value.ToString());
+	}
+	public int GetNoDamageElite() {
+		return int.Parse(GetParameter("NoDamageElite"));
+	}
+	
+	public void SetDoubleKO(int value) {
+		SaveParameter("DoubleKO", value.ToString());
+	}
+	public int GetDoubleKO() {
+		return int.Parse(GetParameter("DoubleKO"));
 	}
 }

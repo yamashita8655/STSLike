@@ -25,6 +25,7 @@ public class MapBattleInitializeState : StateBase {
 		MapDataCarrier.Instance.DoubleAttackBattleCardData = null;
 		MapDataCarrier.Instance.CuPlayerStatus.SetBattleUseCardCount(0);
 		MapDataCarrier.Instance.CuPlayerStatus.SetTotalSelfTrueDamage(0);
+		MapDataCarrier.Instance.CuPlayerStatus.SetBattleTakenDamage(0);
 
 		// 手札の非表示
 		var handList = MapDataCarrier.Instance.BattleCardButtonControllers;

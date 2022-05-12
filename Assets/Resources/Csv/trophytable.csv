@@ -122,7 +122,7 @@ id,detail,type,completecount,parameter,rewardtype,rewardvalue
 121,1回で{0}以上のダメージを与えた,GiveDamage,300,0,ArtifactCostUp,1
 122,1回で{0}以上のダメージを与えた,GiveDamage,999,0,ArtifactCostUp,1
 123,最大HPが{0}を超えた,MaxHp,120,0,ArtifactCostUp,1
-124,HP1で戦闘に勝利,HP1Win,0,0,ArtifactCostUp,1
-125,ダメージを受けずに、ボスに勝利,NoDamageBoss,0,0,ArtifactCostUp,1
-126,ダメージを受けずに、エリートに勝利,NoDamageElite,0,0,ArtifactCostUp,1
-127,同士討ちした。,DoubleKO,0,0,ArtifactCostUp,1
+124,HP1で戦闘に勝利,HP1Win,1,0,ArtifactCostUp,1
+125,ダメージを受けずに、ボスに勝利,NoDamageBoss,1,0,ArtifactCostUp,1
+126,ダメージを受けずに、エリートに勝利,NoDamageElite,1,0,ArtifactCostUp,1
+127,同士討ちした。,DoubleKO,1,0,ArtifactCostUp,1

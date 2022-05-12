@@ -86,6 +86,14 @@ public class TrophyCellItemController : MonoBehaviour
 			nowProgressCount = PlayerPrefsManager.Instance.GetGiveDamage();
 		} else if (Data.Type == EnumSelf.TrophyCountType.MaxHp) {
 			nowProgressCount = PlayerPrefsManager.Instance.GetMaxHp();
+		} else if (Data.Type == EnumSelf.TrophyCountType.HP1Win) {
+			nowProgressCount = PlayerPrefsManager.Instance.GetHP1Win();
+		} else if (Data.Type == EnumSelf.TrophyCountType.NoDamageBoss) {
+			nowProgressCount = PlayerPrefsManager.Instance.GetNoDamageBoss();
+		} else if (Data.Type == EnumSelf.TrophyCountType.NoDamageElite) {
+			nowProgressCount = PlayerPrefsManager.Instance.GetNoDamageElite();
+		} else if (Data.Type == EnumSelf.TrophyCountType.DoubleKO) {
+			nowProgressCount = PlayerPrefsManager.Instance.GetDoubleKO();
 		}
 		
 		ProgressText.text = $"{nowProgressCount}/{maxProgressCount}";

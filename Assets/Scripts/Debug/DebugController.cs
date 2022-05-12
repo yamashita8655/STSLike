@@ -34,6 +34,12 @@ public class DebugController : MonoBehaviour
 
     [SerializeField]
     private InputField EraseCountInputField = null;
+    
+	[SerializeField]
+    private InputField PlayerNowHpInputField = null;
+
+    [SerializeField]
+    private InputField EnemyNowHpInputField = null;
 
     private int LogIndex = 1;
 
@@ -168,5 +174,21 @@ public class DebugController : MonoBehaviour
     {
         int count = int.Parse(EraseCountInputField.text);
         PlayerPrefsManager.Instance.AddEraseCount(count);
+    }
+	
+	public void OnClickSetPlayerNowHpButton()
+    {
+        int val = int.Parse(PlayerNowHpInputField.text);
+		MapDataCarrier.Instance.CuPlayerStatus.SetNowHp(val);
+		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		scene.UpdateParameterText();
+    }
+	
+	public void OnClickSetEnemyNowHpButton()
+    {
+        int val = int.Parse(EnemyNowHpInputField.text);
+		MapDataCarrier.Instance.CuEnemyStatus.SetNowHp(val);
+		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		scene.UpdateParameterText();
     }
 }

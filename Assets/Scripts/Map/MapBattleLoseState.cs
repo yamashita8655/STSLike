@@ -11,12 +11,11 @@ public class MapBattleLoseState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
-
-		//if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleAttackResult) {
-		//	
-		//} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleAttackResult) {
-		//	
-		//}
+		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
+		// トロフィー
+		if (enemy.IsDead()) {
+			PlayerPrefsManager.Instance.SetDoubleKO(1);
+		}
 
 		return true;
 	}

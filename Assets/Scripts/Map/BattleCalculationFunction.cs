@@ -1356,6 +1356,7 @@ public class BattleCalculationFunction {
 		player.AddNowHp(val);
 
 		if (val < 0) {
+			MapDataCarrier.Instance.CuPlayerStatus.AddBattleTakenDamage(val * -1);// マイナス値がダメージを受けるという事なので、反転した数値を保持する
 			// 0未満であれば、Hp減少という判断
 			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.AutoShield) > 0) {
 				PlayerUpdateTurnPower(EnumSelf.TurnPowerType.AutoShield, -1);
