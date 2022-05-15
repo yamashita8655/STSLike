@@ -16,6 +16,7 @@ public class MapBattleInitializeState : StateBase {
 		scene.TurnEndButtonObject.SetActive(false);
 		
 		scene.HandCardRoot.SetActive(true);
+		scene.CardInfoRoot.SetActive(true);
 
 		scene.AddDiceCostText.text = MapDataCarrier.Instance.AddDiceCost.ToString();
 

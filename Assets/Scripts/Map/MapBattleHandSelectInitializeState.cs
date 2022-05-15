@@ -20,15 +20,8 @@ public class MapBattleHandSelectInitializeState : StateBase {
 			ctrls[i].UpdateToggleActive(true);
 		}
 
-		int count = MapDataCarrier.Instance.ActionPackCount;
-		ActionPack pack = data.ActionPackList[count]; 
-
-		int maxCount = pack.Value;
-		int handCount = MapDataCarrier.Instance.GetHandCount();
-		if (maxCount >= handCount) {
-			maxCount = handCount;
-		}
-		scene.HandCardSelectText.text = string.Format("説明文\n0/{0}", maxCount.ToString());
+		// カードの効果によって、文言を変更する
+		scene.UpdateHandSelectText();
 
 		scene.HandCardSelectDecideButton.interactable = false;
 

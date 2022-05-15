@@ -28,6 +28,7 @@ public class MapInitializeState : StateBase {
 		
 		Scene.HandCardRoot.SetActive(false);
 		Scene.HandCardSelectRoot.SetActive(false);
+		Scene.CardInfoRoot.SetActive(false);
 		Scene.HandCardSelectDecideButton.gameObject.SetActive(false);
 		Scene.HandCardSelectDecideButton.interactable = false;
 		

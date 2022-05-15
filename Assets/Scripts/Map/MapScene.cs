@@ -310,6 +310,10 @@ public partial class MapScene : SceneBase
 	public GameObject HandCardSelectRoot => CuHandCardSelectRoot;
 	
 	[SerializeField]
+	private GameObject CuCardInfoRoot = null;
+	public GameObject CardInfoRoot => CuCardInfoRoot;
+	
+	[SerializeField]
 	private Button CuHandCardSelectDecideButton = null;
 	public Button HandCardSelectDecideButton => CuHandCardSelectDecideButton;
 	
@@ -1123,7 +1127,7 @@ public partial class MapScene : SceneBase
 			maxValue = handCount;
 		}
 		
-		HandCardSelectText.text = string.Format("説明文\n{0}/{1}", count.ToString(), maxValue.ToString());
+		UpdateHandSelectText();
 
 		if (count >= maxValue) {
 			HandCardSelectDecideButton.interactable = true;
@@ -1140,6 +1144,40 @@ public partial class MapScene : SceneBase
 				}
 			}
 		}
+	}
+
+	public void UpdateHandSelectText() {
+		// カードの効果によって、文言を変更する
+		MasterAction2Table.Data data = MapDataCarrier.Instance.SelectBattleCardData;
+		int actionIndex = MapDataCarrier.Instance.ActionPackCount;
+		ActionPack pack = data.ActionPackList[actionIndex]; 
+		
+		var ctrls = MapDataCarrier.Instance.BattleCardButtonControllers;
+		int count = 0;
+		for (int i = 0; i < ctrls.Count; i++) {
+			if (ctrls[i].IsSelect() == true) {
+				count++;
+			}
+		}
+
+		int maxValue = pack.Value;
+		int handCount = MapDataCarrier.Instance.GetHandCount();
+		if (maxValue >= handCount) {
+			maxValue = handCount;
+		}
+
+		string detail = "";
+		if (pack.Effect == EnumSelf.EffectType.Hand2DeckTop) {
+			detail = MasterStringTable.Instance.GetString("HandSelectHand2DeckTop");
+		} else if (pack.Effect == EnumSelf.EffectType.Hand2Discard) {
+			detail = MasterStringTable.Instance.GetString("HandSelectHand2Discard");
+		} else if (pack.Effect == EnumSelf.EffectType.Hand2Erase) {
+			detail = MasterStringTable.Instance.GetString("HandSelectHand2Erase");
+		} else if (pack.Effect == EnumSelf.EffectType.Hand2Trash) {
+			detail = MasterStringTable.Instance.GetString("HandSelectHand2Trash");
+		}
+			
+		HandCardSelectText.text = string.Format("{0}\n{1}/{2}", detail, count.ToString(), maxValue.ToString());
 	}
 	
 	public void OnClickHandCardSelectDecideButton() {
