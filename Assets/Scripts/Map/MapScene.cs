@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -855,7 +856,12 @@ public partial class MapScene : SceneBase
 	
 	public void OnClickBattleDeckButton() {
 		// TODO これは、正直いつ押されてもいいので、そう作っておく
-		UpdateCardList(MapDataCarrier.Instance.BattleDeckList, OnClickCarryCardDetailButton);
+		// デッキリストそのまま表示してしまうと、次デッキの中身バレちゃうので、
+		// ランダムに入れ替えてから表示する
+		var list = new List<MasterAction2Table.Data>(MapDataCarrier.Instance.BattleDeckList);
+		list = list.OrderBy(a => Guid.NewGuid()).ToList();
+
+		UpdateCardList(list, OnClickCarryCardDetailButton);
 		CuCardListRoot.SetActive(true);
 	}
 
