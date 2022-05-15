@@ -1175,4 +1175,9 @@ public partial class MapScene : SceneBase
 		CuSilverChestCountText.text = $"{MapDataCarrier.Instance.ChestList[1]}";
 		CuGoldChestCountText.text = $"{MapDataCarrier.Instance.ChestList[2]}";
 	}
+	
+	public void OnClickMenuButton() {
+		MapDataCarrier.Instance.NextSceneName = LocalSceneManager.SceneName.Menu;
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.End);
+	}
 }
