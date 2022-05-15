@@ -43,7 +43,12 @@ public class MapBattleUpdateAttackButtonDisplayState : StateBase {
 
 				// UpdateDisplay()呼んだ後じゃないと、判定に使用するコストが更新されていないので
 				// 順番間違えないようにする事
-				ctrls[i].UpdateInteractable(diceCost);
+				if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleCheck) {
+					// ダイス振る前だったら、マイナス値渡して、全て押せなくする
+					ctrls[i].UpdateInteractable(-1);
+				} else {
+					ctrls[i].UpdateInteractable(diceCost);
+				}
 				
 			}
 		}

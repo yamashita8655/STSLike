@@ -1001,7 +1001,16 @@ public partial class MapScene : SceneBase
 			ctrl.gameObject.SetActive(true);
 			ctrl.SetData(data);
 			ctrl.UpdateDisplay();
-			ctrl.UpdateInteractable(MapDataCarrier.Instance.CurrentTotalDiceCost);
+
+
+			var stm = StateMachineManager.Instance;
+			if (stm.GetState(StateMachineName.Map) == (int)MapState.BattlePlayerTurnStart) {
+				// ターンスタート（ダイスを振る前）は、カードのアクティブはオフにする
+				ctrl.UpdateInteractable(-1);
+			} else {
+				ctrl.UpdateInteractable(MapDataCarrier.Instance.CurrentTotalDiceCost);
+			}
+
 			if (BattleCalculationFunction.IsCurse(data.Id) == true) {
 				if (addHandCurseDamageCount > 0) {
 					BattleCalculationFunction.PlayerCalcTrueDamage(-addHandCurseDamageCount);
