@@ -21,21 +21,17 @@ public class GoogleAdmobManager : SimpleSingleton<GoogleAdmobManager> {
 #endif
 
 	private RewardedAd rewardedAd;
-/*	private RewardedAdAd RewardedAd;
 
-	private Action<bool> RewardCallback = null;
-	private Action<bool> RequestVideoCallback = null;
+	private Action<int> RewardCallback = null;
+	private Action<bool> InitializeCallback = null;
 
-	private bool IsInitializedFlag = false;
-*/
-	//public bool IsInitialized() {
-	//	return IsInitializedFlag;
-	//}
+	private bool IsReward = false;
 
 	public void Initialize() {
 		MobileAds.Initialize(
 			initStatus => {
 				CreateAndLoadRewardedAd();
+				DebugManager.Instance.UpdateDebugLog(initStatus.ToString());
 			}
 		);
 	}
@@ -64,88 +60,73 @@ public class GoogleAdmobManager : SimpleSingleton<GoogleAdmobManager> {
 		this.rewardedAd.LoadAd(request);
     }
 
-	/*
-	public void RequestRewardedAd(Action<bool> requestVideoCallback)
-	{
-#if UNITY_EDITOR
-		if (requestVideoCallback != null) {
-			requestVideoCallback(true);
-		}
-#else
-		RequestVideoCallback = requestVideoCallback;
-
-	 	// Create an empty ad request.
-		AdRequest request = new AdRequest.Builder().Build();
-		// Load the rewarded video ad with the request.
-		RewardedAd.LoadAd(request, adUnitId);
-#endif
-	}
-
-	public bool IsVideoLoaded() {
-		return RewardedAd.IsLoaded();
-	}
-
-	public void ShowVideo(Action<bool> rewardCallback) {
-#if UNITY_EDITOR
-		if (rewardCallback != null) {
-			rewardCallback(true);
-		}
-#else
-		RewardCallback = rewardCallback;
-		RewardedAd.Show();
-#endif
-	}*/
-
-	public void UserChoseToWatchAd()
+	public void UserChoseToWatchAd(Action<int> callback)
 	{
 		if (this.rewardedAd.IsLoaded()) {
+			RewardCallback = callback;
 			this.rewardedAd.Show();
+		} else {
+			DebugManager.Instance.UpdateDebugLog("UserChoseToWatchAd is false");
+			callback(-1);
 		}
 	}
 
 	// 広告の読み込みが完了すると呼び出されます。
 	public void HandleRewardedAdLoaded(object sender, EventArgs args)
     {
-        LogManager.Instance.Log("HandleRewardedAdLoaded event received");
+		DebugManager.Instance.UpdateDebugLog("HandleRewardedAdLoaded event received");
     }
 
 	// 広告の読み込みが失敗すると呼び出されます。提供される AdErrorEventArgs の Message プロパティは、発生した障害のタイプを示します。
     public void HandleRewardedAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
-        //LogManager.Instance.Log(
-        //    "HandleRewardedAdFailedToLoad event received with message: "
-        //                     + args.Message);
+		DebugManager.Instance.UpdateDebugLog("HandleRewardedAdFailedToLoad");
     }
 
 	// 広告がデバイスの画面いっぱいに表示されると呼び出されます。必要な場合は、ここでアプリの音声出力やゲームループを一時停止します。
     public void HandleRewardedAdOpening(object sender, EventArgs args)
     {
-        LogManager.Instance.Log("HandleRewardedAdOpening event received");
+		DebugManager.Instance.UpdateDebugLog("HandleRewardedAdOpening event received");
+#if UNITY_IOS
+        MobileAds.SetiOSAppPauseOnBackground(true);
+#endif
     }
 
 	// 広告の表示に失敗すると呼び出されます。提供される AdErrorEventArgs の Message プロパティは、発生した障害のタイプを示します。
     public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
     {
-        LogManager.Instance.Log(
-            "HandleRewardedAdFailedToShow event received with message: "
-                             + args.Message);
-    }
-
-	// 動画を視聴したユーザーに報酬を付与するときに呼び出されます。Reward は、ユーザーに付与される報酬を説明するパラメータです。
-    public void HandleRewardedAdClosed(object sender, EventArgs args)
-    {
-		CreateAndLoadRewardedAd();
-        LogManager.Instance.Log("HandleRewardedAdClosed event received");
+		DebugManager.Instance.UpdateDebugLog("HandleRewardedAdFailedToShow");
     }
 
 	// ユーザーが「閉じる」アイコンまたは「戻る」ボタンをタップして、動画リワード広告を閉じると呼び出されます。アプリで音声出力やゲームループを一時停止している場合は、ここで再開すると効果的です。
+    public void HandleRewardedAdClosed(object sender, EventArgs args)
+    {
+		DebugManager.Instance.UpdateDebugLog("HandleRewardedAdClosed event received");
+		
+		//if (IsReward == true) {
+		//	RewardCallback(0);
+		//} else {
+		//	RewardCallback(-2);
+		//}
+		//IsReward = false;
+		//CreateAndLoadRewardedAd();
+#if UNITY_IOS
+        MobileAds.SetiOSAppPauseOnBackground(false);
+#endif
+    }
+
+	// 動画を視聴したユーザーに報酬を付与するときに呼び出されます。Reward は、ユーザーに付与される報酬を説明するパラメータです。
     public void HandleUserEarnedReward(object sender, Reward args)
     {
-        string type = args.Type;
-        double amount = args.Amount;
-        LogManager.Instance.Log(
-            "HandleRewardedAdRewarded event received for "
-                        + amount.ToString() + " " + type);
+        //string type = args.Type;
+        //double amount = args.Amount;
+        //LogManager.Instance.Log(
+        //    "HandleRewardedAdRewarded event received for "
+        //                + amount.ToString() + " " + type);
+		DebugManager.Instance.UpdateDebugLog("HandleRewardedAdRewarded event received");
+
+		RewardCallback(0);
+		CreateAndLoadRewardedAd();
     }
 }
 

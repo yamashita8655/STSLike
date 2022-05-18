@@ -77,6 +77,7 @@ public class EntryPoint : MonoBehaviour {
 		DebugManager.Instance.Initialize();
 
 		// 色々
+		GoogleAdmobManager.Instance.Initialize();
 		LocalServerManager.Instance.Initialize();
 		// フェードアウトをしておかないと、背景が見えるので、
 		// ここで最初のフェードアウトだけしておく

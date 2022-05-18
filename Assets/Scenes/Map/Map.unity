@@ -1384,7 +1384,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 787838509}
   m_HandleRect: {fileID: 787838508}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3765,7 +3765,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &276526608
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23110,7 +23110,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -400, y: -200}
-  m_SizeDelta: {x: 1090, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1864140879
 MonoBehaviour:
@@ -23834,7 +23834,6 @@ MonoBehaviour:
   CuGetPointLabel: {fileID: 661916664}
   CuCurrentPointText: {fileID: 465257127}
   CuGetPointText: {fileID: 169188676}
-  CuAdmobButton: {fileID: 1114385191}
   CuArtifactRoot: {fileID: 1910449014}
   CuArtifactTexts:
   - {fileID: 48423597}
@@ -23862,6 +23861,8 @@ MonoBehaviour:
   CuHandCardSelectText: {fileID: 324958621}
   CuAddDiceCostText: {fileID: 1867064892}
   CuPopupObjectRoot: {fileID: 1471728774}
+  CuAdmobButton: {fileID: 1114385193}
+  CuAdmobChestButton: {fileID: 1917132680}
   CuCarryCardDetailCloseButtonText: {fileID: 1953898046}
   CuTreasureResultSkipButtonText: {fileID: 1541555666}
   CuTreasureResultDecideButtonText: {fileID: 1525531013}
