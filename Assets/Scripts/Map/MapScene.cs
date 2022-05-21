@@ -240,10 +240,6 @@ public partial class MapScene : SceneBase
 	private Text CuGetPointText = null;
 	public Text GetPointText => CuGetPointText;
 	
-	[SerializeField]
-	private GameObject CuAdmobButton = null;
-	public GameObject AdmobButton => CuAdmobButton;
-
 	// アーティファクト関係
 	[SerializeField]
 	private GameObject CuArtifactRoot = null;
@@ -328,6 +324,14 @@ public partial class MapScene : SceneBase
 	[SerializeField]
 	private GameObject CuPopupObjectRoot = null;
 	public GameObject PopupObjectRoot => CuPopupObjectRoot;
+	
+	[SerializeField]
+	private Button CuAdmobButton = null;
+	public Button AdmobButton => CuAdmobButton;
+	
+	[SerializeField]
+	private Button CuAdmobChestButton = null;
+	public Button AdmobChestButton => CuAdmobChestButton;
 
 	// テキスト設定系
 	[SerializeField]
@@ -664,7 +668,44 @@ public partial class MapScene : SceneBase
 			return;
 		}
 
-		LogManager.Instance.Log("Admob");
+		GoogleAdmobManager.Instance.UserChoseToWatchAd(
+			res => {
+				if (res == -1) {
+					// 広告の準備ができてない
+				} else if (res == -2) {
+					// 途中で動画閉じた
+				} else {
+					AdmobButton.interactable = false;
+					int currentPoint = PlayerPrefsManager.Instance.GetPoint();
+					int rewardPoint = MapDataCarrier.Instance.DungeonData.RewardPoint;
+					PlayerPrefsManager.Instance.SavePoint(currentPoint + rewardPoint);
+				}
+			}
+		);
+
+	}
+	
+	public void OnClickDungeonResultAdmobChestButton() {
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
+			return;
+		}
+
+		GoogleAdmobManager.Instance.UserChoseToWatchAd(
+			res => {
+				if (res == -1) {
+					// 広告の準備ができてない
+				} else if (res == -2) {
+					// 途中で動画閉じた
+				} else {
+					AdmobChestButton.interactable = false;
+					MapDungeonResultDisplayState state = stm.GetStateBase(StateMachineName.Map) as MapDungeonResultDisplayState;
+					state.OpenChest();
+				}
+			}
+		);
+
 	}
 	
 	public void OnClickCarryArtifactButton(MasterArtifactTable.Data data) {

@@ -18,6 +18,7 @@ public class MapDungeonResultDisplayState : StateBase {
 		int currentPoint = PlayerPrefsManager.Instance.GetPoint();
 		int rewardPoint = MapDataCarrier.Instance.DungeonData.RewardPoint;
 
+		scene.AdmobButton.interactable = true;
 		if (MapDataCarrier.Instance.IsClear == true) {
 			rewardPoint = MapDataCarrier.Instance.DungeonData.RewardPoint;
 		} else {
@@ -36,6 +37,31 @@ public class MapDungeonResultDisplayState : StateBase {
 		} else {
 			scene.ResultText.text = "Death...";
 		}
+		
+		var list = MapDataCarrier.Instance.ChestList;
+		int loadCount = list[0] + list[1] + list[2];
+		if (MapDataCarrier.Instance.IsClear == true) {
+			if (loadCount > 0) {
+				scene.AdmobChestButton.gameObject.SetActive(true);
+				OpenChest();
+			} else {
+				scene.AdmobChestButton.gameObject.SetActive(false);
+			}
+		} else {
+			scene.AdmobChestButton.interactable = true;
+			if (loadCount > 0) {
+				scene.AdmobChestButton.gameObject.SetActive(true);
+			} else {
+				scene.AdmobChestButton.gameObject.SetActive(false);
+			}
+		}
+
+		return false;
+    }
+
+	// 外から呼ばれる可能性がある
+	public void OpenChest() {
+		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
 		// チェスト表示適用
 		// TODO デバッグ加算
@@ -69,9 +95,7 @@ public class MapDungeonResultDisplayState : StateBase {
 				);
 			}
 		}
-
-		return false;
-    }
+	}
 
 	private IEnumerator CoLotChestReward() {
 		yield return new WaitForSeconds(1f);
