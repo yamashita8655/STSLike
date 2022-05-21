@@ -23531,7 +23531,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1923284095}
         m_TargetAssemblyTypeName: MapScene, Assembly-CSharp
-        m_MethodName: OnClickDungeonResultAdmobButton
+        m_MethodName: OnClickDungeonResultAdmobChestButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

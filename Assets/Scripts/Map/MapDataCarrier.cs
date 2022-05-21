@@ -96,6 +96,8 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 
 	public List<int> ChestList { get; set; }
 	
+	public List<ChestObjectController> ResultChestCtrls { get; set; }
+	
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
 		MapTypeList = new List<EnumSelf.MapType>();
@@ -105,6 +107,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 		HealList = new List<MasterHealTable.Data>();
 		ArtifactList = new List<MasterArtifactTable.Data>();
 		CarryArtifactList = new List<ArtifactButtonContentItem>();
+		ResultChestCtrls = new List<ChestObjectController>();
 
 		ValueObjects = new List<List<GameObject>>();
 		// サイコロの数は6個なので、6個分リスト作る

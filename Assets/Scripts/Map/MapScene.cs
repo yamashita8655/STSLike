@@ -653,7 +653,7 @@ public partial class MapScene : SceneBase
 	public void OnClickDungeonResultCloseButton() {
 		// ユーザー入力待機状態でなければ、処理しない
 		var stm = StateMachineManager.Instance;
-		if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultUserWait) {
 			return;
 		}
 
@@ -664,9 +664,11 @@ public partial class MapScene : SceneBase
 	public void OnClickDungeonResultAdmobButton() {
 		// ユーザー入力待機状態でなければ、処理しない
 		var stm = StateMachineManager.Instance;
-		if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultUserWait) {
 			return;
 		}
+					
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.DungeonResultAdmobWait);
 
 		GoogleAdmobManager.Instance.UserChoseToWatchAd(
 			res => {
@@ -679,6 +681,7 @@ public partial class MapScene : SceneBase
 					int currentPoint = PlayerPrefsManager.Instance.GetPoint();
 					int rewardPoint = MapDataCarrier.Instance.DungeonData.RewardPoint;
 					PlayerPrefsManager.Instance.SavePoint(currentPoint + rewardPoint);
+					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.DungeonResultUserWait);
 				}
 			}
 		);
@@ -688,9 +691,11 @@ public partial class MapScene : SceneBase
 	public void OnClickDungeonResultAdmobChestButton() {
 		// ユーザー入力待機状態でなければ、処理しない
 		var stm = StateMachineManager.Instance;
-		if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultUserWait) {
 			return;
 		}
+
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.DungeonResultAdmobWait);
 
 		GoogleAdmobManager.Instance.UserChoseToWatchAd(
 			res => {
@@ -701,7 +706,7 @@ public partial class MapScene : SceneBase
 				} else {
 					AdmobChestButton.interactable = false;
 					MapDungeonResultDisplayState state = stm.GetStateBase(StateMachineName.Map) as MapDungeonResultDisplayState;
-					state.OpenChest();
+					StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.DungeonResultOpenChest);
 				}
 			}
 		);
@@ -709,12 +714,6 @@ public partial class MapScene : SceneBase
 	}
 	
 	public void OnClickCarryArtifactButton(MasterArtifactTable.Data data) {
-		// ユーザー入力待機状態でなければ、処理しない
-		//var stm = StateMachineManager.Instance;
-		//if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
-		//	return;
-		//}
-
 		CarryArtifactDetailController.Open(data, SpawnPopup);
 	}
 	
@@ -741,22 +740,10 @@ public partial class MapScene : SceneBase
 	//}
 	
 	public void OnClickCarryCardDetailButton(MasterAction2Table.Data data) {
-		// ユーザー入力待機状態でなければ、処理しない
-		//var stm = StateMachineManager.Instance;
-		//if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
-		//	return;
-		//}
-
 		CarryCardDetailController.Open(data, SpawnPopup);
 	}
 	
 	public void OnClickEraseCardDetailButton(MasterAction2Table.Data data) {
-		// ユーザー入力待機状態でなければ、処理しない
-		//var stm = StateMachineManager.Instance;
-		//if (stm.GetState(StateMachineName.Map) != (int)MapState.DungeonResultDisplay) {
-		//	return;
-		//}
-
 		EraseCardDetailController.Open(
 			data,
 			(d) => {

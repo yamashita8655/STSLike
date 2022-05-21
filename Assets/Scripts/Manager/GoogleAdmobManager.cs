@@ -110,6 +110,7 @@ public class GoogleAdmobManager : SimpleSingleton<GoogleAdmobManager> {
 		//}
 		//IsReward = false;
 		//CreateAndLoadRewardedAd();
+		CreateAndLoadRewardedAd();
 #if UNITY_IOS
         MobileAds.SetiOSAppPauseOnBackground(false);
 #endif
@@ -126,7 +127,6 @@ public class GoogleAdmobManager : SimpleSingleton<GoogleAdmobManager> {
 		DebugManager.Instance.UpdateDebugLog("HandleRewardedAdRewarded event received");
 
 		RewardCallback(0);
-		CreateAndLoadRewardedAd();
     }
 }
 

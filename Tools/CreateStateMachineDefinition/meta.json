@@ -96,6 +96,10 @@
 		"UpdateMap",
 		"UserWait",
 		"DungeonResultDisplay",
+		"DungeonResultCreateChest",
+		"DungeonResultOpenChest",
+		"DungeonResultUserWait",
+		"DungeonResultAdmobWait",
 		"End"
 	]
 }

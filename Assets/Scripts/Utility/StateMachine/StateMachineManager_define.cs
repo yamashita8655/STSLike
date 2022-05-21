@@ -85,6 +85,10 @@ public enum MapState : int
 	UpdateMap,
 	UserWait,
 	DungeonResultDisplay,
+	DungeonResultCreateChest,
+	DungeonResultOpenChest,
+	DungeonResultUserWait,
+	DungeonResultAdmobWait,
 	End,
 }
 
