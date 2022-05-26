@@ -405,12 +405,21 @@ public partial class MapScene : SceneBase
 	}
 	
 	public void OnClickDifficultButton(int index) {
+
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetState(StateMachineName.Map) != (int)MapState.UserWait) {
+			return;
+		}
+
 		int mapIndex = MapDataCarrier.Instance.CurrentMapNumber;
 		EnumSelf.MapType type = MapDataCarrier.Instance.MapTypeList[mapIndex];
 		MapDataCarrier.Instance.CurrentMapNumber++;
 		MapDataCarrier.Instance.SelectDifficultNumber = MapDataCarrier.Instance.HandDifficultList[index];
 		MapDataCarrier.Instance.HandDifficultList[index] = -1;
 		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
+
+		PlayerPrefsManager.Instance.SetDungeonState("AfterMapWait");
 
 		if (type == EnumSelf.MapType.Heal) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealInitialize);

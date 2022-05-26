@@ -81,6 +81,8 @@ public class MapUpdateMapState : StateBase {
 			scene.MapImages[4].sprite = scene.MapSprites[(int)MapDataCarrier.Instance.MapTypeList[index+2]];
 		}
 
+		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UserWait);
+
 		return false;
 	}
 

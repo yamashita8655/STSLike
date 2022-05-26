@@ -254,6 +254,10 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"TrophyUnlock125",
 		"TrophyUnlock126",
 		"TrophyUnlock127",
+
+		// ダンジョン進行状況保存
+		"DungeonState",
+		"HandDifficultList",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -1120,5 +1124,17 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	}
 	public int GetDoubleKO() {
 		return int.Parse(GetParameter("DoubleKO"));
+	}
+
+	// 空:どの状態でもない、セーブ状態が無い状態
+	// MapWait:難易度カード選択待ち
+	// AfterMapWait:難易度カード選択直後
+	// RewardWait:報酬選択待ち
+	public void SetDungeonState(string state) {
+		SaveParameter("DungeonState", state);
+	}
+	
+	public string GetDungeonState() {
+		return GetParameter("DungeonState");
 	}
 }

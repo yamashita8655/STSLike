@@ -88,6 +88,7 @@ public class MapArtifactInitializeState : StateBase {
 			PlayerPrefsManager.Instance.SaveFindArtifactId(id);
 		}
 
+		PlayerPrefsManager.Instance.SetDungeonState("RewardWait");
 		return true;
     }
 

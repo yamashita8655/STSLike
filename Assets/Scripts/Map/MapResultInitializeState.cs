@@ -93,6 +93,8 @@ public class MapResultInitializeState : StateBase {
 			PlayerPrefsManager.Instance.SaveFindCardId(id);
 		}
 
+		PlayerPrefsManager.Instance.SetDungeonState("RewardWait");
+
 		return true;
 	}
 

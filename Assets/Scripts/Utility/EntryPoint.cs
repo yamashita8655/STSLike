@@ -101,6 +101,10 @@ public class EntryPoint : MonoBehaviour {
 		SceneManager.UnloadSceneAsync("Boot");
 
 		EntryPoint.IsInitialized = true;
+
+		// TODO デバッグ処理、後で消す
+		DebugManager.Instance.UpdateDebugLog("DungeonState:" + PlayerPrefsManager.Instance.GetDungeonState());
+		Debug.Log("DungeonState:" + PlayerPrefsManager.Instance.GetDungeonState());
 	}
 
 	private void HandleLog(string condition, string stackTrace, LogType type)
