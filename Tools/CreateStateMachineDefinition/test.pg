@@ -1,0 +1,10 @@
+Create Root RectTransform
+    Create Child1 RectTransform
+        Create Child1_Child1 RectTransform
+        Create Child1_Child2 RectTransform
+        Create Child1_Child3 RectTransform
+    Create Child2 RectTransform
+    Create Child3 RectTransform
+        Create Child3_Child1 RectTransform
+            Create Child3_Child1_Child1 RectTransform
+    Create Child4 RectTransform
