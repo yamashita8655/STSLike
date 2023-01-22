@@ -1137,4 +1137,35 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	public string GetDungeonState() {
 		return GetParameter("DungeonState");
 	}
+	
+	public void SaveHandDifficultList(List<int> handDifficultList) {
+		string saveString = string.Empty;
+		for (int i = 0; i < handDifficultList.Count; i++) {
+			if (string.IsNullOrEmpty(saveString) == true)
+			{
+				saveString += handDifficultList[i];
+			}
+			else
+			{
+				saveString += "-" + handDifficultList[i];
+			}
+		}
+		SaveParameter("HandDifficultList", saveString);
+	}
+	
+	public List<int> GetHandDifficultList() {
+		string saveString = GetParameter("HandDifficultList");
+		Debug.Log("HandDifficultList:" + saveString);
+		List<int> list = new List<int>();
+		if (string.IsNullOrEmpty(saveString) == false) {
+			char[] split = {'-'};
+			List<string> lineList = Functions.SplitString(saveString, split);
+
+			for (int i = 0; i < lineList.Count; i++) {
+				list.Add(int.Parse(lineList[i]));
+			}
+		}
+
+		return list;
+	}
 }

@@ -52,6 +52,9 @@ public class MapUpdateDifficultState : StateBase {
 			}
 		}
 
+		// 難易度カード情報保存
+		PlayerPrefsManager.Instance.SaveHandDifficultList(MapDataCarrier.Instance.HandDifficultList);
+
 		return false;
     }
 	

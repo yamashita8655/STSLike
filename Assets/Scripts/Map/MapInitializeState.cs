@@ -34,6 +34,8 @@ public class MapInitializeState : StateBase {
 		
 		MapDataCarrier.Instance.AddDiceCost = 0;
 
+		// TODO ハンドカード保存情報が正常か確認
+		var debugHandList = PlayerPrefsManager.Instance.GetHandDifficultList();
 		MapDataCarrier.Instance.HandDifficultList.Clear();
 		for (int i = 0; i < Scene.DifficultImages.Length; i++) {
 			MapDataCarrier.Instance.HandDifficultList.Add(-1);
