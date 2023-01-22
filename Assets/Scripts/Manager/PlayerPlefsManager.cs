@@ -258,6 +258,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		// ダンジョン進行状況保存
 		"DungeonState",
 		"HandDifficultList",
+		"SelectDifficultNumber",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -508,6 +509,8 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 					(key == "TrophyUnlock126") ||
 					(key == "TrophyUnlock127")
 				) {
+					saveString = "0";
+				} else if (key == "SelectDifficultNumber") {
 					saveString = "0";
 				}
 				PlayerPrefs.SetString(key, saveString);
@@ -1167,5 +1170,16 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		}
 
 		return list;
+	}
+	
+	public void SaveSelectDifficultNumber(int number) {
+		SaveParameter("SelectDifficultNumber", number.ToString());
+	}
+	
+	public int GetSelectDifficultNumber() {
+		string saveString = GetParameter("SelectDifficultNumber");
+		Debug.Log("SelectDifficultNumber:" + saveString);
+
+		return int.Parse(saveString);
 	}
 }

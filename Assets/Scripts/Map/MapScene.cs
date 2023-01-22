@@ -420,6 +420,7 @@ public partial class MapScene : SceneBase
 		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
 
 		PlayerPrefsManager.Instance.SetDungeonState("AfterMapWait");
+		PlayerPrefsManager.Instance.SaveSelectDifficultNumber(MapDataCarrier.Instance.SelectDifficultNumber);
 
 		if (type == EnumSelf.MapType.Heal) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealInitialize);
