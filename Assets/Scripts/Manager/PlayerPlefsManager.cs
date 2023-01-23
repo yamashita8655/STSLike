@@ -259,6 +259,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"DungeonState",
 		"HandDifficultList",
 		"SelectDifficultNumber",
+		"NowFloor",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -511,6 +512,8 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 				) {
 					saveString = "0";
 				} else if (key == "SelectDifficultNumber") {
+					saveString = "0";
+				} else if (key == "NowFloor") {
 					saveString = "0";
 				}
 				PlayerPrefs.SetString(key, saveString);
@@ -1179,6 +1182,17 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	public int GetSelectDifficultNumber() {
 		string saveString = GetParameter("SelectDifficultNumber");
 		Debug.Log("SelectDifficultNumber:" + saveString);
+
+		return int.Parse(saveString);
+	}
+	
+	public void SaveNowFloor(int floor) {
+		SaveParameter("NowFloor", floor.ToString());
+	}
+	
+	public int GetNowFloor() {
+		string saveString = GetParameter("NowFloor");
+		Debug.Log("NowFloor:" + saveString);
 
 		return int.Parse(saveString);
 	}

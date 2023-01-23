@@ -146,6 +146,7 @@ public class MapInitializeState : StateBase {
 		// TODO フロア設定
 		MapDataCarrier.Instance.MaxFloor = MapDataCarrier.Instance.DungeonData.FloorCount;
 		MapDataCarrier.Instance.NowFloor = 1;
+		var nowFloor = PlayerPrefsManager.Instance.GetNowFloor();
 
 		Scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();
 		Scene.MaxFloorText.text = MapDataCarrier.Instance.MaxFloor.ToString();

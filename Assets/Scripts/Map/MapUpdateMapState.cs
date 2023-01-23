@@ -42,6 +42,8 @@ public class MapUpdateMapState : StateBase {
 				}
 			}
 		}
+				
+		PlayerPrefsManager.Instance.SaveNowFloor(MapDataCarrier.Instance.NowFloor);
 
 		scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();
 
