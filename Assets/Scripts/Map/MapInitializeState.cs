@@ -11,6 +11,12 @@ public class MapInitializeState : StateBase {
 	/// </summary>
 	override public bool OnBeforeInit()
 	{
+		// TODO デバッグ、セーブ情報を表示する為の参照処理
+		var debugHandList = PlayerPrefsManager.Instance.GetHandDifficultList();
+		int selectDifficultNumber = PlayerPrefsManager.Instance.GetSelectDifficultNumber();
+		var nowFloor = PlayerPrefsManager.Instance.GetNowFloor();
+		var mapTypeList = PlayerPrefsManager.Instance.GetMapTypeList();
+		
 		Scene = MapDataCarrier.Instance.Scene as MapScene;
 		
 		Scene.BattleRoot.SetActive(false);
@@ -34,9 +40,6 @@ public class MapInitializeState : StateBase {
 		
 		MapDataCarrier.Instance.AddDiceCost = 0;
 
-		// TODO ハンドカード保存情報が正常か確認
-		var debugHandList = PlayerPrefsManager.Instance.GetHandDifficultList();
-		int selectDifficultNumber = PlayerPrefsManager.Instance.GetSelectDifficultNumber();
 		MapDataCarrier.Instance.HandDifficultList.Clear();
 		for (int i = 0; i < Scene.DifficultImages.Length; i++) {
 			MapDataCarrier.Instance.HandDifficultList.Add(-1);
@@ -146,7 +149,6 @@ public class MapInitializeState : StateBase {
 		// TODO フロア設定
 		MapDataCarrier.Instance.MaxFloor = MapDataCarrier.Instance.DungeonData.FloorCount;
 		MapDataCarrier.Instance.NowFloor = 1;
-		var nowFloor = PlayerPrefsManager.Instance.GetNowFloor();
 
 		Scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();
 		Scene.MaxFloorText.text = MapDataCarrier.Instance.MaxFloor.ToString();

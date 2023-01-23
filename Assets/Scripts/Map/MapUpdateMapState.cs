@@ -42,7 +42,7 @@ public class MapUpdateMapState : StateBase {
 				}
 			}
 		}
-				
+		PlayerPrefsManager.Instance.SaveMapTypeList(MapDataCarrier.Instance.MapTypeList);
 		PlayerPrefsManager.Instance.SaveNowFloor(MapDataCarrier.Instance.NowFloor);
 
 		scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();

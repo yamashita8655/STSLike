@@ -260,6 +260,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"HandDifficultList",
 		"SelectDifficultNumber",
 		"NowFloor",
+		"MapTypeList",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -1195,5 +1196,39 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		Debug.Log("NowFloor:" + saveString);
 
 		return int.Parse(saveString);
+	}
+	
+	public void SaveMapTypeList(List<EnumSelf.MapType> mapTypeList) {
+		string saveString = string.Empty;
+
+		for (int i = 0; i < mapTypeList.Count; i++) {
+			if (string.IsNullOrEmpty(saveString) == true)
+			{
+				saveString += (int)mapTypeList[i];
+			}
+			else
+			{
+				saveString += "-" + (int)mapTypeList[i];
+			}
+		}
+
+		SaveParameter("MapTypeList", saveString);
+	}
+	
+	public List<EnumSelf.MapType> GetMapTypeList() {
+		string saveString = GetParameter("MapTypeList");
+		Debug.Log("MapTypeList:" + saveString);
+
+		List<EnumSelf.MapType> list = new List<EnumSelf.MapType>();
+		if (string.IsNullOrEmpty(saveString) == false) {
+			char[] split = {'-'};
+			List<string> lineList = Functions.SplitString(saveString, split);
+
+			for (int i = 0; i < lineList.Count; i++) {
+				list.Add((EnumSelf.MapType)(int.Parse(lineList[i])));
+			}
+		}
+
+		return list;
 	}
 }
