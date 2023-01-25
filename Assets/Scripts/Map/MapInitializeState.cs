@@ -16,8 +16,11 @@ public class MapInitializeState : StateBase {
 		int selectDifficultNumber = PlayerPrefsManager.Instance.GetSelectDifficultNumber();
 		var nowFloor = PlayerPrefsManager.Instance.GetNowFloor();
 		var mapTypeList = PlayerPrefsManager.Instance.GetMapTypeList();
+		var dungeonId = PlayerPrefsManager.Instance.GetDungeonId();
 		
 		Scene = MapDataCarrier.Instance.Scene as MapScene;
+
+		PlayerPrefsManager.Instance.SaveDungeonId(MapDataCarrier.Instance.DungeonData.Id);
 		
 		Scene.BattleRoot.SetActive(false);
 		Scene.ResultRoot.SetActive(false);

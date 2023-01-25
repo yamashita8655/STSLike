@@ -261,6 +261,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"SelectDifficultNumber",
 		"NowFloor",
 		"MapTypeList",
+		"DungeonId",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -1230,5 +1231,16 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		}
 
 		return list;
+	}
+	
+	public void SaveDungeonId(string id) {
+		SaveParameter("DungeonId", id.ToString());
+	}
+	
+	public string GetDungeonId() {
+		string saveString = GetParameter("DungeonId");
+		Debug.Log("DungeonId:" + saveString);
+
+		return saveString;
 	}
 }
