@@ -17,6 +17,7 @@ public class MapInitializeState : StateBase {
 		var nowFloor = PlayerPrefsManager.Instance.GetNowFloor();
 		var mapTypeList = PlayerPrefsManager.Instance.GetMapTypeList();
 		var dungeonId = PlayerPrefsManager.Instance.GetDungeonId();
+		var artifactList = PlayerPrefsManager.Instance.GetArtifactList();
 		
 		Scene = MapDataCarrier.Instance.Scene as MapScene;
 

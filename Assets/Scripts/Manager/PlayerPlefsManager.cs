@@ -262,6 +262,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"NowFloor",
 		"MapTypeList",
 		"DungeonId",
+		"ArtifactList",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -1242,5 +1243,38 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		Debug.Log("DungeonId:" + saveString);
 
 		return saveString;
+	}
+	
+	public void SaveArtifactList(List<ArtifactButtonContentItem> list) {
+		string saveString = string.Empty;
+
+		for (int i = 0; i < list.Count; i++) {
+			if (string.IsNullOrEmpty(saveString) == true)
+			{
+				saveString += list[i].GetData().Id;
+			}
+			else
+			{
+				saveString += "-" + list[i].GetData().Id;
+			}
+		}
+		SaveParameter("ArtifactList", saveString);
+	}
+	
+	public List<MasterArtifactTable.Data> GetArtifactList() {
+		List<MasterArtifactTable.Data> list = new List<MasterArtifactTable.Data>();
+		string saveString = GetParameter("ArtifactList");
+		Debug.Log("ArtifactList:" + saveString);
+		
+		if (string.IsNullOrEmpty(saveString) == false) {
+			char[] split = {'-'};
+			List<string> lineList = Functions.SplitString(saveString, split);
+
+			for (int i = 0; i < lineList.Count; i++) {
+				list.Add(MasterArtifactTable.Instance.GetData(int.Parse(lineList[i])));
+			}
+		}
+
+		return list;
 	}
 }

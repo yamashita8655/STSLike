@@ -876,6 +876,7 @@ public partial class MapScene : SceneBase
 					}
 				);
 				MapDataCarrier.Instance.CarryArtifactList.Add(component);
+				PlayerPrefsManager.Instance.SaveArtifactList(MapDataCarrier.Instance.CarryArtifactList);
 			}
 		);
 	}
@@ -886,7 +887,8 @@ public partial class MapScene : SceneBase
 			if (MapDataCarrier.Instance.CarryArtifactList[i].GetData().ParameterType == type) {
 				GameObject.Destroy(MapDataCarrier.Instance.CarryArtifactList[i].gameObject);
 				MapDataCarrier.Instance.CarryArtifactList.RemoveAt(i);
-				break;
+                PlayerPrefsManager.Instance.SaveArtifactList(MapDataCarrier.Instance.CarryArtifactList);
+                break;
 			}
 		}
 		player.SetParameterListFlag(type, false);
