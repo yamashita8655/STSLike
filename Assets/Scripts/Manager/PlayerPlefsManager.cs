@@ -263,6 +263,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"MapTypeList",
 		"DungeonId",
 		"ArtifactList",
+		"OriginalDeckList",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -1272,6 +1273,39 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 
 			for (int i = 0; i < lineList.Count; i++) {
 				list.Add(MasterArtifactTable.Instance.GetData(int.Parse(lineList[i])));
+			}
+		}
+
+		return list;
+	}
+	
+	public void SaveOriginalDeckList(List<MasterAction2Table.Data> list) {
+		string saveString = string.Empty;
+
+		for (int i = 0; i < list.Count; i++) {
+			if (string.IsNullOrEmpty(saveString) == true)
+			{
+				saveString += list[i].Id;
+			}
+			else
+			{
+				saveString += "-" + list[i].Id;
+			}
+		}
+		SaveParameter("OriginalDeckList", saveString);
+	}
+	
+	public List<MasterAction2Table.Data> GetOriginalDeckList() {
+		List<MasterAction2Table.Data> list = new List<MasterAction2Table.Data>();
+		string saveString = GetParameter("OriginalDeckList");
+		Debug.Log("OriginalDeckList:" + saveString);
+		
+		if (string.IsNullOrEmpty(saveString) == false) {
+			char[] split = {'-'};
+			List<string> lineList = Functions.SplitString(saveString, split);
+
+			for (int i = 0; i < lineList.Count; i++) {
+				list.Add(MasterAction2Table.Instance.GetData(int.Parse(lineList[i])));
 			}
 		}
 

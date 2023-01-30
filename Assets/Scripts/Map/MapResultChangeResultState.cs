@@ -27,6 +27,7 @@ public class MapResultChangeResultState : StateBase {
 			MasterAction2Table.Data data = MapDataCarrier.Instance.TreasureList[treasureIndex];
 
 			MapDataCarrier.Instance.OriginalDeckList.Add(data);
+			PlayerPrefsManager.Instance.SaveOriginalDeckList(MapDataCarrier.Instance.OriginalDeckList);
 			scene.UpdateOriginalDeckCountText();
 
 			//int changeIndex = MapDataCarrier.Instance.SelectChangeIndex;

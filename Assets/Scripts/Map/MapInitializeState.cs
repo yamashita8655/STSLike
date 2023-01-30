@@ -18,6 +18,7 @@ public class MapInitializeState : StateBase {
 		var mapTypeList = PlayerPrefsManager.Instance.GetMapTypeList();
 		var dungeonId = PlayerPrefsManager.Instance.GetDungeonId();
 		var artifactList = PlayerPrefsManager.Instance.GetArtifactList();
+		var originalDeckList = PlayerPrefsManager.Instance.GetOriginalDeckList();
 		
 		Scene = MapDataCarrier.Instance.Scene as MapScene;
 
@@ -88,6 +89,8 @@ public class MapInitializeState : StateBase {
 		for (int i = 0; i < regularIds.Count; i++) {
 			MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(regularIds[i]));
 		}
+		
+		PlayerPrefsManager.Instance.SaveOriginalDeckList(MapDataCarrier.Instance.OriginalDeckList);
 
 		Scene.UpdateOriginalDeckCountText();
 
