@@ -21,6 +21,7 @@ public class MapInitializeState : StateBase {
 		var originalDeckList = PlayerPrefsManager.Instance.GetOriginalDeckList();
 		var diceCost = PlayerPrefsManager.Instance.GetDiceCost();
 		var chestList = PlayerPrefsManager.Instance.GetChestList();
+		var enemyId = PlayerPrefsManager.Instance.GetEnemyId();
 
 		Scene = MapDataCarrier.Instance.Scene as MapScene;
 

@@ -266,6 +266,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"OriginalDeckList",
 		"DiceCost",
 		"ChestList",
+		"EnemyId",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -522,6 +523,8 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 				} else if (key == "NowFloor") {
 					saveString = "0";
 				} else if (key == "DiceCost") {
+					saveString = "0";
+				} else if (key == "EnemyId") {
 					saveString = "0";
 				}
 				PlayerPrefs.SetString(key, saveString);
@@ -1363,5 +1366,16 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
         }
 
 		return list;
+	}
+	
+	public void SaveEnemyId(int enemyId) {
+		SaveParameter("EnemyId", enemyId.ToString());
+	}
+	
+	public int GetEnemyId() {
+		string saveString = GetParameter("EnemyId");
+		Debug.Log("EnemyId:" + saveString);
+
+		return int.Parse(saveString);
 	}
 }

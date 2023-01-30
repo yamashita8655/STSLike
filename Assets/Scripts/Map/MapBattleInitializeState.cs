@@ -74,6 +74,7 @@ public class MapBattleInitializeState : StateBase {
 
 		// 敵出現
 		int enemyId = LotEnemyId();
+		PlayerPrefsManager.Instance.SaveEnemyId(enemyId);
 		MasterEnemyTable.Data data = MasterEnemyTable.Instance.GetData(enemyId);
 		EnemyStatus enemy = new EnemyStatus(data);
 		int difficultHpRate = 0;
