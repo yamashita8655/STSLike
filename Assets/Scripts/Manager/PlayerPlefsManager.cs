@@ -1297,22 +1297,24 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		}
 		SaveParameter("OriginalDeckList", saveString);
 	}
-	
-	public List<MasterAction2Table.Data> GetOriginalDeckList() {
-		List<MasterAction2Table.Data> list = new List<MasterAction2Table.Data>();
-		string saveString = GetParameter("OriginalDeckList");
-		Debug.Log("OriginalDeckList:" + saveString);
-		
-		if (string.IsNullOrEmpty(saveString) == false) {
-			char[] split = {'-'};
-			List<string> lineList = Functions.SplitString(saveString, split);
 
-			for (int i = 0; i < lineList.Count; i++) {
-				list.Add(MasterAction2Table.Instance.GetData(int.Parse(lineList[i])));
-			}
-		}
+    public List<MasterAction2Table.Data> GetOriginalDeckList()
+    {
+        List<MasterAction2Table.Data> list = new List<MasterAction2Table.Data>();
+        string saveString = GetParameter("OriginalDeckList");
+        Debug.Log("OriginalDeckList:" + saveString);
 
-		return list;
+        if (string.IsNullOrEmpty(saveString) == false) {
+            char[] split = { '-' };
+            List<string> lineList = Functions.SplitString(saveString, split);
+
+            for (int i = 0; i < lineList.Count; i++) {
+                list.Add(MasterAction2Table.Instance.GetData(int.Parse(lineList[i])));
+            }
+        }
+
+        return list;
+    }
 
 	public void SaveDiceCost(int cost)
 	{
