@@ -19,7 +19,8 @@ public class MapInitializeState : StateBase {
 		var dungeonId = PlayerPrefsManager.Instance.GetDungeonId();
 		var artifactList = PlayerPrefsManager.Instance.GetArtifactList();
 		var originalDeckList = PlayerPrefsManager.Instance.GetOriginalDeckList();
-		
+		var diceCost = PlayerPrefsManager.Instance.GetDiceCost();
+
 		Scene = MapDataCarrier.Instance.Scene as MapScene;
 
 		PlayerPrefsManager.Instance.SaveDungeonId(MapDataCarrier.Instance.DungeonData.Id);
