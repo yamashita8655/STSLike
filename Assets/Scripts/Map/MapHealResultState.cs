@@ -47,6 +47,7 @@ public class MapHealResultState : StateBase {
 			int addDiceCost = data.Values[difficult];
 			MapDataCarrier.Instance.AddDiceCost += addDiceCost;
 			
+			PlayerPrefsManager.Instance.SaveDiceCost(MapDataCarrier.Instance.AddDiceCost);
 			PlayerPrefsManager.Instance.AddDiceCostUpCount(1);
 
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealEnd);

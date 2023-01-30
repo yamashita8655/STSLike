@@ -263,6 +263,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"MapTypeList",
 		"DungeonId",
 		"ArtifactList",
+		"DiceCost"
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -517,6 +518,8 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 				} else if (key == "SelectDifficultNumber") {
 					saveString = "0";
 				} else if (key == "NowFloor") {
+					saveString = "0";
+				} else if (key == "DiceCost") {
 					saveString = "0";
 				}
 				PlayerPrefs.SetString(key, saveString);
@@ -1276,5 +1279,18 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		}
 
 		return list;
+	}
+
+	public void SaveDiceCost(int cost)
+	{
+		SaveParameter("DiceCost", cost.ToString());
+	}
+
+	public int GetDiceCost()
+	{
+		string saveString = GetParameter("DiceCost");
+		Debug.Log("DiceCost:" + saveString);
+
+		return int.Parse(saveString);
 	}
 }

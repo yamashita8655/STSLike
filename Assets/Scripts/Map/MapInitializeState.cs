@@ -18,7 +18,8 @@ public class MapInitializeState : StateBase {
 		var mapTypeList = PlayerPrefsManager.Instance.GetMapTypeList();
 		var dungeonId = PlayerPrefsManager.Instance.GetDungeonId();
 		var artifactList = PlayerPrefsManager.Instance.GetArtifactList();
-		
+		var diceCost = PlayerPrefsManager.Instance.GetDiceCost();
+
 		Scene = MapDataCarrier.Instance.Scene as MapScene;
 
 		PlayerPrefsManager.Instance.SaveDungeonId(MapDataCarrier.Instance.DungeonData.Id);
