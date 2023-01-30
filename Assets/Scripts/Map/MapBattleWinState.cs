@@ -65,6 +65,7 @@ public class MapBattleWinState : StateBase {
 
 			// rarityは1から始まりで返ってくるので、1引く
 			MapDataCarrier.Instance.ChestList[rarity-1]++;
+			PlayerPrefsManager.Instance.SaveChestList(MapDataCarrier.Instance.ChestList);
 
 			scene.UpdateChestCountDisplay();
 		}

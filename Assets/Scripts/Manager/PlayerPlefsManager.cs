@@ -264,7 +264,8 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"DungeonId",
 		"ArtifactList",
 		"OriginalDeckList",
-		"DiceCost"
+		"DiceCost",
+		"ChestList",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -1327,5 +1328,40 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		Debug.Log("DiceCost:" + saveString);
 
 		return int.Parse(saveString);
+	}
+	
+	public void SaveChestList(List<int> list)
+	{
+		string saveString = string.Empty;
+
+		for (int i = 0; i < list.Count; i++) {
+			if (string.IsNullOrEmpty(saveString) == true)
+			{
+				saveString += list[i];
+			}
+			else
+			{
+				saveString += "-" + list[i];
+			}
+		}
+		SaveParameter("ChestList", saveString);
+	}
+
+	public List<int> GetChestList()
+	{
+        List<int> list = new List<int>();
+		string saveString = GetParameter("ChestList");
+		Debug.Log("ChestList:" + saveString);
+        
+		if (string.IsNullOrEmpty(saveString) == false) {
+            char[] split = { '-' };
+            List<string> lineList = Functions.SplitString(saveString, split);
+
+            for (int i = 0; i < lineList.Count; i++) {
+                list.Add(int.Parse(lineList[i]));
+            }
+        }
+
+		return list;
 	}
 }
