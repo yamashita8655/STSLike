@@ -268,6 +268,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"ChestList",
 		"EnemyId",
 		"TreasureList",
+		"LotArtifactList",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -1148,6 +1149,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	// MapWait:難易度カード選択待ち
 	// AfterMapWait:難易度カード選択直後
 	// RewardWait:報酬選択待ち
+	// ArtifactRewardWait:お宝報酬選択待ち
 	public void SetDungeonState(string state) {
 		SaveParameter("DungeonState", state);
 	}
@@ -1409,6 +1411,42 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 
             for (int i = 0; i < lineList.Count; i++) {
                 list.Add(MasterAction2Table.Instance.GetData(int.Parse(lineList[i])));
+            }
+        }
+
+		return list;
+	}
+	
+	public void SaveLotArtifactList(List<MasterArtifactTable.Data> list)
+	{
+		string saveString = string.Empty;
+
+		for (int i = 0; i < list.Count; i++) {
+			if (string.IsNullOrEmpty(saveString) == true)
+			{
+				saveString += list[i].Id;
+			}
+			else
+			{
+				saveString += "-" + list[i].Id;
+			}
+		}
+		Debug.Log(saveString);
+		SaveParameter("LotArtifactList", saveString);
+	}
+
+	public List<MasterArtifactTable.Data> GetLotArtifactList()
+	{
+        List<MasterArtifactTable.Data> list = new List<MasterArtifactTable.Data>();
+		string saveString = GetParameter("LotArtifactList");
+		Debug.Log("LotArtifactList:" + saveString);
+        
+		if (string.IsNullOrEmpty(saveString) == false) {
+            char[] split = { '-' };
+            List<string> lineList = Functions.SplitString(saveString, split);
+
+            for (int i = 0; i < lineList.Count; i++) {
+                list.Add(MasterArtifactTable.Instance.GetData(int.Parse(lineList[i])));
             }
         }
 

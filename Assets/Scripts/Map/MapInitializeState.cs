@@ -23,6 +23,7 @@ public class MapInitializeState : StateBase {
 		var chestList = PlayerPrefsManager.Instance.GetChestList();
 		var enemyId = PlayerPrefsManager.Instance.GetEnemyId();
 		var treasureList = PlayerPrefsManager.Instance.GetTreasureList();
+		var lotArtifactList = PlayerPrefsManager.Instance.GetLotArtifactList();
 
 		Scene = MapDataCarrier.Instance.Scene as MapScene;
 
