@@ -92,6 +92,8 @@ public class MapResultInitializeState : StateBase {
 			// 見つけたIDリストに加える
 			PlayerPrefsManager.Instance.SaveFindCardId(id);
 		}
+		
+		PlayerPrefsManager.Instance.SaveTreasureList(MapDataCarrier.Instance.TreasureList);
 
 		PlayerPrefsManager.Instance.SetDungeonState("RewardWait");
 

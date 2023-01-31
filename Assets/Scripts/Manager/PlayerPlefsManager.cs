@@ -267,6 +267,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"DiceCost",
 		"ChestList",
 		"EnemyId",
+		"TreasureList",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -1377,5 +1378,40 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		Debug.Log("EnemyId:" + saveString);
 
 		return int.Parse(saveString);
+	}
+	
+	public void SaveTreasureList(List<MasterAction2Table.Data> list)
+	{
+		string saveString = string.Empty;
+
+		for (int i = 0; i < list.Count; i++) {
+			if (string.IsNullOrEmpty(saveString) == true)
+			{
+				saveString += list[i].Id;
+			}
+			else
+			{
+				saveString += "-" + list[i].Id;
+			}
+		}
+		SaveParameter("TreasureList", saveString);
+	}
+
+	public List<MasterAction2Table.Data> GetTreasureList()
+	{
+        List<MasterAction2Table.Data> list = new List<MasterAction2Table.Data>();
+		string saveString = GetParameter("TreasureList");
+		Debug.Log("TreasureList:" + saveString);
+        
+		if (string.IsNullOrEmpty(saveString) == false) {
+            char[] split = { '-' };
+            List<string> lineList = Functions.SplitString(saveString, split);
+
+            for (int i = 0; i < lineList.Count; i++) {
+                list.Add(MasterAction2Table.Instance.GetData(int.Parse(lineList[i])));
+            }
+        }
+
+		return list;
 	}
 }
