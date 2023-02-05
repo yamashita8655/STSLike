@@ -842,18 +842,26 @@ public partial class MapScene : SceneBase
 				player.AddMaxHp(6);
 				player.AddNowHp(6);
 				UpdateParameterText();
+				PlayerPrefsManager.Instance.SaveSaveNowHp(player.GetNowHp());
+				PlayerPrefsManager.Instance.SaveSaveMaxHp(player.GetMaxHp());
 			} else if (data.ParameterType == EnumSelf.ParameterType.AddMaxHp2) {
 				player.AddMaxHp(10);
 				player.AddNowHp(10);
 				UpdateParameterText();
+				PlayerPrefsManager.Instance.SaveSaveNowHp(player.GetNowHp());
+				PlayerPrefsManager.Instance.SaveSaveMaxHp(player.GetMaxHp());
 			} else if (data.ParameterType == EnumSelf.ParameterType.AddMaxHp3) {
 				player.AddMaxHp(15);
 				player.AddNowHp(15);
 				UpdateParameterText();
+				PlayerPrefsManager.Instance.SaveSaveNowHp(player.GetNowHp());
+				PlayerPrefsManager.Instance.SaveSaveMaxHp(player.GetMaxHp());
 			} else if (data.ParameterType == EnumSelf.ParameterType.AddMaxHp4) {
 				player.AddMaxHp(21);
 				player.AddNowHp(21);
 				UpdateParameterText();
+				PlayerPrefsManager.Instance.SaveSaveNowHp(player.GetNowHp());
+				PlayerPrefsManager.Instance.SaveSaveMaxHp(player.GetMaxHp());
 			}
 		}
 

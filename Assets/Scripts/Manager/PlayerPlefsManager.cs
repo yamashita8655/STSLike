@@ -269,6 +269,8 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		"EnemyId",
 		"TreasureList",
 		"LotArtifactList",
+		"SaveNowHp",
+		"SaveMaxHp",
 	};
 
 	private List<int> FindCardIds = new List<int>();
@@ -527,6 +529,10 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 				} else if (key == "DiceCost") {
 					saveString = "0";
 				} else if (key == "EnemyId") {
+					saveString = "0";
+				} else if (key == "SaveNowHp") {
+					saveString = "0";
+				} else if (key == "SaveMaxHp") {
 					saveString = "0";
 				}
 				PlayerPrefs.SetString(key, saveString);
@@ -1451,5 +1457,33 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
         }
 
 		return list;
+	}
+	
+	public void SaveSaveNowHp(int hp)
+	{
+		SaveParameter("SaveNowHp", hp.ToString());
+	}
+
+	public int GetSaveNowHp()
+	{
+		string saveString = GetParameter("SaveNowHp");
+		Debug.Log("SaveNowHp:" + saveString);
+        
+
+		return int.Parse(saveString);
+	}
+	
+	public void SaveSaveMaxHp(int hp)
+	{
+		SaveParameter("SaveMaxHp", hp.ToString());
+	}
+
+	public int GetSaveMaxHp()
+	{
+		string saveString = GetParameter("SaveMaxHp");
+		Debug.Log("SaveMaxHp:" + saveString);
+        
+
+		return int.Parse(saveString);
 	}
 }

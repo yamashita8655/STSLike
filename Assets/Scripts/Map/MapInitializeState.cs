@@ -24,6 +24,8 @@ public class MapInitializeState : StateBase {
 		var enemyId = PlayerPrefsManager.Instance.GetEnemyId();
 		var treasureList = PlayerPrefsManager.Instance.GetTreasureList();
 		var lotArtifactList = PlayerPrefsManager.Instance.GetLotArtifactList();
+		var nowHp = PlayerPrefsManager.Instance.GetSaveNowHp();
+		var maxHp = PlayerPrefsManager.Instance.GetSaveMaxHp();
 
 		Scene = MapDataCarrier.Instance.Scene as MapScene;
 
@@ -60,6 +62,8 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.CuPlayerStatus = status;
 		status.SetMaxHp(80);
 		status.SetNowHp(80);
+		PlayerPrefsManager.Instance.SaveSaveNowHp(player.GetNowHp());
+		PlayerPrefsManager.Instance.SaveSaveMaxHp(player.GetMaxHp());
 		
 		// 初期デッキ構築
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));

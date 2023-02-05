@@ -37,6 +37,8 @@ public class MapHealResultState : StateBase {
 			player.AddNowHp(healVal);
 			scene.UpdateParameterText();
 		
+			PlayerPrefsManager.Instance.SaveSaveNowHp(player.GetNowHp());
+			PlayerPrefsManager.Instance.SaveSaveMaxHp(player.GetMaxHp());
 			PlayerPrefsManager.Instance.AddHealCount(1);
 
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealEnd);

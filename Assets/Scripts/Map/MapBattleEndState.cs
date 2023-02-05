@@ -32,6 +32,8 @@ public class MapBattleEndState : StateBase {
 			scene.UpdateParameterText();
 		}
 
+		PlayerPrefsManager.Instance.SaveSaveNowHp(player.GetNowHp());
+		PlayerPrefsManager.Instance.SaveSaveMaxHp(player.GetMaxHp());
 		
 		return true;
 	}
