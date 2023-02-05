@@ -62,8 +62,8 @@ public class MapInitializeState : StateBase {
 		MapDataCarrier.Instance.CuPlayerStatus = status;
 		status.SetMaxHp(80);
 		status.SetNowHp(80);
-		PlayerPrefsManager.Instance.SaveSaveNowHp(player.GetNowHp());
-		PlayerPrefsManager.Instance.SaveSaveMaxHp(player.GetMaxHp());
+		PlayerPrefsManager.Instance.SaveSaveNowHp(status.GetNowHp());
+		PlayerPrefsManager.Instance.SaveSaveMaxHp(status.GetMaxHp());
 		
 		// 初期デッキ構築
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
