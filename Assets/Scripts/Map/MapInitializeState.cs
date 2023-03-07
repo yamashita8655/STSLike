@@ -16,7 +16,7 @@ public class MapInitializeState : StateBase {
 		int selectDifficultNumber = PlayerPrefsManager.Instance.GetSelectDifficultNumber();
 		var nowFloor = PlayerPrefsManager.Instance.GetNowFloor();
 		var mapTypeList = PlayerPrefsManager.Instance.GetMapTypeList();
-		var dungeonId = PlayerPrefsManager.Instance.GetDungeonId();
+		//var dungeonId = PlayerPrefsManager.Instance.GetDungeonId();
 		var artifactList = PlayerPrefsManager.Instance.GetArtifactList();
 		var originalDeckList = PlayerPrefsManager.Instance.GetOriginalDeckList();
 		var diceCost = PlayerPrefsManager.Instance.GetDiceCost();
@@ -29,8 +29,6 @@ public class MapInitializeState : StateBase {
 
 		Scene = MapDataCarrier.Instance.Scene as MapScene;
 
-		PlayerPrefsManager.Instance.SaveDungeonId(MapDataCarrier.Instance.DungeonData.Id);
-		
 		Scene.BattleRoot.SetActive(false);
 		Scene.ResultRoot.SetActive(false);
 		Scene.ChangeRoot.SetActive(false);
@@ -56,14 +54,44 @@ public class MapInitializeState : StateBase {
 		for (int i = 0; i < Scene.DifficultImages.Length; i++) {
 			MapDataCarrier.Instance.HandDifficultList.Add(-1);
 		}
-
-		// プレイヤーパラメータ初期化
+		
+		// データ初期化
+		var dungeonState = PlayerPrefsManager.Instance.GetDungeonState();
+			
 		PlayerStatus status = new PlayerStatus();
-		MapDataCarrier.Instance.CuPlayerStatus = status;
-		status.SetMaxHp(80);
-		status.SetNowHp(80);
-		PlayerPrefsManager.Instance.SaveSaveNowHp(status.GetNowHp());
-		PlayerPrefsManager.Instance.SaveSaveMaxHp(status.GetMaxHp());
+
+		if (dungeonState == "MapWait")
+		{
+			string dungeonId = PlayerPrefsManager.Instance.GetDungeonId();
+			MapDataCarrier.Instance.DungeonData = MasterDungeonTable.Instance.GetData(dungeonId);
+
+			// プレイヤーパラメータ初期化
+			status = new PlayerStatus();
+			MapDataCarrier.Instance.CuPlayerStatus = status;
+			status.SetMaxHp(PlayerPrefsManager.Instance.GetSaveMaxHp());
+			status.SetNowHp(PlayerPrefsManager.Instance.GetSaveNowHp());
+			
+			// TODO フロア設定
+			MapDataCarrier.Instance.MaxFloor = MapDataCarrier.Instance.DungeonData.FloorCount;
+			MapDataCarrier.Instance.NowFloor = PlayerPrefsManager.Instance.GetNowFloor();
+		}
+		else
+		{
+			// 初回時
+			PlayerPrefsManager.Instance.SaveDungeonId(MapDataCarrier.Instance.DungeonData.Id);
+
+			// プレイヤーパラメータ初期化
+			status = new PlayerStatus();
+			MapDataCarrier.Instance.CuPlayerStatus = status;
+			status.SetMaxHp(80);
+			status.SetNowHp(80);
+			PlayerPrefsManager.Instance.SaveSaveNowHp(status.GetNowHp());
+			PlayerPrefsManager.Instance.SaveSaveMaxHp(status.GetMaxHp());
+		
+			// TODO フロア設定
+			MapDataCarrier.Instance.MaxFloor = MapDataCarrier.Instance.DungeonData.FloorCount;
+			MapDataCarrier.Instance.NowFloor = 1;
+		}
 		
 		// 初期デッキ構築
 		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
@@ -161,10 +189,6 @@ public class MapInitializeState : StateBase {
 
 		Scene.PlayerNowHpText.text = status.GetNowHp().ToString();
 		Scene.PlayerMaxHpText.text = status.GetMaxHp().ToString();
-
-		// TODO フロア設定
-		MapDataCarrier.Instance.MaxFloor = MapDataCarrier.Instance.DungeonData.FloorCount;
-		MapDataCarrier.Instance.NowFloor = 1;
 
 		Scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();
 		Scene.MaxFloorText.text = MapDataCarrier.Instance.MaxFloor.ToString();

@@ -11,7 +11,6 @@ public class MapFloorEndCheckState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
-		PlayerPrefsManager.Instance.SetDungeonState("MapWait");
 
 		return true;
 	}

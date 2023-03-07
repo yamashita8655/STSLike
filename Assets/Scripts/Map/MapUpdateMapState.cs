@@ -22,33 +22,44 @@ public class MapUpdateMapState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 
-		if (MapDataCarrier.Instance.NowFloor < MapDataCarrier.Instance.MaxFloor) {
-			// マップを追加
-			if (MapDataCarrier.Instance.MapTypeList.Count == 0) {
-				MapDataCarrier.Instance.NowFloor = 1;
-				// 初回は、3つ生成する
-				for (int i = 0; i < 3; i++) {
-					EnumSelf.MapType type = LotteryMapType();
-					MapDataCarrier.Instance.MapTypeList.Add(type);
-				}
-			} else {
-				MapDataCarrier.Instance.NowFloor++;
+		var dungeonState = PlayerPrefsManager.Instance.GetDungeonState();
 
-				// マップは、最初に3個分作っているので、
-				// 2引いた値で上限チェックする
-				if (MapDataCarrier.Instance.NowFloor <= (MapDataCarrier.Instance.MaxFloor-2)) {
-					EnumSelf.MapType type = LotteryMapType();
-					MapDataCarrier.Instance.MapTypeList.Add(type);
+		if (dungeonState == "MapWait")
+		{
+			MapDataCarrier.Instance.MapTypeList = PlayerPrefsManager.Instance.GetMapTypeList();
+		}
+		else
+		{
+			if (MapDataCarrier.Instance.NowFloor < MapDataCarrier.Instance.MaxFloor) {
+				// マップを追加
+				if (MapDataCarrier.Instance.MapTypeList.Count == 0) {
+					MapDataCarrier.Instance.NowFloor = 1;
+					// 初回は、3つ生成する
+					for (int i = 0; i < 3; i++) {
+						EnumSelf.MapType type = LotteryMapType();
+						MapDataCarrier.Instance.MapTypeList.Add(type);
+					}
+				} else {
+					MapDataCarrier.Instance.NowFloor++;
+
+					// マップは、最初に3個分作っているので、
+					// 2引いた値で上限チェックする
+					if (MapDataCarrier.Instance.NowFloor <= (MapDataCarrier.Instance.MaxFloor-2)) {
+						EnumSelf.MapType type = LotteryMapType();
+						MapDataCarrier.Instance.MapTypeList.Add(type);
+					}
 				}
 			}
+
+			PlayerPrefsManager.Instance.SaveMapTypeList(MapDataCarrier.Instance.MapTypeList);
+			PlayerPrefsManager.Instance.SaveNowFloor(MapDataCarrier.Instance.NowFloor);
 		}
-		PlayerPrefsManager.Instance.SaveMapTypeList(MapDataCarrier.Instance.MapTypeList);
-		PlayerPrefsManager.Instance.SaveNowFloor(MapDataCarrier.Instance.NowFloor);
 
 		scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();
 
 		// まず、真ん中の画像表示
-		int index = MapDataCarrier.Instance.CurrentMapNumber;
+		//int index = MapDataCarrier.Instance.CurrentMapNumber;
+		int index = MapDataCarrier.Instance.NowFloor-1;
 		scene.MapImages[2].sprite = scene.MapSprites[(int)MapDataCarrier.Instance.MapTypeList[index]];
 
 		// 前2つ
