@@ -10,7 +10,6 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	
 	public LocalSceneManager.SceneName NextSceneName { get; set; }
 
-	public int CurrentMapNumber = 0;
 	public List<EnumSelf.MapType> MapTypeList = null;
 	
 	public List<int> HandDifficultList = null;

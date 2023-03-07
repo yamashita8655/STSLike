@@ -58,7 +58,6 @@ public class MapUpdateMapState : StateBase {
 		scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();
 
 		// まず、真ん中の画像表示
-		//int index = MapDataCarrier.Instance.CurrentMapNumber;
 		int index = MapDataCarrier.Instance.NowFloor-1;
 		scene.MapImages[2].sprite = scene.MapSprites[(int)MapDataCarrier.Instance.MapTypeList[index]];
 

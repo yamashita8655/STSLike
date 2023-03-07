@@ -48,8 +48,6 @@ public class MapInitializeState : StateBase {
 		Scene.HandCardSelectDecideButton.gameObject.SetActive(false);
 		Scene.HandCardSelectDecideButton.interactable = false;
 		
-		MapDataCarrier.Instance.AddDiceCost = 0;
-
 		MapDataCarrier.Instance.HandDifficultList.Clear();
 		for (int i = 0; i < Scene.DifficultImages.Length; i++) {
 			MapDataCarrier.Instance.HandDifficultList.Add(-1);
@@ -74,6 +72,8 @@ public class MapInitializeState : StateBase {
 			// TODO フロア設定
 			MapDataCarrier.Instance.MaxFloor = MapDataCarrier.Instance.DungeonData.FloorCount;
 			MapDataCarrier.Instance.NowFloor = PlayerPrefsManager.Instance.GetNowFloor();
+		
+			MapDataCarrier.Instance.AddDiceCost = PlayerPrefsManager.Instance.GetDiceCost();
 		}
 		else
 		{
@@ -91,6 +91,8 @@ public class MapInitializeState : StateBase {
 			// TODO フロア設定
 			MapDataCarrier.Instance.MaxFloor = MapDataCarrier.Instance.DungeonData.FloorCount;
 			MapDataCarrier.Instance.NowFloor = 1;
+			
+			MapDataCarrier.Instance.AddDiceCost = 0;
 		}
 		
 		// 初期デッキ構築

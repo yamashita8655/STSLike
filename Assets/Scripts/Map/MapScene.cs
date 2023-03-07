@@ -412,9 +412,9 @@ public partial class MapScene : SceneBase
 			return;
 		}
 
-		int mapIndex = MapDataCarrier.Instance.CurrentMapNumber;
+		int mapIndex = MapDataCarrier.Instance.NowFloor-1;
+		Debug.Log(mapIndex);
 		EnumSelf.MapType type = MapDataCarrier.Instance.MapTypeList[mapIndex];
-		MapDataCarrier.Instance.CurrentMapNumber++;
 		MapDataCarrier.Instance.SelectDifficultNumber = MapDataCarrier.Instance.HandDifficultList[index];
 		MapDataCarrier.Instance.HandDifficultList[index] = -1;
 		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
