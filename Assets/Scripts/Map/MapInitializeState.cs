@@ -74,6 +74,8 @@ public class MapInitializeState : StateBase {
 			MapDataCarrier.Instance.NowFloor = PlayerPrefsManager.Instance.GetNowFloor();
 		
 			MapDataCarrier.Instance.AddDiceCost = PlayerPrefsManager.Instance.GetDiceCost();
+
+			MapDataCarrier.Instance.ChestList = PlayerPrefsManager.Instance.GetChestList();
 		}
 		else
 		{
