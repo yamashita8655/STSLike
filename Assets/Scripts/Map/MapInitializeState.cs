@@ -55,6 +55,11 @@ public class MapInitializeState : StateBase {
 		
 		// データ初期化
 		var dungeonState = PlayerPrefsManager.Instance.GetDungeonState();
+		
+		// 未獲得アーティファクトリストを取得しておく
+		for (int i = 1; i < 6; i++) {
+			MapDataCarrier.Instance.RarityNoAcquiredArtifactList[i-1] = MasterArtifactTable.Instance.GetRarityArtifactCloneList(i);
+		}
 			
 		PlayerStatus status = new PlayerStatus();
 
@@ -78,6 +83,12 @@ public class MapInitializeState : StateBase {
 			MapDataCarrier.Instance.ChestList = PlayerPrefsManager.Instance.GetChestList();
 
 			MapDataCarrier.Instance.OriginalDeckList.AddRange(PlayerPrefsManager.Instance.GetOriginalDeckList().ToArray());
+
+			var regularArtifacts = PlayerPrefsManager.Instance.GetArtifactList();
+			for (int i = 0; i < regularArtifacts.Count; i++) {
+				Scene.AddArtifactObject(regularArtifacts[i]);
+				MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(regularArtifacts[i].Id);
+			}
 		}
 		else
 		{
@@ -133,8 +144,42 @@ public class MapInitializeState : StateBase {
 			}
 			
 			PlayerPrefsManager.Instance.SaveOriginalDeckList(MapDataCarrier.Instance.OriginalDeckList);
+
+			//// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
+			//data = MasterArtifactTable.Instance.GetData(1021);
+			//Scene.AddArtifactObject(data);
+			//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1021);
+
+			//data = MasterArtifactTable.Instance.GetData(1022);
+			//Scene.AddArtifactObject(data);
+			//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1022);
+
+			//data = MasterArtifactTable.Instance.GetData(1023);
+			//Scene.AddArtifactObject(data);
+			//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1023);
+
+			//data = MasterArtifactTable.Instance.GetData(1040);
+			//Scene.AddArtifactObject(data);
+			//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1040);
+
+			//data = MasterArtifactTable.Instance.GetData(1045);
+			//Scene.AddArtifactObject(data);
+			//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1045);
+			//
+			//data = MasterArtifactTable.Instance.GetData(1046);
+			//Scene.AddArtifactObject(data);
+			//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1046);
+			
+			// レギュラーアーティファクト設定
+			MasterArtifactTable.Data data = null;
+
+			var regularIds = PlayerPrefsManager.Instance.GetRegularSettingArtifactIds();
+			for (int i = 0; i < regularIds.Count; i++) {
+				data = MasterArtifactTable.Instance.GetData(regularIds[i]);
+				Scene.AddArtifactObject(data);
+				MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(regularIds[i]);
+			}
 		}
-		
 
 		Scene.UpdateOriginalDeckCountText();
 
@@ -150,47 +195,6 @@ public class MapInitializeState : StateBase {
 		//status.SetActionData(3, MasterAction2Table.Instance.GetData(101));
 		//status.SetActionData(4, MasterAction2Table.Instance.GetData(9989));
 		//status.SetActionData(5, MasterAction2Table.Instance.GetData(9989));
-
-		// 未獲得アーティファクトリストを取得しておく
-		for (int i = 1; i < 6; i++) {
-			MapDataCarrier.Instance.RarityNoAcquiredArtifactList[i-1] = MasterArtifactTable.Instance.GetRarityArtifactCloneList(i);
-		}
-
-		// TODO アーティファクト効果テスト
-		MasterArtifactTable.Data data = null;
-
-		//// ここに、最初からアーティファクトを持たせて、効果を発揮できるようにする
-		//data = MasterArtifactTable.Instance.GetData(1021);
-		//Scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1021);
-
-		//data = MasterArtifactTable.Instance.GetData(1022);
-		//Scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1022);
-
-		//data = MasterArtifactTable.Instance.GetData(1023);
-		//Scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1023);
-
-		//data = MasterArtifactTable.Instance.GetData(1040);
-		//Scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1040);
-
-		//data = MasterArtifactTable.Instance.GetData(1045);
-		//Scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1045);
-		//
-		//data = MasterArtifactTable.Instance.GetData(1046);
-		//Scene.AddArtifactObject(data);
-		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1046);
-		
-		// レギュラーアーティファクト設定
-		var regularIds = PlayerPrefsManager.Instance.GetRegularSettingArtifactIds();
-		for (int i = 0; i < regularIds.Count; i++) {
-			data = MasterArtifactTable.Instance.GetData(regularIds[i]);
-			Scene.AddArtifactObject(data);
-			MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(regularIds[i]);
-		}
 
 		status.SetMaxDiceCount(3);
 

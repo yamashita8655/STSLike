@@ -1423,6 +1423,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		return list;
 	}
 	
+	// 宝部屋で選出されたアーティファクトリスト
 	public void SaveLotArtifactList(List<MasterArtifactTable.Data> list)
 	{
 		string saveString = string.Empty;
