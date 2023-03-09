@@ -57,6 +57,7 @@ public class MapHealResultState : StateBase {
 		
 		if (index == 2) {
 		  	MapDataCarrier.Instance.OriginalDeckList.Remove(MapDataCarrier.Instance.SelectEraseData);
+			PlayerPrefsManager.Instance.SaveOriginalDeckList(MapDataCarrier.Instance.OriginalDeckList);
 		  	scene.UpdateOriginalDeckCountText();
 			scene.CardListRoot.SetActive(false);
 			MapDataCarrier.Instance.SelectEraseData = null;

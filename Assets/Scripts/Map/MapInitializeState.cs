@@ -76,6 +76,8 @@ public class MapInitializeState : StateBase {
 			MapDataCarrier.Instance.AddDiceCost = PlayerPrefsManager.Instance.GetDiceCost();
 
 			MapDataCarrier.Instance.ChestList = PlayerPrefsManager.Instance.GetChestList();
+
+			MapDataCarrier.Instance.OriginalDeckList.AddRange(PlayerPrefsManager.Instance.GetOriginalDeckList().ToArray());
 		}
 		else
 		{
@@ -95,43 +97,44 @@ public class MapInitializeState : StateBase {
 			MapDataCarrier.Instance.NowFloor = 1;
 			
 			MapDataCarrier.Instance.AddDiceCost = 0;
-		}
 		
-		// 初期デッキ構築
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
-		MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
-		
-		//// TODO デバッグ用カード追加
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(406));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(407));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(408));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(408));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(409));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(409));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(410));
-		//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(410));
+			// 初期デッキ構築
+			MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+			MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+			MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+			MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+			MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(1));
+			MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+			MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+			MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+			MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+			MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(101));
+			
+			//// TODO デバッグ用カード追加
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(19));
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(406));
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(407));
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(408));
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(408));
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(409));
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(409));
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(410));
+			//MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(410));
 
-		// レギュラーカード設定
-		var regularIds = PlayerPrefsManager.Instance.GetRegularSettingCardIds();
-		for (int i = 0; i < regularIds.Count; i++) {
-			MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(regularIds[i]));
+			// レギュラーカード設定
+			var regularCardIds = PlayerPrefsManager.Instance.GetRegularSettingCardIds();
+			for (int i = 0; i < regularCardIds.Count; i++) {
+				MapDataCarrier.Instance.OriginalDeckList.Add(MasterAction2Table.Instance.GetData(regularCardIds[i]));
+			}
+			
+			PlayerPrefsManager.Instance.SaveOriginalDeckList(MapDataCarrier.Instance.OriginalDeckList);
 		}
 		
-		PlayerPrefsManager.Instance.SaveOriginalDeckList(MapDataCarrier.Instance.OriginalDeckList);
 
 		Scene.UpdateOriginalDeckCountText();
 
@@ -182,7 +185,7 @@ public class MapInitializeState : StateBase {
 		//MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(1046);
 		
 		// レギュラーアーティファクト設定
-		regularIds = PlayerPrefsManager.Instance.GetRegularSettingArtifactIds();
+		var regularIds = PlayerPrefsManager.Instance.GetRegularSettingArtifactIds();
 		for (int i = 0; i < regularIds.Count; i++) {
 			data = MasterArtifactTable.Instance.GetData(regularIds[i]);
 			Scene.AddArtifactObject(data);
