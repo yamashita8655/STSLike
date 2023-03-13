@@ -33,6 +33,11 @@ public class MapUpdateDifficultState : StateBase {
 				scene.DifficultImages[i].sprite = scene.LevelSprites[difficult];
 			}
 		}
+
+		// 途中復帰の時に画像適用するタイミングがないので、スプライト適用は別処理
+		for (int i = 0; i < MapDataCarrier.Instance.HandDifficultList.Count; i++) {
+			scene.DifficultImages[i].sprite = scene.LevelSprites[MapDataCarrier.Instance.HandDifficultList[i]];
+		}
 		
 		// モモンガの尻尾処理
 		// 本来なら、獲得した時に変えた方がいいんだけど、そうするとフローがごちゃごちゃになるので

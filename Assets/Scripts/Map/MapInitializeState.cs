@@ -49,9 +49,6 @@ public class MapInitializeState : StateBase {
 		Scene.HandCardSelectDecideButton.interactable = false;
 		
 		MapDataCarrier.Instance.HandDifficultList.Clear();
-		for (int i = 0; i < Scene.DifficultImages.Length; i++) {
-			MapDataCarrier.Instance.HandDifficultList.Add(-1);
-		}
 		
 		// データ初期化
 		var dungeonState = PlayerPrefsManager.Instance.GetDungeonState();
@@ -89,11 +86,17 @@ public class MapInitializeState : StateBase {
 				Scene.AddArtifactObject(regularArtifacts[i]);
 				MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(regularArtifacts[i].Id);
 			}
+			
+			MapDataCarrier.Instance.HandDifficultList.AddRange(PlayerPrefsManager.Instance.GetHandDifficultList().ToArray());
 		}
 		else
 		{
 			// 初回時
 			PlayerPrefsManager.Instance.SaveDungeonId(MapDataCarrier.Instance.DungeonData.Id);
+		
+			for (int i = 0; i < Scene.DifficultImages.Length; i++) {
+				MapDataCarrier.Instance.HandDifficultList.Add(-1);
+			}
 
 			// プレイヤーパラメータ初期化
 			status = new PlayerStatus();
@@ -179,6 +182,9 @@ public class MapInitializeState : StateBase {
 				Scene.AddArtifactObject(data);
 				MapDataCarrier.Instance.RemoveRarityNoAcquiredArtifactList(regularIds[i]);
 			}
+
+			// 初期チェスト数を保存しておく。タイミングがここしかない為
+			PlayerPrefsManager.Instance.SaveChestList(MapDataCarrier.Instance.ChestList);
 		}
 
 		Scene.UpdateOriginalDeckCountText();
