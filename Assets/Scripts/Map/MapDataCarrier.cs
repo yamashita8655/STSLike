@@ -14,6 +14,7 @@ public class MapDataCarrier : SimpleMonoBehaviourSingleton<MapDataCarrier> {
 	
 	public List<int> HandDifficultList = null;
 	public int SelectDifficultNumber { get; set; }
+	public int SelectDifficultIndex { get; set; }
 	
 	public PlayerStatus CuPlayerStatus = null;
 	public EnemyStatus CuEnemyStatus = null;

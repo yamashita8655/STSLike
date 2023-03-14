@@ -412,15 +412,21 @@ public partial class MapScene : SceneBase
 			return;
 		}
 
+		SelectDifficultFunction(index);
+	}
+	
+	public void SelectDifficultFunction(int index) {
+
 		int mapIndex = MapDataCarrier.Instance.NowFloor-1;
 		Debug.Log(mapIndex);
 		EnumSelf.MapType type = MapDataCarrier.Instance.MapTypeList[mapIndex];
+		MapDataCarrier.Instance.SelectDifficultIndex = index;
 		MapDataCarrier.Instance.SelectDifficultNumber = MapDataCarrier.Instance.HandDifficultList[index];
-		MapDataCarrier.Instance.HandDifficultList[index] = -1;
+		//MapDataCarrier.Instance.HandDifficultList[index] = -1;
 		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
 
 		PlayerPrefsManager.Instance.SetDungeonState("AfterMapWait");
-		PlayerPrefsManager.Instance.SaveSelectDifficultNumber(MapDataCarrier.Instance.SelectDifficultNumber);
+		PlayerPrefsManager.Instance.SaveSelectDifficultIndex(MapDataCarrier.Instance.SelectDifficultIndex);
 
 		if (type == EnumSelf.MapType.Heal) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.HealInitialize);

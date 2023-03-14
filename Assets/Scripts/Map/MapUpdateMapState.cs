@@ -24,7 +24,7 @@ public class MapUpdateMapState : StateBase {
 
 		var dungeonState = PlayerPrefsManager.Instance.GetDungeonState();
 
-		if (dungeonState == "MapWait")
+		if (string.IsNullOrEmpty(dungeonState) == false)
 		{
 			MapDataCarrier.Instance.MapTypeList = PlayerPrefsManager.Instance.GetMapTypeList();
 		}
@@ -93,7 +93,18 @@ public class MapUpdateMapState : StateBase {
 			scene.MapImages[4].sprite = scene.MapSprites[(int)MapDataCarrier.Instance.MapTypeList[index+2]];
 		}
 
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UserWait);
+		if (dungeonState == "MapWait")
+		{
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UserWait);
+		}
+		else if (dungeonState == "AfterMapWait")
+		{
+			scene.SelectDifficultFunction(MapDataCarrier.Instance.SelectDifficultIndex);
+		}
+		else
+		{
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UserWait);
+		}
 
 		return false;
 	}

@@ -11,6 +11,8 @@ public class MapResultEndState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
+		
+		MapDataCarrier.Instance.HandDifficultList[MapDataCarrier.Instance.SelectDifficultIndex] = -1;
 
 		scene.MapRoot.SetActive(true);
 		scene.ChangeRoot.SetActive(false);

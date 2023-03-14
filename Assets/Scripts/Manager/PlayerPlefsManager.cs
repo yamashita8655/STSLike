@@ -258,7 +258,8 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		// ダンジョン進行状況保存
 		"DungeonState",
 		"HandDifficultList",
-		"SelectDifficultNumber",
+		"SelectDifficultIndex",
+		"SelectMapType",
 		"NowFloor",
 		"MapTypeList",
 		"DungeonId",
@@ -522,7 +523,9 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 					(key == "TrophyUnlock127")
 				) {
 					saveString = "0";
-				} else if (key == "SelectDifficultNumber") {
+				} else if (key == "SelectDifficultIndex") {
+					saveString = "0";
+				} else if (key == "SelectMapType") {
 					saveString = "0";
 				} else if (key == "NowFloor") {
 					saveString = "0";
@@ -1195,13 +1198,24 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 		return list;
 	}
 	
-	public void SaveSelectDifficultNumber(int number) {
-		SaveParameter("SelectDifficultNumber", number.ToString());
+	public void SaveSelectDifficultIndex(int index) {
+		SaveParameter("SelectDifficultIndex", index.ToString());
 	}
 	
-	public int GetSelectDifficultNumber() {
-		string saveString = GetParameter("SelectDifficultNumber");
-		Debug.Log("SelectDifficultNumber:" + saveString);
+	public int GetSelectDifficultIndex() {
+		string saveString = GetParameter("SelectDifficultIndex");
+		Debug.Log("SelectDifficultIndex:" + saveString);
+
+		return int.Parse(saveString);
+	}
+	
+	public void SaveSelectMapType(int mapType) {
+		SaveParameter("SelectMapType", mapType.ToString());
+	}
+	
+	public int GetSelectMapType() {
+		string saveString = GetParameter("SelectMapType");
+		Debug.Log("SelectMapType:" + saveString);
 
 		return int.Parse(saveString);
 	}

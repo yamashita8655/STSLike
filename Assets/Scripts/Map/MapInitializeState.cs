@@ -13,7 +13,7 @@ public class MapInitializeState : StateBase {
 	{
 		// TODO デバッグ、セーブ情報を表示する為の参照処理
 		var debugHandList = PlayerPrefsManager.Instance.GetHandDifficultList();
-		int selectDifficultNumber = PlayerPrefsManager.Instance.GetSelectDifficultNumber();
+		int SelectMapType = PlayerPrefsManager.Instance.GetSelectMapType();
 		var nowFloor = PlayerPrefsManager.Instance.GetNowFloor();
 		var mapTypeList = PlayerPrefsManager.Instance.GetMapTypeList();
 		//var dungeonId = PlayerPrefsManager.Instance.GetDungeonId();
@@ -60,7 +60,7 @@ public class MapInitializeState : StateBase {
 			
 		PlayerStatus status = new PlayerStatus();
 
-		if (dungeonState == "MapWait")
+		if (string.IsNullOrEmpty(dungeonState) == false)
 		{
 			string dungeonId = PlayerPrefsManager.Instance.GetDungeonId();
 			MapDataCarrier.Instance.DungeonData = MasterDungeonTable.Instance.GetData(dungeonId);
@@ -88,6 +88,7 @@ public class MapInitializeState : StateBase {
 			}
 			
 			MapDataCarrier.Instance.HandDifficultList.AddRange(PlayerPrefsManager.Instance.GetHandDifficultList().ToArray());
+			MapDataCarrier.Instance.SelectDifficultIndex = PlayerPrefsManager.Instance.GetSelectDifficultIndex();
 		}
 		else
 		{
