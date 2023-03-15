@@ -15,6 +15,7 @@ public class MapHealEndState : StateBase {
 		scene.HealRoot.SetActive(false);
 		scene.MapRoot.SetActive(true);
 
+		PlayerPrefsManager.Instance.SetDungeonState("AfterRewardWait");
 		return true;
 	}
 

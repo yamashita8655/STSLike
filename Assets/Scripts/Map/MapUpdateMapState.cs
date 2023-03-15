@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class MapUpdateMapState : StateBase {
 
-	private readonly int EnemyRatio = 600;
-	private readonly int EliteRatio = 0;
-	private readonly int TreasureRatio = 100;
-	private readonly int HealRatio = 200;
-	private readonly int EventRatio = 100;
-	//private readonly int EnemyRatio = 100;
+	//private readonly int EnemyRatio = 600;
 	//private readonly int EliteRatio = 0;
-	//private readonly int TreasureRatio = 0;
-	//private readonly int HealRatio = 0;
-	//private readonly int EventRatio = 0;
+	//private readonly int TreasureRatio = 100;
+	//private readonly int HealRatio = 200;
+	//private readonly int EventRatio = 100;
+	private readonly int EnemyRatio = 0;
+	private readonly int EliteRatio = 0;
+	private readonly int TreasureRatio = 0;
+	private readonly int HealRatio = 100;
+	private readonly int EventRatio = 0;
 
 	/// <summary>
 	/// メイン前処理.
@@ -24,11 +24,7 @@ public class MapUpdateMapState : StateBase {
 
 		var dungeonState = PlayerPrefsManager.Instance.GetDungeonState();
 
-		if (string.IsNullOrEmpty(dungeonState) == false)
-		{
-			MapDataCarrier.Instance.MapTypeList = PlayerPrefsManager.Instance.GetMapTypeList();
-		}
-		else
+		if ((string.IsNullOrEmpty(dungeonState) == true) || (dungeonState == "AfterRewardWait"))
 		{
 			if (MapDataCarrier.Instance.NowFloor < MapDataCarrier.Instance.MaxFloor) {
 				// マップを追加
@@ -53,6 +49,10 @@ public class MapUpdateMapState : StateBase {
 
 			PlayerPrefsManager.Instance.SaveMapTypeList(MapDataCarrier.Instance.MapTypeList);
 			PlayerPrefsManager.Instance.SaveNowFloor(MapDataCarrier.Instance.NowFloor);
+		}
+		else
+		{
+			MapDataCarrier.Instance.MapTypeList = PlayerPrefsManager.Instance.GetMapTypeList();
 		}
 
 		scene.NowFloorText.text = MapDataCarrier.Instance.NowFloor.ToString();
@@ -93,11 +93,7 @@ public class MapUpdateMapState : StateBase {
 			scene.MapImages[4].sprite = scene.MapSprites[(int)MapDataCarrier.Instance.MapTypeList[index+2]];
 		}
 
-		if (dungeonState == "MapWait")
-		{
-			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UserWait);
-		}
-		else if (dungeonState == "AfterMapWait")
+		if (dungeonState == "AfterMapWait")
 		{
 			scene.SelectDifficultFunction(MapDataCarrier.Instance.SelectDifficultIndex);
 		}

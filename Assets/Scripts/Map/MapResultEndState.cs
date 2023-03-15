@@ -20,6 +20,8 @@ public class MapResultEndState : StateBase {
 		scene.BattleRoot.SetActive(false);
 		scene.HandCardRoot.SetActive(false);
 		scene.CardInfoRoot.SetActive(false);
+		
+		PlayerPrefsManager.Instance.SetDungeonState("AfterRewardWait");
 
 		return true;
 	}

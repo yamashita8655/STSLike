@@ -1158,6 +1158,7 @@ public class PlayerPrefsManager : SimpleMonoBehaviourSingleton<PlayerPrefsManage
 	// MapWait:難易度カード選択待ち
 	// AfterMapWait:難易度カード選択直後
 	// RewardWait:報酬選択待ち
+	// AfterRewardWait:報酬選択後
 	// ArtifactRewardWait:お宝報酬選択待ち
 	public void SetDungeonState(string state) {
 		SaveParameter("DungeonState", state);

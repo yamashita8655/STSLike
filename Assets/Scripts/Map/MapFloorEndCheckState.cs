@@ -11,7 +11,8 @@ public class MapFloorEndCheckState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
-
+		MapDataCarrier.Instance.HandDifficultList[MapDataCarrier.Instance.SelectDifficultIndex] = -1;
+		PlayerPrefsManager.Instance.SetDungeonState("AfterRewardWait");
 		return true;
 	}
 

@@ -35,8 +35,6 @@ public class MapHealInitializeState : StateBase {
 
 		scene.HealDetailText.text = "";
 		
-		PlayerPrefsManager.Instance.SetDungeonState("RewardWait");
-
 		return true;
 	}
 
