@@ -11,8 +11,8 @@ public class MapUpdateMapState : StateBase {
 	//private readonly int EventRatio = 100;
 	private readonly int EnemyRatio = 0;
 	private readonly int EliteRatio = 0;
-	private readonly int TreasureRatio = 0;
-	private readonly int HealRatio = 100;
+	private readonly int TreasureRatio = 100;
+	private readonly int HealRatio = 0;
 	private readonly int EventRatio = 0;
 
 	/// <summary>
@@ -96,6 +96,10 @@ public class MapUpdateMapState : StateBase {
 		if (dungeonState == "AfterMapWait")
 		{
 			scene.SelectDifficultFunction(MapDataCarrier.Instance.SelectDifficultIndex);
+		}
+		else if (dungeonState == "ArtifactRewardWait")
+		{
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.ArtifactInitialize);
 		}
 		else
 		{

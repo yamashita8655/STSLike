@@ -12,16 +12,12 @@ public class MapResultEndState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		
-		MapDataCarrier.Instance.HandDifficultList[MapDataCarrier.Instance.SelectDifficultIndex] = -1;
-
 		scene.MapRoot.SetActive(true);
 		scene.ChangeRoot.SetActive(false);
 		scene.ResultRoot.SetActive(false);
 		scene.BattleRoot.SetActive(false);
 		scene.HandCardRoot.SetActive(false);
 		scene.CardInfoRoot.SetActive(false);
-		
-		PlayerPrefsManager.Instance.SetDungeonState("AfterRewardWait");
 
 		return true;
 	}
