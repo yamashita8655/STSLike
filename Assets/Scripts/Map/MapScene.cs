@@ -370,6 +370,10 @@ public partial class MapScene : SceneBase
 	private Text CuGoldChestCountText = null;
 	public Text GoldChestCountText => CuGoldChestCountText;
 	
+	[SerializeField]
+	private GameObject CuMenuRoot = null;
+	public GameObject MenuRoot => CuMenuRoot;
+	
 	// Start is called before the first frame update
 	IEnumerator Start() {
 		while (EntryPoint.IsInitialized == false) {
@@ -1275,6 +1279,14 @@ public partial class MapScene : SceneBase
 	}
 	
 	public void OnClickMenuButton() {
+		MenuRoot.SetActive(true);
+	}
+	
+	public void OnClickMenuContinueButton() {
+		MenuRoot.SetActive(false);
+	}
+	
+	public void OnClickMenuBackButton() {
 		MapDataCarrier.Instance.NextSceneName = LocalSceneManager.SceneName.Menu;
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.End);
 	}
