@@ -379,9 +379,6 @@ public partial class MapScene : SceneBase
 		// データキャリア
 		MapDataCarrier.Instance.Initialize();
 		MapDataCarrier.Instance.Scene = this;
-
-		MenuData data = (MenuData)LocalSceneManager.Instance.SceneData;
-		MapDataCarrier.Instance.DungeonData = data.Data;
 		
 		// ステートマシン
 		InitializeStateMachine();

@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public partial class HomeScene : SceneBase
 {
+	[SerializeField]
+	private GameObject CuContinueObject = null;
+	public GameObject ContinueObject => CuContinueObject;
+
 	// Start is called before the first frame update
 	IEnumerator Start() {
 		while (EntryPoint.IsInitialized == false) {
@@ -47,7 +51,49 @@ public partial class HomeScene : SceneBase
 			return;
 		}
 
+		var dungeonState = PlayerPrefsManager.Instance.GetDungeonState();
+		if (string.IsNullOrEmpty(dungeonState) == false)
+		{
+			ContinueObject.SetActive(true);
+		}
+		else
+		{
+			HomeDataCarrier.Instance.NextSceneName = LocalSceneManager.SceneName.Menu;
+			StateMachineManager.Instance.ChangeState(StateMachineName.Home, (int)HomeState.End);
+		}
+	}
+	
+	public void OnClickContinueButton()
+	{
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetNextState(StateMachineName.Home) != (int)HomeState.UserWait) {
+			return;
+		}
+
+		ContinueObject.SetActive(false);
+		HomeDataCarrier.Instance.NextSceneName = LocalSceneManager.SceneName.Map;
+		
+		StateMachineManager.Instance.ChangeState(StateMachineName.Home, (int)HomeState.End);
+	}
+	
+	public void OnClickCancelButton()
+	{
+		// ユーザー入力待機状態でなければ、処理しない
+		var stm = StateMachineManager.Instance;
+		if (stm.GetNextState(StateMachineName.Home) != (int)HomeState.UserWait) {
+			return;
+		}
+
+		ContinueObject.SetActive(false);
+
+		// 多分、空のデータでも大丈夫のはず
 		HomeDataCarrier.Instance.NextSceneName = LocalSceneManager.SceneName.Menu;
+		MapData data = new MapData();
+		HomeDataCarrier.Instance.Data = (SceneDataBase)data;
+
+		// データ初期化
+		PlayerPrefsManager.Instance.SetDungeonState(string.Empty);
 		
 		StateMachineManager.Instance.ChangeState(StateMachineName.Home, (int)HomeState.End);
 	}

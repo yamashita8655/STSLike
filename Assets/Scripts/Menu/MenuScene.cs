@@ -540,7 +540,7 @@ public partial class MenuScene : SceneBase
 		}
 
 		MenuDataCarrier.Instance.NextSceneName = LocalSceneManager.SceneName.Map;
-		MenuData data = new MenuData();
+		MapData data = new MapData();
 		data.Data = MenuDataCarrier.Instance.DungeonData;
 		MenuDataCarrier.Instance.Data = (SceneDataBase)data;
 

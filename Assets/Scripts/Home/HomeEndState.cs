@@ -19,7 +19,7 @@ public class HomeEndState : StateBase {
     override public void OnUpdateMain(float delta)
     {
 		FadeManager.Instance.FadeOut(FadeManager.Type.Mask, 0.5f, () => {
-			LocalSceneManager.Instance.LoadScene(HomeDataCarrier.Instance.NextSceneName, null);
+			LocalSceneManager.Instance.LoadScene(HomeDataCarrier.Instance.NextSceneName, HomeDataCarrier.Instance.Data);
 		});
     }
 

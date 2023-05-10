@@ -92,6 +92,9 @@ public class MapInitializeState : StateBase {
 		}
 		else
 		{
+			MapData sceneData = (MapData)LocalSceneManager.Instance.SceneData;
+			MapDataCarrier.Instance.DungeonData = sceneData.Data;
+		
 			// 初回時
 			PlayerPrefsManager.Instance.SaveDungeonId(MapDataCarrier.Instance.DungeonData.Id);
 		

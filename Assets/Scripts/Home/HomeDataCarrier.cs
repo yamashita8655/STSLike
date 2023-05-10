@@ -9,6 +9,8 @@ public class HomeDataCarrier : SimpleMonoBehaviourSingleton<HomeDataCarrier> {
 	
 	public LocalSceneManager.SceneName NextSceneName { get; set; }
 	
+	public SceneDataBase Data { get; set; }
+	
 	public void Initialize() {
 		NextSceneName = LocalSceneManager.SceneName.None;
 	}
