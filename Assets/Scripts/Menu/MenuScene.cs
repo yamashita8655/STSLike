@@ -112,10 +112,14 @@ public partial class MenuScene : SceneBase
 	[SerializeField]
 	private GameObject SFArtifactContent = null;
 	public GameObject ArtifactContent => SFArtifactContent;
-	// ↑↑アーティファクトアンロック↑↑
-	
-	// ↓↓レギュラーカードメニュー↓↓
-	[SerializeField]
+    // ↑↑アーティファクトアンロック↑↑
+
+    // ↓↓レギュラーカードメニュー↓↓
+    [SerializeField]
+    private GameObject SFRegularCardSettingHelpRoot = null;
+    public GameObject RegularCardSettingHelpRoot => SFRegularCardSettingHelpRoot;
+
+    [SerializeField]
 	private GameObject SFRegularCardSettingRoot = null;
 	public GameObject RegularCardSettingRoot => SFRegularCardSettingRoot;
 	
@@ -637,10 +641,32 @@ public partial class MenuScene : SceneBase
 		}
 		CardUnlockRoot.SetActive(false);
 	}
-	// ↑↑カードアンロック↑↑
-	
-	// ↓↓レギュラーカード↓↓
-	public void OnClickRegularCardSettingCloseButton() {
+    // ↑↑カードアンロック↑↑
+
+    // ↓↓レギュラーカード↓↓
+    public void OnClickRegularCardSettingHelpOpenButton()
+    {
+        var stm = StateMachineManager.Instance;
+        // ユーザー入力待機状態でなければ、処理しない
+        if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
+            return;
+        }
+
+        RegularCardSettingHelpRoot.SetActive(true);
+    }
+
+    public void OnClickRegularCardSettingHelpCloseButton()
+    {
+        var stm = StateMachineManager.Instance;
+        // ユーザー入力待機状態でなければ、処理しない
+        if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
+            return;
+        }
+
+        RegularCardSettingHelpRoot.SetActive(false);
+    }
+
+    public void OnClickRegularCardSettingCloseButton() {
         var stm = StateMachineManager.Instance;
 		// ユーザー入力待機状態でなければ、処理しない
 		if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularCardSettingUserWait) {
