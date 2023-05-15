@@ -201,6 +201,10 @@ public partial class MenuScene : SceneBase
 	// ↑↑レギュラーカードメニュー↑↑
 	
 	// ↓↓レギュラーアーティファクトメニュー↓↓
+    [SerializeField]
+    private GameObject SFRegularArtifactSettingHelpRoot = null;
+    public GameObject RegularArtifactSettingHelpRoot => SFRegularArtifactSettingHelpRoot;
+
 	[SerializeField]
 	private GameObject SFRegularArtifactSettingRoot = null;
 	public GameObject RegularArtifactSettingRoot => SFRegularArtifactSettingRoot;
@@ -836,6 +840,28 @@ public partial class MenuScene : SceneBase
 	// ↑↑レギュラーカード↑↑
 	
 	// ↓↓レギュラーアーティファクト↓↓
+    public void OnClickRegularArtifactSettingHelpOpenButton()
+    {
+        var stm = StateMachineManager.Instance;
+        // ユーザー入力待機状態でなければ、処理しない
+        if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularArtifactSettingUserWait) {
+            return;
+        }
+
+        RegularArtifactSettingHelpRoot.SetActive(true);
+    }
+
+    public void OnClickRegularArtifactSettingHelpCloseButton()
+    {
+        var stm = StateMachineManager.Instance;
+        // ユーザー入力待機状態でなければ、処理しない
+        if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.RegularArtifactSettingUserWait) {
+            return;
+        }
+
+        RegularArtifactSettingHelpRoot.SetActive(false);
+    }
+
 	public void OnClickRegularArtifactSettingCloseButton() {
         var stm = StateMachineManager.Instance;
 		// ユーザー入力待機状態でなければ、処理しない
