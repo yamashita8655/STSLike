@@ -257,6 +257,10 @@ public partial class MenuScene : SceneBase
 	[SerializeField]
 	private Toggle SFNonAchieveToggle = null;
 	public Toggle NonAchieveToggle => SFNonAchieveToggle;
+    
+	[SerializeField]
+    private GameObject SFTrophyHelpRoot = null;
+    public GameObject TrophyHelpRoot => SFTrophyHelpRoot;
 
 	private Dictionary<int, TrophyCellItemController> TrophyLockCellDict = new Dictionary<int, TrophyCellItemController>();
 
@@ -1053,5 +1057,27 @@ public partial class MenuScene : SceneBase
 		SFNonAchieveListRoot.SetActive(isOn);
 		SFAchieveListRoot.SetActive(!isOn);
 	}
+    
+	public void OnClickTrophyHelpOpenButton()
+    {
+        var stm = StateMachineManager.Instance;
+        // ユーザー入力待機状態でなければ、処理しない
+        if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+            return;
+        }
+
+        TrophyHelpRoot.SetActive(true);
+    }
+
+    public void OnClickTrophyHelpCloseButton()
+    {
+        var stm = StateMachineManager.Instance;
+        // ユーザー入力待機状態でなければ、処理しない
+        if (stm.GetNextState(StateMachineName.Menu) != (int)MenuState.UserWait) {
+            return;
+        }
+
+        TrophyHelpRoot.SetActive(false);
+    }
 	// ↑トロフィー
 }
