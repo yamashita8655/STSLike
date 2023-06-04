@@ -11,6 +11,16 @@ public class MapUserWaitState : StateBase {
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		PlayerPrefsManager.Instance.SetDungeonState("MapWait");
+
+		if (
+			(MapDataCarrier.Instance.NowFloor == 1) &&
+			(MapDataCarrier.Instance.DungeonData.Id == "1")
+		)
+		{
+			scene.OpenTutorialObject(0);
+		}
+		
+
 		return true;
 	}
 	

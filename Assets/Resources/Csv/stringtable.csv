@@ -6,6 +6,11 @@ Common_Close,閉じる
 Common_Return,戻る
 Common_Skip,選ばない
 Common_Decide,これにする
+#,Tutorial
+Tutorial_0,チュートリアル1の説明
+Tutorial_1,チュートリアル2の説明
+Tutorial_2,チュートリアル3の説明
+Tutorial_3,チュートリアル4の説明
 #,Menu
 Menu_MenuDungeon,ダンジョン
 Menu_MenuRegularCard,レギュラーカード

@@ -374,6 +374,22 @@ public partial class MapScene : SceneBase
 	private GameObject CuMenuRoot = null;
 	public GameObject MenuRoot => CuMenuRoot;
 	
+	[SerializeField]
+	private GameObject CuTutorialRoot = null;
+	public GameObject TutorialRoot => CuTutorialRoot;
+	
+	[SerializeField]
+	private Text CuTutorialText = null;
+	public Text TutorialText => CuTutorialText;
+	
+	[SerializeField]
+	private Image CuTutorialImage = null;
+	public Image TutorialImage => CuTutorialImage;
+	
+	[SerializeField]
+	private Sprite[] CuTutorialSprites = null;
+	public Sprite[] TutorialSprites => CuTutorialSprites;
+	
 	// Start is called before the first frame update
 	IEnumerator Start() {
 		while (EntryPoint.IsInitialized == false) {
@@ -1289,5 +1305,16 @@ public partial class MapScene : SceneBase
 	public void OnClickMenuBackButton() {
 		MapDataCarrier.Instance.NextSceneName = LocalSceneManager.SceneName.Menu;
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.End);
+	}
+	
+	// typeは、表示したいチュートリアル内容番号
+	public void OpenTutorialObject(int type) {
+		CuTutorialRoot.SetActive(true);
+		TutorialImage.sprite = TutorialSprites[type];
+		TutorialText.text = MasterStringTable.Instance.GetString($"Tutorial_{type}");
+	}
+	
+	public void OnClickTutorialCloseButton() {
+		CuTutorialRoot.SetActive(false);
 	}
 }
