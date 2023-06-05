@@ -118,7 +118,14 @@ public class MapResultInitializeState : StateBase {
 
 			PlayerPrefsManager.Instance.SetDungeonState("RewardWait");
 		}
-
+		
+		if (
+			(MapDataCarrier.Instance.NowFloor == 1) &&
+			(MapDataCarrier.Instance.DungeonData.Id == "1")
+		)
+		{
+			scene.OpenTutorialObject(2);
+		}
 
 		return true;
 	}

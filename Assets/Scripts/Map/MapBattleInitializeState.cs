@@ -149,6 +149,14 @@ public class MapBattleInitializeState : StateBase {
 		//for (int i = 0; i < 6; i++) {
 		//	scene.UpdatePlayerValueObject(i);
 		//}
+		
+		if (
+			(MapDataCarrier.Instance.NowFloor == 1) &&
+			(MapDataCarrier.Instance.DungeonData.Id == "1")
+		)
+		{
+			scene.OpenTutorialObject(1);
+		}
 
 		return true;
 	}

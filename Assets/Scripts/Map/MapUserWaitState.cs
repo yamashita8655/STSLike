@@ -20,6 +20,14 @@ public class MapUserWaitState : StateBase {
 			scene.OpenTutorialObject(0);
 		}
 		
+		if (
+			(MapDataCarrier.Instance.NowFloor == 5) &&
+			(MapDataCarrier.Instance.DungeonData.Id == "1")
+		)
+		{
+			scene.OpenTutorialObject(3);
+		}
+		
 
 		return true;
 	}
