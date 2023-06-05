@@ -911,6 +911,8 @@ public class BattleCalculationFunction {
 	
 	// Enemy用
 	public static void EnemyCalcDamageNormalDamage(ActionPack pack) {
+		FlashEffectManager.Instance.SpawnEffect(0);
+
 		var player = MapDataCarrier.Instance.CuPlayerStatus;
 		var enemy = MapDataCarrier.Instance.CuEnemyStatus;
 

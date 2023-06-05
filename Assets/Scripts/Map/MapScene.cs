@@ -395,6 +395,8 @@ public partial class MapScene : SceneBase
 		while (EntryPoint.IsInitialized == false) {
 			yield return null;
 		}
+		
+		FlashEffectManager.Instance.Initialize();
 
 		// データキャリア
 		MapDataCarrier.Instance.Initialize();
