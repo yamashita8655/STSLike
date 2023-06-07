@@ -397,6 +397,7 @@ public partial class MapScene : SceneBase
 		}
 		
 		FlashEffectManager.Instance.Initialize();
+		ScaleEffectManager.Instance.Initialize();
 
 		// データキャリア
 		MapDataCarrier.Instance.Initialize();
@@ -411,6 +412,7 @@ public partial class MapScene : SceneBase
 	// Update is called once per frame
 	void Update()
 	{
+		ScaleEffectManager.Instance.UpdateSelf(Time.deltaTime);
 		StateMachineManager.Instance.Update(StateMachineName.Map, Time.deltaTime);
 	}
 	
@@ -1297,6 +1299,13 @@ public partial class MapScene : SceneBase
 	}
 	
 	public void OnClickMenuButton() {
+		//ScaleEffectManager.Instance.SpawnEffect(
+		//	"Image/UI/Map/ScaleEffect/shield",
+		//	CuEnemyImage.gameObject,
+		//	1f,
+		//	3f,
+		//	0.5f
+		//);
 		MenuRoot.SetActive(true);
 	}
 	
