@@ -398,6 +398,7 @@ public partial class MapScene : SceneBase
 		
 		FlashEffectManager.Instance.Initialize();
 		ScaleEffectManager.Instance.Initialize();
+		DamageNumberEffectManager.Instance.Initialize();
 
 		// データキャリア
 		MapDataCarrier.Instance.Initialize();
@@ -1305,6 +1306,11 @@ public partial class MapScene : SceneBase
 		//	1f,
 		//	3f,
 		//	0.5f
+		//);
+		//
+		//DamageNumberEffectManager.Instance.SpawnEffect(
+		//	count++,
+		//	CuEnemyImage.gameObject
 		//);
 		MenuRoot.SetActive(true);
 	}
