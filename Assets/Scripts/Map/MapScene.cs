@@ -84,12 +84,20 @@ public partial class MapScene : SceneBase
 	public Text PlayerMaxHpText => CuPlayerMaxHpText;
 	
 	[SerializeField]
+	private GameObject CuPlayerHpBarObject = null;
+	public GameObject PlayerHpBarObject => CuPlayerHpBarObject;
+	
+	[SerializeField]
 	private Text CuEnemyNowHpText = null;
 	public Text EnemyNowHpText => CuEnemyNowHpText;
 	
 	[SerializeField]
 	private Text CuEnemyMaxHpText = null;
 	public Text EnemyMaxHpText => CuEnemyMaxHpText;
+	
+	[SerializeField]
+	private GameObject CuEnemyHpBarObject = null;
+	public GameObject EnemyHpBarObject => CuEnemyHpBarObject;
 	
 	[SerializeField]
 	private Text[] CuPlayerActionNameStrings = null;
@@ -796,6 +804,7 @@ public partial class MapScene : SceneBase
 
 		PlayerNowHpText.text = player.GetNowHp().ToString();
 		PlayerMaxHpText.text = player.GetMaxHp().ToString();
+		PlayerHpBarObject.transform.localScale = new Vector3((float)player.GetNowHp()/(float)player.GetMaxHp(), 1f, 1f);
 
 		// トロフィー用
 		PlayerPrefsManager.Instance.SetMaxHp(player.GetMaxHp());
@@ -812,6 +821,7 @@ public partial class MapScene : SceneBase
 		if (enemy != null) {
 			EnemyNowHpText.text = enemy.GetNowHp().ToString();
 			EnemyMaxHpText.text = enemy.GetMaxHp().ToString();
+			EnemyHpBarObject.transform.localScale = new Vector3((float)enemy.GetNowHp()/(float)enemy.GetMaxHp(), 1f, 1f);
 			int enemyShield = enemy.GetNowShield();
 			if (enemyShield > 0) {
 				EnemyShieldText.text = string.Format("[{0}]", enemyShield.ToString());
