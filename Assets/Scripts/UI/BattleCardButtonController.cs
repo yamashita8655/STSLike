@@ -26,6 +26,9 @@ public class BattleCardButtonController : MonoBehaviour
     
 	[SerializeField]
     private Toggle SelectToggle = null;
+	
+	[SerializeField]
+    private GameObject DetailButtonObject = null;
 
     private MasterAction2Table.Data Data = null;
 
@@ -199,6 +202,10 @@ public class BattleCardButtonController : MonoBehaviour
 
 	public void UpdateToggleActive(bool isActive) {
 		SelectToggle.gameObject.SetActive(isActive);
+	}
+	
+	public void UpdateDetailButtonActive(bool isActive) {
+		DetailButtonObject.SetActive(isActive);
 	}
 	
 	public bool ToggleActiveSelf() {

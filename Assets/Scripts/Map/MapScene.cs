@@ -223,6 +223,10 @@ public partial class MapScene : SceneBase
 	private Image CuBgImage = null;
 	public Image BgImage => CuBgImage;
 	
+	[SerializeField]
+	private GameObject CuSelectCardRoot = null;
+	public GameObject SelectCardRoot => CuSelectCardRoot;
+	
 	// ダンジョンリザルト関係
 	[SerializeField]
 	private GameObject CuDungeonResultRoot = null;
@@ -407,6 +411,7 @@ public partial class MapScene : SceneBase
 		FlashEffectManager.Instance.Initialize();
 		ScaleEffectManager.Instance.Initialize();
 		DamageNumberEffectManager.Instance.Initialize();
+		SelectCardControllerManager.Instance.Initialize();
 
 		// データキャリア
 		MapDataCarrier.Instance.Initialize();
@@ -422,6 +427,7 @@ public partial class MapScene : SceneBase
 	void Update()
 	{
 		ScaleEffectManager.Instance.UpdateSelf(Time.deltaTime);
+		SelectCardControllerManager.Instance.UpdateSelf(Time.deltaTime);
 		StateMachineManager.Instance.Update(StateMachineName.Map, Time.deltaTime);
 	}
 	
@@ -520,6 +526,8 @@ public partial class MapScene : SceneBase
 
 		// 押されたボタンは、非表示にして、コストを減らす
 		ctrl.gameObject.SetActive(false);
+
+		AddSelectCardObject(ctrl.GetData());
 
 		var data = ctrl.GetData();
 		MapDataCarrier.Instance.SelectBattleCardData = data;
@@ -1343,5 +1351,10 @@ public partial class MapScene : SceneBase
 	
 	public void OnClickTutorialCloseButton() {
 		CuTutorialRoot.SetActive(false);
+	}
+
+	public void AddSelectCardObject(MasterAction2Table.Data data)
+	{
+		SelectCardControllerManager.Instance.AddCardController(data);
 	}
 }
