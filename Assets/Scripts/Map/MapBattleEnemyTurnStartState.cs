@@ -18,6 +18,14 @@ public class MapBattleEnemyTurnStartState : StateBase {
 		
 		// TODO これ、もう少し呼び出す回数最適化できそうな気がするが…
 		scene.UpdateEnemyValueObject();
+		
+		scene.TurnEffectAnimationController.Play(
+			"EnemyTurn",
+			() =>
+			{
+				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
+			}
+		);
 
 		return true;
 	}
@@ -28,7 +36,6 @@ public class MapBattleEnemyTurnStartState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
 	}
 
 	/// <summary>

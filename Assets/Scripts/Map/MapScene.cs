@@ -227,6 +227,10 @@ public partial class MapScene : SceneBase
 	private GameObject CuSelectCardRoot = null;
 	public GameObject SelectCardRoot => CuSelectCardRoot;
 	
+	[SerializeField]
+	private AnimationController CuTurnEffectAnimationController = null;
+	public AnimationController TurnEffectAnimationController => CuTurnEffectAnimationController;
+	
 	// ダンジョンリザルト関係
 	[SerializeField]
 	private GameObject CuDungeonResultRoot = null;

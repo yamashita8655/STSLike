@@ -63,6 +63,13 @@ public class MapBattlePlayerTurnStartState : StateBase {
 		// 自分の弱体が終わると、敵の表示も変える必要があるので、ここでも更新する
 		scene.UpdateEnemyValueObject();
 
+		scene.TurnEffectAnimationController.Play(
+			"PlayerTurn",
+			() =>
+			{
+				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
+			}
+		);
 
 		return true;
 	}
@@ -73,7 +80,6 @@ public class MapBattlePlayerTurnStartState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
 	}
 
 	/// <summary>
