@@ -18,17 +18,29 @@ public class MapBattleEnemyValueChangeState : StateBase {
 		int count = MapDataCarrier.Instance.EnemyActionPackCount;
 		ActionPack pack = data.ActionPackList[count]; 
 
-		BattleCalculationFunction.EnemyValueChange(pack);
+		scene.CuEnemyAnimationController.Play(
+			"Play",
+			() =>
+			{
+				BattleCalculationFunction.EnemyValueChange(pack);
 
-		if (pack.Effect == EnumSelf.EffectType.Escape) {
-			enemy.SetEscape();
-		}
+				if (pack.Effect == EnumSelf.EffectType.Escape) {
+					enemy.SetEscape();
+				}
 
-		// 動的にカード加える系（呪いとか、複製とか）
-		scene.CheckAddCard(pack);
+				// 動的にカード加える系（呪いとか、複製とか）
+				scene.CheckAddCard(pack);
 
-		scene.UpdateParameterText();
+				scene.UpdateParameterText();
 
+				GameObject obj = MapDataCarrier.Instance.EnemyValueObjects[count];
+				obj.GetComponent<ValueController>().Hide();
+			},
+			() =>
+			{
+				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
+			}
+		);
 		return true;
 	}
 
@@ -38,7 +50,6 @@ public class MapBattleEnemyValueChangeState : StateBase {
 	/// <param name="delta">経過時間</param>
 	override public void OnUpdateMain(float delta)
 	{
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
 	}
 
 	/// <summary>

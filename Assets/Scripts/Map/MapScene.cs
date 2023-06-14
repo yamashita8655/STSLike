@@ -231,6 +231,10 @@ public partial class MapScene : SceneBase
 	private AnimationController CuTurnEffectAnimationController = null;
 	public AnimationController TurnEffectAnimationController => CuTurnEffectAnimationController;
 	
+	[SerializeField]
+	private EnemyAnimationController CuCuEnemyAnimationController = null;
+	public EnemyAnimationController CuEnemyAnimationController => CuCuEnemyAnimationController;
+	
 	// ダンジョンリザルト関係
 	[SerializeField]
 	private GameObject CuDungeonResultRoot = null;

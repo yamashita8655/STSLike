@@ -200,7 +200,9 @@ public class MapBattleCheckState : StateBase {
 				//for (int i = 0; i < 6; i++) {
 				//	scene.UpdatePlayerValueObject(i);
 				//}
-				scene.UpdateEnemyValueObject();
+				// これをここで呼ぶと、アニメーション時に一個ずつ非表示にしていたのが、表示されてしまう。
+				// 敵ターンで敵の行動に変更があるとは思えないので、いったんコメントアウト
+				// scene.UpdateEnemyValueObject();
 
 			} else if (StateMachineManager.Instance.GetPrevState(StateMachineName.Map) == (int)MapState.BattleCheckAfter) {// プレイヤーのバトルチェック後のフロー。
 				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleAttackSelectUserWait);
