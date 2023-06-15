@@ -51,10 +51,9 @@ public class MapBattleCheckState : StateBase {
 	}
 
 	/// <summary>
-	/// メイン更新処理.
+	/// メイン更新前処理.
 	/// </summary>
-	/// <param name="delta">経過時間</param>
-	override public void OnUpdateMain(float delta)
+	override public bool OnBeforeMain()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		
@@ -64,20 +63,23 @@ public class MapBattleCheckState : StateBase {
 		if (IsDead) {
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleLose);
 		} else if (IsWin) {
-			MasterAction2Table.Data data = MapDataCarrier.Instance.SelectBattleCardData;
-			// 敵のターンで敵が死んだときに、NULLになる
-			if (data != null) {
-				int count = MapDataCarrier.Instance.ActionPackCount;
-				ActionPack pack = data.ActionPackList[count]; 
-				if (pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) {
-					// TODO 固定値決めうち、シートにはダメージ値しか設定できない為。
-					// TODO 効果量の所も配列設定にして、場合によっては追加情報を見るのもいいかも…
-					player.AddMaxHp(3);
-					player.AddNowHp(3);
-					scene.UpdateParameterText();
+			scene.CuEnemyAnimationController.Play("Death", () =>
+			{
+				MasterAction2Table.Data data = MapDataCarrier.Instance.SelectBattleCardData;
+				// 敵のターンで敵が死んだときに、NULLになる
+				if (data != null) {
+					int count = MapDataCarrier.Instance.ActionPackCount;
+					ActionPack pack = data.ActionPackList[count]; 
+					if (pack.Effect == EnumSelf.EffectType.DamageGainMaxHp) {
+						// TODO 固定値決めうち、シートにはダメージ値しか設定できない為。
+						// TODO 効果量の所も配列設定にして、場合によっては追加情報を見るのもいいかも…
+						player.AddMaxHp(3);
+						player.AddNowHp(3);
+						scene.UpdateParameterText();
+					}
 				}
-			}
-			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleWin);
+				StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleWin);
+			});
 		} else if (IsEnemyEscape) {
 			// 戦闘終了
 			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnd);
@@ -209,6 +211,8 @@ public class MapBattleCheckState : StateBase {
 			}
 		}
 		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleCheck);
+
+		return false;
 	}
 
 	/// <summary>

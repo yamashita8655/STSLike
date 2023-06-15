@@ -11,6 +11,17 @@ public class MapBattleInitializeState : StateBase {
 	override public bool OnBeforeInit()
 	{
 		var scene = MapDataCarrier.Instance.Scene as MapScene;
+
+        FadeManager.Instance.FadeOut(FadeManager.Type.Simple, 0.2f, () => {
+			scene.StartCoroutine(CoInitialize());
+        });
+
+		return true;
+	}
+
+	private IEnumerator CoInitialize()
+	{
+		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		scene.BattleRoot.SetActive(true);
 		scene.MapRoot.SetActive(false);
 		scene.TurnEndButtonObject.SetActive(false);
@@ -158,7 +169,16 @@ public class MapBattleInitializeState : StateBase {
 			scene.OpenTutorialObject(1);
 		}
 
-		return true;
+		scene.UpdateParameterText();
+		scene.UpdateCardListCountText();
+		scene.CuEnemyAnimationController.Play("Idle", () => { });
+
+		FadeManager.Instance.FadeIn(0.2f, () =>
+		{
+			StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleStart);
+		});
+
+		yield return null;
 	}
 
 	private int LotEnemyId() {
@@ -243,7 +263,7 @@ public class MapBattleInitializeState : StateBase {
 	override public void OnUpdateMain(float delta)
 	{
 		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleEnemyLotAction);
-		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleStart);
+		//StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.BattleStart);
 	}
 
 	/// <summary>

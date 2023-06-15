@@ -1358,6 +1358,12 @@ public class BattleCalculationFunction {
 		player.AddNowHp(val);
 
 		if (val < 0) {
+			var scene = MapDataCarrier.Instance.Scene as MapScene;
+			DamageNumberEffectManager.Instance.SpawnEffect(
+				val * -1,
+				scene.PlayerHpBarObject.gameObject
+			);
+
 			MapDataCarrier.Instance.CuPlayerStatus.AddBattleTakenDamage(val * -1);// マイナス値がダメージを受けるという事なので、反転した数値を保持する
 			// 0未満であれば、Hp減少という判断
 			if (player.GetTurnPowerValue(EnumSelf.TurnPowerType.AutoShield) > 0) {
@@ -1383,6 +1389,12 @@ public class BattleCalculationFunction {
 		enemy.AddNowHp(val);
 
 		if (val < 0) {
+			var scene = MapDataCarrier.Instance.Scene as MapScene;
+			DamageNumberEffectManager.Instance.SpawnEffect(
+				val * -1,
+				scene.EnemyImage.gameObject
+			);
+
 			// トロフィー用
 			PlayerPrefsManager.Instance.SetGiveDamage(val * -1);// ダメージ値はマイナスで管理しているので、プラスに直して保存する
 

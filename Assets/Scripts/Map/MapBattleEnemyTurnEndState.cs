@@ -28,7 +28,8 @@ public class MapBattleEnemyTurnEndState : StateBase {
 				ctrls[i].UpdateDisplay();
 			}
 		}
-		scene.UpdateEnemyValueObject();
+		// LotActionでやってるし、ここでやる必要なさそう
+		//scene.UpdateEnemyValueObject();
 		return true;
 	}
 
