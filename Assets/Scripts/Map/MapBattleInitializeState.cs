@@ -172,6 +172,7 @@ public class MapBattleInitializeState : StateBase {
 		scene.UpdateParameterText();
 		scene.UpdateCardListCountText();
 		scene.CuEnemyAnimationController.Play("Idle", () => { });
+		scene.UpdateEnemyValueObject();
 
 		FadeManager.Instance.FadeIn(0.2f, () =>
 		{

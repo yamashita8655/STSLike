@@ -13,6 +13,7 @@ public class DamageNumberEffectController : MonoBehaviour
 	private Text DamageText = null;
 
 	public void Play(
+		string stateName,
 		int damage,
 		GameObject parent
 	) {
@@ -21,7 +22,7 @@ public class DamageNumberEffectController : MonoBehaviour
 		gameObject.transform.localScale = Vector3.one;
 		DamageText.text = damage.ToString();
 
-		CuAnimationController.Play("Play", EndCallback);
+		CuAnimationController.Play(stateName, EndCallback);
 	}
 
 	private void EndCallback() {

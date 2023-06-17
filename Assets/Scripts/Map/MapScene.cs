@@ -852,33 +852,43 @@ public partial class MapScene : SceneBase
 		PlayerStatus player = MapDataCarrier.Instance.CuPlayerStatus;
 
 		MasterAction2Table.Data data = MapDataCarrier.Instance.CuEnemyStatus.GetActionData();
-		// テキスト表示
-		CuEnemyActionText.text = data.Name;
 
-		// 効果量表示
-		var list = data.ActionPackList;
 		int index = 0;
-		for (index = 0; index < list.Count; index++) {
-			if (index >= 10) {
-				LogManager.Instance.LogError("MapScene:UpdateEnemyValueObject:ValueObject10個超えてるよ");
-			}
-			int val = list[index].Value;
-			if (
-				(list[index].Effect == EnumSelf.EffectType.Damage) ||
-				(list[index].Effect == EnumSelf.EffectType.DamageSuction) ||
-				(list[index].Effect == EnumSelf.EffectType.ShieldBash)
-			) {
-				val = BattleCalculationFunction.CalcEnemyDamageValue(list[index]);
-			} else if (
-				(list[index].Effect == EnumSelf.EffectType.Shield) ||
-				(list[index].Effect == EnumSelf.EffectType.StrengthShield)
-			) {
-				val = BattleCalculationFunction.CalcEnemyShieldValue(list[index]);
-			}
+		if (data != null)
+		{
+			CuEnemyActionText.text = data.Name;
 
-			GameObject obj = MapDataCarrier.Instance.EnemyValueObjects[index];
-			obj.GetComponent<ValueController>().UpdateDisplay(list[index].Effect, list[index].Value, val);
+			// 効果量表示
+			var list = data.ActionPackList;
+			index = 0;
+			for (index = 0; index < list.Count; index++) {
+				if (index >= 10) {
+					LogManager.Instance.LogError("MapScene:UpdateEnemyValueObject:ValueObject10個超えてるよ");
+				}
+				int val = list[index].Value;
+				if (
+					(list[index].Effect == EnumSelf.EffectType.Damage) ||
+					(list[index].Effect == EnumSelf.EffectType.DamageSuction) ||
+					(list[index].Effect == EnumSelf.EffectType.ShieldBash)
+				) {
+					val = BattleCalculationFunction.CalcEnemyDamageValue(list[index]);
+				} else if (
+					(list[index].Effect == EnumSelf.EffectType.Shield) ||
+					(list[index].Effect == EnumSelf.EffectType.StrengthShield)
+				) {
+					val = BattleCalculationFunction.CalcEnemyShieldValue(list[index]);
+				}
+
+				GameObject obj = MapDataCarrier.Instance.EnemyValueObjects[index];
+				obj.GetComponent<ValueController>().UpdateDisplay(list[index].Effect, list[index].Value, val);
+			}
 		}
+		else
+		{
+			// テキスト表示
+			CuEnemyActionText.text = string.Empty;
+		}
+		// テキスト表示
 
 		for (; index < 10; index++) {
 			GameObject obj = MapDataCarrier.Instance.EnemyValueObjects[index];

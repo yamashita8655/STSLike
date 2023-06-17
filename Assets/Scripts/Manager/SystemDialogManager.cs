@@ -2,11 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class SystemDialogManager : BestPracticeSingleton<SystemDialogManager> {
     [SerializeField]
     private GameObject LoadingObject = null;
+    
+	[SerializeField]
+    private Text TipsText = null;
 
     public void Initialize() {
         // ここのチェックは、開発中だけでいい
@@ -25,5 +29,10 @@ public class SystemDialogManager : BestPracticeSingleton<SystemDialogManager> {
     public void CloseLoading()
     {
         LoadingObject.SetActive(false);
+    }
+    
+	public void SetLoadingText(string text)
+    {
+		TipsText.text = text;
     }
 }

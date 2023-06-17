@@ -13,7 +13,7 @@ public class SelectCardController : MonoBehaviour
 	private GameObject ValueObjectRoot = null;
 	
 	[SerializeField]
-	private AnimationController CuAnimationController = null;
+	private SelectCardAnimationController CuAnimationController = null;
 	
     private MasterAction2Table.Data Data = null;
 
@@ -24,6 +24,9 @@ public class SelectCardController : MonoBehaviour
 	private bool CanAnimationFlag = false;
 
 	private bool CanDestroyFlag = false;
+	
+	private Action AnimationEndCallback = null;
+	private Action HitCallback = null;
 
 	public IEnumerator Initialize(
 		MasterAction2Table.Data data
@@ -112,8 +115,11 @@ public class SelectCardController : MonoBehaviour
 		}
 	}
 
-	public void PlayAnimation()
+	public void PlayAnimation(Action hitCallback, Action animationEndCallback)
 	{
+		AnimationEndCallback = animationEndCallback;
+		HitCallback = hitCallback;
+
 		var action = ActionPackList[0];
 		ActionPackList.RemoveAt(0);
 		if (
@@ -123,24 +129,32 @@ public class SelectCardController : MonoBehaviour
 			(action.Effect == EnumSelf.EffectType.DamageGainMaxHp) ||
 			(action.Effect == EnumSelf.EffectType.ShieldBash)
 		) {
-			CuAnimationController.Play("Jump", EndCheck);
+			CuAnimationController.Play("Jump", HitCheck, EndCheck);
 		} else if (
 			(action.Effect == EnumSelf.EffectType.DamageMultiStrength) ||
 			(action.Effect == EnumSelf.EffectType.DamageDiscardCount) ||
 			(action.Effect == EnumSelf.EffectType.DamageTotalSelfTrueDamage) ||
 			(action.Effect == EnumSelf.EffectType.DamageFinish)
 		) {
-			CuAnimationController.Play("Jump", EndCheck);
+			CuAnimationController.Play("Jump", HitCheck, EndCheck);
 		} else if (action.Effect == EnumSelf.EffectType.DamageDice) {
-			CuAnimationController.Play("Jump", EndCheck);
+			CuAnimationController.Play("Jump", HitCheck, EndCheck);
 		} else if (
 			(action.Effect == EnumSelf.EffectType.Shield) ||
 			(action.Effect == EnumSelf.EffectType.StrengthShield)
 		) {
-			CuAnimationController.Play("Scale", EndCheck);
+			CuAnimationController.Play("Scale", HitCheck, EndCheck);
 		} else {
 			// TODO 後でちゃんと種類ごとにアニメーション分けないとね…
-			CuAnimationController.Play("Scale", EndCheck);
+			CuAnimationController.Play("Scale", HitCheck, EndCheck);
+		}
+	}
+
+	private void HitCheck()
+	{
+		if (HitCallback != null)
+		{
+			HitCallback();
 		}
 	}
 
@@ -148,10 +162,14 @@ public class SelectCardController : MonoBehaviour
 	{
 		GameObject.Destroy(ValueControllers[0].gameObject);
 		ValueControllers.RemoveAt(0);
+		if (AnimationEndCallback != null)
+		{
+			AnimationEndCallback();
+		}
 
 		if (ActionPackList.Count > 0)
 		{
-			PlayAnimation();
+			//PlayAnimation();
 		}
 		else
 		{

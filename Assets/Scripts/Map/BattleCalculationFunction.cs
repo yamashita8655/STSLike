@@ -1357,9 +1357,10 @@ public class BattleCalculationFunction {
 
 		player.AddNowHp(val);
 
+		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		if (val < 0) {
-			var scene = MapDataCarrier.Instance.Scene as MapScene;
 			DamageNumberEffectManager.Instance.SpawnEffect(
+				"Play",
 				val * -1,
 				scene.PlayerHpBarObject.gameObject
 			);
@@ -1372,6 +1373,11 @@ public class BattleCalculationFunction {
 
 		} else if (val > 0) {
 			// 0より大ければ、Hp増加という判断
+			DamageNumberEffectManager.Instance.SpawnEffect(
+				"Heal",
+				val,
+				scene.PlayerHpBarObject.gameObject
+			);
 		}
 		
 	}
@@ -1388,9 +1394,10 @@ public class BattleCalculationFunction {
 
 		enemy.AddNowHp(val);
 
+		var scene = MapDataCarrier.Instance.Scene as MapScene;
 		if (val < 0) {
-			var scene = MapDataCarrier.Instance.Scene as MapScene;
 			DamageNumberEffectManager.Instance.SpawnEffect(
+				"Play",
 				val * -1,
 				scene.EnemyImage.gameObject
 			);
@@ -1422,6 +1429,11 @@ public class BattleCalculationFunction {
 			
 		} else if (val > 0) {
 			// 0より大ければ、Hp増加という判断
+			DamageNumberEffectManager.Instance.SpawnEffect(
+				"Heal",
+				val,
+				scene.PlayerHpBarObject.gameObject
+			);
 		}
 	}
 

@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 7944392596216004936}
   - component: {fileID: 1916901926704876452}
   - component: {fileID: 7944392596216004937}
-  - component: {fileID: 7944392596216004938}
+  - component: {fileID: 4593239496670821872}
   m_Layer: 5
   m_Name: SelectCardController
   m_TagString: Untagged
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: {fileID: 3181816292480490524}
   ValueObjectRoot: {fileID: 103081492983048810}
-  CuAnimationController: {fileID: 7944392596216004938}
+  CuAnimationController: {fileID: 4593239496670821872}
 --- !u!114 &1916901926704876452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7944392596216004938
+--- !u!114 &4593239496670821872
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,7 +253,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7944392596216004983}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed2832d4d62d0a8488a7d1e936ef0d7f, type: 3}
+  m_Script: {fileID: 11500000, guid: 60bd4d969668df544821142f67beaaae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BaseAnimation: {fileID: 7944392596216004937}

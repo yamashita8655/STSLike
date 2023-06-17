@@ -229,6 +229,9 @@ public class MapInitializeState : StateBase {
 	}
 
 	private IEnumerator CoObjectLoad() {
+		int tipNo = UnityEngine.Random.Range(0, 10-1);
+		SystemDialogManager.Instance.OpenLoading();
+		SystemDialogManager.Instance.SetLoadingText(MasterStringTable.Instance.GetString(($"TIPS{tipNo}")));
 		yield return LoadPlayerPowerObjects();
 		yield return LoadPlayerTurnPowerObjects();
 		yield return LoadEnemyPowerObjects();
@@ -237,6 +240,7 @@ public class MapInitializeState : StateBase {
 		yield return LoadEnemyValueObjects();
 		yield return LoadPopupObjects();
 		yield return LoadBgImage();
+		SystemDialogManager.Instance.CloseLoading();
 
 		FadeManager.Instance.FadeIn(0.5f, null);
 		StateMachineManager.Instance.ChangeState(StateMachineName.Map, (int)MapState.UpdateDifficult);
