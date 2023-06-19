@@ -1362,7 +1362,7 @@ public class BattleCalculationFunction {
 			DamageNumberEffectManager.Instance.SpawnEffect(
 				"Play",
 				val * -1,
-				scene.PlayerHpBarObject.gameObject
+				scene.PlayerHpBgObject.gameObject
 			);
 
 			MapDataCarrier.Instance.CuPlayerStatus.AddBattleTakenDamage(val * -1);// マイナス値がダメージを受けるという事なので、反転した数値を保持する
@@ -1376,7 +1376,7 @@ public class BattleCalculationFunction {
 			DamageNumberEffectManager.Instance.SpawnEffect(
 				"Heal",
 				val,
-				scene.PlayerHpBarObject.gameObject
+				scene.PlayerHpBgObject.gameObject
 			);
 		}
 		
@@ -1432,7 +1432,7 @@ public class BattleCalculationFunction {
 			DamageNumberEffectManager.Instance.SpawnEffect(
 				"Heal",
 				val,
-				scene.PlayerHpBarObject.gameObject
+				scene.PlayerHpBgObject.gameObject
 			);
 		}
 	}

@@ -88,6 +88,10 @@ public partial class MapScene : SceneBase
 	public GameObject PlayerHpBarObject => CuPlayerHpBarObject;
 	
 	[SerializeField]
+	private GameObject CuPlayerHpBgObject = null;
+	public GameObject PlayerHpBgObject => CuPlayerHpBgObject;
+	
+	[SerializeField]
 	private Text CuEnemyNowHpText = null;
 	public Text EnemyNowHpText => CuEnemyNowHpText;
 	
