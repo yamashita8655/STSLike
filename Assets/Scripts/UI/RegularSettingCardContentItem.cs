@@ -94,7 +94,7 @@ public class RegularSettingCardContentItem : MonoBehaviour
 	
 	public void OnClick() {
 		if (Callback != null) {
-			Callback(this);
+            Callback(this);
 		}
 	}
 	
