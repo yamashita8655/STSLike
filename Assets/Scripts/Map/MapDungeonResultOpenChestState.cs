@@ -21,8 +21,10 @@ public class MapDungeonResultOpenChestState : StateBase {
 		int addPoint = 0;
 		for (int i = 0; i < MapDataCarrier.Instance.ResultChestCtrls.Count; i++) {
 			int rarity = MapDataCarrier.Instance.ResultChestCtrls[i].GetRarity();
-			// rarityは0からの添え字だが、マスターは1からなので、補正加算
-			var data = MasterChestRewardLotTable.Instance.GetData(rarity+1);
+			// どのダンジョンの、どのレアリティの抽選テーブルを使うのか、そのIDを取得
+			int chestLotId = MapDataCarrier.Instance.DungeonData.ChestRewardLotTableId[rarity];
+			// そのIDで、抽選用データ取得
+			var data = MasterChestRewardLotTable.Instance.GetData(chestLotId);
 			var ratioList = data.RewardRatios;
 			int index = BattleCalculationFunction.LotRarity(ratioList);
 			
