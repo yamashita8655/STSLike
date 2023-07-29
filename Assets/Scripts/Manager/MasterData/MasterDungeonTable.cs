@@ -21,6 +21,7 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 		public List<int> EnemyChestRarityLotRatio { get; private set; }
 		public List<int> EliteChestRarityLotRatio { get; private set; }
 		public List<int> BossChestRarityLotRatio { get; private set; }
+		public List<int> ChestRewardLotTableId { get; private set; }
 
 		public Data(
 			string id,
@@ -38,7 +39,8 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 			int bossChestDropRatio,
 			List<int> enemyChestRarityLotRatio,
 			List<int> eliteChestRarityLotRatio,
-			List<int> bossChestRarityLotRatio
+			List<int> bossChestRarityLotRatio,
+			List<int> chestRewardLotTableId
 		)
 		{
 			Id = id;
@@ -57,6 +59,7 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 			EnemyChestRarityLotRatio = enemyChestRarityLotRatio;
 			EliteChestRarityLotRatio = eliteChestRarityLotRatio;
 			BossChestRarityLotRatio = bossChestRarityLotRatio;
+			ChestRewardLotTableId = chestRewardLotTableId;
 		}
 	};
 
@@ -116,6 +119,12 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 				bossChestRarityLotRatios.Add(int.Parse(bossChestRarityLotRatiosString[i2]));
 			}
 			
+			List<string> chestRewardLotTableIdString = Functions.SplitString(paramList[16], split3);
+			List<int> chestRewardLotTableIds = new List<int>();
+			for (int i2 = 0; i2 < chestRewardLotTableIdString.Count; i2++) {
+				chestRewardLotTableIds.Add(int.Parse(chestRewardLotTableIdString[i2]));
+			}
+			
 			Data data = new Data(
 				paramList[0],
 				paramList[1],
@@ -132,7 +141,8 @@ public class MasterDungeonTable : SimpleSingleton<MasterDungeonTable>
 				int.Parse(paramList[12]),
 				enemyChestRarityLotRatios,
 				eliteChestRarityLotRatios,
-				bossChestRarityLotRatios
+				bossChestRarityLotRatios,
+				chestRewardLotTableIds
 			);
 
 			DataDict.Add(paramList[0], data);

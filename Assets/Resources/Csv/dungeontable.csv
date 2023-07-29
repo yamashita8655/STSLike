@@ -1,6 +1,6 @@
-id,name,detail,imagePath,floorcount,enemylotids,lotfloors,elitelotid,bosslotid,rewardpoint,enemyChestDropRatio,eliteChestDropRatio,bossChestDropRatio,enemyChestRarityLotRatio,eliteChestRarityLotRatio,bossChestRarityLotRatio
-1,チュートリアル,最初のダンジョン<br>初心者用。,Image/Map/dungeon1,5,101,5,198,199,100,0,0,0,0-0-0,0-0-0,0-0-0
-2,初級ダンジョン,比較的弱いモンスターが生息する、駆け出し冒険者にうってつけの迷宮。,Image/Map/dungeon1,30,200-201-202,10-20-30,298,299,200,5,100,100,70-25-5,60-30-10,60-30-10
-3,中級ダンジョン,森の中で発見した、モンスターが蠢く迷宮。,Image/Map/cave,50,300-301-302-303-304-305-306,7-14-21-28-35-42-50,398,399,500,5,100,100,70-25-5,25-25-50,25-25-50
-4,海底の迷宮,洞窟と繋がっていた、海底の迷宮。,Image/Map/seabed,30,300-301-302,10-20-30,398,399,500,5,100,100,70-25-5,30-20-50,30-20-50
-99,デバッグ,デバッグ用。,Image/Map/dungeon1,30,999,30,999,999,0,0,0,0,70-25-5,30-20-50,30-20-50
+id,name,detail,imagePath,floorcount,enemylotids,lotfloors,elitelotid,bosslotid,rewardpoint,enemyChestDropRatio,eliteChestDropRatio,bossChestDropRatio,enemyChestRarityLotRatio,eliteChestRarityLotRatio,bossChestRarityLotRatio,chestRewardLotTableId
+1,チュートリアル,最初のダンジョン<br>初心者用。,Image/Map/dungeon1,5,101,5,198,199,100,0,0,0,0-0-0,0-0-0,0-0-0,0-0-0
+2,初級ダンジョン,比較的弱いモンスターが生息する、駆け出し冒険者にうってつけの迷宮。,Image/Map/dungeon1,30,200-201-202,10-20-30,298,299,100,5,100,100,70-25-5,60-30-10,60-30-10,1-2-3
+3,中級ダンジョン,森の中で発見した、モンスターが蠢く迷宮。,Image/Map/cave,50,300-301-302-303-304-305-306,7-14-21-28-35-42-50,398,399,400,5,100,100,70-25-5,25-25-50,25-25-50,4-5-6
+4,海底の迷宮,洞窟と繋がっていた、海底の迷宮。,Image/Map/seabed,30,300-301-302,10-20-30,398,399,1000,5,100,100,70-25-5,30-20-50,30-20-50,7-8-9
+99,デバッグ,デバッグ用。,Image/Map/dungeon1,30,999,30,999,999,0,0,0,0,70-25-5,30-20-50,30-20-50,0-0-0
