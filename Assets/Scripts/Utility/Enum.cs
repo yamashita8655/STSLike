@@ -325,5 +325,6 @@ public partial class EnumSelf : MonoBehaviour {
 		None = 0,
 		CardCostUp,
 		ArtifactCostUp,
+		AddRegularPoint,// ポイント自体は、カードでもアーティファクトでもどっちでも利用可
 	}
 }

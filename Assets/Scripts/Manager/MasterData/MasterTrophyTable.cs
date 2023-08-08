@@ -115,6 +115,8 @@ public class MasterTrophyTable : SimpleSingleton<MasterTrophyTable>
 			type = EnumSelf.TrophyRewardType.CardCostUp;
 		} else if (typeString == "ArtifactCostUp") {
 			type = EnumSelf.TrophyRewardType.ArtifactCostUp;
+		} else if (typeString == "AddRegularPoint") {
+			type = EnumSelf.TrophyRewardType.AddRegularPoint;
 		}
 
 		return type;

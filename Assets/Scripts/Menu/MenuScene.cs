@@ -473,7 +473,11 @@ public partial class MenuScene : SceneBase
 									ctrl.UpdateCellButtonInteractable(false);
 									var data2 = ctrl.GetData();
 									if (data2.RewardType == EnumSelf.TrophyRewardType.CardCostUp) {
-										
+										// 一応作ったけど、多分使わない
+									} else if (data2.RewardType == EnumSelf.TrophyRewardType.ArtifactCostUp) {
+										// 一応作ったけど、多分使わない
+									} else if (data2.RewardType == EnumSelf.TrophyRewardType.AddRegularPoint) {
+										PlayerPrefsManager.Instance.AddPoint(data2.RewardValue);
 									}
 									ctrl.transform.SetParent(SFTrophyAchieveListCellRoot.transform);
 									PlayerPrefsManager.Instance.SaveTrophyUnlock(data2.Id, 1);

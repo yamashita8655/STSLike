@@ -47,6 +47,15 @@ public class TrophyCellItemController : MonoBehaviour
 					AchieveImage.sprite = rawSprite as Sprite;
 				}
 			);
+		} else if (Data.RewardType == EnumSelf.TrophyRewardType.AddRegularPoint) {
+			ResourceManager.Instance.RequestExecuteOrder(
+				Const.CardCostUpImagePath,
+				ExecuteOrder.Type.Sprite,
+				this.gameObject,
+				(rawSprite) => {
+					AchieveImage.sprite = rawSprite as Sprite;
+				}
+			);
 		}
 		
 		Callback = callback;
