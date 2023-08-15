@@ -9,6 +9,14 @@ public partial class HomeScene : SceneBase
 	[SerializeField]
 	private GameObject CuContinueObject = null;
 	public GameObject ContinueObject => CuContinueObject;
+	
+	[SerializeField]
+	private Text CuTitleText = null;
+	public Text TitleText => CuTitleText;
+	
+	[SerializeField]
+	private Text CuTouchStartText = null;
+	public Text TouchStartText => CuTouchStartText;
 
 	// Start is called before the first frame update
 	IEnumerator Start() {

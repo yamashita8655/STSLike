@@ -6,6 +6,9 @@ Common_Close,閉じる
 Common_Return,戻る
 Common_Skip,選ばない
 Common_Decide,これにする
+#,ホール（タイトル）
+Home_Title,ローグダイスダンジョン
+Home_TapStart,タップスタート
 #,Tutorial
 Tutorial_0,チュートリアル1の説明
 Tutorial_1,チュートリアル2の説明

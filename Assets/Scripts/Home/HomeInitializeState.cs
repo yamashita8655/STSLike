@@ -12,6 +12,9 @@ public class HomeInitializeState : StateBase {
 	{
 		var scene = HomeDataCarrier.Instance.Scene as HomeScene;
 
+		scene.TitleText.text = MasterStringTable.Instance.GetString("Home_Title");
+		scene.TouchStartText.text = MasterStringTable.Instance.GetString("Home_TapStart");
+
 		return true;
 	}
 
